@@ -1,0 +1,171 @@
+#!/bin/bash
+################################### tools
+ETHER_MAC_EXP="\([0-9a-zA-Z]\{2\}\:\)\{5\}[0-9a-zA-Z]\{2\}"
+IPV4_EXP_S="\(25[0-5]\|2[0-4][0-9]\|1[0-9][0-9]\|[1-9][0-9]\|[0-9]\)"
+IPV4_EXP="${IPV4_EXP_S}\.${IPV4_EXP_S}\.${IPV4_EXP_S}\.${IPV4_EXP_S}"
+
+# uboot environment variables
+ENV_ETHADDR1=""
+ENV_ETHADDR2=""
+ENV_IPADDR=""
+ENV_SERVERIP=""
+ENV_GATEWAYIP=""
+# input and output files
+FINAL_BIN_FILE=""
+ENV_SRC_FILE=""
+################################### parse arguments
+print_help()
+{
+	echo "usage: gen_uboot_env [OPTIONS...]"
+	echo ""
+	echo "  -m {ETHMAC}        the master interface's eth mac"
+	echo "  -s {ETHMAC}        the slave interface's eth mac"
+	echo "  -a {IP}            the ip address"
+	echo "  -e {IP}            the server ip address"
+	echo "  -g {IP}            the gateway ip address"
+	echo "  -i {FILE}          input file name, store the user-friendly env"
+	echo "  -o {FILE}          output file name, uboot's env bin file"
+	echo "     --help          display this infomation"
+}
+
+if [ "$#" = "0" -o "$1" = "--help" ]; then
+	print_help
+	exit 0
+fi
+
+while getopts ":m:s:a:e:g:i:o:" opt
+do
+	case $opt in
+		m )
+			ENV_ETHADDR1=$OPTARG;;
+		s )
+			ENV_ETHADDR2=$OPTARG;;
+		a )
+			ENV_IPADDR=$OPTARG;;
+		e )
+			ENV_SERVERIP=$OPTARG;;
+		g )
+			ENV_GATEWAYIP=$OPTARG;;
+		i )
+			ENV_SRC_FILE=$OPTARG;;
+		o )
+			FINAL_BIN_FILE=$OPTARG;;
+		? )
+			echo "parse options error"
+			exit 1
+			;;
+	esac
+done
+shift $(($OPTIND - 1))
+
+if [ "${FINAL_BIN_FILE}" = "" -o "${ENV_SRC_FILE}" = "" ]; then
+	echo "ERROR: you must specify the src file and dst file"
+	print_help
+	exit 1
+fi
+
+# func <str> <exp>
+check_format()
+{
+if [ `expr length "$1"` != 0 -a `expr length "$2"` != 0 ]; then
+	TMP_VAR=`echo "$1" | grep "^$2$"`
+	if [ `expr length "${TMP_VAR}"` = 0 ]; then
+		echo "ERROR: WRONG FORMAT of '$1' use exp '$2'"
+		print_help
+		exit 2
+	fi
+fi
+}
+
+check_format "${ENV_ETHADDR1}" "${ETHER_MAC_EXP}"
+check_format "${ENV_ETHADDR2}" "${ETHER_MAC_EXP}"
+check_format "${ENV_IPADDR}" "${IPV4_EXP}"
+check_format "${ENV_SERVERIP}" "${IPV4_EXP}"
+check_format "${ENV_GATEWAYIP}" "${IPV4_EXP}"
+
+###################################### common subroutin
+#tmp_time=`date +%Y%m%d%H%M%S%N`
+file_main_dir="/tmp/sa735-uboot-gen.XXXXXXXXXX"
+
+clear_for_script()
+{
+	if [ "$1" != "0" ]; then
+		rm -rf ${file_main_dir}
+		echo "ERROR: $2 ($1)"
+		exit $1
+	fi
+}
+
+#################################### create tmp directory
+file_main_dir=`mktemp -d ${file_main_dir}`
+clear_for_script $? "mktemp ${file_main_dir}"
+
+#################################### substitute '\n' with '\0'
+cp ${ENV_SRC_FILE} ${file_main_dir}/append
+clear_for_script $? "cp ${ENV_SRC_FILE}"
+
+# func <env_name> <new_value> <src_file> <dst_file>
+# 1. if no old value, and new value is NULL then error
+# 2. if no old value, and new value is not NULL, then append
+# 3. if has old value, and new value is NULL, then reserve old value
+# 4. if has old value, and new value is not NULL, then subst it.
+subst_original_env()
+{
+if [ `grep "^$1=.*$" "$3"` != "" ]; then
+	if [ `expr length "$2"` != 0 ]; then
+		echo "NOTE: reserve old '$1' - '$2'"
+		TMP_VAR=`sed "s/^$1=.*$/$1=$2/" "$4"`
+		clear_for_script $? "sed $1"
+		echo "${TMP_VAR}" > $4
+	else
+		echo "WARNING: use default '$1'"
+	fi
+else
+	if [ `expr length "$2"` != 0 ]; then
+		echo "NOTE: reserve old '$1' - '$2'"
+		echo "$1=$2" >> $4
+	else
+		clear_for_script 3 "$1 is NULL:"
+	fi
+fi
+}
+
+subst_original_env "ethaddr" "${ENV_ETHADDR1}" "${ENV_SRC_FILE}" "${file_main_dir}/append"
+subst_original_env "eth1addr" "${ENV_ETHADDR2}" "${ENV_SRC_FILE}" "${file_main_dir}/append"
+
+subst_original_env "ipaddr" "${ENV_IPADDR}" "${ENV_SRC_FILE}" "${file_main_dir}/append"
+subst_original_env "serverip" "${ENV_SERVERIP}" "${ENV_SRC_FILE}" "${file_main_dir}/append"
+subst_original_env "gatewayip" "${ENV_GATEWAYIP}" "${ENV_SRC_FILE}" "${file_main_dir}/append"
+
+tr -s '\n' '\0' < ${file_main_dir}/append > ${file_main_dir}/subst
+clear_for_script $? "tr -s"
+
+#################################### fulfill env
+dd conv=sync ibs=131068 if=${file_main_dir}/subst of=${file_main_dir}/env128k >& /dev/null
+clear_for_script $? "dd"
+
+#################################### generate crc
+hex_crc=`cksfv ${file_main_dir}/env128k | tail -n 1 | cut -d ' ' -f 2`
+clear_for_script $? "cksfv"
+
+if [ `expr length ${hex_crc}` != 8 ]; then
+	clear_for_script 1 "bad crc : \'${hex_crc}\'"
+fi
+
+echo -en "\x${hex_crc:0:2}\x${hex_crc:2:2}\x${hex_crc:4:2}\x${hex_crc:6:2}" > ${file_main_dir}/crc
+clear_for_script $? "generate crc"
+if [ `ls -l ${file_main_dir}/crc | cut -d ' ' -f 5` != 4 ]; then
+	clear_for_script 1 "bad crc file size"
+fi
+
+################################### merge crc and env
+cat ${file_main_dir}/crc ${file_main_dir}/env128k > ${FINAL_BIN_FILE}
+clear_for_script $? "merge"
+if [ `ls -l ${FINAL_BIN_FILE} | cut -d ' ' -f 5` != 131072 ]; then
+	clear_for_script 2 "bad final env file size"
+fi
+
+################################## clear
+rm -rf ${file_main_dir}
+exit 0
+

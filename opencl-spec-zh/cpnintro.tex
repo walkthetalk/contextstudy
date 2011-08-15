@@ -1,0 +1,44 @@
+%
+% author:	Ni Qingliang
+% date:		2011-02-11
+%
+\startcomponent cpnintro
+\environment envcmm
+\product opencl
+
+\title{目录}
+\placelist[chapter,section]
+%\startfrontmatter
+\setuppagenumber[number=1]
+
+\part{測試part標題}
+%\showbodyfont
+%\showbodyfontenvironment
+
+{\rm\tf 測試章hello標題 \it 測試章hello標題 \bf 測試章hello標題 \bi 測試章hello標題}
+
+{\ss\tf 測試章hello標題 \it 測試章hello標題 \bf 測試章hello標題 \bi 測試章hello標題}
+
+{\tt\tf 測試章hello標題 \it 測試章hello標題 \bf 測試章hello標題 \bi 測試章hello標題}
+
+\chapter{简介}
+在现代处理器架构中，并行已经成为用来提高性能的重要途径之一。由于固定功率内提升时钟频率面临很大技术挑战，所以目前只能通过增加CPU核心数目来提高性能。GPU也从只具有特定功能的渲染设备变成了可编程的并行处理器。鉴于今天的计算机系统通常包含高度并行的CPU、GPU和其它类型的处理器，让软件开发人员完全利用这些异构处理平台的优势就变得非常重要。
+
+由于传统的多核CPU和GPU的编程方法彼此有很大不同，因此为异构并行处理平台创建应用是一个挑战。虽然基于CPU的并行编程模型一般都是建立在某个标准之上的，但是它往往假定共享同一个地址空间并且不包含矢量运算；而通用目的的GPU编程模型则具有复杂的内存分级寻址和矢量运算，但一般都是基于某个特定平台、供应商或硬件的。这些限制使得开发人员很难通过同一套多平台源码库使用多种处理器（CPU、GPU和其它类型的处理器）。更进一步，要让软件开发人员充分利用异构处理平台的优势：从高性能的计算服务器、桌面计算机系统、到手持设备，这些设备包含多种不同的并行CPU、GPU和其它处理器（像DSP和Cell/B.E.处理器）。
+
+{\ftEmpha \scopencl}（Open Computing Language）是一种开放的免税标准，使用它可以在CPU、GPU和其它处理器上进行通用目的的并行编程，它使软件开发人员可以更加方便高效的使用这些异构处理平台。
+
+\scopencl支持广泛的应用，它通过一个底层、高性能、可移植的抽象，可以同时支持嵌入式软件、消费者软件和HPC解决方案。通过创建一个高效、更接近于硬件的编程接口，\scopencl会在并行计算生态系统中形成一个基础层，而这个生态系统所包含的工具、中间件和应用都是独立于平台的。\scopencl特别适合编写交互式图形应用，而这种应用可以将通用的并行计算算法和图形渲染管线结合起来。
+
+\scopencl中有一个API可以协调异构处理器间的并行计算；还含有一个交叉平台编程语言，此语言明确定义了计算环境。\scopencl标准：
+\startigBase
+\item 支持基于数据和任务的并行编程模型。
+\item 使用一个带有并行扩展的\scisocnn的子集。
+\item 定义了一致的数值需求（基于\scieeeqws）。
+\item 为手持和嵌入式设备定义了一个配置简档（profile）。
+\item 可以与OpenGL、OpenGL ES和其它图形API进行高效的互操作。
+\stopigBase
+本文档先对一些基本的概念和\scopencl的架构进行一个概述，然后再详细描述它的执行模型、内存模型和对同步的支持。那时再讨论\scopencl平台和\scruntime API，紧跟着是对\scopenclc语言的详细描述。同时就如何用\scopencl编程进行采样计算给出了一些示例。此规范划分为以下几部分：一是核心规格，任何兼容\scopencl的实现都必须支持；二是手持/嵌入式简档，降低了对手持和嵌入式设备兼容\scopencl的要求；三是一些可选扩展，这些扩展在后续修订\scopencl规范时可能会提升成核心规范。
+
+\stopcomponent
+

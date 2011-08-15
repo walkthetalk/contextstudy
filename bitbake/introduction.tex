@@ -1,0 +1,36 @@
+\startcomponent inroduction
+\product prd-bbum
+
+\chapter{简介}
+\placecontent
+\section{概览}
+简单来讲，BitBake就是可以执行任务并管理元数据的一个工具。就这点而言，显然它跟GNU的make和其它构建工具类似。
+其理念来自于Portage，Gentoo所使用的包管理工具。BitBake是OpenEmbedded项目的基础，
+用以构建以及维护大量嵌入式Linux发行版，包括OpenZaurus和Familiar。
+
+\section{背景和目标}
+在BitBake之前，没有任何一个构建工具能够满足一个嵌入式Linux发行版的所有需求。
+传统桌面Linux发行版所使用的构建系统都缺少一些重要的功能，在嵌入式领域中所有点对点的{\ftref buildroot}系统中，
+没有一个是可扩展或易维护的。
+
+BitBake的重要目标有：
+\startigBase
+\item 应对交叉编译；
+\item 应对包间的依赖关系（在目标架构上编译时、在本地架构上编译时，以及运行时）；
+\item 支持在一个包中运行任意数量的任务，这包括，但不限于，获取上游源码、解包、打补丁、配置等等；
+\item 必须对Linux发行版没有要求（无论是构建用还是目标）；
+\item 必须对架构没有要求；
+\item 必须支持多种构建和目标操作系统（包括cygwin、BSD等等）；
+\item 必须可以自包含，而不是紧紧整合到构建机器的根文件系统中；
+\item 必须可以应对带条件的元数据（是否在目标架构上、什么操作系统、什么发行版、什么机器）；
+\item 必须能让用户很容易的使用它操作自己的本地元数据和包；
+\item 必须能很容易的在使用BitBake的多个项目间协作；
+\item 应该提供继承机制，使得不同的包可以共享通用的元数据；
+\item 等等。
+\stopigBase
+
+BitBake满足以上所有目标，甚至更多。灵活性和能力一直依赖具有最高优先级。
+它高度可扩展，支持嵌入式Python代码以及执行任意任务。
+
+\stopcomponent
+

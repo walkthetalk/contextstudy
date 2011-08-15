@@ -1,0 +1,5 @@
+问题：中文caption第一行字符中间有空格
+
+原因：这是因为 scrp-cjk.lua 中对不满足宽度的中文字符之间插入 glue 导致的。
+网址：http://bbs.ctex.org/viewthread.php?tid=59780
+解决：\setupcaptions[align={broad,middle}]

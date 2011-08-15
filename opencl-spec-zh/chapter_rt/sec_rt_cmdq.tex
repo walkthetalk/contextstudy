@@ -1,0 +1,116 @@
+\startbuffer[sectitlecmdq]
+\cnglo{cmdq}
+\stopbuffer
+\section{\getbuffer[sectitlecmdq]}
+
+\scopencl\cnglo{memobj}、\cnglo{programobj}和\cnglo{kernelobj}都是用\englo{context}创建的。对这些对象的操作都是用\cnglo{cmdq}执行的。可以使用\cnglo{cmdq}将一系列操作（叫做\cnglo{cmd}）按序排队。如果有多个\cnglo{cmdq}，\cnglo{app}可以将多个互相独立的\cnglo{cmd}分别排队而无须同步。这仅在没有对象被共享时才成立。一旦有对象在多个\cnglo{cmdq}间被共享，就要求\cnglo{app}执行相应的同步。这在\todo{附录A}中有所描述。
+
+函数\capi{clCreateCommandQueue}用来在特定\cnglo{device}上创建一个\cnglo{cmdq}。
+\startclc
+cl_command_queue clCreateCommandQueue(
+			cl_context context,
+			cl_device_id device,
+			cl_command_queue_properties properties,
+			cl_int *errcode_ret)
+\stopclc
+
+\carg{context}必须是一个有效的\scopencl\cnglo{context}。
+
+\startbuffer[tblcmdqprop]
+\ctype{cl_command_queue_property}的有效值及其描述
+\stopbuffer
+\cltable
+{\placetable[here,force][tab:clcmdprop]{\getbuffer[tblcmdqprop]}}
+{\input{tbl/tbl_cmdq_prop.tex}}
+
+\carg{device}必须是与\carg{context}关联的\cnglo{device}。它要么是用\capi{clCreateContext}创建\carg{context}时所指定的\cnglo{device}清单中的一个，要么与使用\capi{clCreateContextFromType}创建\cnglo{context}时所指定的\cnglo{device}具有相同的类型。
+
+\carg{properties}指定了\cnglo{cmdq}的一系列属性。它是位域，参见\reftab{clcmdprop}。
+只能设置\reftab{clcmdprop}中列出的属性，否则认为\carg{properties}无效。
+
+\carg{errcode_ret}用来返回错误码。当然如果\carg{errcode_ret}是\cenum{NULL}就不会返回错误码了。
+
+如果执行成功，\capi{clCreateCommandQueue}会返回一个非0的\cnglo{cmdq}，同时将\carg{errcode_ret}置为\cenum{CL_SUCCESS}。否则返回\cenum{NULL}，同时将\carg{errcode_ret}置为下列错误码之一：
+\startigBase
+\item \cenum{CL_INVALID_CONTEXT}——如果\carg{context}无效。
+\item \cenum{CL_INVALID_DEVICE}——如果\carg{device}无效或没有与\carg{context}关联。
+\item \cenum{CL_INVALID_VALUE}——如果\carg{properties}的值不受支持。
+\item \cenum{CL_INVALID_QUEUE_PROPERTIES}——如果\carg{properties}的值没问题，但是\carg{device}不支持。
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+函数\capi{clRetainCommandQueue}会使\carg{command_queue}的\cnglo{refcnt}加1。
+\startclc
+cl_int clRetainCommandQueue(
+		cl_command_queue command_queue)
+\stopclc
+
+如果执行成功，\capi{clRetainCommandQueue}会返回\cenum{CL_SUCCESS}。否则，返回下列错误码之一：
+\startigBase
+\item \cenum{CL_INVALID_COMMAND_QUEUE}——如果\carg{command_queue}无效。
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+\capi{clCreateCommandQueue}会执行隐式的\englo{retain}。这对第三方库非常有用，使其可以直
+接获取由\cnglo{app}传给它们的\cnglo{cmdq}。然而，\cnglo{app}可能会在没有通知库的情况下删
+除\cnglo{cmdq}。允许函数\englo{retain}或\englo{release}\cnglo{cmdq}，在库所使用的
+\cnglo{cmdq}不再有效时就不会出现问题。
+
+函数\capi{clReleaseCommandQueue}会使\carg{command_queue}的\cnglo{refcnt}减1。
+\startclc
+cl_int clReleaseCommandQueue(
+		cl_command_queue command_queue)
+\stopclc
+
+如果执行成功，\capi{clRetainCommandQueue}会返回\cenum{CL_SUCCESS}。否则，返回下列错误码之一：
+\startigBase
+\item \cenum{CL_INVALID_COMMAND_QUEUE}——如果\carg{command_queue}无效。
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+当\carg{command_queue}的\cnglo{refcnt}变为0，并且其中的所有\cnglo{cmd}全部完成后
+（如执行\cnglo{kernel}、更新\cnglo{memobj}等），此\cnglo{cmdq}就会被删除。
+
+\capi{clReleaseCommandQueue}会执行隐式的刷新，这会执行之前入队的\scopencl\cnglo{cmd}。
+
+函数\capi{clGetCommandQueueInfo}可以用来查询\cnglo{cmdq}的信息。
+\startclc
+cl_int clGetCommandQueueInfo(
+		cl_command_queue command_queue,
+		cl_command_queue_info param_name,
+		size_t param_value_size,
+		void *param_value,
+		size_t *param_value_size_ret)
+\stopclc
+
+\carg{command_queue}指定要查询哪个\cnglo{cmdq}。
+
+\carg{param_name}指定要查询什么信息。
+
+\carg{param_value}指向的内存用来存储查询结果。如果是\cenum{NULL}，则被忽略。
+
+\carg{param_value_size}即\carg{param_value}所指内存的大小（单位：字节）。其值必须大于等于\reftab{cmdqinfo}中返回类型的大小。如果是\cenum{NULL}，则被忽略。
+
+\carg{param_value_size_ret}返回\carg{param_value}中所返回信息的实际大小。如果是\cenum{NULL}，则被忽略。
+
+\capi{clGetCommandQueueInfo}所支持的\carg{param_name}的值和\carg{param_value}中所返回的信息如\reftab{cmdqinfo}所示。
+
+\cltable
+{\placetable[here,force][tab:cmdqinfo]{\capi{clGetCommandQueueInfo}所支持的\carg{param_names}清单}}
+{\input{tbl/tbl_cmdq_getinfo.tex}}
+
+如果执行成功，\capi{clGetCommandQueueInfo}会返回\cenum{CL_SUCCESS}。否则，返回下列错误码之一：
+\startigBase
+\item \cenum{CL_INVALID_COMMAND_QUEUE}——如果\carg{command_queue}无效。
+\item \cenum{CL_INVALID_VALUE}——如果\carg{param_name}不在支持之列，或者
+      \carg{param_value_size}的值小于\reftab{cmdqinfo}中返回类型的大小并且
+      \carg{param_value}不是\cenum{NULL}。
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+注意，当创建了\cnglo{context}和\cnglo{cmdq}并且已经有\cnglo{cmd}入队了，这时候它们所使用的\cnglo{device}可能变的不可用了。这种情况下，对于使用这个\cnglo{context}（和\cnglo{cmdq}）的\scopenclapi而言，其行为\cnglo{impdef}。在\cnglo{device}变的不可用时，如果创建\cnglo{context}时用户指定了回调函数，则可以在传递给它的参数\carg{errinfo}、\carg{private_info}中记录相应的信息。
+

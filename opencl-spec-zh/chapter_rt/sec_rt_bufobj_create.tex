@@ -1,0 +1,131 @@
+\startbuffer[sectitlecreatbufobj]
+创建\cnglo{bufobj}
+\stopbuffer
+\subsection{\getbuffer[sectitlecreatbufobj]}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% clCreateBuffer
+可以使用函数\capi{clCreateBuffer}创建\cnglo{bufobj}。
+\startclc
+cl_mem clCreateBuffer(
+		cl_context context,
+		cl_mem_flags flags,
+		size_t size,
+		void *host_ptr,
+		cl_int *errcode_ret)
+\stopclc
+
+\carg{context}是一个有效的\scopencl\cnglo{context}，用来创建\cnglo{bufobj}。
+
+\carg{flags}是位域，用来指定分配和使用信息，如在哪个内存区域中分配\cnglo{bufobj}以及怎样使用它。\reftab{clmemflags}描述了\carg{flags}可能的值：
+
+\cltable
+{\placetable[here,force][tab:clmemflags]{\carg{cl_mem_flags}的值的清单}}
+{\input{tbl/tbl_mem_flags.tex}}
+
+\carg{size}是所分配的\cnglo{bufobj}的大小。
+
+\carg{host_ptr}指向由\cnglo{app}所分配的缓冲数据。其大小必须大于等于\carg{size}。
+
+\carg{errcode_ret}用来返回错误码。如果是\cenum{NULL}，不会返回错误码。
+
+如果执行成功，\capi{clCreateBuffer}会返回一个非零的\cnglo{bufobj}，并将
+\carg{errcode_ret}置为\cenum{CL_SUCCESS}。否则，返回\cenum{NULL}，并将
+\carg{errcode_ret}置为下列错误值之一：
+\startigBase
+\itemenumdesc{CL_INVALID_CONTEXT}{如果\carg{context}无效。}
+\itemenumdesc{CL_INVALID_VALUE}{如果\carg{flags}的值无效。}
+
+\startbuffer[footnoteshi]
+如果\carg{size}比\carg{context}中所有\cnglo{device}的
+\cenum{CL_DEVICE_MAX_MEM_ALLOC_SIZE}（参见\reftab{cldevquery}）都大，实现可能返回
+\cenum{CL_INVALID_BUFFER_SIZE}。
+\stopbuffer
+\itemenumdesc{CL_INVALID_BUFFER_SIZE}{
+如果\carg{size}是0\footnote{\getbuffer[footnoteshi]}。
+}
+
+\itemenumdesc{CL_INVLAID_HOST_PTR}{
+如果\carg{host_ptr}是\cenum{NULL}，并且\carg{flags}中设置了\cenum{CL_MEM_USE_HOST_PTR}
+或\cenum{CL_MEM_COPY_HOST_PTR}；或者\carg{host_ptr}不是\cenum{NULL}，但是\carg{flags}
+中没有设置\cenum{CL_MEM_USE_HOST_PTR}或\cenum{CL_MEM_COPY_HOST_PTR}。
+}
+
+\itemenumdesc{CL_MEM_OBJECT_ALLOCATION_FAILURE}{
+如果为\cnglo{bufobj}分配内存失败。
+}
+
+\itemenumdesc{CL_MEM_OBJECT_ALLOCATION_FAILURE}{
+如果为\cnglo{bufobj}分配内存失败。
+}
+
+\itemenumdesc{CL_OUT_OF_RESOURCES}{如果\scdevfailres。}
+\itemenumdesc{CL_OUT_OF_HOST_MEMORY}{如果\schostfailres。}
+
+\stopigBase
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% clCreateSubBuffer
+可以使用函数\capi{clCreateSubBuffer}由一个现有的\cnglo{bufobj}创建一个新的\cnglo{bufobj}
+（叫做子\cnglo{bufobj}）。
+\startclc
+cl_mem clCreateSubBuffer(cl_mem buffer,
+			cl_mem_flags flags,
+			cl_buffer_create_type buffer_create_type,
+			const void *buffer_create_info,
+			cl_int *errcode_ret)
+\stopclc
+
+\carg{buffer}必须是一个有效的\cnglo{bufobj}，并且不能是子\cnglo{bufobj}。
+
+\carg{flags}是位域，用来指定创建\cnglo{memobj}时的一些分配和使用信息，参见\reftab{clmemflags}。
+
+\carg{buffer_create_type}和\carg{buffer_create_info}描述了所创建\cnglo{bufobj}的类型。
+\carg{buffer_create_type}的支持清单以及对应的\carg{buffer_create_info}如
+\reftab{clcreatesubbuffer}所示。
+
+\cltable
+{\placetable[here,force][tab:clcreatesubbuffer]
+{\capi{clCreateSubBuffer}中所支持的名字及值的清单}}
+{\input{tbl/tbl_clcreatesubbuffer.tex}}
+
+如果执行成功，\capi{clCreateSubBuffer}会返回\cenum{CL_SUCCESS}。否则，会将\carg{errcode_ret}
+置为下列错误码之一：
+
+\startigBase
+\itemenumdesc{CL_INVALID_MEM_OBJECT}{
+如果\carg{buffer}不是一个有效的\cnglo{bufobj}或者是一个子\cnglo{bufobj}。
+}
+
+\itemenumdesc{CL_INVALID_VALUE}{
+如果\carg{buffer}是用\cenum{CL_MEM_WRITE_ONLY}创建的，可是\carg{flags}中却指定了
+\cenum{CL_MEM_READ_WRITE}或\cenum{CL_MEM_READ_ONLY}；或者\carg{buffer}是用
+\cenum{CL_MEM_READ_ONLY}创建的，可是\carg{flags}中却指定了
+\cenum{CL_MEM_READ_WRITE}或\cenum{CL_MEM_WRITE_ONLY}；或者\carg{flags}中指定了
+\cenum{CL_MEM_USE_HOST_PRT}或\cenum{CL_MEM_ALLOC_HOST_PTR}或
+\cenum{CL_MEM_COPY_HOST_PTR}。
+}
+
+\itemenumdesc{CL_INVALID_VALUE}{
+如果\carg{buffer_create_type}中的值无效。
+}
+
+\itemenumdesc{CL_INVALID_VALUE}{
+如果\carg{buffer_create_info}（对应于\carg{buffer_create_type}）中的值无效或者是
+\cenum{NULL}。
+}
+
+\itemenumdesc{CL_INVALID_BUFFER_SIZE}{如果\carg{size}是0。}
+
+\itemenumdesc{CL_MEM_OBJECT_ALLOCATION_FAILURE}{
+如果为子\cnglo{bufobj}分配内存失败。
+}
+
+\itemenumdesc{CL_OUT_OF_RESOURCES}{如果\scdevfailres。}
+\itemenumdesc{CL_OUT_OF_HOST_MEMORY}{如果\schostfailres。}
+
+\stopigBase
+
+NOTE：对一个\cnglo{bufobj}及其子\cnglo{bufobj}的并行读写都是未定义的。对由同一\cnglo{bufobj}
+创建的互相重叠的子\cnglo{bufobj}的并行读写是未定义的。当然对这些对象的读操作都是定义了的。
+
+
+

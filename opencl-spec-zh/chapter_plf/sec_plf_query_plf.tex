@@ -1,0 +1,49 @@
+\section{查询平台信息}
+可以使用下面函数获取可用平台的清单：
+\startclc
+cl_int clGetPlatformIDs(cl_uint num_entries,
+			cl_platform_id *platforms,
+			cl_uint *num_platforms)
+\stopclc
+\carg{num_entries}是\carg{platforms}中可以容纳\ctype{cl_platform_id}表项的数目。如果\carg{platforms}不是\cenum{NULL}，\carg{num_entries}必须大于0。
+
+\carg{platforms}会返回所找到的\scopencl平台的清单。\carg{platforms}中的\ctype{cl_platform_id}可以用来标识一个特定的\scopencl平台。如果\carg{platforms}是\cenum{NULL}，则被忽略。所返回的\scopencl平台的数目是\carg{num_entries}和实际可用数目中较小的那个。
+
+\carg{num_platforms}返回实际可用的\scopencl平台的数目。如果\carg{num_platforms}是\cenum{NULL}，则被忽略。
+
+如果执行成功，\capi{clGetPlatformIDs}会返回\cenum{CL_SUCCESS}。否则，会返回下列错误之一：
+\startigBase
+\item \cenum{CL_INVALID_VALUE}，如果\carg{num_entries}等于零，且\carg{platforms}不是\cenum{NULL}，或者\carg{num_platforms}和\carg{platforms}都是\cenum{NULL}。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+可以使用如下函数获取\scopencl平台的特定信息。这些信息如表4.1所示。
+\startclc
+cl_int clGetPlatformInfo(
+		cl_platform_id platform,
+		cl_platform_info param_name,
+		size_t param_value_size,
+		void *param_value,
+		size_t *param_value_size_ret)
+\stopclc
+
+\carg{platform}即平台ID，指明要查询哪个平台，或者也可能是\cenum{NULL}。如果是\cenum{NULL}，其行为\cnglo{impdef}。
+
+\carg{param_name}是一个枚举常量，指明要查询什么信息。其值如\reftab{plfquery}所示。
+
+\carg{param_value}是一个指针，指向一块内存，用来存储所返回的信息。如果是\cenum{NULL}，则忽略。
+
+\carg{param_value_size}指明\carg{param_value}所指内存块的大小（单位：字节）。其值必须>=\reftab{plfquery}中返回类型的大小。
+
+\carg{param_value_size_ret}会返回所查询信息的实际大小。如果是\cenum{NULL}，则忽略。
+
+\cltable
+{\placetable[here,force][tab:plfquery]{\scopencl平台查询}}
+{\input{tbl/tbl_plf_query.tex}}
+
+如果执行成功，\capi{clGetPlatformInfo}会返回\cenum{CL_SUCCESS}。否则，返回下列错误之一\footnote{\scopencl规范没有规定API调用返回错误码时的优先顺序。}：
+\startigBase
+\item \cenum{CL_INVALID_PLATFORM}，如果\carg{platform}无效。
+\item \cenum{CL_INVALID_VALUE}，如果\carg{param_name}不被支持，或者\carg{param_value_size}<\reftab{plfquery}中返回值的大小且\carg{param_value}不是\cenum{NULL}。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase

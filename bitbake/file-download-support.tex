@@ -1,0 +1,82 @@
+\startcomponent file-download-support
+\product prd-bbum
+
+\chapter{对文件下载的支持}
+\placecontent
+\section{概览}
+BitBake提供了对文件下载的支持，这个过程叫fetching。\code{SRC_URI}一般用来告诉BitBake要
+fetch哪些文件。下一节会描述所有可用的fetcher以及相应的选项。每个fetcher都有一套变量，
+每个URI都有一系列参数（以“\code{;}”分隔，包括一个key和一个value）。变量和参数的语义由fetcher所定义。
+当然，BitBake会尽量保证不同的fetcher有相同的语义。
+
+\section{Local File Fetcher}
+本地文件fetcher的\code{URN}是{\ftref file}。文件名既可以是绝对路径也可以是相对路径。
+如果是相对路径，会使用\code{FILESPATH}和\code{FILESDIR}查找相应文件，至于使用哪个随\code{OVERRIDES}而定。
+即可以指定单个文件，也可以指定整个目录。
+\startbb
+SRC_URI= "file://relativefile.patch"
+SRC_URI= "file://relativefile.patch;this=ignored"
+SRC_URI= "file:///Users/ich/very_important_software"
+\stopbb
+
+\section{CVS File Fetcher}
+CVS fetcher的\code{URN}是{\ftref cvs}。它会使用变量\code{DL_DIR}、\code{SRCDATE}、
+\code{FETCHCOMMAND_cvs}、\code{UPDATECOMMAND_cvs}。
+\code{DL_DIR}指定一个临时目录用来保存检出的代码。
+\code{SRCDATE}则为fetch时使用什么时候的代码（如果是“\code{now}”则每次构建前都会检出最新代码）。
+\code{FETCHCOMMAND}和\code{UPDATECOMMAND}则指定在checkout和update时使用哪个可执行程序。
+
+所支持的参数为\code{module}、\code{tag}、\code{date}、\code{method}、\code{localdir}、\code{rsh}。
+\code{module}指定要检出哪个模块，\code{tag}即检出时使用那个CVS TAG（默认为空）。
+可以指定一个\code{date}来覆盖配置中的\code{SRCDATE}。特殊值“\code{now}”会使得每次构建前都会更新代码。
+\code{method}默认为{\ftref pserver}，如果改为{\ftref ext}，则对参数\code{rsh}求值并设置\code{CVS_RSH}。
+最后使用\code{localdir}检出代码到一个特殊目录（相对于\code{CVSDIR}）。
+\startbb
+SRC_URI = "cvs://CVSROOT;module=mymodule;tag=some-version;method=ext"
+SRC_URI = "cvs://CVSROOT;module=mymodule;date=20060126;localdir=usethat"
+\stopbb
+
+\section{HTTP/FTP Fetcher}
+HTTP/FTP的\code{URN}是{\ftref http}、{\ftref https}和{\ftref ftp}。
+它会使用变量\code{DL_DIR}、\code{FETCHCOMMAND_wget}、\code{PREMIRRORS}、\code{MIRRORS}。
+\code{DL_DIR}定义了将fetch到的文件存储到哪里。
+\code{FETCHCOMMAND}包含fetch所使用的命令。
+“\code{${URI}}”和“\code{${FILES}}”会被uri和文件的basename替换。
+fetch文件时会先尝试\code{PREMIRRORS}，如果失败会使用\code{MIRRORS}直到全部都试过一遍。
+
+仅支持一个参数\code{md5sum}。fetch后会计算文件的\code{md5sum}并将两者进行比较。
+\startbb
+SRC_URI = "http://oe.handhelds.org/not_there.aac;md5sum=12343"
+SRC_URI = "ftp://oe.handhelds.org/not_there_as_well.aac;md5sum=1234"
+SRC_URI = "ftp://you@oe.handheld.sorg/home/you/secret.plan;md5sum=1234"
+\stopbb
+
+\section{SVK Fetcher}
+{\ftemp 暂时不支持}。
+
+\section{SVN Fetcher}
+SVN Fetcher的\code{URN}是{\ftref svn}。它会使用三个变量：
+\code{FETCHCOMMAND_svn}、\code{DL_DIR}、\code{SRCDATE}。
+\code{FETCHCOMMAND}包含subversion命令。\code{DL_DIR}即源码包的存储目录。
+\code{SRCDATE}即fetch时所使用的时间（如果是“\code{now}”则每次构建前都会检出最新代码）。
+
+所支持的参数有\code{proto}、\code{rev}。\code{proto}是subversion的协议类型，
+\code{rev}是subversion的版本。
+\startbb
+SRC_URI = "svn://svn.oe.handhelds.org/svn;module=vip;proto=http;rev=667"
+SRC_URI = "svn://svn.oe.handhelds.org/svn/;module=opie;proto=svn+ssh;date=20060126"
+\stopbb
+
+\section{GIT Fetcher}
+GIT Fetcher的\code{URN}是{\ftref git}。它会使用变量\code{DL_DIR}和\code{GITDIR}。
+\code{DL_DIR}即所检出代码的存储目录。\code{GITDIR}即将git树克隆到哪。
+
+所支持的参数有\code{tag}、\code{protocol}。\code{tag}是git标签，默认是“\code{master}”。
+\code{protocol}是所缺省的git协议，默认是“\code{rsync}”。
+\startbb
+SRC_URI = "git://git.oe.handhelds.org/git/vip.git;tag=version-1"
+SRC_URI = "git://git.oe.handhelds.org/git/vip.git;protocol=http"
+\stopbb
+
+\stopcomponent
+

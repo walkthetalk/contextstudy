@@ -1,0 +1,249 @@
+%
+% author:	Ni Qingliang
+% date:		2011-02-11
+%
+\startcomponent cpnarch
+\environment envcmm
+\product opencl
+%\starttext
+
+\chapter{\scopencl架构}
+
+{\ftEmpha \scopencl}是一个开放的工业标准，可以为CPU、GPU和其它分离的计算设备（这些设备被组织到单个\cnglo{platform}中）所组成的异构群进行编程。它不只是一种语言。\scopencl是一个并行编程的框架，包括一种语言、API、库和一个\scruntime系统来支持软件开发。例如，使用\scopencl，程序员可以写出一个能在GPU上执行的通用程序，而不必将其算法映射到3D图形API（如OpenGL或DirectX）上。
+
+\scopencl的目标是使那些想写出可移植且高效的代码的程序员成为专家。这包括库作者、中间件提供商和以性能为主要诉求的\cnglo{app}程序员。因此\scopencl提供了底层的硬件抽象和一个框架来支持编程，同时也暴露了底层硬件的许多细节。
+
+我们将使用如下的分级模型来描述\scopencl背后的核心理念：
+\startigBase
+\item 平台模型
+\item 内存模型
+\item 执行模型
+\item 编程模型
+\stopigBase
+
+\section{平台模型}
+\scopencl的平台模型的定义可以查看\reffig{plfmodel}。此模型中，一个\empglo{host}连接到了一个或多个{\ftEmpha \scopencl}\cnglo{device}上。一个\scopencl\cnglo{device}被划分成一个或多个\cnglo{computeunit}（CU），每个\cnglo{computeunit}又被划分成一个或多个\cnglo{prcele}（PE）。\cnglo{device}上的计算发生在\cnglo{prcele}中。
+
+\scopencl\cnglo{app}会按照\cnglo{host}平台的原生模型在这个\cnglo{host}上运行。\scopencl\cnglo{app}会从\cnglo{host}上提交\empglo{cmd}给\cnglo{device}上的\cnglo{prcele}来执行计算。一个\cnglo{computeunit}中的所有\cnglo{prcele}作为SIMD单元或SPMD单元（每个PE维护自己的程序计数器）执行单个指令流。
+
+\startbuffer[buffigplfmodelcaption]
+平台模型……一个\cnglo{host}加上一个或多个计算\cnglo{device}，每个\cnglo{device}具有一个或多个\cnglo{computeunit}，每个\cnglo{computeunit}具有一个或多个\cnglo{prcele}。
+\stopbuffer
+\placefigure
+[here,force][fig:plfmodel]
+{\getbuffer[buffigplfmodelcaption]}
+{\useMPgraphic{box}}
+
+\subsection{混合平台的版本支持}
+\scopencl天生就是为支持多个具有不同\sccapability的设备可以共存于同一个\cnglo{platform}中而设计的。这些设备可以遵循不同版本的\scopencl规范。一个\scopencl系统可以由以下三个重要的ID来确认：\cnglo{platform}版本、\cnglo{device}版本、设备所支持的\scopenclc语言的版本。
+
+平台版本标示了所支持的\scopencl\scruntime 的版本。这包括\cnglo{host}用来与\scopencl\scruntime交互的所有API，像\englo{context}、\englo{memobj}、\englo{device}、\englo{cmdq}。
+
+\cnglo{device}版本标示了\cnglo{device}的\sccapability，与\scruntime和编译器相互独立，由{\ftCEmpha clGetDeviceInfo}所返回的\cnglo{device}信息来描述。举个与\cnglo{device}版本有关的特性的例子，就是资源限制和扩展功能。所返回的版本号对应于此\cnglo{device}所遵循的\scopencl规范的最高版本号，但不会高于平台版本。
+
+对于一个\cnglo{device}而言，语言的版本可以让开发人员知道此\cnglo{device}所支持的\scopencl编程语言具备哪些特性。此版本会是所支持语言的最高版本。
+
+\scopenclc是向后兼容的，因此对于一个\cnglo{device}而言，只要支持语言的某一个版本，就可以说它和标准是兼容的。如果某个\cnglo{device}支持语言的多个版本，编译器默认会使用最高的那个版本。语言的版本不会高于平台的版本，但可能会高于\cnglo{device}的版本\todo{see section 5.6.3.5}。
+
+\section{执行模型}
+有两处会执行\scopencl程序：在一个或多个{\ftEmpha \scopencl}\cngloempha{device}上执行\cngloempha{kernel}、在\cnglo{host}上执行\cngloempha{host}\cngloempha{program}。\cnglo{host}\cnglo{program}为\cnglo{kernel}定义了\cnglo{context}并管理\cnglo{kernel}的执行。
+
+\scopencl执行模型的核心是通过内核怎样执行来定义的。当\cnglo{host}提交\cnglo{kernel}来执行时，就会定义一个索引空间，\cnglo{kernel}的实例会为其中所有点而执行。这个\cnglo{kernel}实例就是一个\cngloempha{workitem}，通过它在索引空间中的点来标识，这个点为此\cnglo{workitem}提供了一个\cnglo{glbid}。所有\cnglo{workitem}都会执行相同的代码，但是代码的执行路径和参与运算的数据可能会不同。
+
+\cnglo{workitem}被组织到\cngloempha{workgrp}中。\cnglo{workgrp}提供了对索引空间更粗粒度的分解。\cnglo{workgrp}有一个唯一的\cnglo{workgrp}ID，此ID和\cnglo{workitem}所使用的索引空间具有同样的维数。另外\cnglo{workitem}还有一个\cnglo{locid}，此ID在其所在\cnglo{workgrp}中是唯一的，所以任一\cnglo{workitem}都可以通过其\cnglo{glbid}或通过其\cnglo{locid}加\cnglo{workgrp}ID来唯一标识。一个给定的\cnglo{workgrp}中的\cnglo{workitem}会在同一个\cnglo{computeunit}中的多个\cnglo{prcele}上并发执行。
+
+在\scopencl中，索引空间又叫做NDRange。一个NDRange是一个N维的索引空间，其中N可以是1、2或者3。一个NDRange由一个长度为N的整数数组来定义，这个数组指定了索引空间每个维度的宽度（起始自偏移索引F，默认为0）。每个\cnglo{workitem}的\cnglo{glbid}和\cnglo{locid}都是N维的元组。\cnglo{glbid}的取值范围从F开始，到F加上这个维度上元素个数减1。
+
+\cnglo{workgrp}ID的指定方式跟\cnglo{workitem}的\cnglo{glbid}差不多。一个长度为N的数组定
+义了每个维度上\cnglo{workgrp}的数目。将\cnglo{workitem}指派给一个\cnglo{workgrp}时，会为其分配一个\cnglo{locid}，其每一维度的范围从0开始到此\cnglo{workgrp}在那个维度上的大小减1。因此，\cnglo{workgrp}ID加上此\cnglo{workgrp}中的一个\cnglo{locid}可以唯一确定一个\cnglo{workitem}。有两种途径来识别一个工作项：通过全局索引的方式，或通过一个\cnglo{workgrp}索引加一个局部索引的方式。
+
+下面来看一下\reffig{indexspace}中的二维索引空间。其中有一个\cnglo{workitem}$(G_x, G_y)$，每个\cnglo{workgrp}的大小是$(S_x, S_y)$，\cnglo{glbid}的偏移量是$(F_x, F_y)$。全局索引定义了一个$G_x$乘$G_y$的索引空间，此空间所能容纳\cnglo{workitem}的数目是$G_x$和$G_y$的乘积。局部索引定义了一个$S_x$乘$S_y$的索引空间，一个\cnglo{workgrp}中所能容纳\cnglo{workitem}的数目是$S_x$和$S_y$的乘积。如果知道每个\cnglo{workgrp}的大小和\cnglo{workitem}的总数，我们就能算出有多少\cnglo{workgrp}。常用一个二维的索引空间来标识一个\cnglo{workgrp}。每个\cnglo{workitem}可以用它的\cnglo{glbid}$(g_x, g_y)$标识，或用\cnglo{workgrp}ID $(w_x, w_y)$、每个\cnglo{workgrp}的大小$(S_x, S_y)$和在\cnglo{workgrp}中的\cnglo{locid}$(s_x, s_y)$三项的组合来标识：
+\startformula
+(g_x, g_y) = (w_x * S_x + s_x + F_x, w_y * S_y + s_y + F_y)
+\stopformula
+
+\cnglo{workgrp}的数目可以这样计算：
+\startformula
+(W_x, W_y) = (G_x / S_x, G_y / S_y)
+\stopformula
+
+给定\cnglo{glbid}和\cnglo{workgrp}大小，可以这样计算\cnglo{workitem}的\cnglo{workgrp}　ID：
+\startformula
+(w_x, w_y) = ((g_x - s_x - F_x) / S_x, (g_y - s_y - F_y) / S_y)
+\stopformula
+
+\startbuffer[buffigindexspacecaption]
+NDRange索引空间的一个例子，上面有\cnglo{workitem}、他们的\cnglo{glbid}及其映射到的一个ID对：\cnglo{workgrp}ID和\cnglo{locid}。
+\stopbuffer
+\placefigure
+[here,force][fig:indexspace]
+{\getbuffer[buffigindexspacecaption]}
+{\useMPgraphic{box}}
+
+大部分编程模型都可以映射到这个执行模型上。在OpenCL中明确支持的有两种：\cngloempha{dppm}和\cngloempha{tppm}。
+
+\startbuffer[buftitleemccmdq]
+执行模型：\cnglo{context}和\cnglo{cmdq}
+\stopbuffer
+\subsection{\getbuffer[buftitleemccmdq]}
+
+\cnglo{host}为执行\cnglo{kernel}定义了一个\cnglo{context}，\cnglo{context}包括以下\cnglo{res}：
+
+\startigNum
+\item \cngloempha{device}：\cnglo{host}可以使用的\scopencl\cnglo{device}集。
+\item \cngloempha{kernel}：运行在\scopencl\cnglo{device}上的\scopencl函数。
+\item \cngloempha{programobj}：程序源码和实现\cnglo{kernel}的执行体。
+\item \cngloempha{memobj}：对\cnglo{host}和\scopencl\cnglo{device}可见的一组\cnglo{memobj}。这些\cnglo{memobj}包含一些值，\cnglo{kernel}实例可以在这些值上进行运算。
+\stopigBase
+
+\cnglo{host}使用\scopenclapi中的函数来创建和操控\cnglo{context}。\cnglo{host}创建一个叫做\cnglo{cmdq}的数据结构来协调\cnglo{device}上\cnglo{kernel}的执行。\cnglo{host}将\cnglo{cmd}放入\cnglo{cmdq}，在\cnglo{device}上的\cnglo{context}中进行调度。这些\cnglo{cmd}包括：
+
+\startigBase
+\item {\ftEmpha \cnglo{kernel}执行命令：}在\cnglo{device}的\cnglo{prcele}上执行\cnglo{kernel}。
+\item {\ftEmpha 内存命令：}读写\cnglo{memobj}或者在\cnglo{memobj}间传输数据，或者从\cnglo{host}的地址空间中映射和解映射\cnglo{memobj}。
+\item {\ftEmpha 同步命令：}限制命令的执行顺序。
+\stopigBase
+
+\cnglo{cmdq}负责对\cnglo{cmd}的调度，使其可以在\cnglo{device}上执行。执行这些\cnglo{cmd}时，在\cnglo{host}和\cnglo{device}上是异步的，\cnglo{cmd}间的关系属于下面两种模式之一：
+\startigBase
+\item {\ftEmpha \cnglo{inordexec}：}按照在\cnglo{cmdq}中出现的顺序来开始执行\cnglo{cmd}，并按顺序结束。换言之，前面的\cnglo{cmd}完成后，后面的\cnglo{cmd}才能开始。这将队列中\cnglo{cmd}的执行顺序串行化。
+\item {\ftEmpha \cnglo{outordexec}：}按顺序执行\cnglo{cmd}，但后续\cnglo{cmd}执行前不必等待前面\cnglo{cmd}完成。任何顺序上的限制都是由程序员通过显式的同步\cnglo{cmd}强加的。
+\stopigBase
+
+提交给\cnglo{cmdq}的执行\cnglo{kernel}的命令和内存命令会生成\cnglo{evtobj}。这些\cnglo{evtobj}用来控制\cnglo{cmd}的执行顺序、协调\cnglo{cmd}在\cnglo{host}和\cnglo{device}间的运行。
+
+可以将多个队列关联到同一个\cnglo{context}上。这些队列并发运行，且相互独立，\scopencl中没有显式的机制来对它们进行同步。
+
+\startbuffer[buftitleexecmck]
+执行模型：\cnglo{kernel}的种类
+\stopbuffer
+\subsection{\getbuffer[buftitleexecmck]}
+\scopencl执行模型支持两类\cnglo{kernel}：
+\startigBase
+\item {\ftEmpha \scopencl\cnglo{kernel}}是用\scopenclc编程语言所写就，并用\scopencl编译器编译的。所有\scopencl的实现都支持\scopencl\cnglo{kernel}。实现可能会提供其他机制来创建\scopencl\cnglo{kernel}。
+\item {\ftEmpha 原生\cnglo{kernel}}是通过一个\cnglo{host}函数指针来访问的。原生\cnglo{kernel}与\scopencl\cnglo{kernel}一起入队在\cnglo{device}上执行，并共享\cnglo{memobj}。例如，这些原生\cnglo{kernel}可以是\cnglo{app}代码中定义的函数，也可以是从库中导出的函数。注意，执行原生\cnglo{kernel}的能力是\scopencl的一个可选功能，原生\cnglo{kernel}的语义\cnglo{impdef}。\scopenclapi中的一些函数可以用来查询\cnglo{device}\sccapability或者确定设备是否支持某个\sccapability。
+\stopigBase
+
+\section{内存模型}
+正在执行\cnglo{kernel}的\cnglo{workitem}可以访问四块不同的\cnglo{memregion}：
+
+\startigBase
+\item {\ftEmpha \cnglo{glbmem}：}所有\cnglo{workgrp}中的所有\cnglo{workitem}都可以对其进行读写。\cnglo{workitem}可以读写此中\cnglo{memobj}的任意元素。对\cnglo{glbmem}的读写可能会被缓存，这取决于\cnglo{device}的\sccapability。
+\item {\ftEmpha \cnglo{constmem}：}\cnglo{glbmem}中的一块区域，在\cnglo{kernel}的执行过程中保持不变。\cnglo{host}负责对此中\cnglo{memobj}的分配和初始化。
+\item {\ftEmpha \cnglo{locmem}：}隶属于一个\cnglo{workgrp}的\cnglo{memregion}。它可以用来分配一些变量，这些变量由此\cnglo{workgrp}中的所有\cnglo{workitem}共享。在\scopencl\cnglo{device}上，可能会将其实现成一块专有的\cnglo{memregion}，也可能将其映射到\cnglo{glbmem}中。
+\item {\ftEmpha \cnglo{prvmem}：}隶属于一个\cnglo{workitem}的\cnglo{memregion}。一个\cnglo{workitem}的\cnglo{prvmem}中所定义的变量对另外一个\cnglo{workitem}来说是不可见的。
+\stopigBase
+
+\reftab{memregion}描述\cnglo{kernel}或\cnglo{host}是否可以从一个\cnglo{memregion}中分配内存、怎样分配（静态如编译时VS动态如运行时）和允许怎样访问（如\cnglo{kernel}或\cnglo{host}是否可以对一个\cnglo{memregion}进行读写）。
+
+\startbuffer[buftblcapmemregion]
+内存的分配和访问
+\stopbuffer
+\placetable[here,force][tab:memregion]{\getbuffer[buftblcapmemregion]}{
+\starttablehead
+\HL
+\VL \use{2}{}   \VL \bf\cnglo{glbmem}   \VL \bf\cnglo{constmem}   \VL \bf\cnglo{locmem}   \VL \bf\cnglo{prvmem}   \VL\SR
+\HL
+\stoptablehead
+\starttables[|l|l|l|l|l|l|]
+\VL \cnglo{host}   \VL 分配 \VL 动态  \VL 动态  \VL 动态  \VL NO   \VL \AR
+\DC                \DL[5]                                           \DR
+\VL                \VL 访问 \VL 读/写 \VL 读/写 \VL NO   \VL NO   \VL \AR
+\HL
+\VL \cnglo{kernel} \VL 分配 \VL NO   \VL 静态  \VL 静态  \VL 静态  \VL \AR
+\DC                \DL[5]                                           \DR
+\VL                \VL 访问 \VL 读/写 \VL 只读  \VL 读/写 \VL 读/写 \VL \AR
+\HL
+\stoptables
+}
+
+\reffig{openclarch}描述了\cnglo{memregion}以及怎样与平台模型关联在一起。
+
+\startbuffer[buffigcapopenclarch]
+\scopencl设备架构的概念模型，其中有\cnglo{prcele}（PE）、\cnglo{computeunit}和\cnglo{device}。没有画出\cnglo{host}。
+\stopbuffer
+
+\placefigure
+[here,force][fig:openclarch]
+{\getbuffer[buffigcapopenclarch]}
+{\useMPgraphic{box}}
+
+\cnglo{host}上运行的\cnglo{app},使用\scopencl API在\cnglo{glbmem}中创建\cnglo{memobj}，并将内存命令(节 3.2.1 有所描述)入队以操作这些\cnglo{memobj}。
+
+大多数情况下，\cnglo{host}和\scopencl\cnglo{device}的内存模型是相互独立的。这是由一个必要性来决定的，那就是假定\cnglo{host}是在\scopencl以外定义的。然而,有时它们确实需要交互；有两种途径：显式拷贝数据、映射和解映射一个\cnglo{memobj}的区域。
+
+为了显式拷贝数据，\cnglo{host}会入队一些\cnglo{cmd}来在\cnglo{memobj}和\cnglo{host}内存之间传输数据。这些用于内存传输的命令可以是阻塞式的，也可以是非阻塞式的。对于阻塞式的内存传输，一旦\cnglo{host}上相关的内存资源可以被安全的重用，\scopencl函数调用就会立刻返回。而对于非阻塞的内存传输，一旦命令入队，\scopencl函数调用就会返回，不管\cnglo{host}内存是否可以安全使用。
+
+用映射、解映射的方法来处理\cnglo{host}和\scopencl\cnglo{memobj}交互时，允许\cnglo{host}将\cnglo{memobj}的某个区域映射到自己的地址空间中。内存映射命令可能是阻塞的、也可能是非阻塞的。一旦\cnglo{memobj}的这个区域被映射了，\cnglo{host}就可以读写这块区域。当\cnglo{host}完成对这块映射区域的访问（读和/或写）后，就会将这块区域解映射。
+
+\subsection{内存一致性}
+\scopencl使用一个较宽松的一致性内存模型；即，不保证一个\cnglo{workitem}所看到的内存状态跟其它\cnglo{workitem}所看到的在所有时刻都是一致的。
+
+在一个\cnglo{workitem}内部，内存具有装载/存储的一致性。在一个\cnglo{workgrpbarrier}上，此\cnglo{workgrp}中的\cnglo{workitem}之间，\cnglo{locmem}是一致的。\cnglo{glbmem}也是如此，但是不保证执行相同\cnglo{kernel}的不同\cnglo{workgrp}间的内存一致性。
+
+对于由入队的\cnglo{cmd}所共享的\cnglo{memobj}，其内存一致性由一个同步点来强制实施。
+
+\section{编程模型}
+\scopencl执行模型支持\cnglo{dppm}和\cnglo{tppm},同时也支持这两种模型的混合体。对于\scopencl而言，用以驱动其设计的首要模型是数据并行。
+
+\startbuffer[sectitledppm]
+\cnglo{dppm}
+\stopbuffer
+\subsection{\getbuffer[sectitledppm]}
+在\cnglo{dppm}中，一个指令序列会应用到一个\cnglo{memobj}的多个元素上，就按照这个指令序列来定义{\ftEmpha \sccomputation}（computation）。与\scopencl执行模型相关联的索引空间定义了\cnglo{workitem}，以及数据怎样映射到\cnglo{workitem}上。在严格的数据并行模型中，\cnglo{workitem}和\cnglo{memobj}的元素间有一对一的映射关系，\cnglo{kernel}可以在上面并行执行。对于\cnglo{dppm}，\scopencl实现了一个较宽松的版本，其中不要求严格的一对一的映射。
+
+\scopencl提供了一个分层的\cnglo{dppm}。有两种途径来指定怎样分层。在显式模型中，程序员定义并行执行的\cnglo{workitem}的总数，以及怎样将这些\cnglo{workitem}划分成\cnglo{workgrp}。在隐式模型中，程序员仅指定前者，后者由\scopencl的实现来管理。
+
+\startbuffer[sectitletppm]
+\cnglo{tppm}
+\stopbuffer
+\subsection{\getbuffer[sectitletppm]}
+在\scopencl的\cnglo{tppm}中，\cnglo{kernel}的单个实例在执行时是独立于任何索引空间的。这在逻辑上等同于在一个\cnglo{computeunit}上执行\cnglo{kernel}时，其\cnglo{workgrp}中只有一个\cnglo{workitem}。在这种模型下，用户用以下方式表示并行:
+
+\startigBase
+\item 使用\cnglo{device}所实现的矢量数据类型。
+\item 多个任务入队，和/或
+\item 多个原生\cnglo{kernel}入队，它们是使用一个与\scopencl正交的编程模型开发的。
+\stopigBase
+
+\subsection{同步}
+在\scopencl中，有两个领域的同步:
+\startigBase
+\item 同一\cnglo{workgrp}中的\cnglo{workitem}之间
+\item \cnglo{cmdq}中处在同一\cnglo{context}中的\cnglo{cmd}之间
+\stopigBase
+
+同一\cnglo{workgrp}内的\cnglo{workitem}之间的同步是通过\cnglo{workgrpbarrier}来实现的。对于同一\cnglo{workgrp}内的所有\cnglo{workitem}来说，任意一个要想在\cnglo{barrier}外继续执行，所有\cnglo{workitem}都必须先执行这个\cnglo{barrier}。注意，在一个\cnglo{workgrp}中，所有正在执行\cnglo{kernel}的\cnglo{workitem}必须都会去执行这个\cnglo{workgrpbarrier}，或者都不会去执行。\cnglo{workgrp}之间没有同步机制。
+
+\cnglo{cmdq}中的\cnglo{cmd}间的同步点是:
+\startigBase
+\item \cnglo{cmdqbarrier}。它保证：所有之前排队的\cnglo{cmd}都执行完毕，并且对\cnglo{memobj}的所有更新，在后续\cnglo{cmd}开始执行前都是可见的。它只能在同一\cnglo{cmdq}中的\cnglo{cmd}间进行同步。
+\item 等在一个事件上。所有会入队\cnglo{cmd}的\scopencl API函数都会返回一个事件，用来标识这个\cnglo{cmd}和其更新的\cnglo{memobj}。如果某个后续\cnglo{cmd}正在等待那个事件，可以保证在其开始执行前，可以见到对那些\cnglo{memobj}的所有更新。
+\stopigBase
+
+\startbuffer[sectitlememobj]
+\cnglo{memobj}
+\stopbuffer
+\section{\getbuffer[sectitlememobj]}
+有两类\cnglo{memobj}：\refglo{bufobj}和\refglo{imgobj}。\refglo{bufobj}中所存储的元素是一维的，而\refglo{imgobj}则用来存储二维或三维的材质、帧缓冲或图像。
+
+\refglo{bufobj}的元素可以是标量数据类型（如int、float）、矢量数据类型、或用户自定义的结构体。\refglo{imgobj}用来表示材质、帧缓冲等buffer。\cnglo{imgobj}中元素的格式必须从预定义格式中选取。一个\cnglo{memobj}中至少要有一个元素。
+
+\refglo{bufobj}和\refglo{imgobj}基本的区别是：
+\startigBase
+\item \refglo{bufobj}中的元素是顺序存储的，在\cnglo{device}上执行\cnglo{kernel}时，可以使用指针访问它们。而\refglo{imgobj}中元素的存储格式对用户是透明的，不能通过指针直接访问。\scopenclc编程语言提供有内建函数可以用来读写\cnglo{imgobj}。
+\item 对于\refglo{bufobj}，\cnglo{kernel}按其存储格式来访问其中的数据。而对于\refglo{imgobj}，其元素的存储格式可能与\cnglo{kernel}中使用的数据格式不一样。在\cnglo{kernel}中，图像元素始终是四元矢量（每一元可以是float或者signed/unsigned integer）。内建函数读取图像元素后会将其转换成四元矢量。类似的，内建函数写入图像时，会将四元矢量转换成恰当的格式（例如，四个8位元素）。
+\stopigBase
+
+用{\ftEmpha cl\_mem}来描述\cnglo{memobj}。\cnglo{kernel}会使用\cnglo{memobj}作为其它\cnglo{memobj}的输入或输出。
+
+\section{\scopencl框架}
+\scopencl框架允许\cnglo{app}将一个\cnglo{host}与不少于一个的\scopencl\cnglo{device}一起作为一个异构并行计算机系统来使用。这个框架包含以下组件:
+\startigBase
+\item {\ftEmpha \scopencl平台层：}平台层允许\cnglo{host}\cnglo{program}发现\scopencl\cnglo{device}及其\sccapability并创建\cnglo{context}。
+\item {\ftEmpha \scopencl\scruntime：}一旦创建了\cnglo{context}，\scruntime就允许\cnglo{host}\cnglo{program}操控它。
+\item {\ftEmpha \scopencl编译器：}\scopencl编译器可以创建包含\scopencl\cnglo{kernel}的可执行程序。它所实现的\scopenclc编程语言支持\scisocnn语言的一个子集，并带有并行扩展。
+\stopigBase
+
+\stopcomponent
+

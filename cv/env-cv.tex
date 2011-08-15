@@ -1,0 +1,54 @@
+
+\startenvironment env-cv
+
+% 简历模块
+\usemodule[resume][
+  interface=moderncv,
+  style=classic,
+%  style=casual,
+]
+\setupresumestyle[option][backgroundcolor=white,before=]
+
+% 中文字体模块，支持中西文字体设置与标点微排版
+% 下载地址: http://github.com/liyanrui/t-zhfonts
+\usemodule[zhfonts][style=rm, size=11pt]
+% \setupzhfonts[feature][onum=yes, pnum=yes]
+
+\setupzhfonts
+[serif]
+[regular=adobesongstd,
+bold=adobeheitistd,
+italic=adobesongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[mono]
+[regular=adobekaitistd,
+bold=adobeheitistd,
+italic=adobekaitistd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[sans]
+[regular=wenquanyizenhei,%adobefangsongstd,
+bold=adobeheitistd,
+italic=wenquanyizenhei,%adobefangsongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts[latin, mono][regular=Monaco]
+
+% 段落
+\setupheads[indentnext=yes]
+\setupindenting[first,always,2em]
+\setupinterlinespace[line=1.2em]
+
+% ascii 数学公式模块
+\usemodule[asciimath]
+
+% 数学公式自动设置标点间距
+\setupmathematics[autopunctuation=no]
+
+% 开启 ascii 模式 % 如果asciimode后面有%开始的注释，则会导致多出两页封面
+\asciimode
+
+\stopenvironment

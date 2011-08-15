@@ -1,0 +1,865 @@
+%
+% author:	Ni Qingliang
+% date:		2011-02-11
+%
+\startenvironment envcmm
+
+%%%%%%%%%%%%%%%%%%% simplefonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usemodule[zhfonts][style=rm, size=11pt]
+\setupzhfonts[feature][onum=yes, pnum=yes]
+
+\setupzhfonts
+[serif]
+[regular=adobesongstd,
+bold=adobeheitistd,
+italic=adobesongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[mono]
+[regular=adobekaitistd,
+bold=adobeheitistd,
+italic=adobekaitistd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[sans]
+[regular=adobefangsongstd,
+bold=adobeheitistd,
+italic=adobefangsongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts[latin, mono][regular=Monaco]
+
+
+% C 代码高亮抄录模块
+\usemodule[pretty-c]
+
+% 启用中文断行
+\setscript[hanzi]
+\mainlanguage[cn]
+
+% 交互
+%\startallmodes[screen,solution]
+\setupinteraction[
+  state=start,	%start stop
+  focus=standard,
+  %menu	on off
+  %page	yes no
+  %click	yes no
+  %split	yes no
+  %display	new
+  %openaction	reference
+  %closeaction	reference
+  %openpageaction	reference
+  %closepageaction	reference
+  %calculate	name
+  %strut	yes no
+  %width	dimension
+  %height	dimension
+  %depth	dimension
+  style=\rm\it,	%normal bold slanted boldslanted type cap small...command
+  color=black,	%name	link to other page
+  contrastcolor=black,	%name	link to the same page
+  %symbolset	name
+  %title	text
+  %subtitle	text
+  %author	text
+  %date	text
+  %keyword	text
+  %fieldlayer	auto name
+]
+%\stopallmodes
+
+\setuptolerance[horizontal,
+  stretch, %stretch space verystrict strict tolerant verytolerant
+]
+\setuptolerance[vertical,
+  tolerant, %stretch space verystrict strict tolerant verytolerant
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\define\ftEmpha{\bf} % emphasize
+\define\ftRef{\it} % reference
+\define\ftfmt{\it} % format
+\define\ftCKey{\tt\tf} % C key
+\define\ftCQlf{\tt\it} % C qualifier
+\define\ftCEmpha{\tt\bf}
+\definetype[capi][
+  %space	on off
+  %option	slanted normal none
+  style=\rm\bf,	%normal bold slanted boldslanted type cap small ... command
+  %color	name
+]
+\definetype[carg][
+  style=\rm\it,
+]
+\definetype[ctype][
+  style=\tt\tf,
+]
+\definetype[cenum][
+  style=\rm\tf,
+]
+\definetype[cextname][
+  style=\rm\bf,
+]
+\definetype[cqlf][
+  style=\tt\it,
+]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definepapersize[CD][width=20cm,height=20cm]
+\setuppapersize[A4][A4]
+
+\setuppagenumbering[
+  state=start,
+  way=bytext,
+  alternative=doublesided,
+  location=,%header,
+  left="the",
+  right=ok,
+]
+% don't use TAB, and no space between *reg=val*, and no null line,
+% or it will be ommitted
+\setuplayout[
+  % vertical
+  top=20mm,
+    topdistance=2mm,
+      header=\bodyfontsize,
+        headerdistance=2mm,
+        footerdistance=2mm,
+      footer=\bodyfontsize,
+    bottomdistance=2mm,
+  bottom=20mm,
+  topspace=\dimexpr(\topheight + \topdistance),
+  bottomspace=\dimexpr(\bottomheight + \bottomdistance),
+  height=fit,
+  % horizontal
+  leftedge=10mm,
+    leftedgedistance=2mm,
+      leftmargin=20mm,
+        leftmargindistance=2mm,
+        rightmargindistance=2mm,
+      rightmargin=20mm,
+    rightedgedistance=2mm,
+  rightedge=10mm,
+  backspace=\dimexpr(\leftedgewidth + \leftedgedistance + \leftmarginwidth + \leftmargindistance + 5mm),
+  cutspace=\dimexpr(\rightedgewidth + \rightedgedistance + \rightmarginwidth + \rightmargindistance),
+  width=fit,
+  % misc
+  location=middle,
+  marking=on
+]
+
+% set the background clors
+% NOTE: it is confilict with \show frame
+%\setupcolors[state=start]
+\setupbackgrounds[page][background=color,backgroundcolor=lightgray]
+\setupbackgrounds[top, bottom][background=color,backgroundcolor=lightgray]
+%\setupbackgrounds[text][background=color,backgroundcolor=green]
+\setupbackgrounds[header][background=color,backgroundcolor=darkyellow]
+\setupbackgrounds[footer][background=color,backgroundcolor=darkyellow]
+\setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=darkcyan]
+
+%\setupheader[state=none]
+\setupheadertexts[margin]
+[\leftaligned{\getmarking[chapter]}]
+[\rightaligned{odd right}]
+[\vtop{even \vskip5pt left}]
+[even right{\currentdate[month,year]}]
+
+\setupheadertexts[text]
+[\rlap{abcdabcd} \hfill {\getmarking[chapter]}\hfill \llap{the \pagenumber page}]
+%[\centerline{hello} \llap{???right}]
+[]
+[]
+[]
+
+\setupfootertexts[text]
+[\vbox{\centerline{\pagenumber }\vskip12pt }]
+[]
+[]
+[]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%title%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%两个quad空格	a \qquad b
+%quad空格	a \quad b
+%大空格		a\ b
+%中等空格	a\;b
+%小空格		a\,b
+%没有空格	ab
+%紧贴		a\!b
+\define[1]\PartNbr{第#1卷}
+\define[1]\ChapterNbr{第#1章}
+\define[1]\SectionNbr{节#1}
+\define[1]\SubsectionNbr{节#1}
+\define[1]\SubsubsectionNbr{节#1}
+
+\define\fontPart{\rm\bf\switchtobodyfont[big]\switchtobodyfont[big]\switchtobodyfont[big]}
+\setuplabeltext[cn][part={第\;,\;卷}]
+\setuphead[part][
+  conversion=chinesecapnumeralscn,
+  textstyle={\fontChapter}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\fontChapter}, %normal bold slanted boldslanted % 編號
+%  numbercommand=\PartNbr,
+  header=high, %none empty high nomarking %章節首頁無頁眉
+  footer=high, %none empty high nomarking
+  before={\blank[2em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=middle, %normal inmargin middle TEXT
+  placehead=yes,
+]
+
+
+
+\define\fontChapter{\rm\bf\switchtobodyfont[big]\switchtobodyfont[big]}
+\setuplabeltext[cn][chapter={第\;,\;章}]
+\setuphead[chapter][
+  conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
+  sectionsegments=2:100,
+  indentnext=yes,
+%  style=bold,%normal bold slanted boldslanted % 整体
+  textstyle={\fontChapter}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\fontChapter}, %normal bold slanted boldslanted % 編號
+%  numbercommand=\ChapterNbr, %\...#1
+%  color=red, %IDENTIFIER % 整體顏色
+%  textcolor=blue, %IDENTIFIER % 內容顏色
+%  numbercolor=green, %IDENTIFIER % 編號顏色
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  page=right, %left right yes % 是否固定於左頁或右頁
+  continue=no, %yes no % 第一個是否緊接上一層，優先於*page*
+  header=high, %none empty high nomarking %章節首頁無頁眉
+%  text=nomarking, %none empty high nomarking
+  footer=high, %none empty high nomarking
+  before={\blank[2em]}, %COMMAND
+%  inbetween=, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=middle, %normal inmargin middle TEXT
+%  hang=none, %none broad fit line NUMBER
+%  command=, %\...#1#2
+%  textcommand=, %\...#1
+%  deepnumbercommand=, %\...#1
+%  deeptextcommand=, %\...#1
+%  prefix=, %+ - TEXT
+%  placehead=yes, %yes no empty
+%  incrementnumber=yes, %yes no LIST FILE
+%  resetnumber=no, %yes no
+%  file=, %IDENTIFIER
+%  expansion=, %yes no command
+%  margintext=no, %yes no
+  %inherits from \setupheads
+  sectionnumber=no,
+%  alternative=,
+%  separator={haha},
+%  stopper=,
+%  align=,
+%  aligntitle=,
+%  tolerance=,
+%  indentnext=,
+%  command=,
+%  margin=,
+]
+
+
+\define\fontSection{\rm\bf\switchtobodyfont[big]}
+%\setuplabeltext[cn][section={第,節}]
+\setuplabeltext[cn][section={节\;,}]
+\setuphead[section][
+  conversion=numbers, %chinesecapnumeralscn chineseallnumeralscn
+  sectionsegments=2:100,
+  indentnext=yes,
+%  style=bold,%normal bold slanted boldslanted % 整体
+  textstyle={\fontSection}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\fontSection}, %normal bold slanted boldslanted % 編號
+%  numbercommand=\SectionNbr,
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  before={\blank[1.5em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=inmargin, %normal inmargin middle TEXT
+]
+
+\define\fontSubsection{\rm\bf}
+%\setuplabeltext[cn][subsection={,節}]
+\setuphead[subsection][
+  conversion=numbers,
+  indentnext=yes,
+%  style=bold,%normal bold slanted boldslanted % 整体
+  textstyle={\fontSubsection}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\fontSubsection}, %normal bold slanted boldslanted % 編號
+%  numbercommand=\SubsectionNbr,
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  before={\blank[1em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=inmargin, %normal inmargin middle TEXT
+]
+
+%\setupheadertexts[hello]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setuplist[chapter][
+  %state	start stop
+  alternative=c,	%a 空格
+			%b 右对齐
+			%c ...page
+			%d 大空格　紧接下一个list
+			%e 编号加方框，标题向左缩
+			%f 
+			%g 标题居中... none command
+  %coupling	on off
+  %criterium	section local previous current all
+  %pageboundaries	list
+  %style	normal bold slanted boldslanted type cap small... command
+  %numberstyle	normal bold slanted boldslanted type cap small... command
+  %textstyle	normal bold slanted boldslanted type cap small... command
+  %pagestyle	normal bold slanted boldslanted type cap small... command
+  %color	name
+  %command	threearguments
+  numbercommand=\ChapterNbr,	%oneargument
+  %textcommand={},  %oneargument
+  %pagecommand	oneargument
+  interaction=all, %sectionnumber text pagenumber all
+  %before=\right,	%command
+  %after	command
+  %inbetween	command
+  %left={haha},	%text
+  %right	text
+  %label	yes no
+  %prefix	yes no none
+  %pagenumber	yes no
+  %headnumber	yes no
+  %sectionnumber	yes no
+  %aligntitle	yes no
+  margin=0em,	%dimension % 左侧缩进
+  width=0em,	%dimension fit	% 编号宽度
+  %height=2em,	%dimension fit broad
+  %depth=10em,	%dimension fit broad
+  distance=1.0em,	%dimension 标题与编号的距离
+  %separator={\dot},	%text
+  %stopper	text
+  %symbol	none 1 2 3 ...
+  %expansion=yes,	%yes no command
+  %maxwidth	dimension
+  %[...,...=...,...]	see \framed
+]
+
+\setuplist[section][
+  alternative=c,	%a 空格
+  interaction=all,
+  %numbercommand=\SectionNbr,	%oneargument
+  margin=2em,	%dimension % 左侧缩进
+  width=0em,	%dimension fit	% 编号宽度
+  distance=1.0em,	%dimension
+]
+
+\setuplist[subsection][
+  alternative=c,	%a 空格
+  %numbercommand=\SubsectionNbr,	%oneargument
+  margin=4em,	%dimension % 左侧缩进
+  width=0em,	%dimension fit	% 编号宽度
+  distance=0.5em,	%dimension
+]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%footnote%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setupfootnotes[
+  %conversion=set 2,	%numbers characters Characters romannumerals Romannumerals
+  %way=bytext,	%bytext bysection
+  %location=high,	%page text columns firstcolumn lastcolumn high none
+  %background=color,
+  %backgroundcolor=red,
+  %rule	on off
+  %before	command
+  %after	command
+  %width	dimension
+  %height	dimension
+  %bodyfont	5pt ... 12pt small big
+  %style=bold,	%normal bold slanted boldslanted type cap small... command
+  %distance	dimension
+  %columndistance	dimension
+  %margindistance	dimension
+  %n=3,		%number
+  %numbercommand=\high,	%oneargument 脚注编号的位置
+  %textcommand	oneargument
+  %split	tolerant strict verystrict number
+  %textstyle	normal bold slanted boldslanted type cap small... command
+  %textcolor=red,	%name
+  %interaction=yes,	%yes no
+  %factor	number
+]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%par%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 首行缩进
+\setupindenting[always, 2em, first]
+% 段落间距
+\setupwhitespace[none] %none small medium big line fixed fix dimension
+% 行间距
+\setupinterlinespace[medium]
+%\setupinterlinespace[big, on][line=3ex]
+%\setuprelativeinterlinespace[1.2]
+
+% code
+%\installprettytype[C][C]
+\setuplinenumbering[
+% conversion	numbers characters Characters romannumerals Romannumerals text
+% start	number
+% step	number
+%  width=1em,	%dimension
+%  location=text,	%intext inmargin
+% style	normal bold slanted boldslanted type cap small... command
+% prefix	text
+% referencing	on off
+]
+\definetextbackground
+  [verb]
+  [frame=on,location=paragraph,
+   leftoffset=0.5em,rightoffset=0.5em,
+   topoffset=0.25em,bottomoffset=0.25em,
+   rulethickness=0.75pt]
+\definetyping[clc][%option=c,
+  bodyfont=9pt,
+  %space	on off
+  %page	yes no
+  %option	slanted normal commands color none
+  %text	yes no
+  %icommand	command
+  %vcommand	command
+  %ccommand	command
+  before={\blank\starttextbackground[verb]},	%command
+  after={\stoptextbackground\blank},	%command
+  margin=no,	%dimension standard yes no
+  %evenmargin	dimension
+  %oddmargin	dimension
+  %blank	dimension small medium big standard halfline line
+  %escape	character
+  %space	on off
+  tab=8,	%number yes no
+  %page	yes no
+  %indentnext	yes no
+  %style	normal bold slanted boldslanted type cap small... command
+  %color	name
+  %palet	name
+  %lines=yes,	%yes no hyphenated
+  %empty	yes all no
+  numbering=line,	%line file no
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\defineenumeration
+[enumBase][
+  location=left,
+%  text=※,
+%  inbetween=\blank,
+%  after=\blank,
+  margin=2em,
+  headstyle=small,	%normal bold slanted boldslanted type cap small... command
+%style	normal bold slanted boldslanted type cap small... command
+%color	name
+%width	fit broad dimension
+%distance	dimension
+%sample	text
+%text	text
+%align	flushleft middle flushright
+%margin	standard yes no dimension
+%location	left right top serried inmargin inleft inright hanging
+%headcommand	command
+%hang	fit broad number
+%before	command
+%inbetween	command
+%after	command
+%indentnext	yes no
+%indenting	never not no yes always first next
+]
+
+% no number
+\defineitemgroup[igBase][levels=1]
+\setupitemgroup[igBase]
+[each]
+[packed,joinedup,]
+%standard broad serried packed unpacked stopper joinedup atmargin inmargin autointro loose repeat section paragraph intext random
+%standard: default setup
+%n*broad:  extra horizontal white space after symbol
+%n*serried:little horizontal white space after symbol 
+%packed:   no whitespace between items
+%stopper:  punctuation after item separator
+%joinedup: no white space before and after itemization
+%atmargin: item separator at the margin
+%inmargin: item separator in margin
+[
+%margin	no standard dimension
+  leftmargin=2em,	%no standard dimension
+%rightmargin	no standard dimension
+%width	dimension
+%distance	dimension
+%factor	number
+%items	number
+%start	number
+  before=,	%command
+  inbetween=,	%command
+  after=,	%command
+%left	text
+%right	text
+%beforehead	command
+%afterhead	command
+%headstyle=boldslanted, %normal bold slanted boldslanted type cap small... command
+%marstyle=boldslanted, %normal bold slanted boldslanted type cap small... command
+%symstyle=boldslanted, %normal bold slanted boldslanted type cap small... command
+%stopper	text
+%n	number
+%symbol	number
+%align	left right normal
+%indentnext	yes no
+]
+\setupitemgroup[igBase][1][1] % 枚举的标识必须单独定义，否则无效，可选的
+%m	A numbered list, with lowercase (“medieval”, aka “oldstyle”) numbers.
+%1 … 8	Different kinds of bullets. All items get the same symbol.
+%a	Items are numbered a., b., c., …
+%A	Items are numbered A., B., C., …
+%AK	Items are numbered A., B., C., …, in small caps.
+%r	Items are numbered in lowercase Roman numerals.
+%R	Items are numbered in uppercase Roman numerals.
+%KR	Items are numbered in uppercase Roman numerals, small caps style.
+
+
+% with number
+\defineitemgroup[igNum][levels=1]
+\setupitemgroup[igNum]
+[each]
+[packed,joinedup,]
+[
+  leftmargin=2em,	%no standard dimension
+  before=,	%command
+  inbetween=,	%command
+  after=,	%command
+]
+\setupitemgroup[igNum][1][n]
+
+\define[2]\itemenumdesc{
+\item \cenum{#1}——#2
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definetabletemplate[booktabs][o0|l|l|ro0|]
+
+\setuptables[
+  split=repeat,
+  %distance	small medium big
+  %bodyfont	5pt ... 12pt small big
+  %HL	number small medium big none
+  %VL	number small medium big none
+  %depth	number strut
+  %height	number strut
+  %rulethickness	dimension
+  %rulecolor	name
+  %align	flushright middle flushleft normal
+  %commands	command
+  %align	left middle right normal
+  %background	screen color none
+  %backgroundscreen	number
+  %backgroundcolor	name
+  %bodyfont	5pt ... 12pt small big
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\define\scopencl{OpenCL}
+\define\scopenclc{OpenCL C}
+\define\scopenclapi{OpenCL API}
+\define\sckernel{\ftCKey{\_\_kernel}}
+\define\scevent{事件}
+\define\scbinary{二进制文件}
+\define\scruntime{运行时}
+\define\sccapability{能力}
+\define\sccomputation{计算}
+\define\scisocnn{ISO C99}
+\define\scieeeqws{IEEE 754}
+\define\scieeeqwsellb{IEEE 754-2008}
+\define\scprofile{简档}
+\define\scembpf{嵌入式简档}
+\define\scver{1.1}
+\define\scclver{\scopencl\space 1.1}
+\define\schostfailres{在为\cnglo{host}上的\scopencl实现分配资源时失败}
+\define\scdevfailres{在为\cnglo{device}上的\scopencl实现分配资源时失败}
+\define\scdenorm{去规格化}
+\define\scinf{INF}
+\define\scqnan{QNaN}
+\define\scfma{FMA}
+\define\scnfma{积和熔加运算}
+\define\sccache{cache}
+\define\sccacheline{cache line}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%function%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% glossary
+\definedescription[glossary][
+  headstyle=bold,	%normal bold slanted boldslanted type cap small... command
+  %style=normal,	%normal bold slanted boldslanted type cap small... command
+  %color=,		%name
+  %width=fit,		%fit broad dimension
+  %distance=,		%dimension
+  %sample=,		%text
+  %text=,		%text
+  %align=,		%flushleft middle flushright
+  %margin=,		%standard yes no dimension
+  location=top,		%left right top serried inmargin inleft inright hanging
+  headcommand=\vskip.0em,		%command
+  %hang=,		%fit broad number
+  before=\vskip.0em,		%command
+  inbetween=\vskip.0em,		%command
+  after=\vskip.0em,		%command
+  %indentnext=,		%yes no
+  indenting=yes,	%never not no yes always first next
+%  margin=2em,
+]
+
+%如果reference放到\glossary前面，会多加一个空行
+\define[3]\myglo{
+\glossary{
+#2（#3）
+\reference[glo:#1]{#2}
+\reference[glo:en#1]{#3}
+}
+%\glossary{\reference[#1]{#2}#2（#3）}
+}
+
+\define[3]\startmyglo{
+\startglossary{\reference[glo:#1]{#2}#2（#3）}
+}
+\define\stopmyglo{
+\stopglossary
+}
+
+%\def\startmyglo{\dodoubleempty\dostartmyglo}
+%
+%\long\def\dostartmyglo[#1][#2][#3]#4\stopmyglo{%
+%  \reference[glo #1]{#2}\startglossary{#2（#3）}
+%  #4
+%  \stopglossary
+%}
+%
+%\let\stopmyglo\relax % or define the [whatever after] stuff here
+
+\define[1]\refglo{
+\goto{\ftRef{\ref[t][glo:#1]}}[glo:#1]
+}
+\define[1]\empglo{
+\goto{\ftEmpha{\ref[t][glo:#1]}}[glo:#1]
+}
+
+\define[1]\cnglo{\ref[t][glo:#1]}
+\define[1]\cngloempha{{\ftEmpha \cnglo{#1}}}
+\define[1]\englo{\ref[t][glo:en#1]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
+
+\if 0
+\definereferenceformat[infig][
+  left={图},	%text
+  %right=,	%text
+  %text=,	%text
+  %label=,	%name
+]
+\setupreferencing[
+  %state	start stop
+  %sectionnumber=yes,	%yes no
+  %prefix	+ - text
+  %interaction	label text all symbol
+  %width	dimension
+  left=\ftRef,	%command	\about会用到
+  right=,	%command
+  %convertfile	yes no small big
+  %separator	text
+  %autofile	yes no page
+  %global	yes no
+]
+\fi
+
+\define[1]\reffig{
+\in{图}{}[fig:#1]
+}
+\define[1]\reftab{
+\in{表}{}[tab:#1]
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%floats%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setupframed[
+  %height	fit broad dimension
+  %width	fit broad fixed local dimension
+  %autowidth	yes no force
+  %offset	none overlay default dimension
+  %location	depth hanging high lohi low top middle bottom
+  %option	none empty
+  %strut	yes no global local
+  %align	no flushleft flushright middle normal high low lohi
+  %bottom	command
+  %top	command
+  %frame	on off none overlay
+  %topframe	on off
+  %bottomframe	on off
+  %leftframe	on off
+  %rightframe	on off
+  %frameoffset	dimension
+  %framedepth	dimension
+  %framecorner	round rectangular
+  %frameradius	dimension
+  %framecolor	name
+  %background	screen color none foreground name
+  %backgroundscreen	number
+  %backgroundcolor	name
+  %backgroundoffset	frame dimension
+  %backgrounddepth	dimension
+  %backgroundcorner	round rectangular
+  %backgroundradius	dimension
+  %depth	dimension
+  %corner	round rectangular
+  %radius	dimension
+  %empty	yes no
+  %foregroundcolor	name
+  %foregroundstyle	name
+  %rulethickness	dimension
+]
+\setupfloats[
+  %location	left right middle
+  %width	fit dimension
+  before=,	%command
+  after=,	%command
+  %margin	dimension
+  %spacebefore	small medium big none
+  %spaceafter	small medium big none
+  %sidespacebefore	small medium big none
+  %sidespaceafter	small medium big none
+  indentnext=yes,	%yes no
+  %ntop	number
+  %nbottom	number
+  %nlines	number
+  %default	name
+  %tolerance	0 1 2
+  %leftmargindistance	dimension
+  %rightmargindistance	dimension
+  %sidealign	normal line
+  %numbering	yes nocheck
+  % to see \setupframed
+]
+
+\setupcaptions[align={middle}]
+
+\setupcaption[figure][
+  %location	top bottom none high low middle
+  %width=max,	%fit broad max dimension
+  %minwidth	fit dimension
+  headstyle=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
+  style=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
+  %number	yes no
+  %inbetween	command
+  %align	left middle right no
+  conversion=numbers,	%numbers characters Characters romannumerals Romannumerals
+  way=bychapter,	%bytext bysection bychapter 每一章都重新编号
+  %separator=a,	%text
+  %stopper	text
+  %command	command
+  %distance	dimension
+  prefixsegments=chapter,	%chapter:section
+]
+\setupcaption[table][
+  location=top,	%top bottom none high low middle
+  %width=max,	%fit broad max dimension
+  %minwidth	fit dimension
+  headstyle=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
+  style=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
+  %number	yes no
+  %inbetween	command
+  %align	left middle right no
+  conversion=numbers,	%numbers characters Characters romannumerals Romannumerals
+  way=bychapter,	%bytext bysection bychapter 每一章都重新编号
+  %separator=a,	%text
+  %stopper	text
+  %command	command
+  %distance	dimension
+  prefixsegments=chapter,	%chapter:section
+]
+
+\define\switchtobodyfontsmall{\switchtobodyfont[8pt]}
+\setupTABLE[%
+    %frameoffset=.5\linewidth,
+    %backgroundoffset=\v!frame,
+    %framecolor=\s!black,
+    %width=\v!fit,
+    %height=\v!fit,
+    %autowidth=\v!yes,
+    %rulethickness=\linewidth,
+    %strut=\v!yes,
+    %autostrut=\v!no,
+    %
+    %color=,
+    %style=\switchtobodyfontsmall,
+    %headstyle=\switchtobodyfontsmall,
+    %headcolor=,
+    %aligncharacter=\v!no,
+    %alignmentcharacter={,},
+    %option=, % \v!stretch
+    %header=,
+    %spaceinbetween=,
+    %maxwidth=8em,
+    %textwidth=\hsize,
+    %split=repeat,
+    %splitoffset=0pt,
+    %distance=\zeropoint,           % individual column
+    %columndistance=\zeropoint,     % each column (whole table)
+    %leftmargindistance=\zeropoint, % whole table
+    %rightmargindistance=\zeropoint,% whole table
+    %left=,
+    %right=,
+    %setups=,
+    %splitmethod=a%
+]
+
+\define[2]\cltable{
+#1{\bTABLE\bTR\bTD\eTD\eTR\eTABLE}
+\startlocalfootnotes
+%\placelegend%大括号一定要另起一行，否则会右移，但是会导致TABLE横排，因此注掉
+{\bTABLE[split=repeat, option=stretch, style=\rmx, headstyle=\rmx\bf] #2 \eTABLE}
+\placelocalfootnotes[style=\rmx,before=,after=,]
+\stoplocalfootnotes
+}
+
+\define[3]\clenumretdesc{
+\bTR \bTC \cenum{#1} \eTC
+  \bTC
+    \ctype{#2}
+  \eTC
+  \bTC
+    #3
+  \eTC
+\eTR
+}
+
+\define[2]\clenumdesc{
+\bTR \bTC \cenum{#1} \eTC
+  \bTC
+    #2
+  \eTC
+\eTR
+}
+
+\setupfloatsplitting[lines=1,conversion=greek]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formula%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setupformulas[
+  %location	left right
+  %left	text
+  %right	text
+  %align	flushleft middle flushright
+  %option	middle
+  %strut	yes no
+  %distance	dimension
+  %margin	dimension standard yes no
+  %leftmargin	dimension
+  %rightmargin	dimension
+  indentnext=yes,	%yes no
+  %alternative	name
+  %spacebefore	dimension
+  %after	dimension
+  %separator	text
+  %conversion	numbers characters Characters romannumerals Romannumerals text
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%misc%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\define[1]\todo{#1}
+%\define[1]\todo{\error}
+\stopenvironment
+

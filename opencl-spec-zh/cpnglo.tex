@@ -1,0 +1,260 @@
+%
+% author:	Ni Qingliang
+% date:		2011-02-11
+%
+\startcomponent cpnglo
+\environment envcmm
+\product opencl
+
+\chapter{术语}
+
+\myglo{app}{应用}{Application}
+运行在宿主机和\scopencl设备上的程序。
+
+\myglo{beac}{阻塞的入队API调用}{Blocking Enqueue API calls}
+\myglo{nbeac}{非阻塞的入队API调用}{Non-Blocking Enqueue API calls}
+一个\refglo{nbeac}将会在\refglo{cmdq}中放置一个\refglo{cmd}后立刻返回。而对于\refglo{beac}，直到\refglo{cmd}完成后才会返回。
+
+\startmyglo{barrier}{隔层}{Barrier}
+有两种类型的\refglo{barrier}——\refglo{cmdqbarrier}和\refglo{workgrpbarrier}。
+\startigBase
+\item \refglo{cmdqbarrier}本身是一个\refglo{cmd}，\scopenclapi提供一个函数用来将其入队。这个\refglo{barrier}命令可以保证只有之前入队的所有命令都执行完毕后，后续命令才能开始执行。
+\item \scopenclc语言提供了一个内建的\refglo{workgrpbarrier}函数。运行在\refglo{device}上的\refglo{kernel}可以利用这个函数在（正在执行此\refglo{kernel}的）\refglo{workgrp}中的\refglo{workitem}间执行同步。\refglo{workgrp}中的任意一个\refglo{workitem}要想在\refglo{barrier}外继续执行，所有\refglo{workitem}都必须先执行这个\refglo{barrier}。
+\stopigBase
+\stopmyglo
+
+\startmyglo{bufobj}{缓冲对象}{Buffer Object}
+存储一个线性字节序列的\refglo{memobj}。在（正在\refglo{device}上运行的）\refglo{kernel}中，可以通过一个指针来访问\refglo{bufobj}。\refglo{host}可以用\scopenclapi调用来操控\refglo{bufobj}。一个\refglo{bufobj}包含以下信息：
+\startigBase
+\item 字节数
+\item 一些属性，用来描述使用情况和分配自哪个区域。
+\item 缓冲数据
+\stopigBase
+\stopmyglo
+
+\myglo{cmd}{命令}{Command}
+\scopencl运算，可以提交给\refglo{cmdq}来执行。例如，一些\scopencl\refglo{cmd}可以在计算设备上执行\refglo{kernel}、操控\refglo{memobj}，等等。
+
+\myglo{cmdq}{命令队列}{Command-queue}
+一个持有\refglo{cmd}的对象，这些\cnglo{cmd}将在某个\refglo{device}上执行。\refglo{cmdq}是在一个\refglo{context}中的某个\refglo{device}上创建的。\refglo{cmd}按序入队，但可能顺序执行也可能乱序执行。参见\refglo{inordexec}和\refglo{outordexec}。
+
+\myglo{cmdqbarrier}{命令队列隔层}{Command-queue Barrier}
+请看\refglo{barrier}。
+
+\myglo{computedevmem}{计算设备内存}{Compute Device Memory}
+计算设备上所附着的一块或多块内存。
+
+\myglo{computeunit}{计算单元}{Compute Unit}
+一个\scopencl\refglo{device}会包含一个或多个\refglo{computeunit}。一个\refglo{workgrp}只能在一个\refglo{computeunit}上执行。一个\refglo{computeunit}由一个或多个\refglo{prcele}组成。一个\refglo{computeunit}也可能包含专用的材质过滤单元，此单元可以被它的\refglo{prcele}访问。
+
+\myglo{concurrency}{并发}{Concurrency}
+系统的一个属性，而此系统中会有一系列任务，这些任务可以同时保持活跃并取得进展。为了在运行程序时利用并发执行，程序员必须找出问题中可以并发的部分，在源码中标示出来，用一个支持并发的标记进行开发。
+
+\myglo{constmem}{不变内存}{Constant Memory}
+\refglo{glbmem}中的一个区域，在\refglo{kernel}执行过程中保持不变。\refglo{host}分配并初始化\cnglo{memobj}，然后放到\refglo{constmem}中。
+
+\myglo{context}{上下文}{Context}
+\refglo{kernel}在执行时所处的环境，同步和内存管理就是在此范围内定义的。\refglo{context}包含一些\refglo{device}、这些\refglo{device}可以访问的内存、相应的内存属性、一个或多个\refglo{cmdq}（用来对\refglo{kernel}的执行和\refglo{memobj}相关运算进行调度）。
+
+\myglo{dppm}{数据并行编程模型}{Data Parallel Programming Model}
+传统意义上，这个术语涉及的编程模型中，并发由单个程序中应用到数据结构中多个元素上的指令来表示。在\scopencl中，对这个术语进行了推广，此模型中，单个程序的一套指令同时应用到索引的抽象域中的每一点上。
+
+\myglo{device}{设备}{Device}
+\refglo{device}是\refglo{computeunit}的集合。一个\refglo{cmdq}被用来对操作\refglo{device}的\refglo{cmd}进行排队。这样的\refglo{cmd}包括执行\refglo{kernel}或读写\refglo{memobj}。典型的\scopencl\cnglo{device}有GPU、多核CPU和其它处理器（如DSP和Cell/B.E.处理器）。
+
+\myglo{evtobj}{事件对象}{Event Object}
+\refglo{evtobj}封装了运算（如一个\refglo{cmd}）的状态。它可以用来对某个\refglo{context}中的运算进行同步。
+
+\myglo{evtwaitlist}{事件等待列表}{Event Wait List}
+\refglo{evtwaitlist}是\refglo{evtobj}的列表，可用来控制何时执行\refglo{cmd}。
+
+\myglo{framework}{框架}{Framework}
+一个软件系统，包含一套组件用以支持软件开发和执行。一个典型的\refglo{framework}包括库、API、\scruntime系统、编译器等等。
+
+\myglo{glbid}{全局 ID}{Global ID}
+一个\refglo{glbid}用来唯一标识一个\refglo{workitem}，源自执行\refglo{kernel}时所指定的全局\refglo{workitem}数目。\refglo{glbid}是一个N维的值，起自(0, 0, … 0)。请参看\refglo{locid}。
+
+\myglo{glbmem}{全局内存}{Global Memory}
+一个\refglo{context}中的所有\refglo{workitem}均可访问的内存区域。\refglo{host}可以用一些\refglo{cmd}（如read、write和map）来访问它。
+
+\myglo{glsharegrp}{GL共享组}{GL share group}
+\refglo{glsharegrp}对象用来管理共享的OpenGL或OpenGL ES资源（如材质、缓存、帧缓存或渲染缓存），并与一个或多个GL上下文对象相关联。典型的\refglo{glsharegrp}是一个不透明的对象，不能直接访问。
+
+\myglo{handle}{句柄}{Handle}
+一个不透明的类型，用来引用\scopencl所分配的\refglo{obj}。对\refglo{obj}的任何运算都是通过引用其句柄来进行的。
+
+\myglo{host}{宿主机}{host}
+\refglo{host}使用\scopenclapi与\refglo{context}进行交互。
+
+\myglo{hostptr}{宿主机指针}{Host pointer}
+指针，指向\refglo{host}上的虚拟地址空间中的内存。
+
+\myglo{illegal}{违规}{Illegal}
+明显不允许的行为，\scopencl会将其视为错误进行报告。
+
+\startmyglo{imgobj}{图像对象}{Image Object}
+一种\refglo{memobj}，用来存储二维或三维的结构化数组。只有通过读写函数才能访问图像数据。读函数需要使用\refglo{sampler}。
+
+\refglo{imgobj}封装了以下信息：
+\startigBase
+\item 图像的维数。
+\item 图像中每个元素的描述。
+\item 一些属性，用来描述使用情况和分配自哪个区域。
+\item 图像数据
+\stopigBase
+图像中的所有元素均选自一个预定义图像格式的列表。
+\stopmyglo
+
+\myglo{impdef}{依赖于具体实现}{Implementation Defined}
+在遵循\scopencl标准的实现之间，明确被允许可以不同的行为。要求\scopencl的实现者为其提供相关文档。
+
+\myglo{inordexec}{顺序执行}{In-order Execution}
+\scopencl中的一种执行模型，\refglo{cmdq}中的\refglo{cmd}按提交的顺序执行，只有当正在运行的\refglo{cmd}完成后，下一个才能开始运行。参看\refglo{outordexec}。
+
+\myglo{kernel}{内核}{Kernel}
+\refglo{kernel}是\refglo{program}中声明的一个函数，可以在\scopencl\refglo{device}上执行。对于\refglo{program}中定义的任何函数，都可以通过加上限定符\sckernel标识成\refglo{kernel}。
+
+\myglo{kernelobj}{内核对象}{Kernel Object}
+一个\refglo{kernelobj}封装了\refglo{program}中声明的一个\sckernel函数和执行此函数所用的参数。
+
+\myglo{locid}{局部ID}{Local ID}
+\refglo{locid}即一个\refglo{workitem}ID，在一个正在执行\refglo{kernel}的\refglo{workgrp}中是唯一的。\refglo{locid}是一个N维的值，起于(0, 0, … 0)。参见\refglo{glbid}。
+
+\myglo{locmem}{局部内存}{Local Memory}
+属于某个\refglo{workgrp}内存区域，只有那个\refglo{workgrp}中的\refglo{workitem}才可以访问它。
+
+\myglo{marker}{记号}{Marker}
+排在\refglo{cmdq}中的一个\refglo{cmd}，可以用来给之前入队的所有\refglo{cmd}做标记。此命令会返回一个\scevent，\refglo{app}可以等在这个\scevent上，例如等待处在此\refglo{marker}之前的所有命令全部完成。
+
+\myglo{memobj}{内存对象}{Memory Object}
+\refglo{glbmem}中某区域的句柄，此区域带有引用计数。参见\refglo{bufobj}和\refglo{imgobj}。
+
+\myglo{memregion}{内存区域}{Memory Region}
+或
+\myglo{mempool}{内存池}{Memory Pool}
+\scopencl中的一个明确的地址空间。不同的\refglo{memregion}在物理上可能重叠，但在逻辑上\scopencl会将其视为不同。可以将其指定为私有的（{\ftCQlf private}）、局部的（{\ftCQlf local}）、不变的（{\ftCQlf constant}）和全局的（{\ftCQlf global}）。
+
+\myglo{obj}{对象}{Object}
+对\scopenclapi可以操控的资源的一种抽象表示。包含\refglo{programobj}、\refglo{kernelobj}、\refglo{memobj}。
+
+\myglo{outordexec}{乱序执行}{Out-of-Order Execution}
+一种执行模型，\refglo{cmdq}中\refglo{cmd}的开始和完成执行可以以任意顺序进行，只要与\refglo{evtwaitlist}和\refglo{cmdqbarrier}相容即可。参见\refglo{inordexec}。
+
+\myglo{platform}{平台}{platform}
+\refglo{host}加一些可以被\scopencl\refglo{framework}所管理的设备。\refglo{app}可以在\refglo{platform}的\refglo{device}上共享\refglo{res}和执行\refglo{kernel}。
+
+\myglo{prvmem}{私有内存}{Private Memory}
+专属于某个\refglo{workitem}的一块内存。一个\refglo{workitem}的\refglo{prvmem}中定义的变量对另一个\refglo{workitem}是不可见的。
+
+\myglo{prcele}{处理元件}{Processing Element}
+一个虚拟的标量处理器。一个\refglo{workitem}可以在一个或多个\refglo{prcele}上执行。
+
+\myglo{program}{程序}{Program}
+一个\scopencl\refglo{program}由一套\refglo{kernel}组成，还可能包含一些辅助函数（由\sckernel函数调用）和常量数据。
+
+\startmyglo{programobj}{程序对象}{Program Object}
+一个\refglo{programobj}封装有以下信息：
+\startigBase
+\item 对所关联\refglo{context}的引用。
+\item \refglo{program}源码或\scbinary。
+\item 最近成功构建的可执行程序，\refglo{device}列表（用来运行此程序），所用的构建选项和构建日志。
+\item 当前所附\refglo{kernelobj}的数目。
+\stopigBase
+
+\myglo{refcnt}{引用计数}{Reference Count}
+一个\scopencl对象的生命周期由其\refglo{refcnt}来决定，这个内部计数会记录对此对象的引用的数目。当你在\scopencl中创建一个对象时，其\refglo{refcnt}被设成1。后续对\refglo{retain}API（如 {\ftCKey clRetainContext}、{\ftCKey clRetainCommandQueue}）的调用会增大\refglo{refcnt}。对\refglo{release}API（如{\ftCKey clReleaseContext}、{\ftCKey clReleaseCommandQueue}）的调用会减小\refglo{refcnt}。当\refglo{refcnt}降为0后，\scopencl会回收此对象的资源。
+
+\myglo{relaxconsist}{放宽的一致性}{Relaxed Consistency}
+在内存一致性模型中，不同的\refglo{workitem}或\refglo{cmd}所看到的内容也可能不同，当然，\refglo{barrier}和其他显式同步点除外。
+
+\myglo{res}{资源}{Resource}
+\scopencl所定义的一类\refglo{obj}。一个\refglo{res}的实例就是一个\refglo{obj}。最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、\refglo{kernelobj}和\refglo{memobj}。计算用资源主要指那些参与推进程序计数器动作的硬件元件，包括\refglo{host}、\refglo{device}、\refglo{computeunit}和\refglo{prcele}。
+
+\myglo{retain}{保留}{Retain}
+\myglo{release}{释放}{Release}
+动作，会增大（retain）和减小（release）一个\scopencl\refglo{obj}的\refglo{refcnt}。这是一个记账功能，它可以保证在使用这个\refglo{obj}的所有实例都完成之前，系统不会移除这个\refglo{obj}。参见\refglo{refcnt}。
+
+\myglo{sampler}{采样器}{Sampler}
+此\refglo{obj}用来描述在\refglo{kernel}读取图像时怎样对其采样。读取图像的函数将\refglo{sampler}作为一个参数。\refglo{sampler}指定图像的寻址方式，如图像的坐标越限时怎样处理、滤波模式、输入的图像坐标是否已规范化。
+
+\myglo{simd}{单指令多数据}{SIMD}
+这是一个编程模型，一个\refglo{kernel}在多个\refglo{prcele}上并发执行，每个\refglo{prcele}上都有自己的数据，还有一个共享的程序计数器。所有\refglo{prcele}执行严格一致的一套指令。
+
+\myglo{spmd}{单程序多数据}{SPMD}
+此编程模型中，一个\refglo{kernel}在多个\refglo{prcele}上并发执行，每个\refglo{prcele}上都有自己的数据和自己的程序计数器。因此，运行同一个\refglo{kernel}的所有计算资源都会维护自己的指令计数器；同时由于\refglo{kernel}中的不同分支，这些\refglo{prcele}中的实际指令序列可能会有很大不同。
+
+\myglo{tppm}{任务并行编程模型}{Task Parallel Programming Model}
+这个编程模型中，计算表示为多个并发的任务，其中，一个任务就是单个工作组（大小是 1）中执行的那个\refglo{kernel}。这些并发的任务可以运行不同的\refglo{kernel}。
+
+\myglo{thsafe}{线程安全}{Thread-safe}
+对于一个\scopenclapi调用，只有在被多个\refglo{host}线程同时调用时，\scopencl所管理的内部状态保持一致，才认为它是\refglo{thsafe}的。如果一个\scopenclapi调用是\refglo{thsafe}的，那么就允许\refglo{app}在多个\refglo{host}线程中同时调用它，而不必在这些线程间实施互斥，同时，它们也是重入安全的。
+
+\myglo{undef}{未定义}{Undefined}
+指\scopencl没有显式定义那些API调用、内建函数（由\refglo{kernel}使用或用来执行\refglo{kernel}）的行为。至于当\scopencl碰到一个未定义的构造时会发生什么，不要求实现指名。
+
+\myglo{workgrp}{工作组}{Work-group}
+相关\refglo{workitem}的集合，这些\refglo{workitem}在同一个\refglo{computeunit}上执行。一个\refglo{workgrp}中的所有\refglo{workitem}执行同一个\refglo{kernel}，共享\refglo{locmem}和\refglo{workgrpbarrier}。
+
+\myglo{workgrpbarrier}{工作组隔层}{Work-group Barrier}
+参见\refglo{barrier}。
+
+\myglo{workitem}{工作项}{Work-item}
+\refglo{kernel}的并行执行体中的一个。作为一个\refglo{computeunit}中所执行的一个\refglo{workgrp}中的一部分，一个\refglo{workitem}可以由一个或多个\refglo{prcele}执行。用其\refglo{glbid}和\refglo{locid}来区分一个\refglo{workitem}和所在\refglo{workgrp}中的其他\refglo{workitem}。
+
+\section{\scopencl类图}
+\reffig{classdiag}使用统一建模语言{\footnote[uml]{统一建模语言（http://www.uml.org/）是Object Management Group（OMG）的一个商标。}}（UML）以类图的方式对\scopencl规范进行了描述。此图中，节点代表类，边代表类之间的关系。简化起见，类中没有特性和操作，抽象类带有注释“\{abstract\}”。对于类之间的关系，有聚集（aggregation，带有实心方块）、关联（association，没有注释）和继承（inheritance，带有开放的箭头）。边的两端带有关系的基数。基数“＊”代表“多个”，基数“1”代表“一个而且只有一个”，基数“0..1”代表“可选的一个”，而基数“1..”代表“一个或多个”。用普通箭头表示关系的方向性。
+
+\if 0
+%自定义metauml字体会导致对齐错误，如果要使用默认字体，必须先加载8r-base.map
+\pdfmapfile{8r-base.map}
+\startMPinclusions
+%string metauml_defaultFont;
+%metauml_defaultFont := "\truefontname{Serif}";
+%string metauml_defaultFontOblique;
+%metauml_defaultFontOblique := "\truefontname{SerifItalic}";
+%string metauml_defaultFontBold;
+%metauml_defaultFontBold := "\truefontname{SerifBold}";
+%string metauml_defaultFontBoldOblique;
+%metauml_defaultFontBoldOblique := "\truefontname{SerifBoldItalic}";
+input metauml;
+\stopMPinclusions
+
+\startreusableMPgraphic{xx}
+%save B;
+%save A;
+
+Class.A("Point")
+       ("+x: int",
+        "+y: int") ();
+%A.info.iName.iFont.name := metauml_defaultFontBold;
+%A.info.iName.iFont.scale := 1.2;
+%A.info.iAttributeStack.iPict.iFont.scale := 0.8;
+%A.info.iAttributeStack.top := 10;
+%A.info.iAttributeStack.spacing := 11;
+%A.info.iMethodStack.iPict.iFont.scale := 2;
+%A.info.iMethodStack.spacing := 17;
+%A.info.iMethodStack.bottom := 10;
+
+Class.B("Circle")
+       ("radius: int")
+       ("+getRadius(): int",
+        "+setRadius(r: int):void");
+
+topToBottom(45)(A, B);
+
+drawObjects(A, B);
+
+clink(aggregationUni)(A, B);
+\stopreusableMPgraphic
+
+\placefigure
+[here,force][fig:classdiag]
+{嵌入 \METAFUN\ 图形}{\reuseMPgraphic{xx}}
+\fi
+
+\placefigure
+[here,force][fig:classdiag]
+{\scopencl类图}{\externalfigure[figclassdiag-1.pdf]}
+
+\stopcomponent
+

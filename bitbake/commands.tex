@@ -1,0 +1,192 @@
+\startcomponent commands
+\product prd-bbum
+
+\chapter{命令}
+\placecontent
+\section{bbread}
+命令bbread用来显示BitBake的元数据。如果不带参数，会解析“\code{conf/bitbake.conf}”
+（位于\code{BBPATH}中）并显示出来。
+如果在命令行上提供了一个文件，如一个.bb，则会使用签名所得到的配置元数据继续解析此文件。
+
+{\ftemp 已经移除了独立的bbread命令，以bitbake -e来代替。}
+
+\section{bitbake}
+\subsubject{简介}
+bitbake是系统中最主要的命令。它帮助执行单个.bb文件中的任务、执行多个.bb文件上的一个任务、或者分析它们之间的依赖关系。
+
+\subsubject{用法和语法}
+\startbb
+$ bitbake --help
+usage: bitbake [options] [package ...]
+
+Executes the specified task (default is 'build') for a given set of BitBake files.
+It expects that BBFILES is defined, which is a space seperated list of files to
+be executed.  BBFILES does support wildcards.
+Default BBFILES are the .bb files in the current directory.
+
+options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -b BUILDFILE, --buildfile=BUILDFILE
+                        execute the task against this .bb file, rather than a
+                        package from BBFILES.
+  -k, --continue        continue as much as possible after an error. While the
+                        target that failed, and those that depend on it,
+                        cannot be remade, the other dependencies of these
+                        targets can be processed all the same.
+  -f, --force           force run of specified cmd, regardless of stamp status
+  -i, --interactive     drop into the interactive mode also called the BitBake
+                        shell.
+  -c CMD, --cmd=CMD     Specify task to execute. Note that this only executes
+                        the specified task for the providee and the packages
+                        it depends on, i.e. 'compile' does not implicitly call
+                        stage for the dependencies (IOW: use only if you know
+                        what you are doing). Depending on the base.bbclass a
+                        listtaks tasks is defined and will show available
+                        tasks
+  -r FILE, --read=FILE  read the specified file before bitbake.conf
+  -v, --verbose         output more chit-chat to the terminal
+  -D, --debug           Increase the debug level. You can specify this more
+                        than once.
+  -n, --dry-run         don't execute, just go through the motions
+  -p, --parse-only      quit after parsing the BB files (developers only)
+  -d, --disable-psyco   disable using the psyco just-in-time compiler (not
+                        recommended)
+  -s, --show-versions   show current and preferred versions of all packages
+  -e, --environment     show the global or per-package environment (this is
+                        what used to be bbread)
+  -g, --graphviz        emit the dependency trees of the specified packages in
+                        the dot syntax
+  -I IGNORED_DOT_DEPS, --ignore-deps=IGNORED_DOT_DEPS
+                        Stop processing at the given list of dependencies when
+                        generating dependency graphs. This can help to make
+                        the graph more appealing
+
+\stopbb
+
+\example Executing a task against a single .bb
+
+为单个文件执行任务相对简单一些。你指定文件，bitbake会解析此文件并执行所指定的任务（或者缺省执行“build”）。
+在此过程中，bitbakek会遵循任务间的依赖关系。
+
+“clean”任务：
+\startbb
+$ bitbake -b blah_1.0.bb -c clean
+\stopbb
+
+“build”任务：
+\startbb
+$ bitbake -b blah_1.0.bb
+\stopbb
+
+\example Executing tasks against a set of .bb files
+
+要管理多个.bb文件，会引入大量额外的复杂性。显然，需要一个途径告诉bitbake哪些文件可用，我们想要执行哪些。
+同样也需要有一种方法来描述.bb之间的依赖关系，无论是构建时还是运行时。当多个.bb文件提供了相同的功能，
+或者一个.bb有多个版本的时候，需要一种手段让用户进行选择。
+
+下一节，元数据，勾勒除了要怎样做这些事情。
+
+命令\code{bitbake}，当不使用\code{--buildfile}时，接受一个\code{PROVIDER}，而不是一个文件或其它什么东西。
+缺省情况下，一个.bb一般会提供它的 packagename、packagename-version、and packagename-version-revision。
+\startbb
+$ bitbake blah
+$ bitbake blah-1.0
+$ bitbake blah-1.0-r0
+$ bitbake -c clean blah
+$ bitbake virtual/whatever
+$ bitbake -c clean virtual/whatever
+\stopbb
+
+\example Generating dependency graphs
+
+BitBake可以使用dot语法生成依赖关系图。可以使用graphviz中的dot应用将这些图转换成图片。
+会向当前工作目录中写入三个文件，{\ftref depends.dot}包含\code{DEPENDS}变量，
+{\ftref rdepends.dot}和{\ftref alldepends.dot}包含\code{DEPENDS}和\code{RDEPENDS}。
+为了防止包含通用的依赖，可以使用\code{-I depend}将其从图中去掉。这样生成的图具有更好的可读性。
+如：会在图中移除所继承的类中的\code{DEPENDS}（base.bbclass）。
+\startbb
+$ bitbake -g blah
+$ bitbake -g -I virtual/whatever -I bloom blah
+\stopbb
+
+\subsubject{元数据}
+你可能在用法或.bb文件的相关信息中已经看到了，变量\code{BBFILES}指明了bitbake工具怎样查找文件。
+此变量是以空格分隔的文件清单，支持通配符。
+
+\example Setting BBFILES
+
+\startbb
+BBFILES = "/path/to/bbfiles/*.bb"
+\stopbb
+
+考虑到依赖关系，需要.bb定义变量\code{DEPENDS}，包含一个包名的清单，以空格分隔，这些包名就是变量\code{PN}。
+一般而言，缺省情况下变量\code{PN}是.bb文件名的一部分。
+
+\example Depending on another .bb
+
+a.bb：
+\startbb
+PN = "package-a"
+DEPENDS += "package-b"
+\stopbb
+
+b.bb：
+\startbb
+PN = "package-b"
+\stopbb
+
+\example Using PROVIDES
+
+本例会展示变量\code{PROVIDES}的用法，它使.bb可以指定自己提供什么功能。
+
+package1.bb：
+\startbb
+PROVIDES += "virtual/package"
+\stopbb
+
+package2.bb：
+\startbb
+DEPENDS += "virtual/package"
+\stopbb
+package3.bb：
+\startbb
+PROVIDES += "virtual/package"
+\stopbb
+
+如您所见，此处有两个提供不同功能（virtual/package）的.bb。显然，需要一种方法让运行bitbake的用户选择。
+实际上，确实有一种方法。
+
+下面代码出现在.conf文件中，会选择package1：
+\startbb
+PREFERRED_PROVIDER_virtual/package = "package1"
+\stopbb
+
+\example Specifying version preference
+
+当一个包有多个版本时，缺省情况下bitbake会选择最高版本，除非指定了。
+如果一个.bb中的变量\code{DEFAULT_PREFERENCE}小于其它.bb中的（默认是0），则不会被选中。
+这样，维护.bb文件库的人就可以指定他们的首选项，即缺省选择哪个版本。另外，用户也可以指定其首选版本。
+
+第一个.bb名为\code{a_1.1.bb}，则其变量\code{PN}将为“\code{a}”，而变量\code{PV}将为\code{1.1}。
+
+如果还有一个文件\code{a_1.2.bb}，则bitbake缺省会选择\code{1.2}。
+不过，如果我们在bitbake所解析的.conf文件中定义了以下变量，可以改变这种情况。
+\startbb
+PREFERRED_VERSION_a = "1.1"
+\stopbb
+
+\example Using “bbfile collections”
+
+可能有多个bb文件库都包含某一个包。例如，可能有上游库的一份本地拷贝，并做了一些修改，可以这样使用：
+\startbb
+BBFILES = "/stuff/openembedded/*/*.bb /stuff/openembedded.modified/*/*.bb"
+BBFILE_COLLECTIONS = "upstream local"
+BBFILE_PATTERN_upstream = "^/stuff/openembedded/"
+BBFILE_PATTERN_local = "^/stuff/openembedded.modified/"
+BBFILE_PRIORITY_upstream = "5"
+BBFILE_PRIORITY_local = "10"
+\stopbb
+
+\stopcomponent
+

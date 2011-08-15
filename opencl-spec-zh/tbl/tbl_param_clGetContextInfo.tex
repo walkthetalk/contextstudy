@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%head%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEhead
+\bTR[background=color,backgroundcolor=gray]
+  \bTH \ctype{cl_context_info} \eTH
+  \bTH 返回类型 \eTH
+  \bTH \carg{param_value}中所返回的信息 \eTH
+  \eTR
+\eTABLEhead
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEbody
+
+\clenumretdesc{CL_CONTEXT_REFERENCE_COUNT}{cl_unit}{
+  返回\carg{context}的引用计数。
+\footnote{此引用计数在返回之刻就已过时。在应用中一般不太适用。提供此特性主要是为了检测内存泄漏。}
+}
+
+\clenumretdesc{CL_CONTEXT_NUM_DEVICES}{cl_unit}{
+  返回\carg{context}中\cnglo{device}的数目。
+}
+
+\clenumretdesc{CL_CONTEXT_DEVICES}{cl_device_id[]}{
+  返回\carg{context}中\cnglo{device}的清单。
+}
+
+\clenumretdesc{CL_CONTEXT_PROPERTIES}{cl_context_properties[]}{
+  返回\capi{clCreateContext}或\capi{clCreateContextFromType}中所指定的参数\carg{properties}。
+
+  \capi{clCreateContext}或\capi{clCreateContextFromType}中所指定的参数\carg{properties}是用来创建\cnglo{context}的。
+  如果此参数不是\cenum{NULL}，实现必须返回参数\carg{properties}的值。则必须将其值迒回。
+  而如果此参数是\cenum{NULL}，实现可以选择将\carg{param_value_size_ret}置为0，即没有返回属性值，或者仅在\carg{param_value}所指内存中返回属性值0（0用作属性清单的终止标记）。
+}
+
+\eTABLEbody
+

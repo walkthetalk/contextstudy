@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%head%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEhead
+\bTR[background=color,backgroundcolor=gray]
+  \bTH cl\_platform\_info \eTH
+  \bTH 返回类型 \eTH
+  \bTH 描述 \eTH \eTR
+\eTABLEhead
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEbody
+
+\clenumretdesc{CL_PLATFORM_PROFILE}{
+    char[]
+}{
+    \scopencl\scprofile字符串。返回实现所支持的\scprofile的名字，此名字可能是下列中的一个：
+    \startigBase
+    \item FULL\_PROFILE——如果此实现支持\scopencl规范（核心规范所定义的功能，不需要支持任何扩展）。
+    \item EMBEDDED\_PROFILE——如果此实现支持\scopencl\scembpf。\scembpf是对应版本\scopencl
+    的一个子集。\scclver的\scembpf在\todo{secion 10}中有所描述。
+    \stopigBase
+\footnote{对于\scopencl查询函数，如果所查询的信息类型是char[]，则会返回
+    一个以null结尾的字符串。}
+}
+
+\clenumretdesc{CL_PLATFORM_VERSION}{char[]}{
+    \scopencl版本字符串。返回此实现所支持的\scopencl版本。此字符串格式如下：
+
+    {\ftRef \scopencl<space >< major\_version.minor\_version >< space >< platform-specific information >}
+
+    所返回的{\ftRef major\_version.minor\_version}将是1.1。    
+}
+
+\clenumretdesc{CL_PLATFORM_NAME}{char[]}{
+    平台的名字
+}
+
+\clenumretdesc{CL_PLATFORM_VENDOR}{char[]}{
+    平台供应商的名字
+}
+
+\clenumretdesc{CL_PLATFORM_EXTENSIONS}{char[]}{
+    返回此平台所支持的扩展名的清单，以空格分隔（扩展名本身不包含空格）。与此平台相关联的所有\cnglo{device}都要支持此处定义的扩展。
+}
+
+\eTABLEbody
+

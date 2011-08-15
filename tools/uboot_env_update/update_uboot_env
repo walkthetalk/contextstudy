@@ -1,0 +1,66 @@
+#! /bin/bash
+############################ tools
+#the reg exp for mac match
+ETHER_MAC_EXP="\([0-9a-zA-Z]\{2\}\:\)\{5\}[0-9a-zA-Z]\{2\}"
+IPV4_EXP_S="\(25[0-5]\|2[0-4][0-9]\|1[0-9][0-9]\|[1-9][0-9]\|[0-9]\)"
+IPV4_EXP="${IPV4_EXP_S}\.${IPV4_EXP_S}\.${IPV4_EXP_S}\.${IPV4_EXP_S}"
+
+
+ORI_ENV_TXT="./uboot_env_ori.txt"
+FINAL_ENV_BIN="./uboot_env.final"
+
+check_result()
+{
+	if [ "$1" != "0" ]; then
+		echo "ERROR: $2 ($1)"
+		exit $1
+	fi
+}
+
+if [ "$#" != "2" -o "$1" = "--help" ]; then
+	echo ""
+	echo "usage: update_uboot_env <file_name> <dev_file>"
+	echo ""
+	exit 0
+fi
+
+ENV_DEV_FILE="$2"
+NEW_ENV_TXT="$1"
+
+################################# read original environment ####################
+echo "reading old uboot environment..."
+./read_uboot_env -i "${ENV_DEV_FILE}" -o "${ORI_ENV_TXT}"
+check_result $? "read uboot env"
+
+#func <env_name> <exp> <src_file>
+get_env_from_txt()
+{
+	TMP_VAR=`grep "^$1=$2$" "$3" | tr -d "^$1=" | grep "^$2$"`
+	echo "${TMP_VAR}"
+}
+
+ENV_IF_MAC1=`get_env_from_txt "ethaddr" "${ETHER_MAC_EXP}" "${ORI_ENV_TXT}"`
+ENV_IF_MAC2=`get_env_from_txt "eth1addr" "${ETHER_MAC_EXP}" "${ORI_ENV_TXT}"`
+ENV_IPADDR=`get_env_from_txt "ipaddr" "${IPV4_EXP}" "${ORI_ENV_TXT}"`
+ENV_SERVERIP=`get_env_from_txt "serverip" "${IPV4_EXP}" "${ORI_ENV_TXT}"`
+ENV_GATEWAYIP=`get_env_from_txt "gatewayip" "${IPV4_EXP}" "${ORI_ENV_TXT}"`
+
+#echo "NOTE: old ethaddr is '${ENV_IF_MAC1}'"
+#echo "NOTE: old eth1addr is '${ENV_IF_MAC2}'"
+#echo "NOTE: old ipaddr is '${ENV_IPADDR}'"
+#echo "NOTE: old serverip is '${ENV_SERVERIP}'"
+#echo "NOTE: old gatewayip is '${ENV_GATEWAYIP}'"
+
+############################## generate final env bin ##########################
+echo "generating new uboot environment..."
+./gen_uboot_env -m "${ENV_IF_MAC1}" -s "${ENV_IF_MAC2}" -a "${ENV_IPADDR}" \
+	-e "${ENV_SERVERIP}" -g "${ENV_GATEWAYIP}" -i "${NEW_ENV_TXT}" \
+	-o "${FINAL_ENV_BIN}"
+check_result $? "generate env bin file"
+
+flashcp -v "${FINAL_ENV_BIN}" "${ENV_DEV_FILE}"
+check_result $? "flashcp ${FINAL_ENV_BIN} to ${ENV_DEV_FILE}"
+
+exit 0
+
+

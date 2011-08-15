@@ -1,0 +1,83 @@
+#!/bin/bash
+FINAL_TXT_FILE=""
+ENV_SRC_FILE=""
+################################### parse arguments
+print_help()
+{
+	echo "usage: read_uboot_env [OPTIONS...]"
+	echo ""
+	echo "  -i {FILE}          input file name, store the user-friendly env"
+	echo "  -o {FILE}          output file name, uboot's env bin file"
+	echo "     --help          display this infomation"
+}
+
+if [ "$#" = "0" -o "$1" = "--help" ]; then
+	print_help
+	exit 0
+fi
+
+while getopts ":i:o:" opt
+do
+	case $opt in
+		i )
+			ENV_SRC_FILE=$OPTARG;;
+		o )
+			FINAL_TXT_FILE=$OPTARG;;
+		? )
+			echo "parse options error"
+			exit 1
+			;;
+	esac
+done
+shift $(($OPTIND - 1))
+
+if [ "${FINAL_TXT_FILE}" = "" -o "${ENV_SRC_FILE}" = "" ]; then
+	print_help
+	exit 1
+fi
+
+###################################### common subroutin
+#tmp_time=`date +%Y%m%d%H%M%S%N`
+file_main_dir="/tmp/sa735-uboot-read.XXXXXXXXXX"
+
+check_result_for_read()
+{
+	if [ "$1" != "0" ]; then
+		rm -rf ${file_main_dir}
+		echo "ERROR: $2 (1)"
+		exit $1
+	fi
+}
+
+#################################### create tmp directory
+file_main_dir=`mktemp -d ${file_main_dir}`
+check_result_for_read $? "mktemp ${file_main_dir}"
+
+#################################### read device file
+dd ibs=4 count=1 if=${ENV_SRC_FILE} of=${file_main_dir}/crc >& /dev/null
+check_result_for_read $? "dd to ${file_main_dir}/crc"
+if [ `ls -l ${file_main_dir}/crc | cut -d ' ' -f 5` != 4 ]; then
+	check_result_for_read 1 "crc's size is not 4"
+fi
+# skip first 4 bytes' CRC value
+dd ibs=4 skip=1 if=${ENV_SRC_FILE} of=${file_main_dir}/zerobin >& /dev/null
+check_result_for_read $? "dd to ${file_main_dir}/zerobin"
+if [ `ls -l ${file_main_dir}/zerobin | cut -d ' ' -f 5` != 131068 ]; then
+	echo "WARNING: zerobin's size is not 131068, maybe you are using old dtb"
+fi
+
+#################################### verify crc
+ori_crc=`od -A n -t x1 ${file_main_dir}/crc | tr -d ' ' | tr -s '[a-z]' '[A-Z]'`
+real_crc=`cksfv ${file_main_dir}/zerobin | tail -n 1 | cut -d ' ' -f 2`
+if [ "${ori_crc}" != "${real_crc}" ]; then
+	echo "WARNING: the uboot env has a bad crc"
+fi
+
+#################################### substitute '\0' with '\n'
+tr -s '\0' '\n' < ${file_main_dir}/zerobin > ${FINAL_TXT_FILE}
+check_result_for_read $? "tr -s"
+
+################################## clear
+rm -rf ${file_main_dir}
+exit 0
+

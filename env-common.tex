@@ -1,0 +1,255 @@
+% 拷贝自glib-notes，将默认中文字体改为了adobe的字体。
+
+\startenvironment env-common
+% C 代码高亮抄录模块
+\usemodule[pretty-c]
+
+% 中文字体模块，支持中西文字体设置与标点微排版
+% 下载地址: http://github.com/liyanrui/t-zhfonts
+\usemodule[zhfonts][style=rm, size=11pt]
+\setupzhfonts[feature][onum=yes, pnum=yes]
+
+\setupzhfonts
+[serif]
+[regular=adobesongstd,
+bold=adobeheitistd,
+italic=adobesongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[mono]
+[regular=adobekaitistd,
+bold=adobeheitistd,
+italic=adobekaitistd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[sans]
+[regular=wenquanyizenhei,%adobefangsongstd,
+bold=adobeheitistd,
+italic=wenquanyizenhei,%adobefangsongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts[latin, mono][regular=Monaco]
+
+% ascii 数学公式模块
+\usemodule[asciimath]
+
+\setupinteraction[state=start,
+  color=darkblue,
+  contrastcolor=darkblue, 
+  focus=standard]
+
+% 适合 A4 纸张打印的版式
+\setuplayout[backspace=25mm, 
+             width=135mm, 
+             rightmargin=30mm, 
+             topspace=20mm, 
+             header=15mm, 
+             footer=10mm, 
+             height=260mm,]
+\setuppagenumbering[alternative=doublesided]
+
+% 封面 layout
+\newdimen\AppendicesTextWidth
+\AppendicesTextWidth=\textwidth
+\advance\AppendicesTextWidth by\rightmarginwidth
+\definelayout[normal][width=\AppendicesTextWidth]
+
+% 页眉与页脚
+\setuppagenumbering[location=]
+
+\newdimen\headerwidth
+\headerwidth=\the\textwidth
+\advance\headerwidth by \rightmarginwidth
+\newdimen\LineWidth
+\LineWidth=2pt
+
+\def\HeaderFrame#1{%
+  \framed[width={\headerwidth}, 
+          frame=off,
+          offset=none,
+          bottomframe=on, 
+          framecolor=darkgray,
+          rulethickness=\LineWidth]{\ss#1}}
+\def\PageFrame{%
+  \inframed[width=14mm, 
+            height=6mm,
+            frame=off,
+            offset=0pt,
+            framecolor=darkgray,
+            background=color, 
+            backgroundcolor=darkgray]{\color[white]{\ssx\pagenumber}}}
+\def\HeadStr#1{\headnumber[#1]\hskip1em\getmarking[#1]}
+\def\RightHeader{\HeaderFrame{\HeadStr{section}\hfill\PageFrame\hbox to -\LineWidth{}}}
+\def\LeftHeader{\HeaderFrame{\hbox to -\LineWidth{}\PageFrame\hfill\HeadStr{chapter}}}
+
+\def\FooterFrame#1{%
+  \framed[width={\headerwidth}, 
+          frame=off,
+          offset=0pt]{#1}}
+\def\BookNameFrame[#1]{%
+  \framed[width=fit, 
+            height=fit,
+            frame=off,
+            offset=2pt,
+            background=color,
+            backgroundcolor=darkgray]{%
+    \color[white]{\ss \rotate[rotation=#1]{\docname}}}}
+\def\RightFooter{\FooterFrame{\hfill\BookNameFrame[-90]}}
+\def\LeftFooter{\FooterFrame{\BookNameFrame[90]\hfill}}
+
+\startsetups Text
+\setupheadertexts[text][\RightHeader][][][\LeftHeader]
+\setupfootertexts[text][\RightFooter][][][\LeftFooter]
+\stopsetups
+
+\startsetups Appendices
+\def\RightAppendicesHeader{\HeaderFrame{\ssx\getmarking[title]\hfill%
+                                        \PageFrame\hbox to -\LineWidth{}}}
+\def\LeftAppendicesHeader{\HeaderFrame{\hbox to -\LineWidth{}\PageFrame\hfill\ssx 附录}}
+\setupheadertexts[text][\RightAppendicesHeader][][][\LeftAppendicesHeader]
+\stopsetups
+
+\startsetups Empty
+\setupheadertexts[text][][][][]
+\setupfootertexts[text][][][][]
+\stopsetups
+
+% 标题
+\setupheads[indentnext=yes]
+\definepagebreak[headpagebreak][yes, header, footer, odd]
+\setuphead[chapter,title][header=empty, style=\ssc, page=headpagebreak,]
+\def\HeadOffset{\hbox to -3cm{}}
+\def\chaptercmd#1#2{\hbox to \hsize{#2\hfill\switchtobodyfont[48pt]{%
+                                    \color[darkgray]{#1}}\HeadOffset}}
+\setuphead[chapter][command=\chaptercmd,after={\blank[2cm]}]
+
+\def\ContentTitle#1{%
+  \inframed[width=fit, 
+            height=fit,
+            frame=off,
+            offset=4pt,
+            loffset=10mm,
+            roffset=10mm,
+            framecolor=darkgray,
+            background=color, 
+            backgroundcolor=darkgray]{\color[white]{#1}}}
+\def\titlecmd#1#2{\hbox to \hsize{\hfill%
+                        \ContentTitle{#2}\HeadOffset}}
+\setuphead[title][command=\titlecmd,after={\blank[2cm]}]
+\setuphead[section, subject][style=\ssa]
+
+% 段落
+\setupindenting[first,always,2em]
+\setupinterlinespace[line=1.5em]
+
+\setupfootnotes[bodyfont=9pt]
+
+% 抄录
+\setuplinenumbering[location=inmargin,color=darkgreen]
+\setuptype[style=\ttx]
+\setuptyping[bodyfont=9pt, numbering=line, before=\blank, after=\blank]
+\setupitemize[paragraph, packed, broad]
+
+% 目录
+\setupcombinedlist[content][alternative=c,interaction=all]
+\setuplist[section][margin=2em,]
+
+% 封面
+\defineoverlay[CruxOrnament][\useMPgraphic{crux}]
+\def\CruxFramed#1{\framed[frame=off,width=12cm,height=fit]{#1}}
+
+\startuseMPgraphic{crux}
+color ccc ;
+pair p, h[], v[] ;
+u := \overlaywidth ; v := \overlayheight ;
+hdelta := .15u ; vdelta := .03v ;
+drawoptions (withpen pensquare scaled 2pt) ;
+randomseed := day + time*epsilon ;
+show time * epsilon ;
+for i :=1 upto 128 :
+    ccc := (uniformdeviate (1), uniformdeviate (1), uniformdeviate (1)) ;
+    p := (uniformdeviate (u), uniformdeviate (v)) ;
+    h0 := (xpart (p) - uniformdeviate (hdelta) , ypart (p)) ;
+    h1 := (xpart (p) + uniformdeviate (hdelta) , ypart (p)) ;
+    v0 := (xpart (p), ypart (p) - uniformdeviate (vdelta)) ;
+    v1 := (xpart (p), ypart (p) + uniformdeviate (vdelta)) ;
+    draw h0 -- h1 withcolor transparent(1,.4,ccc) ;
+    draw v0 -- v1 withcolor transparent(1,.4,ccc) ;
+endfor ;
+\stopuseMPgraphic
+
+\startsetups BG
+\defineoverlay[bg][\useMPgraphic{crux}]
+\setupbackgrounds[page][background=bg]
+\stopsetups
+\definestartstop[BG][commands=\setups{BG}]
+
+% misc
+\setupheadtext[en][pubs=参考文献]
+\setupheadtext[en][content=目录]
+\setupheadtext[en][index=索引]
+\setuplabeltext[en][figure=图\;]
+\setuplabeltext[en][table=表\;]
+\setupcaptions[style=\tfx,headstyle=\normal]
+
+%%%%%%%%%%%%%%%   字体
+\define\ftref{\rm\it}
+\define\ftemp{\rm\bf}
+\definetype[code][
+  style=\tt\tf,
+]
+%%%%%%%%%%%%%%%   枚举
+% igBase
+\defineitemgroup[igBase][levels=1]
+\setupitemgroup[igBase][each]
+[packed,joinedup,]
+[
+  leftmargin=2em,
+  before=,
+  inbetween=,
+  after=,
+]
+\setupitemgroup[igBase][1][1]
+%%%%%%%%%%%%%%  例子
+\defineenumeration[example][
+  text=例,
+  location=inleft,
+  width=fit,
+  headstyle=bold,
+  headcolor=darkgreen,
+  prefix=yes,
+  prefixsegments=chapter,
+  right={.~},
+]
+\setupnumber[example][way=bychapter]
+%%%%%%%%%%%%%%   代码
+\definetextbackground
+  [verb]
+  [frame=on,location=paragraph,
+   before=,after=,
+   leftoffset=0.1em,rightoffset=0.1em,
+   topoffset=0.1em,bottomoffset=0.1em,
+   rulethickness=0.75pt]
+\defineframedtext[framecode][
+  width=fit,offset=0pt,background=color,backgroundcolor=lightgray,
+]
+\definetyping[bb][%option=c,
+  bodyfont=8pt,
+%  before={\startframecode\startlinenumbering},
+  before={\blank[0.5em]\starttextbackground[verb]},
+%  after={\stoplinenumbering\stopframecode},
+  after={\stoptextbackground\blank[0.5em]},
+  margin=no,
+  tab=8,
+  numbering=line,
+]
+
+% 数学公式自动设置标点间距
+\setupmathematics[autopunctuation=no]
+
+% 开启 ascii 模式 % 如果asciimode后面有%开始的注释，则会导致多出两页封面
+\asciimode
+
+\stopenvironment

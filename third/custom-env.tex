@@ -1,0 +1,152 @@
+%% Defining \proclaim style Remark, Lemmas, Theorem, Corollary, etc
+\defineenumeration[remark]
+	[text=Remark,
+	location=serried,
+	width=fit,
+	headstyle=bold,
+    headcolor=darkgreen,	
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+\setupnumber[remark][way=bysection]
+
+\defineenumeration[lemma]
+	[text=Lemma,
+	location=serried,
+	width=fit,
+	counter=remark, % only use counter of remark
+	prefix=yes,
+	prefixsegments=chapter:section,
+	style=slanted,
+	headstyle=bold,
+    headcolor=red,	
+	right={.~}]
+
+\defineenumeration[theorem]
+	[text=Theorem,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=slanted,
+	headstyle=bold,
+    headcolor=darkred,	
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+
+\defineenumeration[definition]
+	[text=Definition,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=normal,
+	headstyle=bold,
+    headcolor=darkblue,	
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+	
+\defineenumeration[corollary]
+	[text=Corollary,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=italic,
+	headstyle=bold,
+    headcolor=red,
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+
+\definecolor [blue:7] [r=0.40, g=0.40, b=1.00]
+\definecolor [blue:8] [r=0.30, g=0.30, b=1.00]
+
+\defineenumeration[example]
+	[text=Example,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=normal,
+	headstyle=bold,
+    headcolor=blue:7,
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+	
+\defineenumeration[exercise]
+	[text=Exercise,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=normal,
+	headstyle=bold,
+    headcolor=green,
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+
+\defineenumeration[proposition]
+	[text=Proposition,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=slanted,
+	headstyle=bold,
+    headcolor=orange,	
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+
+\defineenumeration[fact]
+	[text=Fact,
+	location=serried,
+	width=fit,
+	counter=remark,
+	style=normal,
+	headstyle=bold,
+    headcolor=green:7,	
+    prefix=yes,
+	prefixsegments=chapter:section,
+	right={.~}]
+
+
+\definedescription
+  [proof]
+  [
+   location=serried,
+   width=broad,
+	text=Proof.,
+	headcolor=black,
+    headstyle=cap,
+    titlestyle=italic,
+    distance=1ex,
+    style=normal,
+    titleleft=,
+    titleright=,
+    stopper=.,
+    closesymbol=\math{\square},
+  ]
+
+\definedescription
+  [solution]
+  [
+   location=serried,
+   width=broad,
+	text=Solution.,
+	headcolor=black,
+    headstyle=cap,
+    titlestyle=italic,
+    distance=1ex,
+    style=normal,
+    titleleft=,
+    titleright=,
+    stopper=.,
+    closesymbol=\math{\square},
+  ]
+\starttext
+\chapter{One}
+\section{One-One}
+\starttheorem
+This is a theorem.
+\stoptheorem
+\stoptext

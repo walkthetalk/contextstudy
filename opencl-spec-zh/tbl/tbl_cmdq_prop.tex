@@ -1,0 +1,26 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%head%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEhead
+\bTR[background=color,backgroundcolor=gray]
+  \bTH \cnglo{cmdq}的属性 \eTH
+  \bTH 描述 \eTH
+  \eTR
+\eTABLEhead
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bTABLEbody
+
+\clenumdesc{CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE}{
+  用来确定\cnglo{cmdq}中的\cnglo{cmd}是\cnglo{inordexec}还是\cnglo{outordexec}。
+  如果设置了此属性，就\cnglo{outordexec}，否则\cnglo{inordexec}。
+
+  详细描述请参考\todo{节5.11}。
+}
+
+\clenumdesc{CL_QUEUE_PROFILING_ENABLE}{
+  使能或禁止对\cnglo{cmd}的profile。如果设置了此属性，则使能，否则禁止。
+
+  详细描述请参考\todo{节5.12}。
+}
+
+\eTABLEbody
+
