@@ -1,0 +1,47 @@
+\define\docname{Structured Register Definition}
+\environment env-common-en
+\starttext
+
+\startBG
+\setuplayout[normal]
+\startstandardmakeup
+\midaligned{\CruxFramed{\ssd \docname}}
+\vfil
+\stopstandardmakeup
+\stopBG
+
+\startfrontmatter
+  \setuplayout[reset]
+    \setuppagenumbering[conversion=romannumerals]
+    \setuppagenumber[number=1]
+    \completecontent
+%    \completelistoffigures
+%    \completelistoftables
+\stopfrontmatter
+
+\startbodymatter
+    \setuppagenumbering[conversion=numbers]
+    \setuppagenumber[number=1]
+    \setups{Text}
+    \component raise
+    \component resolve
+%    \component file-download-support
+%    \component commands
+\page
+\setups{Empty}
+\stopbodymatter
+
+\startappendices
+\setups{Appendices}
+\title{Bibliography}
+\placepublications
+\title{索引}
+\placeindex
+\page
+\setups{Empty}
+\stopappendices
+
+\startbackmatter
+\stopbackmatter
+
+\stoptext
