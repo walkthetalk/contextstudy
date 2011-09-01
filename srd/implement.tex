@@ -94,8 +94,23 @@ Let's reverse the arguments next. We can get it in mind easily:
 \startccode
 reverse(x, ...) PP_NARG(##__VA_ARGS__) == 0 ? : reverse(##__VA_ARGS__, x)
 \stopccode
-Unfortunately, it can't work, because the C's macro don't allow recurrence, even you
+Unfortunately, it can't work, because the C's macro don't allow recurrence, even
 use two macro, reference each other.
+
+But - without C++'s meta program - we can do that like:
+\startccode
+#define REVERSE_16(x, y, ...) REVERSE_15(y, ##__VA_ARGS__), x
+#define REVERSE_15(x, y, ...) REVERSE_14(y, ##__VA_ARGS__), x
+#define REVERSE_14(x, y, ...) REVERSE_13(y, ##__VA_ARGS__), x
+...
+#define REVERSE_3(x, y, ...) REVERSE_2(y, ##__VA_ARGS__), x
+#define REVERSE_2(x, y) y, x
+
+#define REVERSE(x, ...) REVERSE_(PP_NARG(x, ##_VA_ARGS__), x, ##_VA_ARGS__)
+#define REVERSE_(n, x, ...) REVERSE_##n(x, ##_VA_ARGS__)
+\stopccode
+Of course, the maximum number of arguments it supports is 16, but you can extends
+it easily.
 
 \stopcomponent
 
