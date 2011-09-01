@@ -197,6 +197,13 @@ endfor ;
   right={.~},
 ]
 \setupnumber[example][way=bychapter]
+%%%%%%%%%%%%%% URL
+\setupurl[
+  style=,	%normal bold slanted boldslanted type cap small... command
+  urlalternative=,	%none both before after
+  urlspace=,	%yes no
+  color=blue,
+]
 %%%%%%%%%%%%%%   代码
 \definetextbackground
   [verb]
@@ -205,8 +212,10 @@ endfor ;
    leftoffset=0.1em,rightoffset=0.1em,
    topoffset=0.1em,bottomoffset=0.1em,
    rulethickness=0.75pt]
-\defineframedtext[framecode][
+\defineframedtext[framedtextsec][
   width=fit,offset=0pt,background=color,backgroundcolor=lightgray,
+  before=,
+  after=,
 ]
 \definetyping[bb][%option=c,
   bodyfont=8pt,

@@ -2,7 +2,7 @@
 
 \startenvironment env-common
 % C 代码高亮抄录模块
-\usemodule[pretty-c]
+% \usemodule[pretty-c]
 
 % 中文字体模块，支持中西文字体设置与标点微排版
 % 下载地址: http://github.com/liyanrui/t-zhfonts
@@ -37,16 +37,16 @@ bolditalic=adobeheitistd]
 
 \setupinteraction[state=start,
   color=darkblue,
-  contrastcolor=darkblue, 
+  contrastcolor=darkblue,
   focus=standard]
 
 % 适合 A4 纸张打印的版式
-\setuplayout[backspace=25mm, 
-             width=135mm, 
-             rightmargin=30mm, 
-             topspace=20mm, 
-             header=15mm, 
-             footer=10mm, 
+\setuplayout[backspace=25mm,
+             width=135mm,
+             rightmargin=30mm,
+             topspace=20mm,
+             header=15mm,
+             footer=10mm,
              height=260mm,]
 \setuppagenumbering[alternative=doublesided]
 
@@ -236,6 +236,17 @@ endfor ;
   width=fit,offset=0pt,background=color,backgroundcolor=lightgray,
 ]
 \definetyping[bb][%option=c,
+  bodyfont=8pt,
+%  before={\startframecode\startlinenumbering},
+  before={\blank[0.5em]\starttextbackground[verb]},
+%  after={\stoplinenumbering\stopframecode},
+  after={\stoptextbackground\blank[0.5em]},
+  margin=no,
+  tab=8,
+  numbering=line,
+]
+
+\definetyping[ccode][%option=c,
   bodyfont=8pt,
 %  before={\startframecode\startlinenumbering},
   before={\blank[0.5em]\starttextbackground[verb]},
