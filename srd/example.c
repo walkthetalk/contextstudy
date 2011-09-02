@@ -1,120 +1,4 @@
-\startcomponent implement
-\product prd-srd
 
-\chapter{IMPLEMENTATION}
-\placecontent
-The implementation must deal with the two problem mentioned in last chapter.
-
-\section{deal with "endian mode"}
-Without gcc's native support, we still has another weapon, \code{MACRO}. Think
-that, we defined a bit-field list in order of msb->lsb:
-\startccode
-SRD_REG_DEF(
-	bf1 : 2,
-	bf2 : 4,
-	bf3 : 3,
-	bf4 : 7);
-\stopccode
-in LE mode, we need lsb->msb, so
-the MACRO should reverse it to lsb->msb:
-\startccode
-bf4 : 7;
-bf3 : 3;
-bf2 : 4;
-bf1 : 2;
-\stopccode
-but for BE mode, just hold it:
-\startccode
-bf1 : 2;
-bf2 : 4;
-bf3 : 3;
-bf4 : 7;
-\stopccode
-
-for the example, we can implement \code{SRD_REG_DEF} as that:
-\startccode
-#if defined(__LITTLE_ENDIAN)
-#define SRD_REG_DEF(BF1, BF2, BF3, BF4) BF4;BF3;BF2;BF1
-#elif defined(__BIG_ENDIAN)
-#define SRD_REG_DEF(BF1, BF2, BF3, BF4) BF1;BF2;BF3;BF4
-#endif
-\stopccode
-
-\subsection{the number of bit-fields}
-Because for every register, the number of bit-fields is not fixed, we should
-use \code{Variadic Macro}, e.g. for BE mode:
-\startccode
-#define SRD_REG_DEF(BFX, ...) BFX, ##__VA_ARGS__
-\stopccode
-
-But what about LE mode? To reverse the macro arguments, we must know the number
-of arguments first. The maxmium register width supported is 64bit.
-\startccode
-#define PP_NARG(...) PP_NARG_(__VA_ARGS__)
-#define PP_NARG_(...) \
-	PP_NARG__(x, ##__VA_ARGS__, PP_RSEQ_N())
-#define PP_NARG__(...) \
-	PP_ARG_N(__VA_ARGS__)
-#define PP_ARG_N( \
-	 _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, \
-	_10,_11,_12,_13,_14,_15,_16,_17,_18,_19, \
-	_20,_21,_22,_23,_24,_25,_26,_27,_28,_29, \
-	_30,_31,_32,_33,_34,_35,_36,_37,_38,_39, \
-	_40,_41,_42,_43,_44,_45,_46,_47,_48,_49, \
-	_50,_51,_52,_53,_54,_55,_56,_57,_58,_59, \
-	_60,_61,_62,_63,_64,N,...) N
-#define PP_RSEQ_N() \
-	64,63,62,61,60,                   \
-	59,58,57,56,55,54,53,52,51,50, \
-	49,48,47,46,45,44,43,42,41,40, \
-	39,38,37,36,35,34,33,32,31,30, \
-	29,28,27,26,25,24,23,22,21,20, \
-	19,18,17,16,15,14,13,12,11,10, \
-	9,8,7,6,5,4,3,2,1,0
-\stopccode
-The first macro \code{PP_NARG} is used to get the argument number. E.g. \code{
-PP_NARG()} is \code{0} after extended. The second macro \code{PP_NARG_} will add
-one argument \code{x} into the arguments, and followed by a number list(64~0).
-\code{PP_ARG_N} will return the 66th argument. If original arguments is null, then
-the \code{PP_NARG__} will be extended to:
-\startccode
-x, 64, 63, ..., 2, 1, 0
-\stopccode
-The 66th argument is \code{0}, which is the final result. what about only one
-argument?
-\startccode
-x, arg1, 64, 63, ..., 2, 1, 0
-\stopccode
-The 66th argument - \code{1} is the final result.
-
-And so forth...
-
-\subsection{reverse}
-Let's reverse the arguments next. We can get it in mind easily:
-\startccode
-reverse(x, ...) PP_NARG(##__VA_ARGS__) == 0 ? : reverse(##__VA_ARGS__, x)
-\stopccode
-Unfortunately, it can't work, because the C's macro don't allow recurrence, even
-use two macro, reference each other.
-
-But - without C++'s meta program - we can do that like:
-\startccode
-#define REVERSE_16(x, y, ...) REVERSE_15(y, ##__VA_ARGS__), x
-#define REVERSE_15(x, y, ...) REVERSE_14(y, ##__VA_ARGS__), x
-#define REVERSE_14(x, y, ...) REVERSE_13(y, ##__VA_ARGS__), x
-...
-#define REVERSE_3(x, y, ...) REVERSE_2(y, ##__VA_ARGS__), x
-#define REVERSE_2(x, y) y, x
-
-#define REVERSE(x, ...) REVERSE_(PP_NARG(x, ##_VA_ARGS__), x, ##_VA_ARGS__)
-#define REVERSE_(n, x, ...) REVERSE_##n(x, ##_VA_ARGS__)
-\stopccode
-Of course, the maximum number of arguments it supports is 16, but you can extends
-it easily.
-
-\section{result}
-By now, we have conquered all the technique problems. We got that finally:
-\startccode
 // count the arguments
 #define PP_NARG(...) PP_NARG_(__VA_ARGS__)
 #define PP_NARG_(...) \
@@ -208,11 +92,9 @@ By now, we have conquered all the technique problems. We got that finally:
 #else
 #error "I don't know the endian mode"
 #endif
-\stopccode
 
-\subsection{usage}
-You can extends it to common use. Here is the usage:
-\startccode
+//example
+
 #define SRD_TEST_REG(name, bf, ...) \
 	union { \
 		volatile u_int16_t v; \
@@ -233,7 +115,5 @@ struct test_chip_t {
 		c : 5,
 		d : 4);
 };
-\stopccode
 
-\stopcomponent
 
