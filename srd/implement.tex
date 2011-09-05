@@ -112,9 +112,50 @@ But - without C++'s meta program - we can do that like:
 Of course, the maximum number of arguments it supports is 16, but you can extends
 it easily.
 
+\section{deal with "access width"}
+To avoid the compiler optimization, if using gcc<4.6, we can't access the bit-
+field directly, but we can:
+\startccode
+(typeof(reg)) tmp = reg;
+tmp.bfx = 123;
+reg = tmp;
+\stopccode
+
 \section{result}
 By now, we have conquered all the technique problems. We got that finally:
 \startccode
+/*
+ * you need define your own macro to distinguish the kernel space and user space.
+ * and in kernel space, we add __BYTE_ORDER to adapt to user space, maybe it is
+ * not the best manner, you can go with your own.
+ */
+#if defined(__KERNEL_SPACE__)
+#include <asm/byteorder.h>
+
+#if defined(__LITTLE_ENDIAN)
+#if defined(__BIG_ENDIAN)
+#error "both big and little endian are defined."
+#endif
+#endif
+
+#if defined(__LITTLE_ENDIAN)
+
+#define __BYTE_ORDER __LITTLE_ENDIAN
+#define __BIG_ENDIAN 4321
+
+#elif defined(__BIG_ENDIAN)
+
+#define __BYTE_ORDER __BIG_ENDIAN
+#define __LITTLE_ENDIAN 1234
+
+#else
+#error "I don't know big or little"
+#endif
+
+#else
+#include <endian.h>
+#endif
+
 // count the arguments
 #define PP_NARG(...) PP_NARG_(__VA_ARGS__)
 #define PP_NARG_(...) \
@@ -221,6 +262,23 @@ You can extends it to common use. Here is the usage:
 		} _bf; \
 	} name
 
+/*
+ * the *SRD_RBF* and *SRD_WBF* is used to read/write bit-field.
+ * @param:
+ *     @reg	- the register
+ *     @bf	- the bit-field
+ *     @p	- the pointer pointed to the data store
+ */
+#define SRD_RBF(reg, bf, p) do { \
+		(typeof(reg)) tmp = { .v = (reg).v, };
+		*(p) = tmp._bf.bf;
+	} while(0)
+#define SRD_WBF(reg, bf, p) do { \
+		(typeof(reg)) tmp = { .v = (reg).v, };
+		tmp._bf.bf = *(p);
+		(reg).v = tmp.v;
+	} while(0)
+
 struct test_chip_t {
 	SRD_TEST_REG(test_reg1,
 		a : 3,
@@ -232,8 +290,18 @@ struct test_chip_t {
 		b : 4,
 		c : 5,
 		d : 4);
-};
+} test_chip;
+
+u_int16_t data = 0;
+
+SRD_RBF(test_chip.test_reg1, b, &data);
+SRD_WBF(test_chip.test_reg2, d, &data);
 \stopccode
+
+\section{NOTE}
+In the example, we access the register directly, at least on powerpc's localbus.
+If you are using other CPUs or other bus, you need read the manual for further
+information. And, maybe the barrier is needed.
 
 \stopcomponent
 
