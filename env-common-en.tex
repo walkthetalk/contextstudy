@@ -11,6 +11,9 @@
   color=darkblue,
   contrastcolor=darkblue,
   focus=standard]
+% 默认打开左侧书签
+\setupinteractionscreen[option=bookmark]
+\placebookmarks[chapter,section,subsection][chapter]
 
 % 适合 A4 纸张打印的版式
 \setuplayout[backspace=25mm,
@@ -79,7 +82,7 @@
 \startsetups Appendices
 \def\RightAppendicesHeader{\HeaderFrame{\ssx\getmarking[title]\hfill%
                                         \PageFrame\hbox to -\LineWidth{}}}
-\def\LeftAppendicesHeader{\HeaderFrame{\hbox to -\LineWidth{}\PageFrame\hfill\ssx 附录}}
+\def\LeftAppendicesHeader{\HeaderFrame{\hbox to -\LineWidth{}\PageFrame\hfill\ssx Appendix}}
 \setupheadertexts[text][\RightAppendicesHeader][][][\LeftAppendicesHeader]
 \stopsetups
 
@@ -160,11 +163,11 @@ endfor ;
 \definestartstop[BG][commands=\setups{BG}]
 
 % misc
-\setupheadtext[en][pubs=参考文献]
-\setupheadtext[en][content=目录]
-\setupheadtext[en][index=索引]
-\setuplabeltext[en][figure=图\;]
-\setuplabeltext[en][table=表\;]
+\setupheadtext[en][pubs=bibliography]
+\setupheadtext[en][content=contents]
+\setupheadtext[en][index=index]
+\setuplabeltext[en][figure=figure\;]
+\setuplabeltext[en][table=table\;]
 \setupcaptions[style=\tfx,headstyle=\normal]
 
 %%%%%%%%%%%%%%%   字体
