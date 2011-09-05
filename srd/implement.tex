@@ -303,6 +303,47 @@ In the example, we access the register directly, at least on powerpc's localbus.
 If you are using other CPUs or other bus, you need read the manual for further
 information. And, maybe the barrier is needed.
 
+And there are many further issues you need to consider, if you want to use it in
+your product. E.g. \code{RO/WO/RW}, of course, for \code{RO}, you can add
+\code{const} preceding the bit-field name, but what about \code{WO}? Maybe there
+are some address unused in the address space of one chip, and I'm sure you don't
+want code like:
+\startccode
+struct xx {
+	...
+	u_int16_t unused1[32];
+	...
+	u_int16_t unused2[16];
+	...
+};
+\stopccode
+For this problem, I can share my idea with you:
+\startccode
+/*
+ * for unused registers
+ * @param:
+ *     type	- register type, u_int{8|16|32}_t
+ *     start	- the first register offset in the gap region, closed
+ *     end	- the last register offset in the gap region, open
+ * the gap region is [start, end), the start and end can't be expression, only
+ * value be supported.
+ */
+#define SRD_GAP(type, start, end) type gap_##start_##end[(end) - (start)]
+\stopccode
+
+Finally, how to ensure we write the right bit-field definition? One aspect of it
+is the size. My trial:
+\startccode
+struct xxx {
+	...
+};
+
+typedef char xxx_size[sizeof(struct xxx) == N ? 1 : -1];
+\stopccode
+In which, the \code{N} is your expect.
+
+And ..., it's the show time of you. Good luck!!!
+
 \useURL[author-email][mailto:niqingliang@insigma.com.cn][][niqingliang@insigma.com.cn]
 \useURL[author-blog][http://niqingliang2003.wordpress.com][][http://niqingliang2003.wordpress.com]
 If any problem, please contact author \from[author-email], or visit \from[author-blog].
