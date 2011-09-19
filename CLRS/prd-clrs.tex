@@ -1,0 +1,45 @@
+\define\docname{算法导论笔记}
+\environment env-common
+\starttext
+
+\startBG
+\setuplayout[normal]
+\startstandardmakeup
+\midaligned{\CruxFramed{\ssd \docname}}
+\vfil
+\stopstandardmakeup
+\stopBG
+
+\startfrontmatter
+  \setuplayout[reset]
+    \setuppagenumbering[conversion=romannumerals]
+    \setuppagenumber[number=1]
+    \completecontent
+%    \completelistoffigures
+%    \completelistoftables
+\stopfrontmatter
+
+\startbodymatter
+    \setuppagenumbering[conversion=numbers]
+    \setuppagenumber[number=1]
+    \setups{Text}
+    \component roac
+    \component getstart
+\page
+\setups{Empty}
+\stopbodymatter
+
+\startappendices
+\setups{Appendices}
+\title{Bibliography}
+\placepublications
+\title{Indices}
+\placeindex
+\page
+\setups{Empty}
+\stopappendices
+
+\startbackmatter
+\stopbackmatter
+
+\stoptext
