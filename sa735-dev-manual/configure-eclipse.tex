@@ -1,0 +1,53 @@
+\startcomponent configure-eclipse
+\product prd-sa735-dev-manual
+
+\setupexternalfigures[directory=fig]
+
+\useURL
+  [eclipse-optimus-address]
+  [http://10.10.20.149/optimustools/eclipse-optimus.tar.xz]
+  []
+  [内部服务器]
+\useURL
+  [yocto-official-doc-address]
+  [http://www.yoctoproject.org/docs/current/adt-manual/adt-manual.html\#adt-eclipse]
+  []
+  [yocto 官方文档]
+
+\chapter{配置 Eclipse}
+首先需要为 Eclipse 安装一些插件，简单起见，我们直接从\from[eclipse-optimus-address]下载。
+关于 Eclipse 相关内容，你也可以参考\from[yocto-official-doc-address]。
+
+为了更方便的使用 Eclipse， yocto 为其开发了一个插件： Yocto ADT。
+下面主要说一下此插件的配置。
+
+首先打开菜单\code{Window -> Preferences}，在左侧栏中选中\code{Yocto ADT}，
+我们可以看到如\in{图 }{}[fig: adt-plugin]所示的配置界面。
+\placefigure[here,force][fig: adt-plugin]
+   {Yocto ADT 配置界面}
+   {\externalfigure[adt-plugin.png][scale=1500]}
+然后在\code{Cross Compiler Options:}中选中\code{Build system derived toolchain}；
+
+点击 \code{Toolchain Root Location:} 右边的 \code{Browse} 按钮
+选择目录 \code{<dev-env-dir>}。这时 \code{Target Architecture:}
+右侧下拉菜单中会自动检测，本例中显示的是 \code{i586-insigma-linux}。
+
+点击 \code{Sysroot Location:} 右边的 \code{Browse} 按钮
+选择目录：
+\startccode
+<dev-env-dir>/sysroot_for_eclipse
+\stopccode
+
+选中 \code{Target Options:} 中的 \code{QEMU}，然后点击 \code{Kernel:} 右侧的
+\code{Browse} 按钮选择内核，本例中为
+\startccode
+<dev-env-dir>/tmp/deploy/images/bzImage-sa735emu.bin
+\stopccode
+\placefigure[here,force]
+   {Yocto ADT 配置完成}
+   {\externalfigure[adt-plugin-cfg.png][scale=1500]}
+点击按钮 \code{OK} 关闭配置界面。
+
+
+\stopcomponent
+

@@ -1,0 +1,111 @@
+\startcomponent sa735-project
+\product prd-sa735-dev-manual
+
+\setupexternalfigures[directory=fig]
+
+\chapter{在 eclipse 中创建 sa735 项目}
+首先要把sa735的源码下载到本地：
+\startccode
+cd <src_dir>
+hg clone hg://iot-hg.insigma.com.cn/liye/omt
+hg clone hg://iot-hg.insigma.com.cn/niqingliang/sa735
+\stopccode
+其中 \code{<src_dir>} 就是存储源码的目录。
+至于后面两步克隆，前者是下载平台代码，后者是下载产品代码。
+
+然后对我们的软件进行配置：
+\startccode
+source <dev-env-dir>/tmp/environment-setup-i586-insigma-linux
+cd <src_dir>/sa735/build-optimus/emu
+<src_dir>/bintools-optimus/configure
+\stopccode
+第一步的作用是设置环境变量，以便使用我们的开发环境。
+本例我们用的模拟版本的软件，所以第二步用的目录是 \code{emu}，否则请使用目录 \code{dev}。
+
+下面我们在 Eclipse 下创建新工程。
+
+打开 Eclipse，点击菜单 \code{File -> New -> C++ Project}，
+可以看到\in{图 }{}[fig: new prj]。
+
+首先给工程起个名字，如 sa735，将其输入到 \code{Project name:} 右侧的文本框中。
+然后在左侧栏 \code{Project type:} 中展开 \code{Yocto ADT Project}，
+选中其中的 \code{Empty Project}。
+然后取消复选框 \code{Use default location}，这时 \code{Location:} 一行会变成可用状态。
+点击右侧的 \code{Browse...} 按钮选择我们的 Makefile 所在目录，本例中是
+\startccode
+<src_dir>/sa735/build-optimus/emu
+\stopccode
+这时如\in{图 }{}[fig: new prj]，然后点击按钮 \code{Finish}，如果有提示，直接点击 \code{OK}，至此，我们成功创建了工程。
+\placefigure[here,force][fig: new prj]{新建工程}
+   {\startcombination
+      {\externalfigure[new-cpp-prj.png][width=.5\textwidth]} {\placefloatcaption{新建工程}}
+      {\externalfigure[sa735prj.png][width=.5\textwidth]} {\placefloatcaption{配置工程}}
+    \stopcombination}
+
+然后在 Eclipse 主界面的 \code{Project Explorer} 中选中我们所创建的项目。
+
+% 此部分暂时不做
+%下面我们修改一下工程的配置，点击 \code{Project -> Properties}，会出现工程的配置窗口。
+%在左侧栏中选择 \code{Builders}，然后移除复选框 \code{Autotools Makefile Generator}
+%（我们的工程不是用的 Autotools），并单击 \code{OK}。
+
+\useexternalfigure[hammer][build_exec.png][height=2ex]
+现在我们就可以编译程序了。
+点击工具栏中的\externalfigure[hammer]，来生成我们的程序。
+你也可以通过菜单 \code{Project -> Build Configurations -> manage...} 为工程生成多个配置（比如，debug、release），并通过\externalfigure[hammer]右侧的箭头进行选择。
+
+由于我们使用的是模拟版本，所以需要启动虚拟机，此虚拟机用 qemu 运行。
+(注意，Eclipse 默认使用 xterm 运行 qemu，请安装此软件包。)
+请点击菜单 \code{Run -> External Tools -> qemu_i586-insigma-linux} 来运行虚拟机。
+此虚拟机用户名为 root，密码为空。启动后，你可能需要执行 \code{killall tinbox} 来杀死自动启动的 tinbox （因为我们要调试此程序，此处杀死的是 rootfs 中自带的）。
+
+下面我们开始调试。首先请单击菜单 \code{Run -> Debug Configurations...}，
+出现调试的配置窗口，在左侧栏中展开 \code{C/C++ Remote Application}，
+选中下面的 \code{sa735_gdb_i586-insigma-linux}，可以看到\in{图 }{}[fig: dbg-cfg]。
+\placefigure[here,force][fig: dbg-cfg]
+   {调试配置界面}
+   {\externalfigure[dbg-cfg.png][scale=1500]}
+
+在右侧 \code{Main} 选项卡中点击 \code{Connection:} 右边的按钮 \code{New...}，
+然后选择 \code{TCF}，如\in{图 }{}[fig: tcf]。
+\placefigure[here,force][fig: tcf]
+   {选择 TCF}
+   {\externalfigure[tcf.png][scale=1500]}
+
+继续点击 \code{Next}，在\in{图 }{}[fig: connection]中的 \code{Host name:}
+右侧文本框中填写虚拟机的 IP 地址（你可以在虚拟机中用命令 \code{ifconfig} 查看），
+然后点击 \code{Finish}。
+\placefigure[here,force][fig: connection]
+   {创建到虚拟机的远程连接}
+   {\externalfigure[connection.png][scale=1500]}
+
+下面又回到\in{图 }{}[fig: dbg-cfg]，
+在 \code{Connection:} 右侧的下拉选单中选择刚创建的连接。
+然后点击按钮 \code{Search Project...} 选择应用程序，
+本例中我们选择 tinbox （参见\in{图 }{}[fig: program-sel]）。
+\placefigure[here,force][fig: program-sel]
+   {选择要调试的程序}
+   {\externalfigure[program-sel.png][scale=1500]}
+
+然后选择运行此程序时的路径名，如\code{Remote Absolute File Path for C/C++ Application:}，本例中指定为 \code{/usr/sbin/tinbox.debug}。
+
+如有需要，在选项卡 \code{Arguments} 中的 \code{Program arguments:} 中填入参数，
+本例中填的是 \code{DE 1 1}，如\in{图 }{}[fig: arg]所示。
+\placefigure[here,force][fig: arg]
+   {程序参数}
+   {\externalfigure[arg.png][scale=1500]}
+
+配置好后如\in{图 }{}[fig: dbg-cfg-done]所示。
+\placefigure[here,force][fig: dbg-cfg-done]
+   {配置完毕}
+   {\externalfigure[dbg-cfg-done.png][scale=1500]}
+
+然后点击右下角的 \code{Debug} 按钮，出现远程登录的界面\in{图 }{}[fig: remote-login]。
+\placefigure[here,force][fig: remote-login]
+   {远程登录}
+   {\externalfigure[remote-login.png][scale=1500]}
+
+在 \code{User ID:} 右侧文本框中输入用户名 \code{root}，点击 \code{OK} 开始调试。
+
+\stopcomponent
+

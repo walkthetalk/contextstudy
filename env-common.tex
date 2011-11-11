@@ -85,7 +85,7 @@ bolditalic=adobeheitistd]
 \def\LeftHeader{\HeaderFrame{\hbox to -\LineWidth{}\PageFrame\hfill\HeadStr{chapter}}}
 
 \def\FooterFrame#1{%
-  \framed[width={\headerwidth}, 
+  \framed[width={\headerwidth},
           frame=off,
           offset=0pt]{#1}}
 \def\BookNameFrame[#1]{%
@@ -198,7 +198,7 @@ endfor ;
 \define\ftref{\rm\it}
 \define\ftemp{\rm\bf}
 \definetype[code][
-  style=\tt\tf,
+  style=\tt\tf\small,
 ]
 %%%%%%%%%%%%%%%   枚举
 % igBase
@@ -256,6 +256,9 @@ endfor ;
   tab=8,
   numbering=line,
 ]
+
+% floats
+\setupfloat[figure][indentnext=yes]
 
 % 数学公式自动设置标点间距
 \setupmathematics[autopunctuation=no]

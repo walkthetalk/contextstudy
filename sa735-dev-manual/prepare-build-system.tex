@@ -1,0 +1,48 @@
+\startcomponent prepare-build-system
+\product prd-sa735-dev-manual
+
+\useURL
+  [yocto-official-address]
+  [http://www.yoctoproject.org/]
+  []
+  [yocto 官网]
+\useURL
+  [optimus-address]
+  [http://10.10.20.149/gitweb/?p=optimus.git;a=summary]
+  []
+  [optimus 网址]
+
+\chapter{构建编译系统}
+我们的编译系统由 optimus 构建而来，而 optimus 是基于 LFS 的 yocto 项目。
+关于 yocto 项目，请参考\from[yocto-official-address]。
+optimus 为了支持我们自己的产品，在 yocto 基础之上进行了二次开发，
+添加了我们自己的一些软件包和脚本。
+optimus 目前由 git 来进行版本管理。请使用如下命令将 optimus 克隆到本地：
+\startccode
+git clone git://10.10.20.149/optimus <optimus-dir>
+\stopccode
+其中\code{<optimus-dir>}即本地路径。
+你也可以通过\from[optimus-address]来查看其更新历史。
+
+后面的步骤都以 sa735 产品为例，对于其它产品仅供参考。
+
+我们所说的编译系统，即进行产品软件开发所需的开发环境（部分）。
+其实 optimus 本身只是一个 build framework。
+将 optimus 克隆到本地后，继续准备编译目录，此目录下的文件就是我们的开发环境。
+\startccode
+<optimus-dir>/meta-sa735/scripts/setupbuildir -e <dev-env-dir>
+\stopccode
+其中\code{<dev-env-dir>}就是编译目录。
+选项\code{-e}指明我们需要的模拟版本的开发环境，这样编译出的开发环境可以编译 x86 版本的软件
+（一般在 pc 上用模拟器 qemu 运行）。
+如果不加此参数，则编译出的开发环境可以编译 powerpc 版本的软件（一般在真实设备上运行）。
+
+然后开始编译：
+\startccode
+<dev-env-dir>/optimus-build core-image-sa735 for eclipse
+\stopccode
+此步骤会生成编译工具链、 Linux 内核、 rootfs。
+而\code{for eclipse}则是为了生成 eclipse 相关的支持工具。
+
+\stopcomponent
+

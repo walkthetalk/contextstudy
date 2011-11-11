@@ -1,0 +1,46 @@
+\define\docname{sa735软件开发手册}
+\environment env-common
+\starttext
+
+\startBG
+\setuplayout[normal]
+\startstandardmakeup
+\midaligned{\CruxFramed{\ssd \docname}}
+\vfil
+\stopstandardmakeup
+\stopBG
+
+\startfrontmatter
+  \setuplayout[reset]
+    \setuppagenumbering[conversion=romannumerals]
+    \setuppagenumber[number=1]
+    \completecontent
+%    \completelistoffigures
+%    \completelistoftables
+\stopfrontmatter
+
+\startbodymatter
+    \setuppagenumbering[conversion=numbers]
+    \setuppagenumber[number=1]
+    \setups{Text}
+    \component prepare-build-system
+    \component configure-eclipse
+    \component sa735-project
+\page
+\setups{Empty}
+\stopbodymatter
+
+\startappendices
+\setups{Appendices}
+\title{Bibliography}
+\placepublications
+\title{Indices}
+\placeindex
+\page
+\setups{Empty}
+\stopappendices
+
+\startbackmatter
+\stopbackmatter
+
+\stoptext
