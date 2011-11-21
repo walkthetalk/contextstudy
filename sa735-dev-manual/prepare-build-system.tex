@@ -13,13 +13,18 @@
   [optimus 网址]
 
 \chapter{构建编译系统}
+
+注意：命令中形如 \code{<src_dir>} 以尖括号括起来的内容为目录，用户可以自行指定，
+比如第一条命令中有 \code{<optimus-dir>}，用户指定了目录 \code{/media/word/optimus}，
+则在后续命令中再次出现 \code{<optimus-dir>} 时，请用 \code{/media/word/optimus} 自行替换。
+
 我们的编译系统由 optimus 构建而来，而 optimus 是基于 LFS 的 yocto 项目。
 关于 yocto 项目，请参考\from[yocto-official-address]。
 optimus 为了支持我们自己的产品，在 yocto 基础之上进行了二次开发，
 添加了我们自己的一些软件包和脚本。
 optimus 目前由 git 来进行版本管理。请使用如下命令将 optimus 克隆到本地：
 \startccode
-git clone git://10.10.20.149/optimus <optimus-dir>
+git clone git://10.10.20.149/optimus.git <optimus-dir>
 \stopccode
 其中\code{<optimus-dir>}即本地路径。
 你也可以通过\from[optimus-address]来查看其更新历史。
