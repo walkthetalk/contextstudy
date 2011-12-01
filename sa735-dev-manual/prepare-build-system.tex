@@ -1,6 +1,7 @@
 \startcomponent prepare-build-system
 \product prd-sa735-dev-manual
 
+\setupexternalfigures[directory=fig]
 \useURL
   [yocto-official-address]
   [http://www.yoctoproject.org/]
@@ -35,19 +36,30 @@ git clone git://10.10.20.149/optimus.git <optimus-dir>
 其实 optimus 本身只是一个 build framework。
 将 optimus 克隆到本地后，继续准备编译目录，此目录下的文件就是我们的开发环境。
 \startccode
-<optimus-dir>/meta-sa735/scripts/setupbuildir -e <dev-env-dir>
+<optimus-dir>/meta-sa735/scripts/setupbuildir -d <local_src_dir> -e <dev-env-dir>
 \stopccode
+
 其中\code{<dev-env-dir>}就是编译目录。
-选项\code{-e}指明我们需要的模拟版本的开发环境，这样编译出的开发环境可以编译 x86 版本的软件
+而\code{-d <local_src_dir>}则是指定本地代码的目录，
+如果不指定此选项，则会使用代码服务器上的代码库，对于 sa735 而言，
+\code{<local_src_dir>}目录下应该有两个文件夹，
+\code{omt}是平台代码，\code{sa735}是产品代码。
+选项\code{-e}指明我们需要的模拟版本的开发环境，
+这样编译出的开发环境可以编译 x86 版本的软件
 （一般在 pc 上用模拟器 qemu 运行）。
 如果不加此参数，则编译出的开发环境可以编译 powerpc 版本的软件（一般在真实设备上运行）。
 
-然后开始编译：
+\code{<dev-env-dir>}下会有两个可执行文件，一个是\code{optimus-build}，
+用来编译单个软件包或生成开发环境：
 \startccode
 <dev-env-dir>/optimus-build core-image-sa735 for eclipse
 \stopccode
 此步骤会生成编译工具链、 Linux 内核、 rootfs。
-而\code{for eclipse}则是为了生成 eclipse 相关的支持工具。
+而\code{for eclipse}则是为了生成 eclipse 相关的支持工具；
+另一个就是\code{taijitu}，此为 GUI 编译工具，目前仅支持我们自己的软件包，界面如\in{图 }{}[fig: taijitu]所示，其使用方式请参考相关文档。
+\placefigure[here,force][fig: taijitu]
+   {GUI编译工具——太极图}
+   {\externalfigure[taijitu.png][scale=1500]}
 
 \stopcomponent
 
