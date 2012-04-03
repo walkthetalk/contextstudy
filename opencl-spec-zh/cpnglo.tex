@@ -6,255 +6,283 @@
 \environment envcmm
 \product opencl
 
-\chapter{术语}
+\chapter{術語}
 
-\myglo{app}{应用}{Application}
-运行在宿主机和\scopencl设备上的程序。
+\myglo{app}{應用}{Application}
+運行在\refglo{host}和 OpenCL \refglo{device}上的程序。
 
-\myglo{beac}{阻塞的入队API调用}{Blocking Enqueue API calls}
-\myglo{nbeac}{非阻塞的入队API调用}{Non-Blocking Enqueue API calls}
-一个\refglo{nbeac}将会在\refglo{cmdq}中放置一个\refglo{cmd}后立刻返回。而对于\refglo{beac}，直到\refglo{cmd}完成后才会返回。
+\myglo{beac}{阻塞的入隊 API 調用}{Blocking Enqueue API calls}
+\myglo{nbeac}{非阻塞的入隊 API 調用}{Non-Blocking Enqueue API calls}
+\refglo{nbeac}會在\refglo{cmdq}中放置一個\refglo{cmd}後立刻返回。而對於\refglo{beac}，在\refglo{cmd}結束後才會返回。
 
-\startmyglo{barrier}{隔层}{Barrier}
-有两种类型的\refglo{barrier}——\refglo{cmdqbarrier}和\refglo{workgrpbarrier}。
+\startmyglo{barrier}{屏障}{Barrier}
+有兩種類型的\refglo{barrier}——\refglo{cmdqbarrier}和\refglo{workgrpbarrier}。
 \startigBase
-\item \refglo{cmdqbarrier}本身是一个\refglo{cmd}，\scopenclapi提供一个函数用来将其入队。这个\refglo{barrier}命令可以保证只有之前入队的所有命令都执行完毕后，后续命令才能开始执行。
-\item \scopenclc语言提供了一个内建的\refglo{workgrpbarrier}函数。运行在\refglo{device}上的\refglo{kernel}可以利用这个函数在（正在执行此\refglo{kernel}的）\refglo{workgrp}中的\refglo{workitem}间执行同步。\refglo{workgrp}中的任意一个\refglo{workitem}要想在\refglo{barrier}外继续执行，所有\refglo{workitem}都必须先执行这个\refglo{barrier}。
+\item \refglo{cmdqbarrier}本身是一個\refglo{cmd}， OpenCL API 提供一個函數可以將其插入隊列。此命令可以保證之前入隊的所有命令都執行完畢後，後續命令才能開始執行。
+\item OpenCL C 語言內建有一個\refglo{workgrpbarrier}函數。運行在\refglo{device}上的\refglo{kernel}可以利用此函數在（正在執行此\refglo{kernel}的）同一\refglo{workgrp}中的\refglo{workitem}間進行同步。\refglo{workgrp}中的任意一個\refglo{workitem}要想在\refglo{barrier}外繼續執行，所有\refglo{workitem}都必須先執行此\refglo{barrier}。
 \stopigBase
 \stopmyglo
 
-\startmyglo{bufobj}{缓冲对象}{Buffer Object}
-存储一个线性字节序列的\refglo{memobj}。在（正在\refglo{device}上运行的）\refglo{kernel}中，可以通过一个指针来访问\refglo{bufobj}。\refglo{host}可以用\scopenclapi调用来操控\refglo{bufobj}。一个\refglo{bufobj}包含以下信息：
+\startmyglo{bufobj}{緩衝對象}{Buffer Object}
+存儲線性字節序列的\refglo{memobj}。在（正在\refglo{device}上運行的）\refglo{kernel}中，可以通過一個指針來訪問它。
+\refglo{host}可以用 OpenCL API 調用來操控\refglo{bufobj}。\refglo{bufobj}包含以下信息：
 \startigBase
-\item 字节数
-\item 一些属性，用来描述使用情况和分配自哪个区域。
-\item 缓冲数据
+\item 字節數；
+\item 一些屬性，用來描述使用情況以及分配自哪個區域；
+\item 緩衝數據。
 \stopigBase
 \stopmyglo
 
 \myglo{cmd}{命令}{Command}
-\scopencl运算，可以提交给\refglo{cmdq}来执行。例如，一些\scopencl\refglo{cmd}可以在计算设备上执行\refglo{kernel}、操控\refglo{memobj}，等等。
+即 OpenCL 運算，可以提交給\refglo{cmdq}執行。
+例如，一些 OpenCL \refglo{cmd}可以在計算設備上執行\refglo{kernel}、操控\refglo{memobj}等等。
 
-\myglo{cmdq}{命令队列}{Command-queue}
-一个持有\refglo{cmd}的对象，这些\cnglo{cmd}将在某个\refglo{device}上执行。\refglo{cmdq}是在一个\refglo{context}中的某个\refglo{device}上创建的。\refglo{cmd}按序入队，但可能顺序执行也可能乱序执行。参见\refglo{inordexec}和\refglo{outordexec}。
+\myglo{cmdq}{命令隊列}{Command-queue}
+這種對象中持有\refglo{cmd}，而這些\cnglo{cmd}將在某個\refglo{device}上執行。
+\refglo{cmdq}是在一個\refglo{context}中的某個\refglo{device}上創建的。
+\refglo{cmd}按序入隊，但可能順序執行也可能亂序執行。
+參見\refglo{inordexec}和\refglo{outordexec}。
 
-\myglo{cmdqbarrier}{命令队列隔层}{Command-queue Barrier}
-请看\refglo{barrier}。
+\myglo{cmdqbarrier}{命令隊列屏障}{Command-queue Barrier}
+請看\refglo{barrier}。
 
-\myglo{computedevmem}{计算设备内存}{Compute Device Memory}
-计算设备上所附着的一块或多块内存。
+\myglo{computedevmem}{計算設備內存}{Compute Device Memory}
+計算設備上的一塊或多塊內存。
 
-\myglo{computeunit}{计算单元}{Compute Unit}
-一个\scopencl\refglo{device}会包含一个或多个\refglo{computeunit}。一个\refglo{workgrp}只能在一个\refglo{computeunit}上执行。一个\refglo{computeunit}由一个或多个\refglo{prcele}组成。一个\refglo{computeunit}也可能包含专用的材质过滤单元，此单元可以被它的\refglo{prcele}访问。
+\myglo{computeunit}{計算器件}{Compute Unit}
+一個 OpenCL \refglo{device}中包含一個或多個\refglo{computeunit}。
+一個\refglo{workgrp}只能在一個\refglo{computeunit}上執行。
+一個\refglo{computeunit}由一個或多個\refglo{prcele}組成。
+\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被它的\refglo{prcele}訪問。
 
-\myglo{concurrency}{并发}{Concurrency}
-系统的一个属性，而此系统中会有一系列任务，这些任务可以同时保持活跃并取得进展。为了在运行程序时利用并发执行，程序员必须找出问题中可以并发的部分，在源码中标示出来，用一个支持并发的标记进行开发。
+\myglo{concurrency}{並發}{Concurrency}
+系統的一個屬性，這樣的系統中有一系列任務，這些任務可以同時保持活躍並取得進展。
+運行程序時要想並發執行，程序員必須找出問題中可以並發的部分，並在源碼中標示出來，用一個支持並發的標記進行開發。
 
-\myglo{constmem}{不变内存}{Constant Memory}
-\refglo{glbmem}中的一个区域，在\refglo{kernel}执行过程中保持不变。\refglo{host}分配并初始化\cnglo{memobj}，然后放到\refglo{constmem}中。
+\myglo{constmem}{不變內存}{Constant Memory}
+\refglo{glbmem}中的一個區域，在\refglo{kernel}執行過程中保持不變。\refglo{constmem}中的\cnglo{memobj}是由\refglo{host}分配並初始化的。
 
 \myglo{context}{上下文}{Context}
-\refglo{kernel}在执行时所处的环境，同步和内存管理就是在此范围内定义的。\refglo{context}包含一些\refglo{device}、这些\refglo{device}可以访问的内存、相应的内存属性、一个或多个\refglo{cmdq}（用来对\refglo{kernel}的执行和\refglo{memobj}相关运算进行调度）。
+\refglo{kernel}在執行時所處的環境，同步和內存管理就是在此概念上定義的。
+\refglo{context}包含一系列\refglo{device}、這些\refglo{device}可以訪問的內存、相應的內存屬性、\refglo{cmdq}（用來對\refglo{kernel}的執行和\refglo{memobj}相關運算進行調度）。
 
-\myglo{dppm}{数据并行编程模型}{Data Parallel Programming Model}
-传统意义上，这个术语涉及的编程模型中，并发由单个程序中应用到数据结构中多个元素上的指令来表示。在\scopencl中，对这个术语进行了推广，此模型中，单个程序的一套指令同时应用到索引的抽象域中的每一点上。
+\myglo{customdev}{自定義設備}{Custom Device}
+一種 OpenCL \refglo{device}，完整實現了 OpenCL runtime，但不支持用 OpenCL C 寫的\refglo{program}。
+\refglo{customdev}可能是不可編程的專用硬件，高效節能，僅可執行定向任務；也可能具有有限的編程能力，如專用的 DSP。
+
+\myglo{dppm}{數據並行編程模型}{Data Parallel Programming Model}
+傳統意義上，此種編程模型中，並發由程序中的指令表示，這些指令會應用到數據結構中的多個元素上。
+在 OpenCL 中，對這個術語進行了推廣，此模型中，程序中的一些指令同時應用到索引的抽象域中的所有點上。
 
 \myglo{device}{设备}{Device}
-\refglo{device}是\refglo{computeunit}的集合。一个\refglo{cmdq}被用来对操作\refglo{device}的\refglo{cmd}进行排队。这样的\refglo{cmd}包括执行\refglo{kernel}或读写\refglo{memobj}。典型的\scopencl\cnglo{device}有GPU、多核CPU和其它处理器（如DSP和Cell/B.E.处理器）。
+\refglo{device}是\refglo{computeunit}的集合。\refglo{cmdq}用來將\refglo{cmd}在\refglo{device}上進行排隊。
+這樣的\refglo{cmd}包括執行\refglo{kernel}或讀寫\refglo{memobj}。
+典型的 OpenCL \cnglo{device}指 GPU、多核 CPU 和其它處理器（如 DSP 和 Cell/B.E. 處理器）。
 
-\myglo{evtobj}{事件对象}{Event Object}
-\refglo{evtobj}封装了运算（如一个\refglo{cmd}）的状态。它可以用来对某个\refglo{context}中的运算进行同步。
+\myglo{evtobj}{事件對象}{Event Object}
+\refglo{evtobj}封裝了運算（如一個\refglo{cmd}）的狀態。
+它可以用來對\refglo{context}中的運算進行同步。
 
-\myglo{evtwaitlist}{事件等待列表}{Event Wait List}
-\refglo{evtwaitlist}是\refglo{evtobj}的列表，可用来控制何时执行\refglo{cmd}。
+\myglo{evtwaitlist}{事件等待序列}{Event Wait List}
+\refglo{evtwaitlist}是\refglo{evtobj}的序列，可用來控制何時執行\refglo{cmd}。
 
 \myglo{framework}{框架}{Framework}
-一个软件系统，包含一套组件用以支持软件开发和执行。一个典型的\refglo{framework}包括库、API、\scruntime系统、编译器等等。
+一個軟件系統，包含一套組件用以支持軟件開發和執行。典型的\refglo{framework}包括庫、 API、 runtime 系統、編譯器等等。
 
 \myglo{glbid}{全局 ID}{Global ID}
-一个\refglo{glbid}用来唯一标识一个\refglo{workitem}，源自执行\refglo{kernel}时所指定的全局\refglo{workitem}数目。\refglo{glbid}是一个N维的值，起自(0, 0, … 0)。请参看\refglo{locid}。
+\refglo{glbid}用來唯一標識一個\refglo{workitem}，源自執行\refglo{kernel}時所指定的全局\refglo{workitem}數目。
+\refglo{glbid}是一個 N 維的值，起自\math{(0, 0, … 0)}。請參考\refglo{locid}。
 
-\myglo{glbmem}{全局内存}{Global Memory}
-一个\refglo{context}中的所有\refglo{workitem}均可访问的内存区域。\refglo{host}可以用一些\refglo{cmd}（如read、write和map）来访问它。
+\myglo{glbmem}{全局內存}{Global Memory}
+一塊內存，\refglo{context}中的所有\refglo{workitem}都可訪問。\refglo{host}可以使用\refglo{cmd}（如 read、 write 和 map）來訪問它。
 
-\myglo{glsharegrp}{GL共享组}{GL share group}
-\refglo{glsharegrp}对象用来管理共享的OpenGL或OpenGL ES资源（如材质、缓存、帧缓存或渲染缓存），并与一个或多个GL上下文对象相关联。典型的\refglo{glsharegrp}是一个不透明的对象，不能直接访问。
+\myglo{glsharegrp}{GL 共享組}{GL share group}
+此對象用來管理共享的 OpenGL 或 OpenGL ES 资源（如材質、緩存、幀緩存或渲染緩存），並與一個或多個 GL 上下文對象關聯在一起。
+典型的\refglo{glsharegrp}是一個不透明的對象，不能直接訪問。
 
 \myglo{handle}{句柄}{Handle}
-一个不透明的类型，用来引用\scopencl所分配的\refglo{obj}。对\refglo{obj}的任何运算都是通过引用其句柄来进行的。
+一個不透明的類型，用來引用 OpenCL 所分配的\refglo{obj}。對\refglo{obj}的任何運算都是通過引用其句柄來進行的。
 
-\myglo{host}{宿主机}{host}
-\refglo{host}使用\scopenclapi与\refglo{context}进行交互。
+\myglo{host}{宿主機}{host}
+\refglo{host}使用 OpenCL API 與\refglo{context}進行交互。
 
-\myglo{hostptr}{宿主机指针}{Host pointer}
-指针，指向\refglo{host}上的虚拟地址空间中的内存。
+\myglo{hostptr}{宿主機指針}{Host pointer}
+一種指針，，指向\refglo{host}上虛擬地址空間中的內存。
 
-\myglo{illegal}{违规}{Illegal}
-明显不允许的行为，\scopencl会将其视为错误进行报告。
+\myglo{illegal}{違規}{Illegal}
+明確規定不允許的行為，遇到這種問題時， OpenCL 會將其視為錯誤進行報告。
 
-\startmyglo{imgobj}{图像对象}{Image Object}
-一种\refglo{memobj}，用来存储二维或三维的结构化数组。只有通过读写函数才能访问图像数据。读函数需要使用\refglo{sampler}。
+\startmyglo{imgobj}{圖像對象}{Image Object}
+一種\refglo{memobj}，用來存儲二維或三維的結構化數組。
+只能通過讀寫函數訪問其中的圖像數據。讀函數需要使用\refglo{sampler}。
 
-\refglo{imgobj}封装了以下信息：
+\refglo{imgobj}封裝了以下信息：
 \startigBase
-\item 图像的维数。
-\item 图像中每个元素的描述。
-\item 一些属性，用来描述使用情况和分配自哪个区域。
-\item 图像数据
+\item 圖像的維數；
+\item 圖像中每個元素的描述；
+\item 一些屬性，用來描述是喲功能情況以及分配自哪個區域；
+\item 圖像數據。
 \stopigBase
-图像中的所有元素均选自一个预定义图像格式的列表。
+圖像中的所有元素均選自預定義的一系列圖像格式。
 \stopmyglo
 
-\myglo{impdef}{依赖于具体实现}{Implementation Defined}
-在遵循\scopencl标准的实现之间，明确被允许可以不同的行为。要求\scopencl的实现者为其提供相关文档。
+\myglo{impdef}{依賴於具體實現}{Implementation Defined}
+對於兼容 OpenCL 標準的實現，明確規定其行為可以不同。對於這種行為，要求 OpenCL 的實現者提供相關文檔。
 
-\myglo{inordexec}{顺序执行}{In-order Execution}
-\scopencl中的一种执行模型，\refglo{cmdq}中的\refglo{cmd}按提交的顺序执行，只有当正在运行的\refglo{cmd}完成后，下一个才能开始运行。参看\refglo{outordexec}。
+\myglo{inordexec}{順序執行}{In-order Execution}
+OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順序執行，只有當正在運行的\refglo{cmd}完成後，下一個才能開始運行。参看\refglo{outordexec}。
 
-\myglo{kernel}{内核}{Kernel}
-\refglo{kernel}是\refglo{program}中声明的一个函数，可以在\scopencl\refglo{device}上执行。对于\refglo{program}中定义的任何函数，都可以通过加上限定符\sckernel标识成\refglo{kernel}。
+\myglo{kernel}{內核}{Kernel}
+\refglo{kernel}是\refglo{program}中聲明的一種函數，可以在 OpenCL \refglo{device}上執行。
+對於\refglo{program}中定義的任何函數，都可以通過加上限定符 {\ftCKey \_\_kernel} 或 {\ftCKey kernel} 標識成\refglo{kernel}。
 
-\myglo{kernelobj}{内核对象}{Kernel Object}
-一个\refglo{kernelobj}封装了\refglo{program}中声明的一个\sckernel函数和执行此函数所用的参数。
+\myglo{kernelobj}{內核對象}{Kernel Object}
+\refglo{kernelobj}封裝了\refglo{program}中聲明的一個 {\ftCKey \_\_kernel} 函數以及執行此函數所需的參數。
 
-\myglo{locid}{局部ID}{Local ID}
-\refglo{locid}即一个\refglo{workitem}ID，在一个正在执行\refglo{kernel}的\refglo{workgrp}中是唯一的。\refglo{locid}是一个N维的值，起于(0, 0, … 0)。参见\refglo{glbid}。
+\myglo{locid}{局部 ID}{Local ID}
+即\refglo{workitem} ID，在執行\refglo{kernel}的\refglo{workgrp}中是唯一的。
+\refglo{locid}是一個 N 維的值，起自\math{(0, 0, … 0)}。參見\refglo{glbid}。
 
-\myglo{locmem}{局部内存}{Local Memory}
-属于某个\refglo{workgrp}内存区域，只有那个\refglo{workgrp}中的\refglo{workitem}才可以访问它。
+\myglo{locmem}{本地內存}{Local Memory}
+隸屬於某個\refglo{workgrp}，只有此\refglo{workgrp}中的\refglo{workitem}才能訪問。
 
-\myglo{marker}{记号}{Marker}
-排在\refglo{cmdq}中的一个\refglo{cmd}，可以用来给之前入队的所有\refglo{cmd}做标记。此命令会返回一个\scevent，\refglo{app}可以等在这个\scevent上，例如等待处在此\refglo{marker}之前的所有命令全部完成。
+\myglo{marker}{記號}{Marker}
+一種\refglo{cmd}，可用來給之前入隊的所有\refglo{cmd}作標記。
+此命令會返回一個事件，\refglo{app}可以等在這個事件上，例如等待處在此\refglo{marker}之前的所有命令全部完成。
 
-\myglo{memobj}{内存对象}{Memory Object}
-\refglo{glbmem}中某区域的句柄，此区域带有引用计数。参见\refglo{bufobj}和\refglo{imgobj}。
+\myglo{memobj}{內存對象}{Memory Object}
+某塊帶有引用計數的\refglo{glbmem}的句柄。參見\refglo{bufobj}和\refglo{imgobj}。
 
-\myglo{memregion}{内存区域}{Memory Region}
-或
-\myglo{mempool}{内存池}{Memory Pool}
-\scopencl中的一个明确的地址空间。不同的\refglo{memregion}在物理上可能重叠，但在逻辑上\scopencl会将其视为不同。可以将其指定为私有的（{\ftCQlf private}）、局部的（{\ftCQlf local}）、不变的（{\ftCQlf constant}）和全局的（{\ftCQlf global}）。
+\myglo{memregion}{內存區域}{Memory Region}
+OpenCL 中的一個確切的地址空間。不同的\refglo{memregion}在物理上可能重疊，但在邏輯上 OpenCL 會將其視為不同。可以將其指定為私有的（{\ftCQlf private}）、局部的（{\ftCQlf local}）、不變的（{\ftCQlf constant}）和全局的（{\ftCQlf global}）。
 
-\myglo{obj}{对象}{Object}
-对\scopenclapi可以操控的资源的一种抽象表示。包含\refglo{programobj}、\refglo{kernelobj}、\refglo{memobj}。
+\myglo{mempool}{內存池}{Memory Pool}
+同\refglo{memregion}。
 
-\myglo{outordexec}{乱序执行}{Out-of-Order Execution}
-一种执行模型，\refglo{cmdq}中\refglo{cmd}的开始和完成执行可以以任意顺序进行，只要与\refglo{evtwaitlist}和\refglo{cmdqbarrier}相容即可。参见\refglo{inordexec}。
+\myglo{obj}{對象}{Object}
+這是對 OpenCL API 可以操控的資源的一種抽象表示。
+包含\refglo{programobj}、\refglo{kernelobj}、\refglo{memobj}。
+
+\myglo{outordexec}{亂序執行}{Out-of-Order Execution}
+一種執行模型，\refglo{cmdq}中的\refglo{cmd}，其執行的開始和結束的順序沒有要求，只要符合\refglo{evtwaitlist}和\refglo{cmdqbarrier}即可。
+參見\refglo{inordexec}。
+
+\myglo{pardev}{父設備}{Parent Device}
+一種 OpenCL \refglo{device}，可以將其分割來創建\refglo{subdev}。
+並不是所有的\refglo{pardev}都是\refglo{rootdev}。
+\refglo{rootdev}可以被拆分，而\refglo{subdev}可以繼續被拆分。
+這種情況下，第一組\refglo{subdev}可能是第二組的\refglo{pardev}，但不是\refglo{rootdev}。
+請參考\refglo{device}、\refglo{subdev}和\refglo{rootdev}。
+
 
 \myglo{platform}{平台}{platform}
-\refglo{host}加一些可以被\scopencl\refglo{framework}所管理的设备。\refglo{app}可以在\refglo{platform}的\refglo{device}上共享\refglo{res}和执行\refglo{kernel}。
+\refglo{host}加上一些被 OpenCL \refglo{framework}所管理的\refglo{device}。
+\refglo{app}可以在這些\refglo{device}上共享\refglo{res}、執行\refglo{kernel}。
 
-\myglo{prvmem}{私有内存}{Private Memory}
-专属于某个\refglo{workitem}的一块内存。一个\refglo{workitem}的\refglo{prvmem}中定义的变量对另一个\refglo{workitem}是不可见的。
+\myglo{prvmem}{私有內存}{Private Memory}
+專屬某個\refglo{workitem}的一塊內存。在一個\refglo{workitem}的\refglo{prvmem}中定義的變量對另一個\refglo{workitem}是不可見的。
 
-\myglo{prcele}{处理元件}{Processing Element}
-一个虚拟的标量处理器。一个\refglo{workitem}可以在一个或多个\refglo{prcele}上执行。
+\myglo{prcele}{處理元件}{Processing Element}
+一個虛擬的標量處理器。一個\refglo{workitem}可以在一個或多個\refglo{prcele}上執行。
 
 \myglo{program}{程序}{Program}
-一个\scopencl\refglo{program}由一套\refglo{kernel}组成，还可能包含一些辅助函数（由\sckernel函数调用）和常量数据。
+由一組\refglo{kernel}組成，可能還包含一些輔助函數（由{\ftCKey \_\_kernel}函數調用）和常量数据。
 
-\startmyglo{programobj}{程序对象}{Program Object}
-一个\refglo{programobj}封装有以下信息：
+\startmyglo{programobj}{程序對象}{Program Object}
+\refglo{programobj}封裝有以下信息：
 \startigBase
-\item 对所关联\refglo{context}的引用。
-\item \refglo{program}源码或\scbinary。
-\item 最近成功构建的可执行程序，\refglo{device}列表（用来运行此程序），所用的构建选项和构建日志。
-\item 当前所附\refglo{kernelobj}的数目。
+\item 對所關聯\refglo{context}的引用。
+\item \refglo{program}源碼或二進制。
+\item 最新成功構建的程序執行體，用來運行此程序的\refglo{device}清單，所用的構建選項以及構建日誌。
+\item 當前所附\refglo{kernelobj}的數目。
 \stopigBase
 
-\myglo{refcnt}{引用计数}{Reference Count}
-一个\scopencl对象的生命周期由其\refglo{refcnt}来决定，这个内部计数会记录对此对象的引用的数目。当你在\scopencl中创建一个对象时，其\refglo{refcnt}被设成1。后续对\refglo{retain}API（如 {\ftCKey clRetainContext}、{\ftCKey clRetainCommandQueue}）的调用会增大\refglo{refcnt}。对\refglo{release}API（如{\ftCKey clReleaseContext}、{\ftCKey clReleaseCommandQueue}）的调用会减小\refglo{refcnt}。当\refglo{refcnt}降为0后，\scopencl会回收此对象的资源。
+\myglo{refcnt}{引用計數}{Reference Count}
+OpenCL 對象的生命周期由其\refglo{refcnt}來確定，此內部計數會記錄對此對象的引用數目。
+在 OpenCL 中創建一個對象時，其\refglo{refcnt}被置為0。
+后续对\refglo{retain} API （如 {\ftCKey clRetainContext}、 {\ftCKey clRetainCommandQueue}）的調用會使\refglo{refcnt}增一。
+對\refglo{release} API （如 {\ftCKey clReleaseContext}、 {\ftCKey clReleaseCommandQueue}）的調用會使\refglo{refcnt}減一。
+當\refglo{refcnt}降為0後， OpenCL 會回收此對象的資源。
 
-\myglo{relaxconsist}{放宽的一致性}{Relaxed Consistency}
-在内存一致性模型中，不同的\refglo{workitem}或\refglo{cmd}所看到的内容也可能不同，当然，\refglo{barrier}和其他显式同步点除外。
+\myglo{relaxconsist}{放寬的一致性}{Relaxed Consistency}
+是一種內存一致性模型，不同的\refglo{workitem}或\refglo{cmd}所看到的內容可能不同，當然，\refglo{barrier}和其它顯式同步點除外。
 
-\myglo{res}{资源}{Resource}
-\scopencl所定义的一类\refglo{obj}。一个\refglo{res}的实例就是一个\refglo{obj}。最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、\refglo{kernelobj}和\refglo{memobj}。计算用资源主要指那些参与推进程序计数器动作的硬件元件，包括\refglo{host}、\refglo{device}、\refglo{computeunit}和\refglo{prcele}。
+\myglo{res}{資源}{Resource}
+OpenCL 所定義的一類\refglo{obj}。\refglo{res}的一個實例就是一個\refglo{obj}。
+最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、\refglo{kernelobj}和\refglo{memobj}。
+計算用資源主要指那些參與推進程序計數器動作的硬件元件。
+例如\refglo{host}、\refglo{device}、\refglo{computeunit}和\refglo{prcele}。
 
 \myglo{retain}{保留}{Retain}
-\myglo{release}{释放}{Release}
-动作，会增大（retain）和减小（release）一个\scopencl\refglo{obj}的\refglo{refcnt}。这是一个记账功能，它可以保证在使用这个\refglo{obj}的所有实例都完成之前，系统不会移除这个\refglo{obj}。参见\refglo{refcnt}。
+\myglo{release}{釋放}{Release}
+會使 OpenCL \refglo{obj}的\refglo{refcnt}增一（ retain）或減一（ release）。
+這是一個記賬功能，可以保證在使用此\refglo{obj}的所有實例都完成之前，系統不會移除此\refglo{obj}。
+參見\refglo{refcnt}。
 
-\myglo{sampler}{采样器}{Sampler}
-此\refglo{obj}用来描述在\refglo{kernel}读取图像时怎样对其采样。读取图像的函数将\refglo{sampler}作为一个参数。\refglo{sampler}指定图像的寻址方式，如图像的坐标越限时怎样处理、滤波模式、输入的图像坐标是否已规范化。
+\myglo{rootdev}{根設備}{Root Device}
+一種 OpenCL \refglo{device}，還未分塊。
+參見\refglo{device}、\refglo{pardev}和\refglo{subdev}。
 
-\myglo{simd}{单指令多数据}{SIMD}
-这是一个编程模型，一个\refglo{kernel}在多个\refglo{prcele}上并发执行，每个\refglo{prcele}上都有自己的数据，还有一个共享的程序计数器。所有\refglo{prcele}执行严格一致的一套指令。
+\myglo{sampler}{採樣器}{Sampler}
+一種\refglo{obj}，用來控制\refglo{kernel}讀取圖像時怎樣對其採樣。
+讀取圖像的函數將\refglo{sampler}作為一個參數。
+\refglo{sampler}指定圖像的尋址方式，如圖像的坐標越限時怎樣處理、濾波模式、輸入的圖像坐標是否已規格化。
 
-\myglo{spmd}{单程序多数据}{SPMD}
-此编程模型中，一个\refglo{kernel}在多个\refglo{prcele}上并发执行，每个\refglo{prcele}上都有自己的数据和自己的程序计数器。因此，运行同一个\refglo{kernel}的所有计算资源都会维护自己的指令计数器；同时由于\refglo{kernel}中的不同分支，这些\refglo{prcele}中的实际指令序列可能会有很大不同。
+\myglo{simd}{單指令多數據}{SIMD}
+一種編程模型，一個\refglo{kernel}在多個\refglo{prcele}上並發執行，每個\refglo{prcele}上都有自己的數據，還有一個共享的程序計數器。
+所有\refglo{prcele}執行嚴格一致的一組指令。
 
-\myglo{tppm}{任务并行编程模型}{Task Parallel Programming Model}
-这个编程模型中，计算表示为多个并发的任务，其中，一个任务就是单个工作组（大小是 1）中执行的那个\refglo{kernel}。这些并发的任务可以运行不同的\refglo{kernel}。
+\myglo{spmd}{單程序多數據}{SPMD}
+一種编程模型，一個\refglo{kernel}在多個\refglo{prcele}上並發執行，每個\refglo{prcele}上都有自己的數據和自己的程序計數器。
+因此，運行同一個\refglo{kernel}的所有計算資源都會維護自己的指令計數器；
+同時由於\refglo{kernel}中的不同分支，這些\refglo{prcele}中的實際指令序列可能會有很大不同。
 
-\myglo{thsafe}{线程安全}{Thread-safe}
-对于一个\scopenclapi调用，只有在被多个\refglo{host}线程同时调用时，\scopencl所管理的内部状态保持一致，才认为它是\refglo{thsafe}的。如果一个\scopenclapi调用是\refglo{thsafe}的，那么就允许\refglo{app}在多个\refglo{host}线程中同时调用它，而不必在这些线程间实施互斥，同时，它们也是重入安全的。
+\myglo{subdev}{子設備}{Sub Device}
+一個 OpenCL \refglo{device}可以劃分成多個\refglo{subdev}。
+按照劃分方案，新的\refglo{subdev}是\refglo{pardev}中一組\refglo{comuteunit}的別名。
+任何情況下，只要可以使用其\refglo{pardev}，就可以使用這些\refglo{subdev}。
+劃分\refglo{device}不會摧毀\refglo{pardev}，可以繼續和\refglo{subdev}混合使用。
+請參考\refglo{device}、\refglo{pardev}和\refglo{rootdev}。
 
-\myglo{undef}{未定义}{Undefined}
-指\scopencl没有显式定义那些API调用、内建函数（由\refglo{kernel}使用或用来执行\refglo{kernel}）的行为。至于当\scopencl碰到一个未定义的构造时会发生什么，不要求实现指名。
 
-\myglo{workgrp}{工作组}{Work-group}
-相关\refglo{workitem}的集合，这些\refglo{workitem}在同一个\refglo{computeunit}上执行。一个\refglo{workgrp}中的所有\refglo{workitem}执行同一个\refglo{kernel}，共享\refglo{locmem}和\refglo{workgrpbarrier}。
+\myglo{tppm}{任務並行編程模型}{Task Parallel Programming Model}
+一種編程模型，其中計算表示為多個並發的任務，一個任務就是在\refglo{workgrp}（大小是1）中執行的\refglo{kernel}。
+這些並發的任務可以運行不同的\refglo{kernel}。
 
-\myglo{workgrpbarrier}{工作组隔层}{Work-group Barrier}
-参见\refglo{barrier}。
+\myglo{thsafe}{線程安全}{Thread-safe}
+對於一個 OpenCL API 調用，只有在被多個\refglo{host}線程同時調用時， OpenCL 所管理的內部狀態保持一致，才認為它是\refglo{thsafe}的。
+如果一个 OpenCL API 調用是\refglo{thsafe}的，那麼就允許\refglo{app}在多個\refglo{host}線程中同時調用它，而不必在這些線程間實施互斥，即它們也是重入安全的。
 
-\myglo{workitem}{工作项}{Work-item}
-\refglo{kernel}的并行执行体中的一个。作为一个\refglo{computeunit}中所执行的一个\refglo{workgrp}中的一部分，一个\refglo{workitem}可以由一个或多个\refglo{prcele}执行。用其\refglo{glbid}和\refglo{locid}来区分一个\refglo{workitem}和所在\refglo{workgrp}中的其他\refglo{workitem}。
+\myglo{undef}{未定義}{Undefined}
+對於 OpenCL API 調用、\refglo{kernel}中使用內建函數或者執行\refglo{kernel}，如果 OpenCL 沒有對其行為顯式定義，那麼這種行為就是\refglo{undef}。
+至於在 OpenCL 中碰到這種情況時會發生什麼，不要求實現明確指出。
+
+\myglo{workgrp}{工作組}{Work-group}
+一組相關的\refglo{workitem}，在同一個\refglo{computeunit}上執行。其中所有\refglo{workitem}執行同一個\refglo{kernel}，共享\refglo{locmem}和\refglo{workgrpbarrier}。
+
+\myglo{workgrpbarrier}{工作组屏障}{Work-group Barrier}
+參見\refglo{barrier}。
+
+\myglo{workitem}{工作項}{Work-item}
+\refglo{kernel}的並行執行體中的一個。
+作為在\refglo{computeunit}中執行的\refglo{workgrp}中的一部分，一個\refglo{workitem}可以由一個或多個\refglo{prcele}執行。
+用其\refglo{glbid}和\refglo{locid}來區分\refglo{workitem}。
 
 \section{\scopencl类图}
-\reffig{classdiag}使用统一建模语言{\footnote[uml]{统一建模语言（http://www.uml.org/）是Object Management Group（OMG）的一个商标。}}（UML）以类图的方式对\scopencl规范进行了描述。此图中，节点代表类，边代表类之间的关系。简化起见，类中没有特性和操作，抽象类带有注释“\{abstract\}”。对于类之间的关系，有聚集（aggregation，带有实心方块）、关联（association，没有注释）和继承（inheritance，带有开放的箭头）。边的两端带有关系的基数。基数“＊”代表“多个”，基数“1”代表“一个而且只有一个”，基数“0..1”代表“可选的一个”，而基数“1..”代表“一个或多个”。用普通箭头表示关系的方向性。
-
-\if 0
-%自定义metauml字体会导致对齐错误，如果要使用默认字体，必须先加载8r-base.map
-\pdfmapfile{8r-base.map}
-\startMPinclusions
-%string metauml_defaultFont;
-%metauml_defaultFont := "\truefontname{Serif}";
-%string metauml_defaultFontOblique;
-%metauml_defaultFontOblique := "\truefontname{SerifItalic}";
-%string metauml_defaultFontBold;
-%metauml_defaultFontBold := "\truefontname{SerifBold}";
-%string metauml_defaultFontBoldOblique;
-%metauml_defaultFontBoldOblique := "\truefontname{SerifBoldItalic}";
-input metauml;
-\stopMPinclusions
-
-\startreusableMPgraphic{xx}
-%save B;
-%save A;
-
-Class.A("Point")
-       ("+x: int",
-        "+y: int") ();
-%A.info.iName.iFont.name := metauml_defaultFontBold;
-%A.info.iName.iFont.scale := 1.2;
-%A.info.iAttributeStack.iPict.iFont.scale := 0.8;
-%A.info.iAttributeStack.top := 10;
-%A.info.iAttributeStack.spacing := 11;
-%A.info.iMethodStack.iPict.iFont.scale := 2;
-%A.info.iMethodStack.spacing := 17;
-%A.info.iMethodStack.bottom := 10;
-
-Class.B("Circle")
-       ("radius: int")
-       ("+getRadius(): int",
-        "+setRadius(r: int):void");
-
-topToBottom(45)(A, B);
-
-drawObjects(A, B);
-
-clink(aggregationUni)(A, B);
-\stopreusableMPgraphic
+\reffig{classdiag}使用統一建模語言
+{\footnote[uml]{統一建模語言（http://www.uml.org/）是 Object Management Group （OMG）的一個商標。}}
+（UML）以類圖的方式對 OpenCL 規範進行了描述。
+圖中的節點和邊分別代表類和類之間的關係。
+簡化起見，類中沒有特性和操作。
+抽象類帶有注釋“\{abstract\}”。
+對於類之間的關係，有聚集（aggregation，帶有實心方塊）、關聯（association，没有註解）和繼承（inheritance，帶有開放的箭頭）。
+邊兩端帶有關係的基數。
+基數“＊”代表“多個”，基數“1”代表“一個且只有一個”，基數“0..1”代表“可選的一個”，而基數“1..”代表“一個或多個”。
+普通箭頭代表關係的方向。
 
 \placefigure
 [here,force][fig:classdiag]
-{嵌入 \METAFUN\ 图形}{\reuseMPgraphic{xx}}
-\fi
-
-\placefigure
-[here,force][fig:classdiag]
-{\scopencl类图}{\externalfigure[figclassdiag-1.pdf]}
+{OpenCL 類圖}{\externalfigure[figclassdiag-1.pdf]}
 
 \stopcomponent
 
