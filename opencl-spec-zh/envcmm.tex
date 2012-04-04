@@ -543,23 +543,42 @@ bolditalic=adobeheitistd]
 %%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definetabletemplate[booktabs][o0|l|l|ro0|]
 
-\setuptables[
-  split=repeat,
-  %distance	small medium big
-  %bodyfont	5pt ... 12pt small big
-  %HL	number small medium big none
-  %VL	number small medium big none
-  %depth	number strut
-  %height	number strut
-  %rulethickness	dimension
-  %rulecolor	name
-  %align	flushright middle flushleft normal
-  %commands	command
-  %align	left middle right normal
-  %background	screen color none
-  %backgroundscreen	number
-  %backgroundcolor	name
-  %bodyfont	5pt ... 12pt small big
+\define\switchtobodyfontsmall{\switchtobodyfont[8pt]}
+\setupTABLE[%
+    %frameoffset=.5\linewidth,
+    %backgroundoffset=\v!frame,
+    %framecolor=\s!black,
+    %width=\v!fit,
+    %height=\v!fit,
+    %autowidth=\v!yes,
+    %rulethickness=\linewidth,
+    %strut=\v!yes,
+    %autostrut=\v!no,
+    %
+    %color=,
+    style={\rmx},
+    %headstyle=\rmx\bf,
+    %headcolor=,
+    %aligncharacter=\v!no,
+    %alignmentcharacter={,},
+    %option=, % \v!stretch
+    %header=,
+    %spaceinbetween=,
+    %maxwidth=8em,
+    %textwidth=\hsize,
+    split=repeat,
+    %splitoffset=0pt,
+    %distance=\zeropoint,           % individual column
+    %columndistance=\zeropoint,     % each column (whole table)
+    %leftmargindistance=\zeropoint, % whole table
+    %rightmargindistance=\zeropoint,% whole table
+    %left=,
+    %right=,
+    %setups=,
+    %splitmethod=a%
+]
+\setupTABLE[header][
+    style={\rmx\bf},
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scopencl{OpenCL}
@@ -761,8 +780,8 @@ bolditalic=adobeheitistd]
   location=top,	%top bottom none high low middle
   %width=max,	%fit broad max dimension
   %minwidth	fit dimension
-  headstyle=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
-  style=\rmx\bf,	%normal bold slanted boldslanted type cap small... command
+  headstyle={\rmx\bf},	%normal bold slanted boldslanted type cap small... command
+  style={\rmx\bf},	%normal bold slanted boldslanted type cap small... command
   %number	yes no
   %inbetween	command
   %align	left middle right no
@@ -773,41 +792,6 @@ bolditalic=adobeheitistd]
   %command	command
   %distance	dimension
   prefixsegments=chapter,	%chapter:section
-]
-
-\define\switchtobodyfontsmall{\switchtobodyfont[8pt]}
-\setupTABLE[%
-    %frameoffset=.5\linewidth,
-    %backgroundoffset=\v!frame,
-    %framecolor=\s!black,
-    %width=\v!fit,
-    %height=\v!fit,
-    %autowidth=\v!yes,
-    %rulethickness=\linewidth,
-    %strut=\v!yes,
-    %autostrut=\v!no,
-    %
-    %color=,
-    %style=\switchtobodyfontsmall,
-    %headstyle=\switchtobodyfontsmall,
-    %headcolor=,
-    %aligncharacter=\v!no,
-    %alignmentcharacter={,},
-    %option=, % \v!stretch
-    %header=,
-    %spaceinbetween=,
-    %maxwidth=8em,
-    %textwidth=\hsize,
-    %split=repeat,
-    %splitoffset=0pt,
-    %distance=\zeropoint,           % individual column
-    %columndistance=\zeropoint,     % each column (whole table)
-    %leftmargindistance=\zeropoint, % whole table
-    %rightmargindistance=\zeropoint,% whole table
-    %left=,
-    %right=,
-    %setups=,
-    %splitmethod=a%
 ]
 
 \define[2]\cltable{
