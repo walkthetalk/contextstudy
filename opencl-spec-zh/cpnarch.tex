@@ -30,30 +30,8 @@ OpenCL 的目標是讓程序員可以寫出可移植並且高效的代碼。
 \input{chapter_arch/sec_exe_model.tex}
 \input{chapter_arch/sec_mem_model.tex}
 \input{chapter_arch/sec_prg_model.tex}
-
-\startbuffer[sectitlememobj]
-\cnglo{memobj}
-\stopbuffer
-\section{\getbuffer[sectitlememobj]}
-有两类\cnglo{memobj}：\refglo{bufobj}和\refglo{imgobj}。\refglo{bufobj}中所存储的元素是一维的，而\refglo{imgobj}则用来存储二维或三维的材质、帧缓冲或图像。
-
-\refglo{bufobj}的元素可以是标量数据类型（如int、float）、矢量数据类型、或用户自定义的结构体。\refglo{imgobj}用来表示材质、帧缓冲等buffer。\cnglo{imgobj}中元素的格式必须从预定义格式中选取。一个\cnglo{memobj}中至少要有一个元素。
-
-\refglo{bufobj}和\refglo{imgobj}基本的区别是：
-\startigBase
-\item \refglo{bufobj}中的元素是顺序存储的，在\cnglo{device}上执行\cnglo{kernel}时，可以使用指针访问它们。而\refglo{imgobj}中元素的存储格式对用户是透明的，不能通过指针直接访问。\scopenclc编程语言提供有内建函数可以用来读写\cnglo{imgobj}。
-\item 对于\refglo{bufobj}，\cnglo{kernel}按其存储格式来访问其中的数据。而对于\refglo{imgobj}，其元素的存储格式可能与\cnglo{kernel}中使用的数据格式不一样。在\cnglo{kernel}中，图像元素始终是四元矢量（每一元可以是float或者signed/unsigned integer）。内建函数读取图像元素后会将其转换成四元矢量。类似的，内建函数写入图像时，会将四元矢量转换成恰当的格式（例如，四个8位元素）。
-\stopigBase
-
-用{\ftEmpha cl\_mem}来描述\cnglo{memobj}。\cnglo{kernel}会使用\cnglo{memobj}作为其它\cnglo{memobj}的输入或输出。
-
-\section{\scopencl框架}
-\scopencl框架允许\cnglo{app}将一个\cnglo{host}与不少于一个的\scopencl\cnglo{device}一起作为一个异构并行计算机系统来使用。这个框架包含以下组件:
-\startigBase
-\item {\ftEmpha \scopencl平台层：}平台层允许\cnglo{host}\cnglo{program}发现\scopencl\cnglo{device}及其\sccapability并创建\cnglo{context}。
-\item {\ftEmpha \scopencl\scruntime：}一旦创建了\cnglo{context}，\scruntime就允许\cnglo{host}\cnglo{program}操控它。
-\item {\ftEmpha \scopencl编译器：}\scopencl编译器可以创建包含\scopencl\cnglo{kernel}的可执行程序。它所实现的\scopenclc编程语言支持\scisocnn语言的一个子集，并带有并行扩展。
-\stopigBase
+\input{chapter_arch/sec_mem_obj.tex}
+\input{chapter_arch/sec_cl_fw.tex}
 
 \stopcomponent
 
