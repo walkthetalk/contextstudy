@@ -1,46 +1,38 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%head%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bTABLEhead
-\bTR[background=color,backgroundcolor=gray]
-  \bTH cl\_platform\_info \eTH
-  \bTH 返回类型 \eTH
-  \bTH 描述 \eTH \eTR
-\eTABLEhead
+\startETD[cl_platform_info][
+對於 OpenCL 查詢函數，如果所查詢的信息類型是 \ctype{char[]}，則會返回一個以 null 結尾的字符串。
+]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bTABLEbody
-
-\clenumretdesc{CL_PLATFORM_PROFILE}{
-    char[]
-}{
-    \scopencl\scprofile字符串。返回实现所支持的\scprofile的名字，此名字可能是下列中的一个：
-    \startigBase
-    \item FULL\_PROFILE——如果此实现支持\scopencl规范（核心规范所定义的功能，不需要支持任何扩展）。
-    \item EMBEDDED\_PROFILE——如果此实现支持\scopencl\scembpf。\scembpf是对应版本\scopencl
-    的一个子集。\scclver的\scembpf在\todo{secion 10}中有所描述。
-    \stopigBase
-\footnote{对于\scopencl查询函数，如果所查询的信息类型是char[]，则会返回
-    一个以null结尾的字符串。}
+\clETD{CL_PLATFORM_PROFILE}{char[]}{
+  OpenCL 規格字符串。
+  返回實現所支持的規格的名字。
+  可以是下列之一：
+  \startigBase
+  \item FULL\_PROFILE——表示實現支持 OpenCL 規範（核心規範所定義的功能，無須支持任何擴展）。
+  \item EMBEDDED\_PROFILE——表示實現支持 OpenCL 嵌入式規格。它是對應版本 OpenCL 的一個子集。
+    OpenCL \scver 的嵌入式規格請參考\todo{secion 10}。
+  \stopigBase
 }
 
-\clenumretdesc{CL_PLATFORM_VERSION}{char[]}{
-    \scopencl版本字符串。返回此实现所支持的\scopencl版本。此字符串格式如下：
+\clETD{CL_PLATFORM_VERSION}{char[]}{
+  OpenCL 版本字符串。返回所支持的 OpenCL 版本。其格式如下：
 
-    {\ftRef \scopencl<space >< major\_version.minor\_version >< space >< platform-specific information >}
+  {\ftRef OpenCL<space><major\_version.minor\_version><space><platform-specific information>}
 
-    所返回的{\ftRef major\_version.minor\_version}将是1.1。    
+  所返回的 {\ftRef major\_version.minor\_version} 將是 \scver。
 }
 
-\clenumretdesc{CL_PLATFORM_NAME}{char[]}{
-    平台的名字
+\clETD{CL_PLATFORM_NAME}{char[]}{
+  平台名字。
 }
 
-\clenumretdesc{CL_PLATFORM_VENDOR}{char[]}{
-    平台供应商的名字
+\clETD{CL_PLATFORM_VENDOR}{char[]}{
+  平台供應商的名字。
 }
 
-\clenumretdesc{CL_PLATFORM_EXTENSIONS}{char[]}{
-    返回此平台所支持的扩展名的清单，以空格分隔（扩展名本身不包含空格）。与此平台相关联的所有\cnglo{device}都要支持此处定义的扩展。
+\clETD{CL_PLATFORM_EXTENSIONS}{char[]}{
+  返回一個清單，列出平台所支持的擴展名，以空格分隔（擴展名本身不包含空格）。
+  此平台相關的所有\cnglo{device}都要支持此處定義的擴展。
 }
 
-\eTABLEbody
+\stopETD
 

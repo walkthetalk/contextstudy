@@ -543,7 +543,6 @@ bolditalic=adobeheitistd]
 %%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definetabletemplate[booktabs][o0|l|l|ro0|]
 
-\define\switchtobodyfontsmall{\switchtobodyfont[8pt]}
 \setupTABLE[%
     %frameoffset=.5\linewidth,
     %backgroundoffset=\v!frame,
@@ -582,6 +581,47 @@ bolditalic=adobeheitistd]
     background=color,
     backgroundcolor=gray,
 ]
+
+%%%%%%%%%%%%%%%%%%% ETD: enum / type / desc
+\def\startETD{\dodoubleempty\dostartETD}
+
+\long\def\dostartETD[#1][#2]#3\stopETD{%
+  \startlocalfootnotes
+  \bTABLE[option=stretch]
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+      \iffirstargument
+        \bTH \ctype{#1} \eTH
+      \else
+        \bTH \ctype{anonymous} \eTH
+      \fi
+      \ifsecondargument
+        \bTH 返回类型\footnote{#2} \eTH
+      \else
+        \bTH 返回類型 \eTH
+      \fi
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #3
+  \eTABLEbody
+  \eTABLE
+  \placelocalfootnotes[style=\rmx,before=,after=,]
+  \stoplocalfootnotes
+}
+
+\define[3]\clETD{
+\bTR[background=color,backgroundcolor=gray]
+  \bTC \cenum{#1} \eTC
+  \bTC \ctype{#2} \eTC
+\eTR
+\bTR
+  \bTC[nc=2]
+    \parindent2em
+    #3
+  \eTC
+\eTR
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scopencl{OpenCL}
 \define\scopenclc{OpenCL C}
@@ -597,8 +637,8 @@ bolditalic=adobeheitistd]
 \define\scieeeqwsellb{IEEE 754-2008}
 \define\scprofile{简档}
 \define\scembpf{嵌入式简档}
-\define\scver{1.1}
-\define\scclver{\scopencl\space 1.1}
+\define\scver{1.2}
+\define\scclver{OpenCL 1.2}
 \define\schostfailres{在为\cnglo{host}上的 OpenCL 实现分配资源时失败}
 \define\scdevfailres{在为\cnglo{device}上的 OpenCL 实现分配资源时失败}
 \define\scdenorm{去规格化}
@@ -795,35 +835,6 @@ bolditalic=adobeheitistd]
   %distance	dimension
   prefixsegments=chapter,	%chapter:section
 ]
-
-\define[2]\cltable{
-#1{\bTABLE\bTR\bTD\eTD\eTR\eTABLE}
-\startlocalfootnotes
-%\placelegend%大括号一定要另起一行，否则会右移，但是会导致TABLE横排，因此注掉
-{\bTABLE[split=repeat, option=stretch, style=\rmx, headstyle=\rmx\bf] #2 \eTABLE}
-\placelocalfootnotes[style=\rmx,before=,after=,]
-\stoplocalfootnotes
-}
-
-\define[3]\clenumretdesc{
-\bTR \bTC \cenum{#1} \eTC
-  \bTC
-    \ctype{#2}
-  \eTC
-  \bTC
-    \parindent2em
-    #3
-  \eTC
-\eTR
-}
-
-\define[2]\clenumdesc{
-\bTR \bTC \cenum{#1} \eTC
-  \bTC
-    #2
-  \eTC
-\eTR
-}
 
 \setupfloatsplitting[lines=1,conversion=greek]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formula%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
