@@ -1,0 +1,16 @@
+\section{劃分設備}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%clCreateSubDevices
+函數
+\startclc
+cl_int clCreateSubDevices (cl_device_id in_device,
+			   const cl_device_partition_property *properties,
+			   cl_uint num_devices,
+			   cl_device_id *out_devices,
+			   cl_uint *num_devices_ret)
+\stopclc
+\noindenting 會按照 \carg{properties} 所規定的劃分方案，
+在 \carg{in_device} 中創建一個\cnglo{subdev}的數組，
+其中每個\cnglo{subdev}包含一組\cnglo{computeunit}，且它們之間沒有交集。
+\cnglo{subdev}的使用方式跟\cnglo{rootdev}（或其\cnglo{pardev}）一樣，
+如可以用來創建\cnglo{context}、構建\cnglo{program}、進一步調用 \capi{clCreateSubDevices} 以及創建\cnglo{cmdq}。
+如果用\cnglo{subdev}創建\cnglo{cmdq}，則其中的\cnglo{cmd}只能在這個\cnglo{subdev}上執行。

@@ -56,8 +56,8 @@ cl_int clGetPlatformInfo(
 \startigBase
 \item \cenum{CL_INVALID_PLATFORM}，如果 \carg{platform} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 不被支持，
-或者 \carg{param_value_size} < \reftab{plfquery}中返回值的大小
+\item \cenum{CL_INVALID_VALUE}，如果不支持 \carg{param_name}，
+或 \carg{param_value_size} < \reftab{plfquery}中返回值的大小
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。

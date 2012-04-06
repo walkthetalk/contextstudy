@@ -33,10 +33,6 @@ bolditalic=adobeheitistd]
 
 \setupzhfonts[latin, mono][regular=Monaco]
 
-
-% C 代码高亮抄录模块
-\usemodule[pretty-c]
-
 % 启用中文断行
 \setscript[hanzi]
 \mainlanguage[cn]
@@ -393,7 +389,7 @@ bolditalic=adobeheitistd]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%par%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 首行缩进
-\setupindenting[always, 2em, first]
+\setupindenting[yes, 2em, first]
 % 段落间距
 \setupwhitespace[none] %none small medium big line fixed fix dimension
 % 行间距
@@ -565,7 +561,7 @@ bolditalic=adobeheitistd]
     %spaceinbetween=,
     %maxwidth=8em,
     %textwidth=\hsize,
-    split=repeat,
+    %split=repeat,
     %splitoffset=0pt,
     %distance=\zeropoint,           % individual column
     %columndistance=\zeropoint,     % each column (whole table)
@@ -622,6 +618,44 @@ bolditalic=adobeheitistd]
   \eTC
 \eTR
 }
+%%%%%%%%%%%%%%%%%%% ED: enum / desc
+\def\startED{\dodoubleempty\dostartED}
+
+\long\def\dostartED[#1][#2]#3\stopED{%
+  \ifsecondargument
+    \startlocalfootnotes
+  \fi
+  \bTABLE[option=stretch]
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+      \iffirstargument
+        \bTH \ctype{#1} \eTH
+      \else
+        \bTH \ctype{anonymous} \eTH
+      \fi
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #3
+  \eTABLEbody
+  \eTABLE
+  \ifsecondargument
+    \placelocalfootnotes[style=\rmx,before=,after=,]
+    \stoplocalfootnotes
+  \fi
+}
+
+\define[2]\clED{
+\bTR[background=color,backgroundcolor=gray]
+  \bTC \cenum{#1} \eTC
+\eTR
+\bTR
+  \bTC
+    \parindent2em
+    #2
+  \eTC
+\eTR
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scopencl{OpenCL}
 \define\scopenclc{OpenCL C}
@@ -639,13 +673,13 @@ bolditalic=adobeheitistd]
 \define\scembpf{嵌入式简档}
 \define\scver{1.2}
 \define\scclver{OpenCL 1.2}
-\define\schostfailres{在为\cnglo{host}上的 OpenCL 实现分配资源时失败}
-\define\scdevfailres{在为\cnglo{device}上的 OpenCL 实现分配资源时失败}
+\define\schostfailres{在為\cnglo{host}上的 OpenCL 實現分配資源時失敗}
+\define\scdevfailres{在為\cnglo{device}上的 OpenCL 實現分配資源時失敗}
 \define\scdenorm{去规格化}
 \define\scinf{INF}
-\define\scqnan{QNaN}
+\define\scqnan{Quiet NaN}
 \define\scfma{FMA}
-\define\scnfma{积和熔加运算}
+\define\scnfma{積和熔加运算}
 \define\sccache{cache}
 \define\sccacheline{cache line}
 
@@ -845,13 +879,13 @@ bolditalic=adobeheitistd]
   %align	flushleft middle flushright
   %option	middle
   %strut	yes no
-  %distance	dimension
+  %distance=0.01ex,	%dimension
   %margin	dimension standard yes no
   %leftmargin	dimension
   %rightmargin	dimension
-  indentnext=yes,	%yes no
+  %indentnext=yes,	%yes no
   %alternative	name
-  %spacebefore	dimension
+  %spacebefore=0.01ex,	%dimension
   %after	dimension
   %separator	text
   %conversion	numbers characters Characters romannumerals Romannumerals text

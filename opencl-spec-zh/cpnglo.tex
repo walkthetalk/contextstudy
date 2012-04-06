@@ -257,13 +257,13 @@ OpenCL 所定義的一類\refglo{obj}。\refglo{res}的一個實例就是一個\
 對於 OpenCL API 調用、\refglo{kernel}中使用內建函數或者執行\refglo{kernel}，如果 OpenCL 沒有對其行為顯式定義，那麼這種行為就是\refglo{undef}。
 至於在 OpenCL 中碰到這種情況時會發生什麼，不要求實現明確指出。
 
-\myglo{workgrp}{工作組}{Work-group}
+\myglo{workgrp}{作業組}{Work-group}
 一組相關的\refglo{workitem}，在同一個\refglo{computeunit}上執行。其中所有\refglo{workitem}執行同一個\refglo{kernel}，共享\refglo{locmem}和\refglo{workgrpbarrier}。
 
 \myglo{workgrpbarrier}{工作组屏障}{Work-group Barrier}
 參見\refglo{barrier}。
 
-\myglo{workitem}{工作項}{Work-item}
+\myglo{workitem}{作業項}{Work-item}
 \refglo{kernel}的並行執行體中的一個。
 作為在\refglo{computeunit}中執行的\refglo{workgrp}中的一部分，一個\refglo{workitem}可以由一個或多個\refglo{prcele}執行。
 用其\refglo{glbid}和\refglo{locid}來區分\refglo{workitem}。
