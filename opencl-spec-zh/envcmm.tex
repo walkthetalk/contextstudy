@@ -389,7 +389,7 @@ bolditalic=adobeheitistd]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%par%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 首行缩进
-\setupindenting[yes, 2em, first]
+\setupindenting[yes, 2em]
 % 段落间距
 \setupwhitespace[none] %none small medium big line fixed fix dimension
 % 行间距
@@ -586,16 +586,8 @@ bolditalic=adobeheitistd]
   \bTABLE[option=stretch]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
-      \iffirstargument
         \bTH \ctype{#1} \eTH
-      \else
-        \bTH \ctype{anonymous} \eTH
-      \fi
-      \ifsecondargument
-        \bTH 返回类型\footnote{#2} \eTH
-      \else
-        \bTH 返回類型 \eTH
-      \fi
+        \bTH #2 \eTH
     \eTR
   \eTABLEhead
   \bTABLEbody
