@@ -6,11 +6,12 @@
 \environment envcmm
 \product opencl
 
-\chapter{\scopencl\scruntime}
-本节中,我们将描述用来管理\scopencl对象（如\cnglo{cmdq}、\cnglo{memobj}、\cnglo{programobj}、执行\cqlf{__kernel}函数的\cnglo{kernelobj}）的API调用，以及用来将\cnglo{cmd}入队的调用，如执行\cnglo{kernel}，读写\cnglo{memobj}。
+\chapter{OpenCL runtime}
+本節中，我們將介紹的 API 調用可用來管理 OpenCL 對象（如\cnglo{cmdq}、\cnglo{memobj}、\cnglo{programobj}、執行 \cqlf{__kernel} 函數的\cnglo{kernelobj}）、
+將\cnglo{cmd}插入\cnglo{cmdq}（如執行\cnglo{kernel}，讀寫\cnglo{memobj}）。
 
-\input{chapter_rt/sec_rt_cmdq.tex}
-\input{chapter_rt/sec_rt_bufobj.tex}
+%\input{chapter_rt/sec_rt_cmdq.tex}
+%\input{chapter_rt/sec_rt_bufobj.tex}
 %\input{sec_plf_context.tex}
 
 \stopcomponent
