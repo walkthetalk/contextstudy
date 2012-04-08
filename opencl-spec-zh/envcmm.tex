@@ -613,7 +613,7 @@ bolditalic=adobeheitistd]
 %%%%%%%%%%%%%%%%%%% ED: enum / desc
 \def\startED{\dodoubleempty\dostartED}
 
-\long\def\dostartED[#1][#2]#3\stopED{%
+\long\def\dostartED[#1]#2\stopED{%
   \ifsecondargument
     \startlocalfootnotes
   \fi
@@ -621,14 +621,11 @@ bolditalic=adobeheitistd]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
       \iffirstargument
-        \bTH \ctype{#1} \eTH
-      \else
-        \bTH \ctype{anonymous} \eTH
-      \fi
+        \bTH #1 \eTH
     \eTR
   \eTABLEhead
   \bTABLEbody
-    #3
+    #2
   \eTABLEbody
   \eTABLE
   \ifsecondargument

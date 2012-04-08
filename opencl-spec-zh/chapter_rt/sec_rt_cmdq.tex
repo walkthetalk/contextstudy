@@ -1,11 +1,14 @@
-\startbuffer[sectitlecmdq]
-\cnglo{cmdq}
-\stopbuffer
-\section{\getbuffer[sectitlecmdq]}
+\section{命令隊列}
 
-\scopencl\cnglo{memobj}、\cnglo{programobj}和\cnglo{kernelobj}都是用\englo{context}创建的。对这些对象的操作都是用\cnglo{cmdq}执行的。可以使用\cnglo{cmdq}将一系列操作（叫做\cnglo{cmd}）按序排队。如果有多个\cnglo{cmdq}，\cnglo{app}可以将多个互相独立的\cnglo{cmd}分别排队而无须同步。这仅在没有对象被共享时才成立。一旦有对象在多个\cnglo{cmdq}间被共享，就要求\cnglo{app}执行相应的同步。这在\todo{附录A}中有所描述。
+OpenCL 對象，如\cnglo{memobj}、\cnglo{programobj}和\cnglo{kernelobj}都是用\cnglo{context}創建的。
+使用\cnglo{cmdq}可以在這些對象上面實施運算。
+\cnglo{cmdq}可以將一系列運算（叫做\cnglo{cmd}）按序排隊。
+如果有多個\cnglo{cmdq}，\cnglo{app}可以將多個相互獨立的\cnglo{cmd}分別排隊而無須同步。
+然而這僅在沒有對象被共享時才成立。
+如果要在多個\cnglo{cmdq}間共享對象，就要求\cnglo{app}實施相應的同步。
+這在\todo{附录A}中會有所描述。
 
-函数\capi{clCreateCommandQueue}用来在特定\cnglo{device}上创建一个\cnglo{cmdq}。
+函數 \capi{clCreateCommandQueue} 可用來在某個\cnglo{device}上創建\cnglo{cmdq}。
 \startclc
 cl_command_queue clCreateCommandQueue(
 			cl_context context,
@@ -14,32 +17,37 @@ cl_command_queue clCreateCommandQueue(
 			cl_int *errcode_ret)
 \stopclc
 
-\carg{context}必须是一个有效的\scopencl\cnglo{context}。
+\carg{context} 必須是一個有效的 OpenCL \cnglo{context}。
 
 \startbuffer[tblcmdqprop]
 \ctype{cl_command_queue_property}的有效值及其描述
 \stopbuffer
-\cltable
-{\placetable[here,force][tab:clcmdprop]{\getbuffer[tblcmdqprop]}}
-{\input{tbl/tbl_cmdq_prop.tex}}
+\placetable[here,force][tab:clcmdprop]{\getbuffer[tblcmdqprop]}
+{\input{chapter_rt/tbl/tbl_cmdq_prop.tex}}
 
-\carg{device}必须是与\carg{context}关联的\cnglo{device}。它要么是用\capi{clCreateContext}创建\carg{context}时所指定的\cnglo{device}清单中的一个，要么与使用\capi{clCreateContextFromType}创建\cnglo{context}时所指定的\cnglo{device}具有相同的类型。
+\carg{device} 必須是與 \carg{context} 關聯的\cnglo{device}。
+它要麼是用 \capi{clCreateContext} 創建 \carg{context} 時所指定的\cnglo{device}清單中的一個，
+要麼其類型與用 \capi{clCreateContextFromType} 創建 \carg{context} 時所指定的\cnglo{device}類型相同。
 
-\carg{properties}指定了\cnglo{cmdq}的一系列属性。它是位域，参见\reftab{clcmdprop}。
-只能设置\reftab{clcmdprop}中列出的属性，否则认为\carg{properties}无效。
+\carg{properties} 指定了\cnglo{cmdq}的一系列屬性。
+它是位域，參見\reftab{clcmdprop}。
+其值只能從\reftab{clcmdprop}所列屬性中選取，否則無效。
 
-\carg{errcode_ret}用来返回错误码。当然如果\carg{errcode_ret}是\cenum{NULL}就不会返回错误码了。
+\carg{errcode_ret} 用來返回錯誤碼。
+當然如果 \carg{errcode_ret} 是 \cenum{NULL}，就不會返回錯誤碼了。
 
-如果执行成功，\capi{clCreateCommandQueue}会返回一个非0的\cnglo{cmdq}，同时将\carg{errcode_ret}置为\cenum{CL_SUCCESS}。否则返回\cenum{NULL}，同时将\carg{errcode_ret}置为下列错误码之一：
+如果成功創建了\cnglo{cmdq}，則 \capi{clCreateCommandQueue} 會將其返回，同時將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
+否則返回 \cenum{NULL}，同時將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
-\item \cenum{CL_INVALID_CONTEXT}——如果\carg{context}无效。
-\item \cenum{CL_INVALID_DEVICE}——如果\carg{device}无效或没有与\carg{context}关联。
-\item \cenum{CL_INVALID_VALUE}——如果\carg{properties}的值不受支持。
+\item \cenum{CL_INVALID_CONTEXT}——如果 \carg{context} 無效。
+\item \cenum{CL_INVALID_DEVICE}——如果 \carg{device} 無效或沒有與 \carg{context} 關聯。
+\item \cenum{CL_INVALID_VALUE}——如果 \carg{properties} 的值有效，但是此\cnglo{device}不支持。
 \item \cenum{CL_INVALID_QUEUE_PROPERTIES}——如果\carg{properties}的值没问题，但是\carg{device}不支持。
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
 
+%clRetainCommandQueue
 函数\capi{clRetainCommandQueue}会使\carg{command_queue}的\cnglo{refcnt}加1。
 \startclc
 cl_int clRetainCommandQueue(
