@@ -610,13 +610,10 @@ bolditalic=adobeheitistd]
 \def\startED{\dodoubleempty\dostartED}
 
 \long\def\dostartED[#1]#2\stopED{%
-  \ifsecondargument
-    \startlocalfootnotes
-  \fi
+  \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
-      \iffirstargument
         \bTH #1 \eTH
     \eTR
   \eTABLEhead
@@ -624,10 +621,8 @@ bolditalic=adobeheitistd]
     #2
   \eTABLEbody
   \eTABLE
-  \ifsecondargument
-    \placelocalfootnotes[style=\rmx,before=,after=,]
-    \stoplocalfootnotes
-  \fi
+  \placelocalfootnotes[style=\rmx,before=,after=,]
+  \stoplocalfootnotes
 }
 
 \define[2]\clED{
@@ -751,6 +746,10 @@ bolditalic=adobeheitistd]
   %global	yes no
 ]
 \fi
+
+\define[1]\reftit{
+\in[tit:#1]
+}
 
 \define[1]\reffig{
 \in{图}{}[fig:#1]
