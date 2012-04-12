@@ -1,0 +1,38 @@
+\subsubsection[tit:imgFmtDsc]{圖像格式描述符}
+
+圖像格式描述符的結構定義如下：
+\startclc
+typedef struct _cl_image_format {
+	cl_channel_order	image_channel_order;
+	cl_channel_type		image_channel_data_type;
+} cl_image_format;
+\stopclc
+
+\cvar{image_channel_order} 指定了通道（ channel ）數目以及通道布局，
+即圖像中通道存儲的內存布局。其有效值參見\reftab{imgChannelOrder}。
+
+\cvar{image_channel_data_type} 即通道的數據類型。
+其有效值參見\reftab{imgChannelDataType}。
+
+由以上兩者所確定的圖像元素的 bit 數目必須是 2 的指數。
+
+\placetable[here,force][tab:imgChannelOrder]{圖像通道順序}
+{\input{chapter_rt/tbl/tbl_img_channel_order.tex}}
+
+\placetable[here,force][tab:imgChannelDataType]{圖像通道數據類型}
+{\input{chapter_rt/tbl/tbl_img_channel_data_type.tex}}
+
+例如，如果 \cvar{image_channel_order} = \cenum{CL_RGBA}， \cvar{image_channel_data_type} = \cenum{CL_UNORM_INT8}，
+此格式的內存布局為：
+
+\bTABLE[frame=off,width=.05\textwidth]
+\bTR[align=middle]
+\bTD[nc=6] \eTD \bTD[frame=on,nc=2] R \eTD \bTD[frame=on,nc=2] G \eTD \bTD[frame=on,nc=2] B \eTD \bTD[frame=on,nc=2] A \eTD \bTD[frame=on,nc=6] \eTD
+\eTR
+\bTR
+\bTD[nc=6,align=right] 字節偏移 \eTD \bTD[nc=2] 0 \eTD \bTD[nc=2] 1 \eTD \bTD[nc=2] 2 \eTD \bTD[nc=2] 3 \eTD \bTD[nc=6] \eTD
+\eTR
+\eTABLE
+
+
+
