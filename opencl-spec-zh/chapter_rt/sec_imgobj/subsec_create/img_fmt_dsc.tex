@@ -25,12 +25,17 @@ typedef struct _cl_image_format {
 例如，如果 \cvar{image_channel_order} = \cenum{CL_RGBA}， \cvar{image_channel_data_type} = \cenum{CL_UNORM_INT8}，
 此格式的內存布局為：
 
-\bTABLE[frame=off,width=.05\textwidth]
+\bTABLE[frame=off]
 \bTR[align=middle]
-\bTD[nc=6] \eTD \bTD[frame=on,nc=2] R \eTD \bTD[frame=on,nc=2] G \eTD \bTD[frame=on,nc=2] B \eTD \bTD[frame=on,nc=2] A \eTD \bTD[frame=on,nc=6] \eTD
+\bTD[width=.3\textwidth] \eTD
+\bTD[frame=on,width=.1\textwidth] R \eTD
+\bTD[frame=on,width=.1\textwidth] G \eTD
+\bTD[frame=on,width=.1\textwidth] B \eTD
+\bTD[frame=on,width=.1\textwidth] A \eTD
+\bTD[frame=on,width=.3\textwidth] \eTD
 \eTR
-\bTR
-\bTD[nc=6,align=right] 字節偏移 \eTD \bTD[nc=2] 0 \eTD \bTD[nc=2] 1 \eTD \bTD[nc=2] 2 \eTD \bTD[nc=2] 3 \eTD \bTD[nc=6] \eTD
+\bTR[align={hi}]
+\bTD[align=left] 字節偏移$\rightarrow$ \eTD \bTD 0 \eTD \bTD 1 \eTD \bTD 2 \eTD \bTD 3 \eTD \bTD \eTD
 \eTR
 \eTABLE
 
