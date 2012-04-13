@@ -7,8 +7,8 @@
 %%%%%%%%%%%%%%%%%%% simplefonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usemodule[zhfonts][style=rm, size=11pt]
-\setupzhfonts[feature][onum=yes, pnum=yes]
+\usemodule[zhfonts][style=rm, size=10.5pt]
+%\setupzhfonts[feature][onum=yes, pnum=yes]
 
 \setupzhfonts
 [serif]
@@ -70,7 +70,7 @@ bolditalic=adobeheitistd]
 %\stopallmodes
 
 \setuptolerance[horizontal,
-  stretch, %stretch space verystrict strict tolerant verytolerant
+  strict, %stretch space verystrict strict tolerant verytolerant
 ]
 \setuptolerance[vertical,
   tolerant, %stretch space verystrict strict tolerant verytolerant
@@ -104,6 +104,9 @@ bolditalic=adobeheitistd]
   style=\tt\it,
 ]
 \definetype[cvar]{
+  style=\tt\tf,
+}
+\definetype[ccmm]{
   style=\tt\tf,
 }
 
