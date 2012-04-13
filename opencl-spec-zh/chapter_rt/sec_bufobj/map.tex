@@ -72,8 +72,8 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
   對於用 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_ALLOC_HOST_PTR} 創建的\cnglo{bufobj}不能出現此錯誤。
 
 \item \cenum{CL_INVALID_OPERATION}，
-  如果創建 \carg{buffer} 時在 \carg{map_flags} 中指定了 \carg{CL_MEM_HOST_WRITE_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS} 以及 \cenum{CL_MAP_READ}，
-  或者創建 \carg{buffer} 時在 \carg{map_flags} 中指定了 \carg{CL_MEM_HOST_READ_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS} 以及 \cenum{CL_MAP_WRITE} 或 \cenum{CL_MAP_WRITE_INVALIDATE_REGION}。
+  如果創建 \carg{buffer} 時在 \carg{map_flags} 中指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS} 以及 \cenum{CL_MAP_READ}，
+  或者創建 \carg{buffer} 時在 \carg{map_flags} 中指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS} 以及 \cenum{CL_MAP_WRITE} 或 \cenum{CL_MAP_WRITE_INVALIDATE_REGION}。
 
 \item \cenum{CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST}，
   如果映射操作是阻塞的，且 \carg{event_wait_list} 中任一事件的執行狀態是負整數。

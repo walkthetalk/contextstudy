@@ -1,7 +1,7 @@
 \subsection{讀、寫以及拷貝緩衝對象}
 
 %% clEnqueueReadBuffer / clEnqueueWriteBuffer
-下列函數會將一個可以讀寫\cnglo{bufobj}的\cnglo{cmd}插入隊列，
+下列函數會將一個用於讀寫\cnglo{bufobj}的\cnglo{cmd}插入隊列，
 此\cnglo{cmd}可以將\cnglo{bufobj}的內容讀到\cnglo{host}內存中，
 或者由\cnglo{host}內存寫入到\cnglo{bufobj}中。
 \startclc
@@ -93,10 +93,10 @@ cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBuffer}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_WRITE_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBuffer}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_READ_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
@@ -241,10 +241,10 @@ $host\_origin[2] * host\_slice\_pitch + host\_origin[1] * host\_row\_pitch + hos
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBufferRect}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_WRITE_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBufferRect}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_READ_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
@@ -364,10 +364,10 @@ cl_int clEnqueueCopyBuffer (cl_command_queue command_queue,
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{src_buffer} 或 \carg{dst_buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBufferRect}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_WRITE_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBufferRect}，
-  但創建 \carg{buffer} 時指定了 \carg{CL_MEM_HOST_READ_ONLY} 或 \carg{CL_MEM_HOST_NO_ACCESS}。
+  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
