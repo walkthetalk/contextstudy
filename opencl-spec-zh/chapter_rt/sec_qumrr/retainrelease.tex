@@ -1,0 +1,50 @@
+\subsection{保留以及釋放內存對象}
+
+函數
+\startclc
+cl_int clRetainMemObject (cl_mem memobj)
+\stopclc
+會使 \carg{memobj} 的\cnglo{refcnt}增一。執行成功後會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤的一種：
+\startigBase
+\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{memobj} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+\capi{clCreateBuffer}、 \capi{clCreateSubBuffer} 以及 \capi{clCreateImage} 會實施隱式的\cnglo{retain}。
+
+函數
+\startclc
+cl_int clReleaseMemObject (cl_mem memobj)
+\stopclc
+會使 \carg{memobj} 的\cnglo{refcnt}減一。執行成功後會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤的一種：
+\startigBase
+\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{memobj} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+一旦 \carg{memobj} 的\cnglo{refcnt}變成零，並且所有使用它的\cnglo{cmd}都執行完畢，此\cnglo{memobj}就會被刪除。
+如果 \carg{memobj} 是一個\cnglo{bufobj}，只有等到其所有子\cnglo{bufobj}都被刪除後，才能將其刪除。
+
+函數
+\startclc
+cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
+		void (CL_CALLBACK *pfn_notify)(cl_mem memobj,
+			void *user_data),
+		void *user_data)
+\stopclc
+會向 \carg{memobj} 註冊一個回調函數。
+每次調用 \capi{clSetMemObjectDestructorCallback} 都會將回調函數註冊到 \carg{memobj} 的回調棧上。
+回調函數的調用順序與其註冊順序相反。
+對於一個\cnglo{memobj}而言，這些回調函數是在其資源被釋放以及將其刪除之前調用的。
+這樣就提供了一種機制，
+當 \carg{host_ptr} (創建 \carg{memobj} 時指定）所引用的內存（用來存儲\cnglo{memobj}的內容）可以重新使用或是被釋放時，
+正在使用 \carg{memobj} 的\cnglo{app}（以及庫）可以收到通知。
+
