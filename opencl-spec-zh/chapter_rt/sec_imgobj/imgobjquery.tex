@@ -1,0 +1,47 @@
+\subsection{圖像對象查詢}
+
+對於所有\cnglo{memobj}都適用的信息可以使用 \capi{clGetMemObjectInfo} 來獲取，參見\todo{5.4.5}。
+
+而對於由 \capi{clCreateImage} 創建的\cnglo{imgobj}而言，一些特定信息使用如下函數獲取：
+\startclc
+cl_int clGetImageInfo (cl_mem image,
+			cl_image_info param_name,
+			size_t param_value_size,
+			void *param_value,
+			size_t *param_value_size_ret)
+\stopclc
+
+\carg{image} 即被查詢的\cnglo{imgobj}。
+
+\carg{param_name} 指明要查詢什麼信息。它所支持的類型以及在 \carg{param_value} 中返回的信息如\reftab{clgetimginfo}所示。
+
+\carg{param_value} 用來存儲查詢結果。如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+
+\carg{param_value_size}，即 \carg{param_value} 內存塊的大小。
+其值必須 >= \reftab{clgetimginfo}中返回類型的大小。
+
+\carg{param_value_size_ret}，即查詢結果的實際大小。
+如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+
+如果執行成功， \capi{clGetImageInfo} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_VALUE}，如果 \cenum{param_name} 的值無效，
+或者 \cenum{param_value_size} 的值 < \reftab{clgetimginfo}中返回類型的大小並且 \cenum{param_value} 不是 \cenum{NULL}，
+或者 \carg{param_name} 指的是某個擴展，但是此\cnglo{device}不支持相應擴展。
+
+\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{image} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+\startbuffer[tblclgetimginfo]
+\capi{clGetImageInfo} 所支持的 \carg{param_names}
+\stopbuffer
+
+\splitfloat{
+\placetable[here,force][tab:clgetimginfo]{\getbuffer[tblclgetimginfo]}
+}{
+{\input{chapter_rt/tbl/tbl_clgetimginfo.tex}}
+}
