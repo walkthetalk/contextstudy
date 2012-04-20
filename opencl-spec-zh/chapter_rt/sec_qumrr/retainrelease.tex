@@ -48,3 +48,51 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 當 \carg{host_ptr} (創建 \carg{memobj} 時指定）所引用的內存（用來存儲\cnglo{memobj}的內容）可以重新使用或是被釋放時，
 正在使用 \carg{memobj} 的\cnglo{app}（以及庫）可以收到通知。
 
+\carg{memobj} 是一個\cnglo{memobj}。
+
+\carg{pfn_notify} 即\cnglo{app}所註冊的回調函數。此函數可能會被 OpenCL 實現異步調用。
+\cnglo{app}需要保證此函數是線程安全的。
+此函數的參數有：
+\startigBase
+\item \carg{memobj} 就是要被刪除的\cnglo{memobj}。當此函數被調用時，這個\cnglo{memobj}就已經無效了。此處提供它只是出於參考的目的。
+
+\item \carg{user_data} 指向用戶提供的數據。
+\stopigBase
+
+\carg{user_data} 將在調用 \carg{pfn_notify} 時作為參數 \carg{user_data} 傳入。
+ \carg{user_data} 可以是 \cenum{NULL}。
+
+如果執行成功， \capi{clSetMemObjectDestructorCallback} 會返回 \cenum{CL_SUCCESS}。
+否則返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{memobj} 無效。
+
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_notify} 是 \cenum{NULL}。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+注意：
+
+當 OpenCL 實現調用回調函數時， \carg{host_ptr} （如果是用 \cenum{CL_MEM_USE_HOST_PTR} 創建的\cnglo{memobj}）所指向的內容是未定義的。
+此回調函數的一種典型應用就是用來釋放或重新使用 \carg{host_ptr} 所指向的內存。
+
+如果在回調函數中調用了下列 OpenCL API，其行為是未定義的：
+\startigBase
+\item \capi{clFinish}
+\item \capi{clWaitForEvents}
+\item 對 \capi{clEnqueueReadBuffer}、 \capi{clEnqueueReadBufferRect}、 \capi{clEnqueueWriteBuffer}、 \capi{clEnqueueWriteBufferRect} 的阻塞式調用
+\item 對 \capi{clEnqueueReadImage}、 \capi{clEnqueueWriteImage} 的阻塞式調用
+\item 對 \capi{clEnqueueMapBuffer}、 \capi{clEnqueueMapImage} 的阻塞式調用
+\item 對 \capi{clBuildProgram}、 \capi{clCompileProgram}、 \capi{clLinkProgram} 的阻塞式調用
+\stopigBase
+
+如果\cnglo{app}需要在回調函數中等待上面某一例程執行完畢，請使用相應例程的非阻塞方式，並設置回調來完成剩下的工作。
+需要注意的是，如果回調（或其它代碼）在\cnglo{cmdq}中插入了\cnglo{cmd}，在隊列刷新（flush）前不要求這些\cnglo{cmd}已經開始執行。
+在標準用法中，阻塞式的入隊調用通過顯式的刷新隊列來達到目的。
+由於回調中不允許阻塞式的調用，對於那些會在隊列中插入\cnglo{cmd}的回調而言，需要在返回前調用 \capi{clFlush} 或者將其安排在其它線程中隨後調用。
+
+回調函數不能用參數 \carg{memobj} 調用其它 OpenCL API，否則其行為未定義。
+
