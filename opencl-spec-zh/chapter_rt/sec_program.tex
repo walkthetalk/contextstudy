@@ -1,0 +1,15 @@
+\section{程序對象}
+
+一個 OpenCL \cnglo{program}由一組\cnglo{kernel}組成，
+而這些\cnglo{kernel}就是程序源碼中以限定符 \cqlf{__kernel} 聲明的函數。
+ \cqlf{__kernel} 函數可能會用到一些輔助函數以及常量數據，它們也是\cnglo{program}的一部分。
+ OpenCL 編譯器可以為相應的目標\cnglo{device}以{\ftEmp 在線}（ {\ftEmp online} ）或{\ftEmp 離線}（ {\ftEmp offline} ）的方式生成可執行\cnglo{program}。
+
+一個\cnglo{program}對象封裝了以下信息：
+\startigBase
+\item 所關聯的\cnglo{context}；
+\item \cnglo{program}源碼或二進制數據；
+\item 最近成功構建的\cnglo{program}執行體、庫或編譯好的二進制\cnglo{program}，還有它們所對應的\cnglo{device}清單，以及所使用的構建選項和構建日誌；
+\item 附着其上的\cnglo{kernel}對象的數目。
+\stopigBase
+

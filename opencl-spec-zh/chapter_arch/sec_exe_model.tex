@@ -1,7 +1,7 @@
 
 \section{執行模型}
 OpenCL \cnglo{program}的執行分為兩種情況：
-在一個或多個 {\ftEmpha OpenCL} \cngloempha{device}上執行\cngloempha{kernel}；
+在一個或多個 {\ftEmp OpenCL} \cngloempha{device}上執行\cngloempha{kernel}；
 在\cnglo{host}上執行\cngloempha{host}\cngloempha{program}。
 \cnglo{host}\cnglo{program}為\cnglo{kernel}定義了\cnglo{context}並管理\cnglo{kernel}的執行。
 
@@ -79,18 +79,18 @@ OpenCL 明確支持的有兩種：\cngloempha{dppm}和\cngloempha{tppm}。
 \cnglo{host}還會將\cnglo{cmd}插入\cnglo{cmdq}，這些\cnglo{cmd}將在\cnglo{device}上的\cnglo{context}中被調度。
 這些\cnglo{cmd}吧看：
 \startigBase
-\item {\ftEmpha \cnglo{kernel}執行命令：}在\cnglo{device}的\cnglo{prcele}上執行\cnglo{kernel}。
-\item {\ftEmpha 内存命令：}讀寫\cnglo{memobj}或者在\cnglo{memobj}間傳輸數據，或者從\cnglo{host}的地址空間中映射、解映射\cnglo{memobj}。
-\item {\ftEmpha 同步命令：}限制命令的執行順序。
+\item {\ftEmp \cnglo{kernel}執行命令：}在\cnglo{device}的\cnglo{prcele}上執行\cnglo{kernel}。
+\item {\ftEmp 内存命令：}讀寫\cnglo{memobj}或者在\cnglo{memobj}間傳輸數據，或者從\cnglo{host}的地址空間中映射、解映射\cnglo{memobj}。
+\item {\ftEmp 同步命令：}限制命令的執行順序。
 \stopigBase
 
 \cnglo{cmdq}負責\cnglo{cmd}的調度，使其可以在\cnglo{device}上執行。
 在\cnglo{host}和\cnglo{device}上，\cnglo{cmd}的執行是異步的，\cnglo{cmd}的執行有兩種模式：
 \startigBase
-\item {\ftEmpha \cnglo{inordexec}：}\cnglo{cmd}執行的開始和結束都嚴格遵守在\cnglo{cmdq}中出現的順序。
+\item {\ftEmp \cnglo{inordexec}：}\cnglo{cmd}執行的開始和結束都嚴格遵守在\cnglo{cmdq}中出現的順序。
 換言之，前面的\cnglo{cmd}結束後，才能執行後面的\cnglo{cmd}。
 這將隊列中\cnglo{cmd}的執行順序串行化。
-\item {\ftEmpha \cnglo{outordexec}：}按順序執行\cnglo{cmd}，但後續\cnglo{cmd}執行前不必等待前面\cnglo{cmd}結束。
+\item {\ftEmp \cnglo{outordexec}：}按順序執行\cnglo{cmd}，但後續\cnglo{cmd}執行前不必等待前面\cnglo{cmd}結束。
 任何順序上的限制都由程序員通過顯式的同步\cnglo{cmd}强加的。
 \stopigBase
 
@@ -105,11 +105,11 @@ OpenCL 明確支持的有兩種：\cngloempha{dppm}和\cngloempha{tppm}。
 \subsection{\getbuffer[buftitleexecmck]}
 OpenCL 執行模型支持兩種\cnglo{kernel}：
 \startigBase
-\item {\ftEmpha OpenCL \cnglo{kernel}}，用 OpenCL C 編程語言寫就，用 OpenCL C 編譯器編譯。
+\item {\ftEmp OpenCL \cnglo{kernel}}，用 OpenCL C 編程語言寫就，用 OpenCL C 編譯器編譯。
 所有 OpenCL 的實現都支持 OpenCL \cnglo{kernel}。
 實現也可能提供其它機制創建 OpenCL \cnglo{kernel}。
 
-\item {\ftEmpha 原生\cnglo{kernel}}，通過一個\cnglo{host}函數指針訪問。
+\item {\ftEmp 原生\cnglo{kernel}}，通過一個\cnglo{host}函數指針訪問。
 原生\cnglo{kernel}與 OpenCL \cnglo{kernel}一起入隊在\cnglo{device}上執行，並共享\cnglo{memobj}。
 例如，這些原生\cnglo{kernel}可以是\cnglo{app}代碼中定義的函數，也可以是從庫中導出的函數。
 注意，執行原生\cnglo{kernel}的能力是 OpenCL 的一個可選功能，原生\cnglo{kernel}的語義\cnglo{impdef}。

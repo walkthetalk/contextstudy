@@ -77,9 +77,9 @@ bolditalic=adobeheitistd]
   tolerant, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define\ftEmpha{\bf} % emphasize
+\define\ftEmp{\bf} % emphasize
 \define\ftRef{\it} % reference
-\define\ftfmt{\it} % format
+\define\ftFmt{\it} % format
 \define\ftCKey{\tt\tf} % C key
 \define\ftCQlf{\tt\it} % C qualifier
 \define\ftCEmpha{\tt\bf}
@@ -724,11 +724,11 @@ bolditalic=adobeheitistd]
 \goto{\ftRef{\ref[t][glo:#1]}}[glo:#1]
 }
 \define[1]\empglo{
-\goto{\ftEmpha{\ref[t][glo:#1]}}[glo:#1]
+\goto{\ftEmp{\ref[t][glo:#1]}}[glo:#1]
 }
 
 \define[1]\cnglo{\ref[t][glo:#1]}
-\define[1]\cngloempha{{\ftEmpha \cnglo{#1}}}
+\define[1]\cngloempha{{\ftEmp \cnglo{#1}}}
 \define[1]\englo{\ref[t][glo:en#1]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
 
