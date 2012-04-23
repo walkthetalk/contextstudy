@@ -82,7 +82,7 @@ cl_int clReleaseCommandQueue(
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
 
-当 \carg{command_queue} 的\cnglo{refcnt}將為 0，並且其中的所有\cnglo{cmd}全部執行完畢
+当 \carg{command_queue} 的\cnglo{refcnt}降為 0，並且其中的所有\cnglo{cmd}全部執行完畢
 （如執行\cnglo{kernel}、更新\cnglo{memobj}等），此\cnglo{cmdq}就會被刪除。
 
 \capi{clReleaseCommandQueue}會實施隱式的刷新（ flush ），這會觸發所有之前入隊的 OpenCL \cnglo{cmd}。
