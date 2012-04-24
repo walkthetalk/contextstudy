@@ -177,7 +177,7 @@ cl_int clRetainProgram (cl_program program)
 cl_int clReleaseProgram (cl_program program)
 \stopclc
 會使 \carg{program} 的\cnglo{refcnt}減一。
-當與 \carg{program} 相關的所有\cnglo{kernel}對象都被刪除，並且 \carg{program} 的\cnglo{refcnt}變成零，此\cnglo{program}對象就會被刪除。
+當與 \carg{program} 相關的所有\cnglo{kernelobj}都被刪除，並且 \carg{program} 的\cnglo{refcnt}變成零，此\cnglo{program}對象就會被刪除。
 執行成功後會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤的一種：
 \startigBase
