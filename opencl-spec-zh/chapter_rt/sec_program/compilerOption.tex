@@ -1,0 +1,35 @@
+\subsection{編譯器選項}
+
+編譯器選項分為以下幾種：預處理器選項、數學本徵選項、優化控制選項以及其它選項。
+本規範定義了一套標準選項，用於在線或離線構建可執行\cnglo{program}，所有 OpenCL C 編譯器都必須支持。
+也可以通過增加一些針對特定供應商或特定平台的選項對其進行擴展。
+
+\subsubsection{預處理器選項}
+這些選項用於控制預處理器，在真正編譯前對源碼進行預處理。
+
+\startclOption{-D \carg{name}}
+預定義一個名為 \carg{name} 的宏，其值為 1。
+\stopclOption
+
+\startclOption{-D \carg{name}=\carg{definition}}
+就像處理指令 \ccmm{#define} 那樣，在翻譯的第三個階段中會將 \carg{definition} 的內容符號化並處理。
+特別是遇到換行符會進行截斷。
+\stopclOption
+
+對於選項 -D，會按照在 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的參數 \carg{options} 中出現的順序進行處理。
+
+\startclOption{-I \carg{dir}}
+將 \carg{dir} 加入到頭文件的搜索路徑中。
+\stopclOption
+
+\subsubsection{數學本徵選項}
+這些選項會控制編譯器中與浮點算術有關的行為。
+它們會影響速度與正確性之間的權衡。
+
+\startclOption{-cl-single-precision-constant}
+將雙精度浮點常數視為單精度浮點常數。
+\stopclOption
+
+\startclOption{-cl-denorms-are-zero}
+此選項用來控制如何處理單、雙精度浮點去規格化數（ denormalized number ）。
+\stopclOption

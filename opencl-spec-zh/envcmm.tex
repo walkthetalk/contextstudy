@@ -98,9 +98,6 @@ bolditalic=adobeheitistd]
 \definetype[cenum][
   style=\rm\tf,
 ]
-\definetype[cextname][
-  style=\rm\bf,
-]
 \definetype[cqlf][
   style=\tt\it,
 ]
@@ -109,6 +106,9 @@ bolditalic=adobeheitistd]
 ]
 \definetype[ccmm][
   style=\tt\tf,
+]
+\definetype[cextname][
+  style=\rm\bf,
 ]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -540,8 +540,6 @@ bolditalic=adobeheitistd]
 \setupitemgroup[igNum][1][n]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definetabletemplate[booktabs][o0|l|l|ro0|]
-
 \setupTABLE[%
     %frameoffset=.5\linewidth,
     %backgroundoffset=\v!frame,
@@ -644,33 +642,36 @@ bolditalic=adobeheitistd]
 \eTR
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define\scopencl{OpenCL}
-\define\scopenclc{OpenCL C}
-\define\scopenclapi{OpenCL API}
-\define\sckernel{\ftCKey{\_\_kernel}}
-\define\scevent{事件}
-\define\scbinary{二进制文件}
-\define\scruntime{运行时}
-\define\sccapability{能力}
-\define\sccomputation{计算}
-\define\scisocnn{ISO C99}
-\define\scieeeqws{IEEE 754}
-\define\scieeeqwsellb{IEEE 754-2008}
-\define\scprofile{简档}
-\define\scembpf{嵌入式简档}
 \define\scver{1.2}
 \define\scclver{OpenCL 1.2}
 \define\schostfailres{在為\cnglo{host}上的 OpenCL 實現分配資源時失敗}
 \define\scdevfailres{在為\cnglo{device}上的 OpenCL 實現分配資源時失敗}
-\define\scdenorm{去规格化}
 \define\scinf{INF}
 \define\scqnan{Quiet NaN}
 \define\scfma{FMA}
 \define\scnfma{積和熔加运算}
-\define\sccache{cache}
-\define\sccacheline{cache line}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%function%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% clOption
+\definedescription[clOption][
+  %headstyle	normal bold slanted boldslanted type cap small... command
+  %style	normal bold slanted boldslanted type cap small... command
+  %color	name
+  %width	fit broad dimension
+  %distance	dimension
+  %sample	text
+  %text	text
+  %align	flushleft middle flushright
+  margin=2em,	%standard yes no dimension
+  location=top,	%left right top serried inmargin inleft inright hanging
+  %headcommand=,	%command
+  command=\hskip-2em,	%command
+  %hang=,	%fit broad number
+  before=\vskip.0em,		%command
+  inbetween=\vskip.0em,		%command
+  after=\vskip.0em,		%command
+  %indentnext	yes no
+  indenting=yes,	%never not no yes always first next
+]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% glossary
 \definedescription[glossary][
   headstyle=bold,	%normal bold slanted boldslanted type cap small... command
