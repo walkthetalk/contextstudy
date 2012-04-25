@@ -19,9 +19,9 @@ cl_int clBuildProgram (cl_program program,
 
 對於可執行的二進制\cnglo{program}而言，
 可以用 \capi{clGetProgramInfo}(\carg{program}, \cenum{CL_PROGRAM_BINARIES}, ...) 進行查詢，
-也可以由 \capi{clCreateProgramWithBinary} 用來創建新的\cnglo{program}對象。
+也可以由 \capi{clCreateProgramWithBinary} 用來創建新的\cnglo{programobj}。
 
-\carg{program} 就是\cnglo{program}對象。
+\carg{program} 就是\cnglo{programobj}。
 
 \carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
 如果 \carg{device_list} 是 \cenum{NULL}，則會為 \carg{program} 所關聯的所有\cnglo{device}構建可執行\cnglo{program}。

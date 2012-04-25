@@ -8,7 +8,7 @@ cl_program clCreateProgramWithSource (cl_context context,
 			const size_t *lengths,
 			cl_int *errcode_ret)
 \stopclc
-可以創建一個\cnglo{program}對象，並將 \carg{strings} 中的源碼加載到這個對象中。
+可以創建一個\cnglo{programobj}，並將 \carg{strings} 中的源碼加載到這個對象中。
 此對象所對應的\cnglo{device}與 \carg{context} 所對應的\cnglo{device}是一樣的。
  \carg{strings} 中的源碼是 OpenCL C 程序源碼、頭文件，或者自定義的代碼（對應與自定義\cnglo{device}，並且需要在線編譯器的支持）。
 
@@ -22,7 +22,7 @@ cl_program clCreateProgramWithSource (cl_context context,
 
 \carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
 
-如果成功創建了\cnglo{program}對象，則 \capi{clCreateProgramWidthSource} 會將其返回，
+如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWidthSource} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
 否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
@@ -45,7 +45,7 @@ cl_program clCreateProgramWithBinary (cl_context context,
 			cl_int *binary_status,
 			cl_int *errcode_ret)
 \stopclc
-會創建一個\cnglo{program}對象，並將 \carg{binary} 中的內容加載到此對象中。
+會創建一個\cnglo{programobj}，並將 \carg{binary} 中的內容加載到此對象中。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
@@ -55,7 +55,7 @@ cl_program clCreateProgramWithBinary (cl_context context,
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
 
-此\cnglo{program}對象所對應的\cnglo{device}就是 \carg{device_list} 中的\cnglo{device}。
+此\cnglo{programobj}所對應的\cnglo{device}就是 \carg{device_list} 中的\cnglo{device}。
 而 \carg{device_list} 中的\cnglo{device}又必須是 \carg{context} 中的\cnglo{device}。
 
 \carg{lengths} 是一個數組，其元素是所加載的\cnglo{program}的字節數。
@@ -87,7 +87,7 @@ $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
 
-如果成功創建了\cnglo{program}對象，則 \capi{clCreateProgramWithBinary} 會將其返回，
+如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWithBinary} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
 否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
@@ -107,7 +107,7 @@ $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-OpenCL 中，\cnglo{app}可以使用\cnglo{program}源碼或二進制版本創建\cnglo{program}對象，並構建相應的可執行\cnglo{program}。
+OpenCL 中，\cnglo{app}可以使用\cnglo{program}源碼或二進制版本創建\cnglo{programobj}，並構建相應的可執行\cnglo{program}。
 這非常有用，當\cnglo{program}在系統中相應\cnglo{device}上第一次使用時，\cnglo{app}可以加載\cnglo{program}源碼並編譯、鏈接，在線生成可執行\cnglo{program}。
 然後\cnglo{app}就可以查詢這些執行體並將其緩存起來，後續再使用此\cnglo{program}時就不必編譯、鏈接了。
 \cnglo{app}可以讀取並加載緩存起來的執行體，從而很大程度上減少\cnglo{app}花在初始化上的時間。
@@ -120,7 +120,7 @@ cl_program clCreateProgramWithBuiltInKernels (cl_context context,
 			const char *kernel_names,
 			cl_int *errcode_ret)
 \stopclc
-會創建一個\cnglo{program}對象，並將內建\cnglo{kernel}的相關信息加載到此對象中。
+會創建一個\cnglo{programobj}，並將內建\cnglo{kernel}的相關信息加載到此對象中。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
@@ -130,14 +130,14 @@ cl_program clCreateProgramWithBuiltInKernels (cl_context context,
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
 
-此\cnglo{program}對象所對應的\cnglo{device}就是 \carg{device_list} 中的\cnglo{device}。
+此\cnglo{programobj}所對應的\cnglo{device}就是 \carg{device_list} 中的\cnglo{device}。
 而 \carg{device_list} 中的\cnglo{device}又必須是 \carg{context} 中的\cnglo{device}。
 
 \carg{kernel_names} 是一組內建\cnglo{kernel}的名字，以分號分隔。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
 
-如果成功創建了\cnglo{program}對象，則 \capi{clCreateProgramWithBuiltInKernels} 會將其返回，
+如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWithBuiltInKernels} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
 否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
@@ -177,7 +177,7 @@ cl_int clRetainProgram (cl_program program)
 cl_int clReleaseProgram (cl_program program)
 \stopclc
 會使 \carg{program} 的\cnglo{refcnt}減一。
-當與 \carg{program} 相關的所有\cnglo{kernelobj}都被刪除，並且 \carg{program} 的\cnglo{refcnt}變成零，此\cnglo{program}對象就會被刪除。
+當與 \carg{program} 相關的所有\cnglo{kernelobj}都被刪除，並且 \carg{program} 的\cnglo{refcnt}變成零，此\cnglo{programobj}就會被刪除。
 執行成功後會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤的一種：
 \startigBase

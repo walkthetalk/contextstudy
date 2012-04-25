@@ -5,7 +5,7 @@
  \cqlf{__kernel} 函數可能會用到一些輔助函數以及常量數據，它們也是\cnglo{program}的一部分。
  OpenCL 編譯器可以為相應的目標\cnglo{device}以{\ftEmp 在線}（ {\ftEmp online} ）或{\ftEmp 離線}（ {\ftEmp offline} ）的方式生成可執行\cnglo{program}。
 
-一個\cnglo{program}對象封裝了以下信息：
+一個\cnglo{programobj}封裝了以下信息：
 \startigBase
 \item 所關聯的\cnglo{context}；
 \item \cnglo{program}源碼或二進制\cnglo{program}；
@@ -15,4 +15,5 @@
 
 \input{chapter_rt/sec_program/create.tex}
 \input{chapter_rt/sec_program/build.tex}
+\input{chapter_rt/sec_program/sepCL.tex}
 
