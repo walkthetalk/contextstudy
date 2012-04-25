@@ -23,7 +23,7 @@ cl_int clBuildProgram (cl_program program,
 
 \carg{program} 就是\cnglo{programobj}。
 
-\carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
+\carg{device_list} 指向 \carg{program} 所關聯的\cnglo{device}。
 如果 \carg{device_list} 是 \cenum{NULL}，則會為 \carg{program} 所關聯的所有\cnglo{device}構建可執行\cnglo{program}。
 否則，僅為此清單中的\cnglo{device}構建可執行\cnglo{program}。
 

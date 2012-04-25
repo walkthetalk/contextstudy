@@ -20,7 +20,7 @@ cl_int clCompileProgram (cl_program program,
 \carg{program} 是一個\cnglo{programobj}，即編譯的目標。
 
 \carg{device_list} 指向 \carg{program} 所關聯的\cnglo{device}。
-如果 \carg{device_list} 是 \cenum{NULL}，則會為 \carg{program} 所關聯的所有\cnglo{device}實施編譯。
+如果 \carg{device_list} 是 \cenum{NULL}，則編譯動作的目標\cnglo{device}為 \carg{program} 所關聯的所有\cnglo{device}。
 否則，僅為此清單中的\cnglo{device}實施編譯。
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
