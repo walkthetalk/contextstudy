@@ -105,3 +105,14 @@ cl_int clGetProgramBuildInfo (cl_program program,
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
+
+注意：
+
+為\cnglo{pardev}構建的\cnglo{program}二元碼（編譯過的二元碼、庫的二元碼或者可執行的二元碼）
+可以被它的所有\cnglo{subdev}所使用。
+如果沒有為某個\cnglo{subdev}構建相應的\cnglo{program}二元碼，則會使用其\cnglo{pardev}的。
+
+一個\cnglo{device}的\cnglo{program}二元碼，
+無論是為 \capi{clCreateProgramWithBinary} 所指定的，
+還是用 \capi{clGetProgramInfo} 查詢得到的，
+都可以用到相應\cnglo{rootdev}、及其任意級別的\cnglo{subdev}上。
