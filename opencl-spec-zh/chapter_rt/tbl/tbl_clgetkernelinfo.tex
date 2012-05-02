@@ -1,0 +1,35 @@
+\startETD[cl_kernel_info][返回類型]
+
+\clETD{CL_KERNEL_FUNCTION_NAME}{char[]}{
+返回\cnglo{kernel}函數的名字。
+}
+
+\clETD{CL_KERNEL_NUM_ARGS}{cl_uint}{
+返回 \carg{kernel} 的參數個數。
+}
+
+\clETD{CL_KERNEL_REFERENCE_COUNT}{cl_uint}{
+返回 \carg{kernel} 的\cnglo{refcnt}
+\footnote{在返回的那一刻，此引用計數就已過時。
+應用中一般不太適用。提供此特性主要是為了檢測內存泄漏。}。
+}
+
+\clETD{CL_KERNEL_CONTEXT}{cl_context}{
+返回 \carg{kernel} 所在的\cnglo{context}。
+}
+
+\clETD{CL_KERNEL_PROGRAM}{cl_program}{
+返回 \carg{kernel} 所關聯的\cnglo{programobj}。
+}
+
+\clETD{CL_KERNEL_ATTRIBUTES}{char[]}{
+返回\cnglo{program}源碼中聲明\cnglo{kernel}函數時
+所有通過限定符 \cqlf{__attribute__} 指定的特性。
+這些特性包括\todo{6.11.2}中所列特性以及實現所支持的其它特性。
+
+所返回的特性就是聲明時 \ccmm{__attribute__((...))} 中的內容，
+但是會移除兩頭的空格以及內嵌的換行。
+如果有多個特性，則在所返回的字符串中以空格來分隔。
+}
+
+\stopETD

@@ -1,0 +1,45 @@
+\subsection{內核對象的相關查詢}
+
+函數
+\startclc
+cl_int clGetKernelInfo (cl_kernel kernel,
+			cl_kernel_info param_name,
+			size_t param_value_size,
+			void *param_value,
+			size_t *param_value_size_ret)
+\stopclc
+會返回\cnglo{kernelobj}的相關信息。
+
+\carg{kernel} 即所要查詢的\cnglo{kernel}。
+
+\carg{param_name} 指定要查詢什麼信息。
+對於所支持的信息類型以及 \carg{param_value} 中返回的信息，請參見\reftab{clGetKernelInfo}。
+
+\carg{param_value} 指向的內存用來存儲查詢結果。
+如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+
+\carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
+其值必須 >= \reftab{clGetKernelInfo}中返回類型的大小。
+
+\carg{param_value_size_ret} 返回查詢結果的實際大小。
+如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+
+\startbuffer[tblclGetKernelInfo]
+\capi{clGetKernelInfo} 所支持的 \carg{param_names}
+\stopbuffer
+\placetable[here,force][tab:clGetKernelInfo]{\getbuffer[tblclGetKernelInfo]}
+{\input{chapter_rt/tbl/tbl_clgetkernelinfo.tex}}
+
+如果執行成功， \capi{clGetKernelInfo} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_value} 無效；
+或者 \carg{param_value_size} 的值 < \reftab{clGetKernelInfo}中返回類型的大小，
+且 \carg{param_value} 是 \cenum{NULL}。
+
+\item \cenum{CL_INVALID_KERNEL}，如果 \carg{kernel} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
