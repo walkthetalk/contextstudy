@@ -10,6 +10,7 @@
 \usemodule[zhfonts][style=rm, size=10.5pt]
 %\setupzhfonts[feature][onum=yes, pnum=yes]
 
+% set base fonts
 \setupzhfonts
 [serif]
 [regular=adobesongstd,
@@ -31,8 +32,27 @@ bold=adobeheitistd,
 italic=adobefangsongstd,
 bolditalic=adobeheitistd]
 
-\setupzhfonts[latin, mono][regular=Monaco]
-\setupzhfonts[latin, serif][regular=timesnewroman]
+% set latin fonts
+\setupzhfonts
+[latin, serif]
+[regular=texgyrepagellaregular,
+bold=texgyrepagellabold,
+italic=texgyrepagellaitalic,
+bolditalic=texgyrepagellabolditalic]
+
+\setupzhfonts
+[latin, mono]
+[regular=texgyrecursorregular,
+bold=texgyrecursorbold,
+italic=texgyrecursoritalic,
+bolditalic=texgyrecursorbolditalic]
+
+\setupzhfonts
+[latin, sans]
+[regular=texgyreherosregular,
+bold=texgyreherosbold,
+italic=texgyreherositalic,
+bolditalic=texgyreherosbolditalic]
 
 % 启用中文断行
 \setscript[hanzi]
