@@ -1,0 +1,169 @@
+\section{執行內核}
+
+% clEnqueueNDRangeKernel
+函數
+\startclc
+cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
+			cl_kernel kernel,
+			cl_uint work_dim,
+			const size_t *global_work_offset,
+			const size_t *global_work_size,
+			const size_t *local_work_size,
+			cl_uint num_events_in_wait_list,
+			const cl_event *event_wait_list,
+			cl_event *event)
+\stopclc
+所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
+
+\carg{command_queue} 是一個\cnglo{cmdq}。
+排隊的\cnglo{kernel}會在 \carg{command_queue} 所關聯的\cnglo{device}上執行。
+
+\carg{kernel} 是一個\cnglo{kernelobj}。
+ \carg{kernel} 和 \carg{command_queue} 必須位於同一 OpenCL \cnglo{context}中。
+
+\carg{work_dim} 用來指定全局\cnglo{workitem}以及\cnglo{workgrp}中\cnglo{workitem}的維數。
+其值必須大於零並且小於等於 \cenum{CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS}。
+
+\carg{global_work_offset} 是一個數組，有 \carg{work_dim} 個元素，且元素為無符號值；
+所描述的偏移量可用來計算\cnglo{workitem}的\cnglo{glbid}。
+如果 \carg{global_work_offset} 是 \cenum{NULL}，
+則\cnglo{glbid}起自偏移量\math{(0, 0, ... 0)}。
+
+\carg{global_work_size} 也是一個數組，有 \carg{work_dim} 個元素，且元素均為無符號值；
+對於將要執行 \carg{kernel} 的全局\cnglo{workitem}而言，
+它在某個維度上的數目由數組中的相應元素表示，
+總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{global_work_size}}[i]}。
+
+\carg{local_work_size} 也是一個數組，有 \carg{work_dim} 個元素，且元素均為無符號值；
+對於將要執行 \carg{kernel} 的\cnglo{workgrp}而言，
+其中\cnglo{workitem}的數目由數組中的相應元素表示，
+總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]}。
+這個總數必須小於或等於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}，
+而且 \math{\text{\carg{local_work_size}}[i]} 必須小於或等於相應的
+ \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}，
+其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
+顯式指定的 \carg{local_work_size} 可用來確定
+怎樣將 \carg{global_work_size} 所指定的全局\cnglo{workitem}劃分成多個\cnglo{workgrp}實例。
+如果指定了 \carg{local_work_size}，
+ \math{\text{\carg{global_work_size}}[i]} 必須能被相應的
+ \math{\text{\cenum{local_work_size}}[i]} 整除，
+其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
+
+也可以在\cnglo{program}源碼中通過限定符
+ \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} （參見\todo{6.7.2}）
+為 \carg{kernel} 指定\cnglo{workgrp}的大小。
+這種情況下， \carg{local_work_size} 的值必須與此特性限定符所指定的值相匹配。
+
+\carg{local_work_size} 也可以是 \cenum{NULL}，
+這樣的話 OpenCL 實現將自己決定如何將全局\cnglo{workitem}劃分成多個\cnglo{workgrp}實例。
+
+這些\cnglo{workgrp}實例將在多個\cnglo{computeunit}上並行執行，
+或在單個\cnglo{computeunit}上並發執行。
+
+每個\cnglo{workitem}都有一個唯一的\cnglo{glbid}。
+在\cnglo{kernel}中，
+可以通過對 \carg{global_work_size} 和 \carg{global_work_offset} 的運算得到這個\cnglo{glbid}。
+另外，每個\cnglo{workitem}在\cnglo{workgrp}中還有一個唯一的\cnglo{localid}。
+在\cnglo{kernel}中，
+可以通過對 \carg{local_work_size} 的運算得到這個\cnglo{localid}。
+\cnglo{localid}始終起自 \math{(0, 0, ... 0)}。
+
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函數返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+
+\carg{event} 會返回一個\cnglo{evtobj}，用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
+不過可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+
+如果\cnglo{kernel}成功排隊， \capi{clEnqueueNDRangeKernel} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_PROGRAM_EXECUTABLE}，
+如果 \carg{command_queue} 所關聯的\cnglo{device} 沒有對應的\cnglo{program}執行體。
+
+\item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
+
+\item \cenum{CL_INVALID_KERNEL}，如果 \carg{kernel} 無效。
+
+\item \cenum{CL_INVALID_CONTEXT}，
+如果 \carg{command_queue} 和 \carg{kernel} 位於不同的\cnglo{context}中，
+或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
+
+\item \cenum{CL_INVALID_KERNEL_ARGS}，如果還未指定\cnglo{kernel}參數。
+
+\item \cenum{CL_INVALID_WORK_DIMENSION}，
+如果 \carg{work_dim} 的值無效（即不在 1 到 3 的範圍內）。
+
+\item \cenum{CL_INVALID_GLOBAL_WORK_SIZE}，
+如果 \carg{global_work_size} 是 \cenum{NULL}；
+或者 \carg{global_work_size} 中的任意一個是 0
+ 或超過了用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
+
+\item \cenum{CL_INVALID_GLOBAL_OFFSET}，
+如果 \math{\text{\carg{global_work_size}}[i] + \text{\carg{global_work_offset}}[i]}
+ （其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）中的任意一個超過了
+用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
+
+\item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
+如果指定了 \carg{local_work_size}，
+並且 \carg{global_work_size} 不能被 \carg{local_work_size} 所整除
+或者與\cnglo{program}源碼中的特性 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} 不匹配。
+
+\item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
+如果指定了 \carg{local_work_size}，
+並且\cnglo{workgrp}中\cnglo{workitem}的總數
+（即 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]}）
+大於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}。
+
+\item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
+如果 \carg{local_work_size} 是 \cenum{NULL}，
+並且 \cnglo{program}源碼用限定符 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))}
+ 聲明了\cnglo{workgrp}的大小。
+
+\item \cenum{CL_INVALID_WORK_ITEM_SIZE}，
+如果 \math{\text{\carg{local_work_size}}[i]}
+（其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）
+中的任意一個超過了對應的 \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}。
+
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果給類型為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
+並且創建此子\cnglo{bufobj}時所指定的 \carg{offset} 沒有按 \carg{command_queue}
+ 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
+
+\item \cenum{CL_INVALID_IMAGE_SIZE}，
+如果參數是\cnglo{imgobj}，但是圖像的大小
+（圖像的寬度、高度、指定的或計算出來的行間距和/或平面間距）
+不被 \carg{command_queue} 所關聯的\cnglo{device}所支持。
+
+\item \cenum{CL_IMAGE_FORMAT_NOT_SUPPORTED}，
+如果參數是\cnglo{imgobj}，但是圖像的格式
+（圖像通道順序和數據類型）
+不被 \carg{command_queue} 所關聯的\cnglo{device}所支持。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，
+如果由於執行\cnglo{kernel}所需的資源不足，而無法將 \carg{kernel} 的執行實例入隊。
+例如，顯式指定了 \carg{local_work_size}，
+但是沒有足夠的資源（如寄存器、\cnglo{locmem}）從而導致失敗。
+另一個例子， \carg{kernel}中的只讀圖像參數的數目
+超過了\cnglo{device}的 \cenum{CL_DEVICE_MAX_READ_IMAGE_ARGS}，
+或者 \carg{kernel}中的只寫圖像參數的數目
+超過了\cnglo{device}的 \cenum{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}，
+或者 \carg{kernel}中所使用的\cnglo{sampler}的數目
+超過了\cnglo{device}的 \cenum{CL_DEVICE_MAX_SAMPLERS}。
+
+\item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
+如果為 \carg{kernel} 參數中的\cnglo{imgobj}或\cnglo{bufobj}分配內存時失敗。
+
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
+  如果 \carg{event_wait_list} 是 \cenum{NULL}，且 \carg{num_events_in_wait_list} > 0；
+  或者 \carg{event_wait_list} 不是 \cenum{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+  或者 \carg{event_wait_list} 中的事件無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
