@@ -34,7 +34,7 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 如果執行成功， \capi{clGetKernelInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_value} 無效；
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetKernelInfo}中返回類型的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
@@ -91,7 +91,7 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 如果 \carg{device} 不是 \carg{kernel} 所關聯的\cnglo{device}；
 或者 \carg{device} 是 \cenum{NULL}，但 \carg{kernel} 所關聯的\cnglo{device}多於一個。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_value} 無效；
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetKernelWorkGroupInfo}中返回類型的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
@@ -104,4 +104,64 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+% clGetKernelArgInfo
+函數
+\startclc
+cl_int clGetKernelArgInfo (cl_kernel kernel,
+			cl_uint arg_indx,
+			cl_kernel_arg_info param_name,
+			size_t param_value_size,
+			void *param_value,
+			size_t *param_value_size_ret)
+\stopclc
+會返回\cnglo{kernel}參數的相關信息。
+只有滿足下列條件時，\cnglo{kernel}參數信息才可用：
+\startigBase
+\item \carg{kernel} 所關聯的\cnglo{programobj}是用
+ \capi{clCreateProgramWithSource} 創建的；
+
+\item 用 \capi{cl{Build | Compile}Program} 構建\cnglo{program}執行體時，
+在參數 \carg{options} 中指定了 \ccmm{-cl-kernel-arg-info}。
+\stopigBase
+
+\carg{kernel} 即所要查詢的\cnglo{kernelobj}。
+
+\carg{arg_indx} 即參數的索引。\cnglo{kernel}參數的索引從最左邊的 0 一直到\math{n - 1}，
+其中\math{n}是\cnglo{kernel}參數的總數。
+
+\carg{param_name} 指定要查詢什麼信息。
+對於所支持的信息類型以及 \carg{param_value} 中返回的信息，請參見\reftab{clGetKernelArgInfo}。
+
+\carg{param_value} 指向的內存用來存儲查詢結果。
+如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+
+\carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
+其值必須 >= \reftab{clGetKernelArgInfo}中返回類型的大小。
+
+\carg{param_value_size_ret} 返回查詢結果的實際大小。
+如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+
+\startbuffer[tblclGetKernelArgInfo]
+\capi{clGetKernelArgInfo} 所支持的 \carg{param_names}
+\stopbuffer
+\splitfloat{
+\placetable[here,force][tab:clGetKernelArgInfo]{\getbuffer[tblclGetKernelArgInfo]}
+}{
+{\input{chapter_rt/tbl/tbl_clgetkernelarginfo.tex}}
+}
+
+如果執行成功， \capi{clGetKernelArgInfo} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_ARG_INDEX}，如果 \carg{arg_indx} 無效。
+
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
+或者 \carg{param_value_size} 的值 < \reftab{clGetKernelArgInfo}中返回類型的大小，
+且 \carg{param_value} 不是 \cenum{NULL}。
+
+\item \cenum{CL_KERNEL_ARG_INFO_NOT_AVAILABLE}，如果沒有可用的參數信息。
+
+\item \cenum{CL_INVALID_KERNEL}，如果 \carg{kernel} 無效。
 \stopigBase
