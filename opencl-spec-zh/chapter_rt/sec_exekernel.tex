@@ -63,10 +63,10 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 每個\cnglo{workitem}都有一個唯一的\cnglo{glbid}。
 在\cnglo{kernel}中，
 可以通過對 \carg{global_work_size} 和 \carg{global_work_offset} 的運算得到這個\cnglo{glbid}。
-另外，每個\cnglo{workitem}在\cnglo{workgrp}中還有一個唯一的\cnglo{localid}。
+另外，每個\cnglo{workitem}在\cnglo{workgrp}中還有一個唯一的\cnglo{locid}。
 在\cnglo{kernel}中，
-可以通過對 \carg{local_work_size} 的運算得到這個\cnglo{localid}。
-\cnglo{localid}始終起自 \math{(0, 0, ... 0)}。
+可以通過對 \carg{local_work_size} 的運算得到這個\cnglo{locid}。
+\cnglo{locid}始終起自 \math{(0, 0, ... 0)}。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
