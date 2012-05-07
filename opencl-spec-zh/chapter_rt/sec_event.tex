@@ -1,0 +1,130 @@
+\section{事件對象}
+
+\cnglo{evtobj}可用來指代執行\cnglo{kernel}的\cnglo{cmd}
+（\capi{clEnqueueNDRangeKernel}、
+ \capi{clEnqueueTask}、 \capi{clEnqueueNativeKernel}），
+讀、寫、映射以及拷貝\cnglo{memobj}的命令
+（\capi{clEnqueue{Read|Write|Map}Buffer}、 \capi{clEnqueueUnmapMemObject}、
+ \capi{clEnqueue{Read|Write}BufferRect}、 \capi{clEnqueue{Read|Write|Map}Image}、
+ \capi{clEnqueueCopy{Buffer|Image}}、 \capi{clEnqueueCopyBufferRect}、
+ \capi{clEnqueueCopyBufferToImage}、 \capi{clEnqueueCopyImageToBuffer}），
+ \capi{clEnqueueMarkerWithWaitList}、
+ \capi{clEnqueueBarrierWithWaitList}
+ 或用戶事件。
+
+\cnglo{evtobj}可用來跟蹤\cnglo{cmd}的執行狀態。
+那些會將\cnglo{cmd}入隊的 API 調用會創建一個新的\cnglo{evtobj}，
+並在參數 \carg{event} 中將其返回；
+如果將\cnglo{cmd}插入隊列時出現了錯誤，則不會返回\cnglo{evtobj}。
+
+在任意給定的時間點上，所入隊的\cnglo{cmd}的執行狀態將是下列之一：
+\startigBase
+\item \cenum{CL_QUEUED}，這表示\cnglo{cmd}已經入隊。
+這是所有事件的初始狀態（用戶事件除外）。
+
+\item \cenum{CL_SUBMITTED}，這是所有用戶事件的初始狀態。
+對於其它事件，這表明\cnglo{host}已經將\cnglo{cmd}提交給了\cnglo{device}。
+
+\item \cenum{CL_RUNNING}，這表明\cnglo{device}已經開始執行\cnglo{cmd}。
+\cnglo{cmd}的執行狀態要想從 \cenum{CL_SUBMITTED} 變成 \cenum{CL_RUNNING}，
+它所等待的所有事件必須都已經成功完成，即它們的執行狀態必須是 \cenum{CL_COMPLETE}。
+
+\item \cenum{CL_COMPLETE}，這表明\cnglo{cmd}已經成功完成。
+
+\item 錯誤碼，錯誤碼是一個負整數，表明\cnglo{cmd}異常終止。
+異常終止的原因有很多，如非法的內存訪問。
+\stopigBase
+
+注意：\cnglo{cmd}的執行狀態是 \cenum{CL_COMPLETE} 或者負整數都表示已經完成。
+
+如果\cnglo{cmd}被終止執行，那麼它所關聯的\cnglo{cmdq}、\cnglo{context}
+（包括其中的其它\cnglo{cmdq}）就不再可用。
+這時如果 OpenCL API 調用要使用這個\cnglo{context}（和其中的\cnglo{cmdq}），
+則其行為\cnglo{impdef}。
+創建\cnglo{context}時用戶所註冊的回調函數可用來報告相應的錯誤信息。
+
+% clCreateUserEvent
+函數
+\startclc
+cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
+\stopclc
+可用來創建用戶自己的\cnglo{evtobj}。
+有了用戶事件，
+\cnglo{app}就可以讓所入隊的\cnglo{cmd}先等待用戶事件完成，然後再由\cnglo{device}來執行。
+
+\carg{context} 是 OpenCL \cnglo{contex}。
+
+\carg{errcode_ret} 會返回相應的錯誤碼。
+如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
+
+如果成功創建了用戶\cnglo{evtobj}， \capi{clCreateUserEvent} 會將其返回，
+並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
+否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+用戶\cnglo{evtobj}在創建後，其執行狀態缺省為 \cenum{CL_SUBMITTED}。
+
+% clSetUserEventStatus
+函數
+\startclc
+cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
+\stopclc
+可用來設置用戶\cnglo{evtobj}的執行狀態。
+
+\carg{event} 即用 \capi{clCreateUserEvent} 創建的用戶\cnglo{evtobj}。
+
+\carg{execution_status} 即將要設置的新的執行狀態，
+可以是 \cenum{CL_COMPLETE}，或者一個用來表示錯誤的負整數。
+負整數會導致所有已經入隊、並且等待此事件的\cnglo{cmd}被終止。
+要想改變 \carg{event} 的執行狀態， \capi{clSetUserEventStatus} 只能被調用一次。
+
+如果執行成功， \capi{clSetUserEventStatus} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_INVALID_VALUE}，
+如果 \carg{execution_status} 既不是 \cenum{CL_COMPLETE}，也不是負整數。
+
+\item \cenum{CL_INVALID_OPERATION}，
+如果之前已經調用 \capi{clSetUserEventStatus} 改變過 \carg{event} 的執行狀態。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+注意：
+使用 \capi{clEnqueue***} 時，如果參數 \carg{event_wait_list} 中有用戶事件，
+那麼對於所入隊的\cnglo{cmd}而言，
+在調用會釋放 OpenCL 對象（\cnglo{evtobj}）的 OpenCL API 之前，
+必須保證已經用 \capi{clSetUserEventStatus} 設置過這些用戶事件的狀態；
+否則其行為未定義。
+
+例如，下列代碼序列會導致 \capi{clReleaseMemObject} 的未定義行為：
+\startclc
+ev1 = clCreateUserEvent(ctx, NULL);
+clEnqueueWriteBuffer(cq, buf1, CL_FALSE, ...,
+				1, &ev1, NULL);
+clEnqueueWriteBuffer(cq, buf2, CL_FALSE,...);
+clReleaseMemObject(buf2);
+clSetUserEventStatus(ev1, CL_COMPLETE);
+\stopclc
+
+而下列代碼序列則可以正確工作：
+\startclc
+ev1 = clCreateUserEvent(ctx, NULL);
+clEnqueueWriteBuffer(cq, buf1, CL_FALSE, ...,
+				1, &ev1, NULL);
+clEnqueueWriteBuffer(cq, buf2, CL_FALSE,...);
+clSetUserEventStatus(ev1, CL_COMPLETE);
+clReleaseMemObject(buf2);
+\stopclc
+
+% clWaitForEvents
