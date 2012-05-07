@@ -4,9 +4,9 @@
 （\capi{clEnqueueNDRangeKernel}、
  \capi{clEnqueueTask}、 \capi{clEnqueueNativeKernel}），
 讀、寫、映射以及拷貝\cnglo{memobj}的命令
-（\capi{clEnqueue{Read|Write|Map}Buffer}、 \capi{clEnqueueUnmapMemObject}、
- \capi{clEnqueue{Read|Write}BufferRect}、 \capi{clEnqueue{Read|Write|Map}Image}、
- \capi{clEnqueueCopy{Buffer|Image}}、 \capi{clEnqueueCopyBufferRect}、
+（\capi{clEnqueue{Read | Write | Map}Buffer}、 \capi{clEnqueueUnmapMemObject}、
+ \capi{clEnqueue{Read | Write}BufferRect}、 \capi{clEnqueue{Read | Write | Map}Image}、
+ \capi{clEnqueueCopy{Buffer | Image}}、 \capi{clEnqueueCopyBufferRect}、
  \capi{clEnqueueCopyBufferToImage}、 \capi{clEnqueueCopyImageToBuffer}），
  \capi{clEnqueueMarkerWithWaitList}、
  \capi{clEnqueueBarrierWithWaitList}
@@ -155,4 +155,61 @@ cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+% clGetEventInfo
+函數
+\startclc
+cl_int clGetEventInfo (cl_event event,
+			cl_event_info param_name,
+			size_t param_value_size,
+			void *param_value,
+			size_t *param_value_size_ret)
+\stopclc
+會返回\cnglo{evtobj}的相關信息。
+
+\carg{event} 即所要查詢的\cnglo{evtobj}。
+
+\carg{param_name} 指定要查詢什麼信息。
+對於所支持的信息類型以及 \carg{param_value} 中返回的信息，請參見\reftab{clGetEventInfo}。
+
+\carg{param_value} 指向的內存用來存儲查詢結果。
+如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+
+\carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
+其值必須 >= \reftab{clGetEventInfo}中返回類型的大小。
+
+\carg{param_value_size_ret} 返回查詢結果的實際大小。
+如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+
+\startbuffer[tblclgeteventinfo]
+\capi{clGetEventInfo} 所支持的 \carg{param_names}
+\stopbuffer
+\splitfloat{
+\placetable[here,force][tab:clGetEventInfo]{\getbuffer[tblclgeteventinfo]}
+}{
+{\input{chapter_rt/tbl/tbl_clgeteventinfo.tex}}
+}
+
+可以使用 \capi{clGetEventInfo} 來確定 \carg{event} 所標識的命令是否執行完畢
+（即 \cenum{CL_EVENT_COMMAND_EXECUTION_STATUS} 返回 \cenum{CL_COMPLETE}），
+但這不是同步點。
+ \carg{event} 所關聯的\cnglo{cmd}可能會對\cnglo{memobj}做一些修改，
+不保證這些修改對其它已經入隊的\cnglo{cmd}是可見的。
+
+如果執行成功， \capi{clGetEventInfo} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效，
+或者 \carg{param_value_size} < \reftab{clGetEventInfo}中返回類型的大小，
+且 \carg{param_value} 不是 \cenum{NULL}。
+
+\item \cenum{CL_INVALID_VALUE}，
+如果對於 \carg{event} 而言，所要查詢的信息還不能被查詢。
+
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
