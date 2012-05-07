@@ -128,3 +128,31 @@ clReleaseMemObject(buf2);
 \stopclc
 
 % clWaitForEvents
+函數
+\startclc
+cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
+\stopclc
+會使\cnglo{host}線程等待 \carg{event_list} 中的\cnglo{evtobj}所標識的\cnglo{cmd}完成。
+對於一個\cnglo{cmd}而言，如果其執行狀態是 \cenum{CL_COMPLETE} 或負整數，則任務已經完成了。
+ \carg{event_list} 中的事件充當同步點。
+
+如果 \carg{event_list} 中的所有事件的執行狀態都是 \cenum{CL_COMPLETE}，
+則 \capi{clWaitForEvents} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_VALUE}，
+如果 \carg{num_events} 是零或者 \carg{event_list} 是 \cenum{NULL}。
+
+\item \cenum{CL_INVALID_CONTEXT}，
+如果 \carg{event_list} 中的事件分屬不同的\cnglo{context}。
+
+\item \cenum{CL_INVALID_EVENT}，
+如果 \carg{event_list} 中的\cnglo{evtobj}無效。
+
+\item \cenum{CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST}，
+如果 \carg{event_list} 中的任一事件的執行狀態是負整數。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
