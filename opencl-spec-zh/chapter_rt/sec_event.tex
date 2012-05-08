@@ -52,7 +52,7 @@ cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
 有了用戶事件，
 \cnglo{app}就可以讓所入隊的\cnglo{cmd}先等待用戶事件完成，然後再由\cnglo{device}來執行。
 
-\carg{context} 是 OpenCL \cnglo{contex}。
+\carg{context} 是 OpenCL \cnglo{context}。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。
 如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
@@ -103,7 +103,7 @@ cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
 注意：
 使用 \capi{clEnqueue***} 時，如果參數 \carg{event_wait_list} 中有用戶事件，
 那麼對於所入隊的\cnglo{cmd}而言，
-在調用會釋放 OpenCL 對象（\cnglo{evtobj}）的 OpenCL API 之前，
+在調用會\cnglo{release} OpenCL 對象（\cnglo{evtobj}）的 OpenCL API 之前，
 必須保證已經用 \capi{clSetUserEventStatus} 設置過這些用戶事件的狀態；
 否則其行為未定義。
 
@@ -301,4 +301,59 @@ cl_int clSetEventCallback (cl_event event,
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
+
+% clRetainEvent
+函數
+\startclc
+cl_int clRetainEvent (cl_event event)
+\stopclc
+會使 \carg{memobj} 的\cnglo{refcnt}增一。
+那些會返回事件的 OpenCL \cnglo{cmd}會實施隱式的\cnglo{retain}。
+
+如果執行成功， \capi{clRetainEvent} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤的一種：
+\startigBase
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+% clReleaseEvent
+函數
+\startclc
+cl_int clReleaseEvent (cl_event event)
+\stopclc
+會使 \carg{event} 的\cnglo{refcnt}減一。
+
+如果執行成功， \capi{clReleaseEvent} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤的一種：
+\startigBase
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
+一旦 \carg{event} 的\cnglo{refcnt}變成零，
+並且它所標識的\cnglo{cmd}執行完畢（或終止），
+同時沒有正在等待它完成的\cnglo{cmd}，
+則此事件就會被刪除。
+
+注意：
+
+對於用 \capi{clCreateUserEvent} 創建的事件而言，
+如果還未將其狀態置為 \cenum{CL_COMPLETE} 或者一個錯誤碼，
+這時要\cnglo{release}它的最後一個\cnglo{refcnt}，開發人員就要小心了。
+如果用戶事件作為參數 \carg{event_wait_list} 傳給了 \capi{clEnqueue***}，
+或者另一個\cnglo{host}線程正在用 \capi{clWaitForEvents} 等待它，
+那麼即使用戶\cnglo{release}了此對象，
+這些\cnglo{cmd}和\cnglo{host}線程也會等待其狀態變為 \cenum{CL_COMPLETE} 或錯誤。
+這種情況下，如果開發人員\cnglo{release}了用戶事件的最後一個\cnglo{refcnt}，
+理論上他就不能改變事件的狀態以解除其它部分的阻塞。
+結果就是正在等待的任務會永遠等下去，
+相關的事件、 \ctype{cl_mem} 對象、\cnglo{cmdq}和\cnglo{context}多半就泄漏了。
+順序執行的\cnglo{cmdq}碰到這種死鎖就會停止做任何事情。
 
