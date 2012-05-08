@@ -213,3 +213,92 @@ cl_int clGetEventInfo (cl_event event,
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
+
+% clSetEventCallback
+函數
+\startclc
+cl_int clSetEventCallback (cl_event event,
+			cl_int command_exec_callback_type,
+			void (CL_CALLBACK *pfn_event_notify)(cl_event event,
+					cl_int event_command_exec_status,
+					void *user_data),
+			void *user_data)
+\stopclc
+可以為\cnglo{cmd}的某個執行狀態註冊一個用戶回調函數。
+當 \carg{event} 所關聯的\cnglo{cmd}的執行狀態變成或越過 \carg{command_exec_status} 時，
+所註冊的回調函數就會被調用。
+
+調用 \capi{clSetEventCallback} 會將用戶回調函數註冊到 \carg{event} 的回調棧上。
+而對於所註冊用戶回調函數的調用順序，則沒有定義。
+
+\carg{event} 是一個\cnglo{evtobj}。
+
+\carg{command_exec_callback_type} 指定\cnglo{cmd}的執行狀態，回調就註冊到此狀態上。
+能註冊回調的狀態為：
+ \cenum{CL_SUBMITTED}、 \cenum{CL_RUNNING} 或 \cenum{CL_COMPLETE}
+\footnote{如果 \carg{command_exec_callback} 是 \cenum{CL_COMPLETE}，
+當命令執行成功或者異常終止時都會調用所註冊的回調函數。}。
+不保證按執行狀態的變化順序來調用相應的回調函數。
+進而，需要注意的是，調用回調時，事件的狀態可能不是 \cenum{CL_COMPLETE}，
+但這絕不意味着 OpenCL 規範所定義的內存模型或執行模型發生了變化。
+例如，除非事件的狀態是 \cenum{CL_COMPLETE}，否則不能假設相應的內存遷移已經完成。
+
+\carg{pfn_event_notify} 即\cnglo{app}所註冊的事件回調函數。
+此函數可能會被 OpenCL 實現異步調用。
+\cnglo{app}要保證此函數是線程安全的。
+此函數的參數為：
+\startigBase
+\item \carg{event} 即此函數所關注的事件。
+
+\item \carg{event_command_exec_status} 即此函數所關注的\cnglo{cmd}執行狀態。
+關於\cnglo{cmd}的執行狀態請參見\reftab{clGetEventInfo}。
+如果是由於\cnglo{cmd}異常終止而調用的此函數，
+那麼傳給 \carg{event_command_exec_status} 的將是相應的錯誤碼。
+
+\item \carg{user_data} 指向用戶提供的數據。
+\stopigBase
+
+\carg{user_data} 將在調用 \carg{pfn_event_notify} 時作為其參數 \carg{user_data} 傳入。
+ \carg{user_data} 可以是 \cenum{NULL}。
+
+註冊到一個\cnglo{evtobj}上所有回調都必須被調用，而且是在銷毀\cnglo{evtobj}之前被調用。
+回調必須儘快返回。
+如果在回調中調用了一些代價高昂的系統例程，
+如創建\cnglo{context}或\cnglo{cmdq}的 OpenCL API，或者下列會阻塞的 OpenCL 操作，
+則其行為是未定義的。
+\startigBase
+\item \capi{clFinish}
+
+\item \capi{clWaitForEvents}
+
+\item 對 \capi{clEnqueueReadBuffer}、 \capi{clEnqueueReadBufferRect}、
+ \capi{clEnqueueWriteBuffer}、 \capi{clEnqueueWriteBufferRect} 的阻塞式調用
+
+\item 對 \capi{clEnqueueReadImage}、 \capi{clEnqueueWriteImage} 的阻塞式調用
+
+\item 對 \capi{clEnqueueMapBuffer}、 \capi{clEnqueueMapImage} 的阻塞式調用
+
+\item 對 \capi{clBuildProgram}、 \capi{clCompileProgram}、 \capi{clLinkProgram} 的阻塞式調用
+\stopigBase
+
+如果\cnglo{app}想等待上述例程的完成，請使用其非阻塞的形式，並設置一個回調來完成剩餘的工作。
+注意，如果回調（或者其它代碼）入隊了\cnglo{cmd}，
+可能在刷新隊列時才開始執行這些\cnglo{cmd}。
+在標準用法中，阻塞的入隊調用通過顯式的刷新隊列來達到此效果。
+由於回調中不運行有阻塞的調用，
+那些會入隊\cnglo{cmd}的回調應該在返回前調用 \capi{clFlush}
+ 或者將 \capi{clFlush} 安排在另一個線程中晚些時候再調用。
+
+如果執行成功， \capi{clSetEventCallback} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_event_notify} 是 \cenum{NULL}
+ 或者 \carg{command_exec_callback_type} 不是 \cenum{CL_COMPLETE}。
+
+\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\stopigBase
+
