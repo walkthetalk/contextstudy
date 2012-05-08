@@ -1,0 +1,87 @@
+\section{對內存對象以及內核的剖析}
+
+一些 OpenCL 函數可以作為\cnglo{cmd}插入到\cnglo{cmdq}中，
+所入隊的\cnglo{cmd}是通過唯一的\cnglo{evtobj}來標識的。
+本節將描述對這些函數的剖析（profiling）。
+這些函數
+\footnote{OpenCL 1.2 擴展規範的節 9.6.6 中定義的 \capi{clEnqueueAcquireGLObjects}
+ 和 \capi{clEnqueueReleaseGLObjects} 也包含在內。}
+是：
+\startigBase
+\item \capi{clEnqueue{Read|Write|Map}Buffer}
+\item \capi{clEnqueue{Read|Write}BufferRect}
+\item \capi{clEnqueue{Read|Write|Map}Image}
+\item \capi{clEnqueueUnmapMemObject}
+\item \capi{clEnqueueCopyBuffer}
+\item \capi{clEnqueueCopyBufferRect}
+\item \capi{clEnqueueCopyImage}
+\item \capi{clEnqueueCopyImageToBuffer}
+\item \capi{clEnqueueCopyBufferToImage}
+\item \capi{clEnqueueNDRangeKernel}
+\item \capi{clEnqueueTask}
+\item \capi{clEnqueueNativeKernel}。
+\stopigBase
+
+% clGetEventProfilingInfo
+如果使能了剖析，則函數
+\startclc
+cl_int clGetEventProfilingInfo (cl_event event,
+			cl_profiling_info param_name,
+			size_t param_value_size,
+			void *param_value,
+			size_t *param_value_size_ret)
+\stopclc
+會返回 \carg{event} 所指代\cnglo{cmd}的剖析信息。
+
+\carg{event} 即\cnglo{evtobj}。
+
+\carg{param_name} 指定所要查詢的剖析數據。
+對於所支持的信息類型以及 \carg{param_value} 中返回的信息，
+請參見\reftab{clGetEventProfilingInfo}。
+
+\carg{param_value} 指向的內存用來存儲查詢結果。
+如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+
+\carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
+其值必須 >= \reftab{clGetEventProfilingInfo}中返回類型的大小。
+
+\carg{param_value_size_ret} 返回查詢結果的實際大小。
+如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+
+\startbuffer[tblclGetEventProfilingInfo]
+\capi{clGetEventProfilingInfo} 所支持的 \carg{param_names}
+\stopbuffer
+\splitfloat{
+\placetable[here,force][tab:clGetEventProfilingInfo]{\getbuffer[tblclGetEventProfilingInfo]}
+}{
+{\input{chapter_rt/tbl/tbl_clgeteventprofilinginfo.tex}}
+}
+
+所返回的無符號 64 位值可用來衡量 OpenCL \cnglo{cmd}所消耗的時間，單位：納秒。
+
+在\cnglo{device}的頻率和電源的狀態發生變化時，
+要求 OpenCL \cnglo{device}能夠正確地跟蹤時間。
+ \cenum{CL_DEVICE_PROFILING_TIMER_RESOLUTION} 指定了時鐘的精度，
+即，定時器增一時所經過的納秒數。
+
+如果執行成功，且記錄了剖析信息，
+則 \capi{clGetEventProfilingInfo} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_PROFILING_INFO_NOT_AVAILABLE}，
+如果\cnglo{cmdq}沒有設置 \cenum{CL_QUEUE_PROFILING_ENABLE}；
+或者 \carg{event} 所標識\cnglo{cmd}的執行狀態不是 \cenum{CL_COMPLETE}；
+或者 \carg{event} 是用戶\cnglo{evtobj}。
+
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
+或者 \carg{param_value_size} 的值 < \reftab{clGetEventProfilingInfo}中返回類型的大小，
+且 \carg{param_value} 不是 \cenum{NULL}。
+
+\item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
+
+
