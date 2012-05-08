@@ -55,3 +55,61 @@ cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
+
+% clEnqueueBarrierWithWaitList
+函數
+\startclc
+cl_int clEnqueueBarrierWithWaitList (cl_command_queue command_queue,
+				cl_uint num_events_in_wait_list,
+				const cl_event *event_wait_list,
+				cl_event *event)
+\stopclc
+會將一個\cnglo{barrier}\cnglo{cmd}入隊，
+此\cnglo{cmd}會等待 \carg{event_wait_list} 中的事件完成，
+如果 \carg{event_wait_list} 為空，
+則等待 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。
+此\cnglo{cmd}會阻塞\cnglo{cmd}的執行，
+即，所遇之後入隊的\cnglo{cmd}都得等到它完成後才能執行。
+此\cnglo{cmd}會返回一個可以等待的事件，
+即可以等在這個事件上，來確定 \carg{event_wait_list} 中的事件完成，
+或者 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。
+
+\carg{command_queue} 是一個\cnglo{cmdq}。
+
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list}
+ 即執行這個\cnglo{cmd}前需要完成的事件。
+
+如果 \carg{event_wait_list} 是 \cenum{NULL}，
+ \carg{num_events_in_wait_list} 必須是 0。
+如果 \carg{event_wait_list} 不是 \cenum{NULL}，
+ \carg{event_wait_list} 中的事件必須有效，
+並且 \carg{num_events_in_wait_list} 必須大於 0。
+ \carg{event_wait_list} 中的事件充當同步點。
+ \carg{event_wait_list} 中的事件與 \carg{command_queue} 必須位於同一\cnglo{context}中。
+當此函數返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
+
+如果 \carg{event_wait_list} 是 \cenum{NULL}，
+則此\cnglo{cmd}會等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}完成。
+
+\carg{event} 會返回一個\cnglo{evtobj}，可用來標識此\cnglo{cmd}。
+如果 \carg{event} 是 \cenum{NULL}，
+那麼\cnglo{app}就無法查詢此\cnglo{cmd}的狀態，或者等待此\cnglo{cmd}的完成。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}，
+參數 \carg{event} 不能是 \carg{event_wait_list} 中的事件。
+
+如果執行成功， \capi{clEnqueueBarrierWithWaitList} 會返回 \cenum{CL_SUCCESS}。
+否則，返回下列錯誤碼之一：
+\startigBase
+\item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
+
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
+如果 \carg{event_wait_list} 是 \cenum{NULL}，
+且 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cenum{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中有無效的事件。
+
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
+\stopigBase
