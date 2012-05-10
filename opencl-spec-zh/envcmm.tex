@@ -20,17 +20,17 @@ italic=adobesongstd,
 bolditalic=adobeheitistd]
 
 \setupzhfonts
-[mono]
-[regular=adobekaitistd,
-bold=adobeheitistd,
-italic=adobekaitistd,
-bolditalic=adobeheitistd]
-
-\setupzhfonts
 [sans]
 [regular=adobefangsongstd,
 bold=adobeheitistd,
 italic=adobefangsongstd,
+bolditalic=adobeheitistd]
+
+\setupzhfonts
+[mono]
+[regular=adobekaitistd,
+bold=adobeheitistd,
+italic=adobekaitistd,
 bolditalic=adobeheitistd]
 
 % set latin fonts
@@ -98,9 +98,9 @@ bolditalic=texgyreherosbolditalic]
   tolerant, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define\ftEmp{\bf} % emphasize
-\define\ftRef{\it} % reference
-\define\ftFmt{\it} % format
+\define\ftEmp{\rm\bf} % emphasize
+\define\ftRef{\tt\it} % reference
+\define\ftFmt{\ss\it} % format
 \define\ftCKey{\tt\tf} % C key
 \define\ftCQlf{\tt\it} % C qualifier
 \define\ftCEmpha{\tt\bf}
@@ -694,8 +694,8 @@ bolditalic=texgyreherosbolditalic]
   indenting=yes,	%never not no yes always first next
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% glossary
-\definedescription[glossary][
-  headstyle=bold,	%normal bold slanted boldslanted type cap small... command
+\definedescription[clglodsc][
+  headstyle={\rm\bfa},	%normal bold slanted boldslanted type cap small... command
   %style=normal,	%normal bold slanted boldslanted type cap small... command
   %color=,		%name
   %width=fit,		%fit broad dimension
@@ -703,55 +703,47 @@ bolditalic=texgyreherosbolditalic]
   %sample=,		%text
   %text=,		%text
   %align=,		%flushleft middle flushright
-  %margin=,		%standard yes no dimension
+  %margin=2em,		%standard yes no dimension
   location=top,		%left right top serried inmargin inleft inright hanging
   headcommand=\vskip.0em,		%command
+  %command=\hskip-2em,	%command
   %hang=,		%fit broad number
   before=\vskip.0em,		%command
   inbetween=\vskip.0em,		%command
-  after=\vskip.0em,		%command
+  after=\vskip.5em,		%command
   %indentnext=,		%yes no
   indenting=yes,	%never not no yes always first next
-%  margin=2em,
 ]
 
 %如果reference放到\glossary前面，会多加一个空行
-\define[3]\myglo{
-\glossary{
-#2（#3）
-\reference[glo:#1]{#2}
-\reference[glo:en#1]{#3}
-}
-%\glossary{\reference[#1]{#2}#2（#3）}
+\define[3]\clglohead{
+{\color[blue]#2}（#3）
+\reference[clglo:#1]{#2}
+\reference[clglo:en#1]{#3}
 }
 
-\define[3]\startmyglo{
-\startglossary{\reference[glo:#1]{#2}#2（#3）}
-}
-\define\stopmyglo{
-\stopglossary
+\define[3]\clglo{
+\clglodsc{\clglohead{#1}{#2}{#3}}
 }
 
-%\def\startmyglo{\dodoubleempty\dostartmyglo}
-%
-%\long\def\dostartmyglo[#1][#2][#3]#4\stopmyglo{%
-%  \reference[glo #1]{#2}\startglossary{#2（#3）}
-%  #4
-%  \stopglossary
-%}
-%
-%\let\stopmyglo\relax % or define the [whatever after] stuff here
+\define[3]\startclglo{
+\startclglodsc{\clglohead{#1}{#2}{#3}}
+}
+
+\define\stopclglo{
+\stopclglodsc
+}
 
 \define[1]\refglo{
-\goto{\ftRef{\ref[t][glo:#1]}}[glo:#1]
+\goto{\ftRef \ref[t][clglo:#1]}[clglo:#1]
 }
 \define[1]\empglo{
-\goto{\ftEmp{\ref[t][glo:#1]}}[glo:#1]
+\goto{\ftEmp \ref[t][clglo:#1]}[clglo:#1]
 }
 
-\define[1]\cnglo{\ref[t][glo:#1]}
+\define[1]\cnglo{\ref[t][clglo:#1]}
 \define[1]\cngloempha{{\ftEmp \cnglo{#1}}}
-\define[1]\englo{\ref[t][glo:en#1]}
+\define[1]\englo{\ref[t][clglo:en#1]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
 
 \if 0
