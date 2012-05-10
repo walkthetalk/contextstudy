@@ -3,18 +3,18 @@
 \cnglo{workitem}在執行\cnglo{kernel}時可以訪問四塊不同的\cnglo{memregion}：
 
 \startigBase
-\item {\ftEmp \cnglo{glbmem}：}所有\cnglo{workgrp}中的所有\cnglo{workitem}都可以對其進行讀寫。
+\item {\ftEmp{\cnglo{glbmem}：}}所有\cnglo{workgrp}中的所有\cnglo{workitem}都可以對其進行讀寫。
 \cnglo{workitem}可以讀寫\cnglo{memobj}中的任意元素。
 對\cnglo{glbmem}的讀寫可能會被緩存，着取決於\cnglo{device}的能力。
 
-\item {\ftEmp \cnglo{constmem}：}\cnglo{glbmem}中的一塊區域，在\cnglo{kernel}的執行過程中保持不變。
+\item {\ftEmp{\cnglo{constmem}：}}\cnglo{glbmem}中的一塊區域，在\cnglo{kernel}的執行過程中保持不變。
 \cnglo{host}負責對此中\cnglo{memobj}的分配和初始化。
 
-\item {\ftEmp \cnglo{locmem}：}隸屬於某個\cnglo{workgrp}。
+\item {\ftEmp{\cnglo{locmem}：}}隸屬於某個\cnglo{workgrp}。
 可以用來分配一些變量，這些變量由此\cnglo{workgrp}中的所有\cnglo{workitem}共享。
 在 OpenCL \cnglo{device}上，可能會將其實現成一塊專用的\cnglo{memregion}，也可能將其映射到\cnglo{glbmem}中。
 
-\item {\ftEmp \cnglo{prvmem}：}隸屬於某個\cnglo{workitem}。
+\item {\ftEmp{\cnglo{prvmem}：}}隸屬於某個\cnglo{workitem}。
 一個\cnglo{workitem}的\cnglo{prvmem}中所定義的變量對另外一個\cnglo{workitem}而言是不可見的。
 \stopigBase
 

@@ -14,12 +14,13 @@
 \stopclOption
 
 \startclOption{-enable-link-options}
-鏈接器在將庫與可執行\cnglo{program}進行鏈接時，可以按照鏈接選項修正庫的行為（參見\reftit{programLinkOption}）。
+鏈接器在將庫與可執行\cnglo{program}進行鏈接時，
+可以按照鏈接選項修正庫的行為（參見\refsec{programLinkOption}）。
 此選項必須與 \ccmm{-create-library} 一起使用。
 \stopclOption
 
 % Program Linking Options
-\subsubsection[tit:programLinkOption]{程序鏈接選項}
+\subsubsection[sec:programLinkOption]{程序鏈接選項}
 
 在鏈接可執行\cnglo{program}時可以使用下列選項：
 \startigBase
@@ -30,6 +31,6 @@
 \item \ccmm{-cl-fast-relaxed-math}
 \stopigBase
 
-這些選項在\reftit{MathIntrinsicsOption}和\reftit{OptimizationOption}中有所描述。
+這些選項在\refsec{MathIntrinsicsOption}和\refsec{OptimizationOption}中有所描述。
 鏈接器可能會將這些選項應用到 \capi{clLinkProgram} 中的所有目標碼上；
 也可能只應用到以 \ccmm{-enable-link-option} 創建的庫上。

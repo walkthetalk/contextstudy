@@ -98,7 +98,10 @@ bolditalic=texgyreherosbolditalic]
   tolerant, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define\ftEmp{\rm\bf} % emphasize
+\define[1]\ftEmp{	% emphasize
+\rm\bf{#1}
+}
+
 \define\ftRef{\tt\it} % reference
 \define\ftFmt{\ss\it} % format
 \define\ftCKey{\tt\tf} % C key
@@ -735,14 +738,14 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[1]\refglo{
-\goto{\ftRef \ref[t][clglo:#1]}[clglo:#1]
+\goto{\ftRef\ref[t][clglo:#1]}[clglo:#1]
 }
 \define[1]\empglo{
-\goto{\ftEmp \ref[t][clglo:#1]}[clglo:#1]
+\goto{\ftEmp{\ref[t][clglo:#1]}}[clglo:#1]
 }
 
 \define[1]\cnglo{\ref[t][clglo:#1]}
-\define[1]\cngloempha{{\ftEmp \cnglo{#1}}}
+\define[1]\cngloempha{{\ftEmp{\cnglo{#1}}}}
 \define[1]\englo{\ref[t][clglo:en#1]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
 
@@ -768,8 +771,8 @@ bolditalic=texgyreherosbolditalic]
 ]
 \fi
 
-\define[1]\reftit{
-\in[tit:#1]
+\define[1]\refsec{
+\in{節}{}[sec:#1]
 }
 
 \define[1]\reffig{

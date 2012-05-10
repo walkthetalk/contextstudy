@@ -24,7 +24,7 @@
 \stopclOption
 
 % Math Intrinsics Options
-\subsubsection[tit:MathIntrinsicsOption]{數學本徵選項}
+\subsubsection[sec:MathIntrinsicsOption]{數學本徵選項}
 這些選項會控制編譯器中與浮點算術有關的行為。
 它們會影響速度與正確性之間的權衡。
 
@@ -62,7 +62,7 @@
 \stopclOption
 
 % optimization options
-\subsubsection[tit:OptimizationOption]{優化選項}
+\subsubsection[sec:OptimizationOption]{優化選項}
 
 這些選項控制各種優化。打開優化選項會使編譯器嘗試改進性能和/或代碼大小，
 代價就是犧牲編譯時間，還可能降低調試\cnglo{program}的能力。
@@ -129,7 +129,7 @@
 \stopclOption
 
 % Options Controlling the OpenCL C version
-\subsubsection{控制 OpenCL C 版本的選項}
+\subsubsection[sec:ctrlcveroption]{控制 OpenCL C 版本的選項}
 
 下面的選項控制編譯器所使用的 OpenCL C 的版本。
 
@@ -143,9 +143,9 @@
 \stopclOption
 
 對於任何一個\cnglo{device}，如果其 \cenum{CL_DEVICE_OPENCL_C_VERSION} 為 OpenCL C 1.0，
-使用選項 \ccmm{-cl-std=1.1} 時，對 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的調用都會{\ftEmp 失敗}；
+使用選項 \ccmm{-cl-std=1.1} 時，對 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的調用都會{\ftEmp{失敗}}；
 而如果其 \cenum{CL_DEVICE_OPENCL_C_VERSION} 為 OpenCL C 1.1，
-使用選項 \ccmm{-cl-std=1.2} 對 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的調用也都會{\ftEmp 失敗}。
+使用選項 \ccmm{-cl-std=1.2} 對 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的調用也都會{\ftEmp{失敗}}。
 
 如果沒有指定選項 \ccmm{-cl-std}，則使用相應\cnglo{device}的 \cenum{CL_DEVICE_OPENCL_C_VERSION} 作為 OpenCL C 的版本為其編譯\cnglo{program}。
 
