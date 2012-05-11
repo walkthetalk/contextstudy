@@ -25,11 +25,9 @@ cl_int clGetProgramInfo (cl_program program,
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
 
-\startbuffer[tblclgetprginfo]
-\capi{clGetProgramInfo} 所支持的 \carg{param_names}
-\stopbuffer
 \splitfloat{
-\placetable[here,force][tab:clGetProgramInfo]{\getbuffer[tblclgetprginfo]}
+\placetable[here,force][tab:clGetProgramInfo]
+{\capi{clGetProgramInfo} 所支持的 \carg{param_names}}
 }{
 {\input{chapter_rt/tbl/tbl_clgetprginfo.tex}}
 }

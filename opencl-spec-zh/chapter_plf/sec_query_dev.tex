@@ -22,10 +22,8 @@ cl_int clGetDeviceIDs(
 可以用來查詢某一種 OpenCL \cnglo{device}，也可以查詢所有的。
 請參考\reftab{cldevctgr}。
 
-\startbuffer[tblcapdevctgrlist]
-OpenCL \cnglo{device}種類清單
-\stopbuffer
-\placetable[here,force][tab:cldevctgr]{\getbuffer[tblcapdevctgrlist]}
+\placetable[here,force][tab:cldevctgr]
+{OpenCL 設備種類清單}
 {\input{chapter_plf/tbl/tbl_dev_ctgr.tex}}
 
 \carg{num_entries} 是 \carg{devices}中所能容納 \ctype{cl_device} 表項的數目。

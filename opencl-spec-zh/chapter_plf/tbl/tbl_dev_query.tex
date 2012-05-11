@@ -53,7 +53,7 @@
 
   如果不支持雙精度浮點類型，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE} 必須返回0。
 
-  如果不支持擴展 \cextname{cl_khr_fp16}，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF} 必須返回0。
+  如果不支持擴展 \clextname{cl_khr_fp16}，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF} 必須返回0。
 }
 
 \clETD{
@@ -70,7 +70,7 @@
 
   如果不支持雙精度浮點類型，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE} 必須返回0。
 
-  如果不支持擴展 \cextname{cl_khr_fp16}，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF} 必須返回0。
+  如果不支持擴展 \clextname{cl_khr_fp16}，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF} 必須返回0。
 }
 
 \clETD{CL_DEVICE_MAX_CLOCK_FREQUENCY}{cl_uint}{
@@ -393,24 +393,24 @@
   返回\cnglo{device}所支持的擴展名清單，以空格分隔（擴展名本身不包含空格）。
   所返回的清單可能包含供應商支持的擴展名，也可能是下列已獲 Khronos 批准的擴展名：
   \startigBase
-  \item \cextname{cl_khr_int64_base_atomics}
-  \item \cextname{cl_khr_int64_extended_atomics}
-  \item \cextname{cl_khr_fp16}
-  \item \cextname{cl_khr_gl_sharing}
-  \item \cextname{cl_khr_gl_event}
-  \item \cextname{cl_khr_d3d10_sharing}
-  \item \cextname{cl_khr_media_sharing}
-  \item \cextname{cl_khr_d3d11_sharing}
+  \item \clextname{cl_khr_int64_base_atomics}
+  \item \clextname{cl_khr_int64_extended_atomics}
+  \item \clextname{cl_khr_fp16}
+  \item \clextname{cl_khr_gl_sharing}
+  \item \clextname{cl_khr_gl_event}
+  \item \clextname{cl_khr_d3d10_sharing}
+  \item \clextname{cl_khr_media_sharing}
+  \item \clextname{cl_khr_d3d11_sharing}
   \stopigBase
 
   對於支持 OpenCL C \scver 的\cnglo{device}，所返回的清單中必須包含下列已獲 Khronos 批准的擴展名：
   \startigBase
-  \item \cextname{cl_khr_global_int32_base_atomics}
-  \item \cextname{cl_khr_global_int32_extended_atomics}
-  \item \cextname{cl_khr_local_int32_base_atomics}
-  \item \cextname{cl_khr_local_int32_extended_atomics}
-  \item \cextname{cl_khr_byte_addressable_store}
-  \item \cextname{cl_khr_fp64}（如果支持雙精度浮點，為向後兼容必須支持此擴展）
+  \item \clextname{cl_khr_global_int32_base_atomics}
+  \item \clextname{cl_khr_global_int32_extended_atomics}
+  \item \clextname{cl_khr_local_int32_base_atomics}
+  \item \clextname{cl_khr_local_int32_extended_atomics}
+  \item \clextname{cl_khr_byte_addressable_store}
+  \item \clextname{cl_khr_fp64}（如果支持雙精度浮點，為向後兼容必須支持此擴展）
 
   \stopigBase
 

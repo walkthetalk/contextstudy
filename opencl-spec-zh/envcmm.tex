@@ -104,9 +104,6 @@ bolditalic=texgyreherosbolditalic]
 
 \define\ftRef{\tt\it} % reference
 \define\ftFmt{\ss\it} % format
-\define\ftCKey{\tt\tf} % C key
-\define\ftCQlf{\tt\it} % C qualifier
-\define\ftCEmpha{\tt\bf}
 \definetype[capi][
   %space	on off
   %option	slanted normal none
@@ -131,10 +128,19 @@ bolditalic=texgyreherosbolditalic]
 \definetype[ccmm][
   style=\tt\tf,
 ]
-\definetype[cextname][
+\definetype[clextname][
   style=\rm\bf,
 ]
+\definetype[cldatatypes][
+  style=\tt\tf,
+]
 
+\definetype[cldatatypev][
+  style=\tt\it,
+]
+\define[1]\cldts{\cldatatypes{#1}}
+\define[1]\cldtv{\cldatatypes{#1}\cldatatypev{n}}
+\define[1]\cldtvv{\cldatatypes{#1}\cldatatypev{n}\cldatatypes{x}\cldatatypev{m}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \definepapersize[CD][width=20cm,height=20cm]
@@ -665,6 +671,33 @@ bolditalic=texgyreherosbolditalic]
   \eTC
 \eTR
 }
+%%%%%%%%%%%%%%%%%%% TD: type / desc
+\def\startCLTD{\dostartCLTD}
+
+\long\def\dostartCLTD#1\stopCLTD{%
+  \startlocalfootnotes
+  \bTABLE[option=stretch]
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+        \bTH 類型 \eTH
+        \bTH 描述 \eTH
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #1
+  \eTABLEbody
+  \eTABLE
+  \placelocalfootnotes[style=\rmx,before=,after=,]
+  \stoplocalfootnotes
+}
+
+\define[2]\clTD{
+\bTR
+  \bTD #1 \eTD
+  \bTD #2 \eTD
+\eTR
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scver{1.2}
 \define\scclver{OpenCL 1.2}
