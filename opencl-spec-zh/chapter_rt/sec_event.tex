@@ -23,7 +23,7 @@
 這是所有事件的初始狀態（用戶事件除外）。
 
 \item \cenum{CL_SUBMITTED}，這是所有用戶事件的初始狀態。
-對於其它事件，這表明\cnglo{host}已經將\cnglo{cmd}提交給了\cnglo{device}。
+對於其他事件，這表明\cnglo{host}已經將\cnglo{cmd}提交給了\cnglo{device}。
 
 \item \cenum{CL_RUNNING}，這表明\cnglo{device}已經開始執行\cnglo{cmd}。
 \cnglo{cmd}的執行狀態要想從 \cenum{CL_SUBMITTED} 變成 \cenum{CL_RUNNING}，
@@ -38,7 +38,7 @@
 注意：\cnglo{cmd}的執行狀態是 \cenum{CL_COMPLETE} 或者負整數都表示已經完成。
 
 如果\cnglo{cmd}被終止執行，那麼它所關聯的\cnglo{cmdq}、\cnglo{context}
-（包括其中的其它\cnglo{cmdq}）就不再可用。
+（包括其中的其他\cnglo{cmdq}）就不再可用。
 這時如果 OpenCL API 調用要使用這個\cnglo{context}（和其中的\cnglo{cmdq}），
 則其行為\cnglo{impdef}。
 創建\cnglo{context}時用戶所註冊的回調函數可用來報告相應的錯誤信息。
@@ -195,7 +195,7 @@ cl_int clGetEventInfo (cl_event event,
 （即 \cenum{CL_EVENT_COMMAND_EXECUTION_STATUS} 返回 \cenum{CL_COMPLETE}），
 但這不是同步點。
  \carg{event} 所關聯的\cnglo{cmd}可能會對\cnglo{memobj}做一些修改，
-不保證這些修改對其它已經入隊的\cnglo{cmd}是可見的。
+不保證這些修改對其他已經入隊的\cnglo{cmd}是可見的。
 
 如果執行成功， \capi{clGetEventInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -282,7 +282,7 @@ cl_int clSetEventCallback (cl_event event,
 \stopigBase
 
 如果\cnglo{app}想等待上述例程的完成，請使用其非阻塞的形式，並設置一個回調來完成剩餘的工作。
-注意，如果回調（或者其它代碼）入隊了\cnglo{cmd}，
+注意，如果回調（或者其他代碼）入隊了\cnglo{cmd}，
 可能在刷新隊列時才開始執行這些\cnglo{cmd}。
 在標準用法中，阻塞的入隊調用通過顯式的刷新隊列來達到此效果。
 由於回調中不運行有阻塞的調用，
@@ -352,7 +352,7 @@ cl_int clReleaseEvent (cl_event event)
 那麼即使用戶\cnglo{release}了此對象，
 這些\cnglo{cmd}和\cnglo{host}線程也會等待其狀態變為 \cenum{CL_COMPLETE} 或錯誤。
 這種情況下，如果開發人員\cnglo{release}了用戶事件的最後一個\cnglo{refcnt}，
-理論上他就不能改變事件的狀態以解除其它部分的阻塞。
+理論上他就不能改變事件的狀態以解除其他部分的阻塞。
 結果就是正在等待的任務會永遠等下去，
 相關的事件、 \ctype{cl_mem} 對象、\cnglo{cmdq}和\cnglo{context}多半就泄漏了。
 順序執行的\cnglo{cmdq}碰到這種死鎖就會停止做任何事情。
