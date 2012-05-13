@@ -14,6 +14,60 @@
 {\input{chapter_lgg/tbl/tbl_bisdt.tex}}
 }
 
+在 OpenCL API（以及頭文件）中，大多數內建標量類型都被聲明為其他類型，
+以更好的為\cnglo{app}所用。
+下表列出了 OpenCL C 編程語言中的內建標量類型與\cnglo{app}所用類型間的對應關係。
+
+\input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}
+
+\subsubsection{數據類型 \cldts{half}}
+
+數據類型 \cldts{half} 必須符合 IEEE 754-2008。
+類型為 \cldts{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
+符號、指數、尾數的含義與 IEEE 754 浮點數類似。
+指數偏置值為 15。
+數據類型 \cldts{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
+不能將 \cldts{half} 類型的去規格化數
+（可能是用 vstore_half 將 \cldts{float} 變換成 \cldts{half} 時生成的，
+也可能是用 vload_half 將 \cldts{half} 變換成 \cldts{float} 時生成的）刷成 0。
+從 \cldts{float} 到 \cldts{half} 的變換會將尾數舍入成 11 位精度。
+從  \cldts{half} 到 \cldts{float} 的變換是無損的；
+所有 \cldts{half} 數都可精確地表示成 \cldts{float} 值。
+
+數據類型 \cldts{half} 只能用來聲明含有 \cldts{half} 值的緩存指針。
+下面是幾個例子。
+\startclc
+void bar (__global half *p)
+{
+	....
+}
+__kernel void foo (__global half *pg, __local half *pl)
+{
+	__global half *ptr;
+	int offset;
+
+	ptr = pg + offset;
+	bar(ptr);
+}
+\stopclc
+
+下面的例子是對類型 \cldts{half} 的不當應用：
+\startclc
+half a;
+half b[100];
+
+half *p;
+a = *p;		<- not allowed. must use vload_half function
+\stopclc
+
+函數 \capi{vload_half}、 \capi{vload_halfn}、 \capi{vloada_halfn}
+ 和 \capi{vstore_half}、 \capi{vstore_halfn}、 \capi{vstorea_halfn}
+ 可分別加載和存儲 \cldts{half} 指針，參見\todo{6.12.7}。
+加載函數可從內存中讀取標量或矢量 \cldts{half} 值 並將其變換成 \cldts{float} 值。
+而存儲函數則將標量或矢量 \cldts{float} 值作為輸入，並（以恰當的舍入模式）
+將其變換成 \cldts{half} 標量或矢量值後寫入內存中。
+
+
 % Built-in Vector Data Types
 \subsection{內建矢量數據類型}
 

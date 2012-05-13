@@ -697,6 +697,32 @@ bolditalic=texgyreherosbolditalic]
   \bTD #2 \eTD
 \eTR
 }
+%%%%%%%%%%%%%%%%%%% TD: type / type
+\def\startCLTT{\dostartCLTT}
+
+\long\def\dostartCLTT#1\stopCLTT{%
+  \setupTABLE[c][each][align={middle,lohi}]
+  \midaligned{
+  \bTABLE
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+        \bTH OpenCL 語言中的類型 \eTH
+        \bTH 應用所用 API 中的類型 \eTH
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #1
+  \eTABLEbody
+  \eTABLE
+  }
+}
+
+\define[2]\clTT{
+\bTR
+  \bTD #1 \eTD
+  \bTD #2 \eTD
+\eTR
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scver{1.2}
