@@ -131,16 +131,25 @@ bolditalic=texgyreherosbolditalic]
 \definetype[clextname][
   style=\rm\bf,
 ]
-\definetype[cldatatypes][
+
+% opencl data type scalar / vector
+\definetype[cldts][
   style=\tt\tf,
 ]
-
-\definetype[cldatatypev][
+\definetype[cldtvfix][% don't use it directly
   style=\tt\it,
 ]
-\define[1]\cldts{\cldatatypes{#1}}
-\define[1]\cldtv{\cldatatypes{#1}\cldatatypev{n}}
-\define[1]\cldtvv{\cldatatypes{#1}\cldatatypev{n}\cldatatypes{x}\cldatatypev{m}}
+\define[1]\cldtv{\cldts{#1}\cldtvfix{n}}
+\define[1]\cldtvv{\cldts{#1}\cldtvfix{n}\cldts{x}\cldtvfix{m}}
+
+% opencl api scalar / vector
+\definetype[clapis][
+  style=\rm\bf,
+]
+\definetype[clapivfix][% don't use it directly
+  style=\rm\bi,
+]
+\define[1]\clapiv{\clapis{#1}\clapivfix{n}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \definepapersize[CD][width=20cm,height=20cm]
