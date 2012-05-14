@@ -16,7 +16,7 @@
 
 在 OpenCL API（以及頭文件）中，大多數內建標量類型都被聲明為其他類型，
 以更好的為\cnglo{app}所用。
-下表列出了 OpenCL C 編程語言中的內建標量類型與\cnglo{app}所用類型間的對應關係。
+下表列出了 OpenCL C 編程語言中的內建標量數據類型與\cnglo{app}所用類型間的對應關係。
 
 \input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}
 
@@ -69,7 +69,31 @@ a = *p;		<- not allowed. must use vload_half function
 
 
 % Built-in Vector Data Types
-\subsection{內建矢量數據類型}
+\subsection{內建矢量數據類型
+\footnote{對於這些內建的矢量數據類型，即使下層的計算設備不支持， OpenCL 實現也要支持。
+設備編譯器需要將這些類型翻譯成恰當的指令，以計算設備原生支持的內建類型。
+\todo{附錄 B} 描述了矢量類型所含構件在內存中的順序。}}
+
+支持的矢量數據類型有： \cldts{char}、 \cldts{unsigned char}、 \cldts{short}、
+ \cldts{unsigned short}、 \cldts{integer}、 \cldts{unsigned integer}、
+ \cldts{long}、 \cldts{unsigned long}、 \cldts{float}。
+矢量數據類型是通過在類型名（即 \cldts{char}、 \cldts{uchar}、 \cldts{short}、
+ \cldts{ushort}、 \cldts{int}、 \cldts{uint}、 \cldts{float}、 \cldts{long}、
+ \cldts{ulong}）後面跟一個常值 \cldatatypev{n} 來定義的
+（其中 \cldatatypev{n} 表示矢量元素的數目）。
+對於所有矢量數據類型而言，這個 \cldatatypev{n} 可以是 2、 3、 4、 8 和 16。
+
+\reftab{builtInVectorDataTypes}中列出了內建的矢量數據類型。
+
+\placetable[here,force][tab:builtInVectorDataTypes]
+{內建矢量數據類型}
+{\input{chapter_lgg/tbl/tbl_bivdt.tex}}
+
+在 OpenCL API（以及頭文件）中，大多數內建矢量類型都被聲明為其他類型，
+以更好的為\cnglo{app}所用。
+下表列出了 OpenCL C 編程語言中的內建矢量數據類型與\cnglo{app}所用類型間的對應關係。
+
+\input{chapter_lgg/tbl/tbl_bivdt2appdt.tex}
 
 % Other Built-in Data Types
 \subsection{其他內建數據類型}
