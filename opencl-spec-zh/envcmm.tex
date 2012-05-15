@@ -128,7 +128,7 @@ bolditalic=texgyreherosbolditalic]
 \definetype[ccmm][
   style=\tt\tf,
 ]
-\definetype[clextname][
+\definetype[clext][
   style=\rm\bf,
 ]
 
@@ -489,14 +489,15 @@ bolditalic=texgyreherosbolditalic]
   numbering=line,	%line file no
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\defineenumeration
-[enumBase][
-  location=left,
-%  text=※,
+
+\defineenumeration[example][
+  location=top,
+  text={例},
 %  inbetween=\blank,
 %  after=\blank,
-  margin=2em,
-  headstyle=small,	%normal bold slanted boldslanted type cap small... command
+%  margin=2em,
+  headstyle=\rm\bf,	%normal bold slanted boldslanted type cap small... command
+%  headcolor=blue:7,
 %style	normal bold slanted boldslanted type cap small... command
 %color	name
 %width	fit broad dimension
@@ -513,6 +514,8 @@ bolditalic=texgyreherosbolditalic]
 %after	command
 %indentnext	yes no
 %indenting	never not no yes always first next
+  prefix=yes,
+  prefixsegments=chapter, %chapter:section
 ]
 
 % no number
@@ -680,27 +683,27 @@ bolditalic=texgyreherosbolditalic]
   \eTC
 \eTR
 }
-%%%%%%%%%%%%%%%%%%% TD: type / desc
-\def\startCLTD{\dostartCLTD}
+%%%%%%%%%%%%%%%%%%% TD: object / desc
+\def\startCLOD{\dodoubleempty\dostartCLOD}
 
-\long\def\dostartCLTD#1\stopCLTD{%
+\long\def\dostartCLOD[#1][#2]#3\stopCLOD{%
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
-        \bTH 類型 \eTH
-        \bTH 描述 \eTH
+        \bTH #1 \eTH
+        \bTH #2 \eTH
     \eTR
   \eTABLEhead
   \bTABLEbody
-    #1
+    #3
   \eTABLEbody
   \eTABLE
   \placelocalfootnotes[style=\rmx,before=,after=,]
   \stoplocalfootnotes
 }
 
-\define[2]\clTD{
+\define[2]\clOD{
 \bTR
   \bTD #1 \eTD
   \bTD #2 \eTD

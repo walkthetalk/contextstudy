@@ -1,91 +1,91 @@
-\startCLTD
+\startCLOD[類型][描述]
 
-\clTD{\cldts{bool}
-\footnote{任意標量值變換為 \cldts{bool} 時，如果原始值等於 0，則結果為 0；
+\clOD{\cldts{bool}
+\footnote{任意標量值轉換為 \cldts{bool} 時，如果原始值等於 0，則結果為 0；
 否則，結果為 1。}
 }{
 一種條件數據類型，值為 \ccmm{true} 或 \ccmm{false}。
 其中 \ccmm{true} 展開後為整形常量 1；而 \ccmm{false} 展開後為整形常量 0。
 }
 
-\clTD{\cldts{char}}{
+\clOD{\cldts{char}}{
 帶符號 8 位整數，為二的補碼。
 }
 
-\clTD{\cldts{unsigned char}\par\cldts{uchar}}{
+\clOD{\cldts{unsigned char}\par\cldts{uchar}}{
 無符號 8 位整數。
 }
 
-\clTD{\cldts{short}}{
+\clOD{\cldts{short}}{
 帶符號 16 位整數，為二的補碼。
 }
 
-\clTD{\cldts{unsigned short}\par\cldts{ushort}}{
+\clOD{\cldts{unsigned short}\par\cldts{ushort}}{
 無符號 16 位整數。
 }
 
-\clTD{\cldts{int}}{
+\clOD{\cldts{int}}{
 帶符號 32 位整數，為二的補碼。
 }
 
-\clTD{\cldts{unsigned int}\par\cldts{uint}}{
+\clOD{\cldts{unsigned int}\par\cldts{uint}}{
 無符號 32 位整數。
 }
 
-\clTD{\cldts{long}}{
+\clOD{\cldts{long}}{
 帶符號 64 位整數，為二的補碼。
 }
 
-\clTD{\cldts{unsigned long}\par\cldts{ulong}}{
+\clOD{\cldts{unsigned long}\par\cldts{ulong}}{
 無符號 64 位整數。
 }
 
-\clTD{\cldts{float}}{
+\clOD{\cldts{float}}{
 32 位浮點數。必須符合 IEEE 754 中的單精度存儲格式。
 }
 
-\clTD{\cldts{double}
+\clOD{\cldts{double}
 \footnote{\cldts{double} 是可選類型，只有設備的 \cenum{CL_DEVICE_DOUBLE_FP_CONFIG}
 （參見\reftab{cldevquery}）不是零時才需要支持。}
 }{
 64 位浮點數。必須符合 IEEE 754 中的雙精度存儲格式。
 }
 
-\clTD{\cldts{half}}{
+\clOD{\cldts{half}}{
 16 位浮點數。必須符合 IEEE 754-2008 中的半精度存儲格式。
 }
 
-\clTD{\cldts{size_t}}{
+\clOD{\cldts{size_t}}{
 無符號整數，運算符 \ccmm{sizeof} 的結果。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此類型為 32 位無符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此類型為 64 位無符號整數。
 }
 
-\clTD{\cldts{ptrdiff_t}}{
+\clOD{\cldts{ptrdiff_t}}{
 帶符號整形，兩個指針相減的結果。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此類型為 32 位帶符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此類型為 64 位帶符號整數。
 }
 
-\clTD{\cldts{intptr_t}}{
-帶符號整形，任意指向 \ccmm{void} 的有效指針都能變換為此類型，
-然後還可以變換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
+\clOD{\cldts{intptr_t}}{
+帶符號整形，任意指向 \ccmm{void} 的有效指針都能轉換為此類型，
+然後還可以轉換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此類型為 32 位帶符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此類型為 64 位帶符號整數。
 }
 
-\clTD{\cldts{uintptr_t}}{
-無符號整形，任意指向 \ccmm{void} 的有效指針都能變換為此類型，
-然後還可以變換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
+\clOD{\cldts{uintptr_t}}{
+無符號整形，任意指向 \ccmm{void} 的有效指針都能轉換為此類型，
+然後還可以轉換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此類型為 32 位無符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此類型為 64 位無符號整數。
 }
 
-\clTD{\cldts{void}}{
+\clOD{\cldts{void}}{
 此類型不包含任何值；它是一種不完全類型，不能被補全。
 }
-\stopCLTD
+\stopCLOD
