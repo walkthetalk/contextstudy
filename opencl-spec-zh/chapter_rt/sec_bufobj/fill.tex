@@ -12,7 +12,7 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopclc
-會將一個\cnglo{cmd}插入隊列，此\cnglo{cmd}可以按給定的模式（ pattern ）填充\cnglo{bufobj}。
+會將一個\cnglo{cmd}插入隊列，此\cnglo{cmd}可以按給定的樣式（ pattern ）填充\cnglo{bufobj}。
 \carg{buffer} 的一些使用信息，如此\cnglo{memobj}是否可讀、是否可寫，
 還有創建 \carg{buffer} 時所指定的參數 \ctype{cl_mem_flags}，
 都會被 \capi{clEnqueueFillBuffer} 忽略。
@@ -22,12 +22,12 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 
 \carg{buffer} 是一個\cnglo{bufobj}。
 
-\carg{pattern} 指向數據模式（ data pattern ），其大小為 \carg{pattern_size}。
+\carg{pattern} 指向數據樣式（ data pattern ），其大小為 \carg{pattern_size}。
 用 \carg{pattern} 填充的區域在 \carg{buffer} 中的偏移量為 \carg{offset}，大小是 \carg{size}。
-數據模式必須是 OpenCL 所支持的標量或矢量的整形或浮點類型，參見\todo{section 6.1.1 and 6.1.2}。
-例如，如果數據模式是 \ctype{float4}，則 \carg{pattern} 指向一個 \ctype{cl_float4} 類型的值，
+數據樣式必須是 OpenCL 所支持的標量或矢量的整數或浮點數型別，參見\todo{section 6.1.1 and 6.1.2}。
+例如，如果數據樣式是 \ctype{float4}，則 \carg{pattern} 指向一個型別為 \ctype{cl_float4} 的值，
 且 \carg{pattern_size} 是 \ctype{sizeof(cl_float4)}。
-\carg{pattern_size} 的最大值就是 OpenCL \cnglo{device}所支持的最大的整形或浮點類型的矢量數據類型的大小。
+\carg{pattern_size} 的最大值就是 OpenCL \cnglo{device}所支持的最大的整數或浮點數類型的矢量數據型別的大小。
 函數返回後，就可以重用或者釋放 \carg{pattern} 所指向的內存了。
 
 \carg{offset} 即填充區域在 \carg{buffer} 中的偏移量，單位：字節，它必須是 \carg{pattern_size} 的整數倍。

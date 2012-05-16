@@ -47,28 +47,28 @@ image_filter (int n, int m,
 如果內核參數聲明時帶有限定符 \cqlf{__global} 或 \cqlf{__constant}，
 則使用 \cenum{NULL} 值作為參數值。
 而如果參數聲明時所帶限定符為 \cqlf{__local}， \carg{arg_value} 必須是 \cenum{NULL}。
-如果參數類型是 \ctype{sampler_t}，則 \carg{arg_value} 必須指向\cnglo{sampler}對象。
+如果參數型別是 \ctype{sampler_t}，則 \carg{arg_value} 必須指向\cnglo{sampler}對象。
 
-如果參數是一個指針，指向的是全局或不變地址空間中的內建標量或矢量類型、或用戶自定義結構體，
+如果參數是一個指針，指向的是全局或不變地址空間中的內建標量或矢量型別、或用戶自定義結構體，
 則作為參數值的\cnglo{memobj}必須是一個\cnglo{bufobj}（或 \cenum{NULL}）。
 如果參數聲明時帶有限定符 \cqlf{__constant}，
 則\cnglo{memobj}的大小不能超過 \cenum{CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE}，
 且這種參數的個數不能超過 \cenum{CL_DEVICE_MAX_CONSTANT_ARGS}。
 
-如果參數類型為 \ctype{image2d_t}，則作為參數值的\cnglo{memobj}必須是 2D \cnglo{imgobj}。
-如果參數類型為 \ctype{image3d_t}，則作為參數值的\cnglo{memobj}必須是 3D \cnglo{imgobj}。
-如果參數類型為 \ctype{image1d_t}，則作為參數值的\cnglo{memobj}必須是 1D \cnglo{imgobj}。
-如果參數類型為 \ctype{image1d_buffer_t}，則作為參數值的\cnglo{memobj}必須是 1D 圖像\cnglo{bufobj}。
-如果參數類型為 \ctype{image1d_array_t}，則作為參數值的\cnglo{memobj}必須是 1D 圖像陣列對象。
-如果參數類型為 \ctype{image2d_array_t}，則作為參數值的\cnglo{memobj}必須是 2D 圖像陣列對象。
+如果參數型別為 \ctype{image2d_t}，則作為參數值的\cnglo{memobj}必須是 2D \cnglo{imgobj}。
+如果參數型別為 \ctype{image3d_t}，則作為參數值的\cnglo{memobj}必須是 3D \cnglo{imgobj}。
+如果參數型別為 \ctype{image1d_t}，則作為參數值的\cnglo{memobj}必須是 1D \cnglo{imgobj}。
+如果參數型別為 \ctype{image1d_buffer_t}，則作為參數值的\cnglo{memobj}必須是 1D 圖像\cnglo{bufobj}。
+如果參數型別為 \ctype{image1d_array_t}，則作為參數值的\cnglo{memobj}必須是 1D 圖像陣列對象。
+如果參數型別為 \ctype{image2d_array_t}，則作為參數值的\cnglo{memobj}必須是 2D 圖像陣列對象。
 
-對於其它類型的參數， \carg{arg_value} 必須指向作為參數值的實際數據。
+對於其它型別的參數， \carg{arg_value} 必須指向作為參數值的實際數據。
 
 \carg{arg_size} 即參數值的大小。
 如果參數是\cnglo{memobj}，則為\cnglo{bufobj}或\cnglo{imgobj}的大小。
 如果參數在聲明時帶有限定符 \cqlf{__local}，其值將是為 \cqlf{__local} 參數所分配緩存的大小。
-如果參數類型是 \ctype{sampler_t}，則 \carg{arg_size} 的值必須是 \ccmm{sizeof(cl_sampler)}。
-對於其它類型的參數， \carg{arg_size} 即為參數類型的大小。
+如果參數型別是 \ctype{sampler_t}，則 \carg{arg_size} 的值必須是 \ccmm{sizeof(cl_sampler)}。
+對於其它型別的參數， \carg{arg_size} 即為參數型別的大小。
 
 注意：
 
@@ -94,10 +94,10 @@ image_filter (int n, int m,
 \item \cenum{CL_INVALID_ARG_VALUE}，如果 \carg{arg_value} 無效。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，
-如果參數類型是\cnglo{memobj}，而 \carg{arg_value} 無效。
+如果參數型別是\cnglo{memobj}，而 \carg{arg_value} 無效。
 
 \item \cenum{CL_INVALID_SAMPLER}，
-如果參數類型是 \ctype{sampler_t}，而 \carg{arg_value} 無效。
+如果參數型別是 \ctype{sampler_t}，而 \carg{arg_value} 無效。
 
 \item \cenum{CL_INVALID_ARG_SIZE}，
 如果參數不是\cnglo{memobj}，而 \carg{arg_size} 的值與參數大小不一致；

@@ -20,7 +20,7 @@ cl_int clGetProgramInfo (cl_program program,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-其值必須 >= \reftab{clGetProgramInfo}中返回類型的大小。
+其值必須 >= \reftab{clGetProgramInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -36,7 +36,7 @@ cl_int clGetProgramInfo (cl_program program,
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效，
-或者 \carg{param_value_size} < \reftab{clGetProgramInfo}中返回類型的大小，
+或者 \carg{param_value_size} < \reftab{clGetProgramInfo}中返回型別的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_INVALID_PROGRAM}，如果 \carg{program} 無效。
@@ -74,7 +74,7 @@ cl_int clGetProgramBuildInfo (cl_program program,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-其值必須 >= \reftab{clGetProgramBuildInfo}中返回類型的大小。
+其值必須 >= \reftab{clGetProgramBuildInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -94,7 +94,7 @@ cl_int clGetProgramBuildInfo (cl_program program,
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{device} 不是與 \carg{program} 相關聯的\cnglo{device}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效，
-或者 \carg{param_value_size} < \reftab{clGetProgramBuildInfo}中返回類型的大小，
+或者 \carg{param_value_size} < \reftab{clGetProgramBuildInfo}中返回型別的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_INVALID_PROGRAM}，如果 \carg{program} 無效。

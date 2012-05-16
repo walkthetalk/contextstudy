@@ -1,40 +1,40 @@
-\section{所支持的數據類型}
+\section{所支持的數據型別}
 
-所支持的數據類型如下所示。
+所支持的數據型別如下所示。
 
 % Built-in Scalar Data Types
-\subsection[sec:bisdt]{內建標量數據類型}
+\subsection[sec:bisdt]{內建標量數據型別}
 
-\reftab{builtInScalarDataTypes}中列出了內建的標量數據類型。
+\reftab{builtInScalarDataTypes}中列出了內建的標量數據型別。
 
 \splitfloat{
 \placetable[here,force][tab:builtInScalarDataTypes]
-{內建標量數據類型}
+{內建標量數據型別}
 }{
 {\input{chapter_lgg/tbl/tbl_bisdt.tex}}
 }
 
-在 OpenCL API（以及頭文件）中，大多數內建標量類型都被聲明為其他類型，
+在 OpenCL API（以及頭文件）中，大多數內建標量型別都被聲明為其他型別，
 以更好的為\cnglo{app}所用。
-下表列出了 OpenCL C 編程語言中的內建標量數據類型與\cnglo{app}所用類型間的對應關係。
+下表列出了 OpenCL C 編程語言中的內建標量數據型別與\cnglo{app}所用型別間的對應關係。
 
 \input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}
 
-\subsubsection{數據類型 \cldts{half}}
+\subsubsection{數據型別 \cldts{half}}
 
-數據類型 \cldts{half} 必須符合 IEEE 754-2008。
-類型為 \cldts{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
+數據型別 \cldts{half} 必須符合 IEEE 754-2008。
+型別為 \cldts{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
 符號、指數、尾數的含義與 IEEE 754 浮點數類似。
 指數偏置值為 15。
-數據類型 \cldts{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
-不能將 \cldts{half} 類型的去規格化數
+數據型別 \cldts{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
+不能將 \cldts{half} 型別的去規格化數
 （可能是用 vstore_half 將 \cldts{float} 轉換成 \cldts{half} 時生成的，
 也可能是用 vload_half 將 \cldts{half} 轉換成 \cldts{float} 時生成的）刷成 0。
 從 \cldts{float} 到 \cldts{half} 的轉換會將尾數舍入成 11 位精度。
 從  \cldts{half} 到 \cldts{float} 的轉換是無損的；
 所有 \cldts{half} 數都可精確地表示成 \cldts{float} 值。
 
-數據類型 \cldts{half} 只能用來聲明含有 \cldts{half} 值的緩存指針。
+數據型別 \cldts{half} 只能用來聲明含有 \cldts{half} 值的緩存指針。
 下面是幾個例子。
 \startclc
 void bar (__global half *p)
@@ -51,7 +51,7 @@ __kernel void foo (__global half *pg, __local half *pl)
 }
 \stopclc
 
-下面的例子是對類型 \cldts{half} 的不當應用：
+下面的例子是對型別 \cldts{half} 的不當應用：
 \startclc
 half a;
 half b[100];
@@ -69,91 +69,91 @@ a = *p;		<- not allowed. must use vload_half function
 
 
 % Built-in Vector Data Types
-\subsection[sec:bivdt]{內建矢量數據類型
-\footnote{對於這些內建的矢量數據類型，即使下層的計算設備不支持， OpenCL 實現也要支持。
-設備編譯器需要將這些類型翻譯成恰當的指令，以計算設備原生支持的內建類型。
-\todo{附錄 B} 描述了矢量類型所含構件在內存中的順序。}}
+\subsection[sec:bivdt]{內建矢量數據型別
+\footnote{對於這些內建的矢量數據型別，即使下層的計算設備不支持， OpenCL 實現也要支持。
+設備編譯器需要將這些型別翻譯成恰當的指令，以計算設備原生支持的內建型別。
+\todo{附錄 B} 描述了矢量型別所含構件在內存中的順序。}}
 
-支持的矢量數據類型有： \cldts{char}、 \cldts{unsigned char}、 \cldts{short}、
+支持的矢量數據型別有： \cldts{char}、 \cldts{unsigned char}、 \cldts{short}、
  \cldts{unsigned short}、 \cldts{integer}、 \cldts{unsigned integer}、
  \cldts{long}、 \cldts{unsigned long}、 \cldts{float}。
-矢量數據類型是通過在類型名（即 \cldts{char}、 \cldts{uchar}、 \cldts{short}、
+矢量數據型別是通過在型別名（即 \cldts{char}、 \cldts{uchar}、 \cldts{short}、
  \cldts{ushort}、 \cldts{int}、 \cldts{uint}、 \cldts{float}、 \cldts{long}、
  \cldts{ulong}）後面跟一個常值 \math{n} 來定義的
 （其中 \math{n} 表示矢量元素的數目）。
-對於所有矢量數據類型而言，這個 \math{n} 可以是 2、 3、 4、 8 和 16。
+對於所有矢量數據型別而言，這個 \math{n} 可以是 2、 3、 4、 8 和 16。
 
-\reftab{builtInVectorDataTypes}中列出了內建的矢量數據類型。
+\reftab{builtInVectorDataTypes}中列出了內建的矢量數據型別。
 
 \placetable[here,force][tab:builtInVectorDataTypes]
-{內建矢量數據類型}
+{內建矢量數據型別}
 {\input{chapter_lgg/tbl/tbl_bivdt.tex}}
 
-在 OpenCL API（以及頭文件）中，大多數內建矢量類型都被聲明為其他類型，
+在 OpenCL API（以及頭文件）中，大多數內建矢量型別都被聲明為其他型別，
 以更好的為\cnglo{app}所用。
-下表列出了 OpenCL C 編程語言中的內建矢量數據類型與\cnglo{app}所用類型間的對應關係。
+下表列出了 OpenCL C 編程語言中的內建矢量數據型別與\cnglo{app}所用型別間的對應關係。
 
 \input{chapter_lgg/tbl/tbl_bivdt2appdt.tex}
 
 % Other Built-in Data Types
-\subsection[sec:obidt]{其他內建數據類型}
+\subsection[sec:obidt]{其他內建數據型別}
 
-\reftab{otherBuiltInDataTypes}中列出了 OpenCL 所支持的其他內建數據類型。
+\reftab{otherBuiltInDataTypes}中列出了 OpenCL 所支持的其他內建數據型別。
 
 \placetable[here,force][tab:otherBuiltInDataTypes]
-{其他內建數據類型}
+{其他內建數據型別}
 {\input{chapter_lgg/tbl/tbl_obidt.tex}}
 
 注意：
 
 只有當\cnglo{device}支持圖像時
 （即 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，參見\reftab{cldevquery}），
-才會定義類型 \cldts{image2d_t}、 \cldts{image3d_t}、 \cldts{image2d_array_t}、
+才會定義型別 \cldts{image2d_t}、 \cldts{image3d_t}、 \cldts{image2d_array_t}、
  \cldts{image1d_t}、 \cldts{image1d_buffer_t}、 \cldts{image1d_array_t}、
  \cldts{sampler_t}。
 
-C99 的衍生類型（數組、結構體、聯合體、函數以及指針）也在支持之列，
+C99 的衍生型別（數組、結構體、聯合體、函數以及指針）也在支持之列，
 不過必須是由\refsec{bisdt}、\refsec{bivdt}
-和\refsec{obidt}中所描述的內建數據類型所構造的，
+和\refsec{obidt}中所描述的內建數據型別所構造的，
 同時有\refsec{restrictions}中所描述的限制。
 
 % Reserved Data Types
-\subsection{保留的數據類型}
+\subsection{保留的數據型別}
 
-\reftab{reservedDataTypes} 中所列的數據類型名都是保留的，
-\cnglo{app}不能將其作為類型名使用。
-對於\reftab{builtInVectorDataTypes} 中所列的矢量數據類型名而言，
+\reftab{reservedDataTypes} 中所列的數據型別名都是保留的，
+\cnglo{app}不能將其作為型別名使用。
+對於\reftab{builtInVectorDataTypes} 中所列的矢量數據型別名而言，
 當 \math{n} 是除 2、 3、 4、 8 和 16 之外的其他值時，也是保留的。
 
 \splitfloat{
 \placetable[here,force][tab:reservedDataTypes]
-{保留的數據類型}
+{保留的數據型別}
 }{
 {\input{chapter_lgg/tbl/tbl_reserveddatatypes.tex}}
 }
 
 % Alignment of Types
-\subsection{類型對齊}
+\subsection{型別對齊}
 
-內存中所聲明的數據項會按起類型的字節數進行對齊。
-例如，類型為 \cldts{float4} 的變量會對齊到 16 字節邊界；
+內存中所聲明的數據項會按起型別的字節數進行對齊。
+例如，型別為 \cldts{float4} 的變量會對齊到 16 字節邊界；
 而 \cldts{char2} 則會對齊到 2 字節邊界。
 
-對於具備 3 個構件的矢量數據類型，其大小為 \math{4 \times sizeof(component)}。
-這意味着此類型會按 \math{4 \times sizeof(component)} 進行對齊。
+對於具備 3 個構件的矢量數據型別，其大小為 \math{4 \times sizeof(component)}。
+這意味着此型別會按 \math{4 \times sizeof(component)} 進行對齊。
 內建函數 \capi{vload3} 和 \capi{vstore3} 可用來讀寫這種數據。
 
-如果內建數據類型的大小不是二的冪，則按相鄰較大的二的冪進行對齊。
-此規則僅對內建類型有效，不會作用於結構體或聯合體上。
+如果內建數據型別的大小不是二的冪，則按相鄰較大的二的冪進行對齊。
+此規則僅對內建型別有效，不會作用於結構體或聯合體上。
 
 OpenCL 編譯器負責數據項的對齊。
-如果 \cqlf{__kernel} 函數的參數聲明為某種數據類型的指針，
-那麼 OpenCL 編譯器就可以假定這個指針已經按照相應數據類型的要求進行了對齊。
+如果 \cqlf{__kernel} 函數的參數聲明為某種數據型別的指針，
+那麼 OpenCL 編譯器就可以假定這個指針已經按照相應數據型別的要求進行了對齊。
 如果裝載或存儲時沒有對齊，則其行為是未定義的，
 \todo{6.12.7}中定義的函數 \clapiv{vload}、 \clapiv{vload_half}、
  \clapiv{vstore} 和 \clapiv{vstore_half} 例外。
-矢量裝載函數可以從已經按矢量元素類型對齊的地址中讀取矢量數據。
-矢量存儲函數可以將矢量數據寫入已經按矢量元素類型對齊的地址中。
+矢量裝載函數可以從已經按矢量元素型別對齊的地址中讀取矢量數據。
+矢量存儲函數可以將矢量數據寫入已經按矢量元素型別對齊的地址中。
 
 % Vector Literals
 \subsection{常值矢量}
@@ -162,10 +162,10 @@ OpenCL 編譯器負責數據項的對齊。
 常值矢量可用來對矢量進行初始化，也可以用作主表達式。
 常值矢量不能用作左值（L-value）。
 
-常值矢量的書寫形式：一個帶括號的矢量類型，緊跟一組帶括號參數，參數以逗號分隔。
+常值矢量的書寫形式：一個帶括號的矢量型別，緊跟一組帶括號參數，參數以逗號分隔。
 常值矢量像重載的函數一樣參與運算。
-這個函數的參數類型就是最終矢量中的元素類型，參數個數就是最終矢量中的元素個數。
-另外，還有一種形式只帶有一個標量，其類型與最終矢量中的元素類型一樣。
+這個函數的參數型別就是最終矢量中的元素型別，參數個數就是最終矢量中的元素個數。
+另外，還有一種形式只帶有一個標量，其型別與最終矢量中的元素型別一樣。
 例如， \ctype{float4} 有下列形式：
 \startclc
 (float4)( float, float, float, float )
@@ -179,7 +179,7 @@ OpenCL 編譯器負責數據項的對齊。
 (float4)( float )
 \stopclc
 
-除了按照函數求值的標準規則對運算元進行求值，還會對標量類型進行隱式擴展。
+除了按照函數求值的標準規則對運算元進行求值，還會對標量型別進行隱式擴展。
 運算元的求值順序是未定義的。
 會按照內存中的順序將運算元賦值給最終矢量的相應元素。
 即，將第一個運算元的第一個元素賦值給 result.x，
@@ -203,18 +203,18 @@ float4	f = (float4)(1.0f, 2.0f);	<- error
 % Vector Components
 \subsection{矢量構件}
 
-對於具有 1 到 4 個構件的矢量數據類型，其構件可以用 \ccmm{<vector_data_type>.xyzw} 來尋址。
-矢量數據類型 \ctype{char2}、 \ctype{uchar2}、 \ctype{short2}、 \ctype{ushort2}、
+對於具有 1 到 4 個構件的矢量數據型別，其構件可以用 \ccmm{<vector_data_type>.xyzw} 來尋址。
+矢量數據型別 \ctype{char2}、 \ctype{uchar2}、 \ctype{short2}、 \ctype{ushort2}、
  \ctype{int2}、 \ctype{uint2}、 \ctype{long2}、 \ctype{ulong2} 和 \ctype{float2}
  可以訪問元素 \ccmm{.xy}。
-矢量數據類型 \ctype{char3}、 \ctype{uchar3}、 \ctype{short3}、 \ctype{ushort3}、
+矢量數據型別 \ctype{char3}、 \ctype{uchar3}、 \ctype{short3}、 \ctype{ushort3}、
  \ctype{int3}、 \ctype{uint3}、 \ctype{long3}、 \ctype{ulong3} 和 \ctype{float3}
  可以訪問元素 \ccmm{.xyz}。
-矢量數據類型 \ctype{char4}、 \ctype{uchar4}、 \ctype{short4}、 \ctype{ushort4}、
+矢量數據型別 \ctype{char4}、 \ctype{uchar4}、 \ctype{short4}、 \ctype{ushort4}、
  \ctype{int4}、 \ctype{uint4}、 \ctype{long4}、 \ctype{ulong4} 和 \ctype{float4}
  可以訪問元素 \ccmm{.xyzw}。
 
-如果所訪問的構件在矢量類型中並不具備，則視為錯誤，例如：
+如果所訪問的構件在矢量型別中並不具備，則視為錯誤，例如：
 \startclc
 float2 pos;	// is legal
 pos.x = 1.0f;	// is illegal
@@ -244,7 +244,7 @@ float4 dup = pos.xxyy; // dup = (1.0f, 1.0f, 2.0f, 2.0f)
 構件組符號可以出現在表達式的左手邊。
 要形當左值用，必須對矢量構件進行重排（swizzling），並且不能重複，
 最終形成的左值是標量還是矢量取決於構件的數目。
-每個構件都必須是 OpenCL 所支持的標量或矢量類型。
+每個構件都必須是 OpenCL 所支持的標量或矢量型別。
 \startclc
 float4 pos = (float4)(1.0f, 2.0f, 3.0f, 4.0f);
 pos.xw = (float2)(5.0f, 6.0f);// pos = (5.0f, 2.0f, 3.0f, 6.0f)
@@ -264,11 +264,11 @@ x = (float16)(a.xxxx, b.xyz, c.xyz, d.xyz, a.yzw);
 x = (float16)(a.xxxxxxx, b.xyz, c.xyz, d.xyz);
 \stopclc
 
-也可以用數值索引來訪問矢量數據類型的元素。
+也可以用數值索引來訪問矢量數據型別的元素。
 下表給出了可以使用的數值索引：
 
 \placetable[here,force][tab:ni4bivdt]
-{內建矢量數據類型的數值索引}
+{內建矢量數據型別的數值索引}
 {\input{chapter_lgg/tbl/tbl_ni4bivdt.tex}}
 
 數值索引前面必須加上字符 \ccmm{s} 或 \ccmm{S}。
@@ -294,8 +294,8 @@ a = f.x12w;	// illegal use of numeric indices with .xyzw
 a.xyzw = f.s0123;	// valid
 \stopclc
 
-矢量數據類型可以使用後綴 \ccmm{.lo} （或 \ccmm{.even}）和 \ccmm{.hi} （或 \ccmm{.odd}）
-得到小號的矢量類型或者將小號的數據類型組合成大號的矢量類型。
+矢量數據型別可以使用後綴 \ccmm{.lo} （或 \ccmm{.even}）和 \ccmm{.hi} （或 \ccmm{.odd}）
+得到小號的矢量型別或者將小號的數據型別組合成大號的矢量型別。
 可以使用多級後綴 \ccmm{.lo} （或 \ccmm{.even}）和 \ccmm{.hi} （或 \ccmm{.odd}）
 直到變成標量。
 
@@ -316,9 +316,9 @@ float2 even = vf.even;	// returns vf.xz
 float2 odd = vf.odd;	// returns vf.yw
 \stopclc
 
-對於 3 構件的矢量類型應用後綴 \ccmm{.lo} （或 \ccmm{.even}）
+對於 3 構件的矢量型別應用後綴 \ccmm{.lo} （或 \ccmm{.even}）
 和 \ccmm{.hi} （或 \ccmm{.odd}）時，
-會將 3 構件矢量類型當成 4 構件矢量類型使用，且構件 \ccmm{w} 未定義。
+會將 3 構件矢量型別當成 4 構件矢量型別使用，且構件 \ccmm{w} 未定義。
 下面給出了一些例子：
 \startclc
 float8	vf;
@@ -377,11 +377,11 @@ float2	*low = &vf.odd.lo;	// is illegal
 % Aliasing Rules
 \subsection{別名規則}
 
-OpenCL C \cnglo{program} 符合 C99 中基於類型的別名規則
+OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
 （在 C99 規範的節 6.5 的第 7 項中定義）。
-為了應用這些別名規則， OpenCL C 內建矢量數據類型會被當成聚合（aggregate）類型
-\footnote{也就是說，出於使用基於類型的別名規則的目的，
-認為內建矢量數據類型等同於對應的數組類型。}。
+為了應用這些別名規則， OpenCL C 內建矢量數據型別會被當成聚合（aggregate）型別
+\footnote{也就是說，出於使用基於型別的別名規則的目的，
+認為內建矢量數據型別等同於對應的數組型別。}。
 
 % Keywords
 \subsection{關鍵字}
@@ -391,7 +391,7 @@ OpenCL C \cnglo{program} 符合 C99 中基於類型的別名規則
 \item C99 中作為關鍵字所保留的名字。
 
 \item \reftab{builtInVectorDataTypes}、\reftab{otherBuiltInDataTypes}
-和\reftab{reservedDataTypes}中定義的 OpenCL C 數據類型。
+和\reftab{reservedDataTypes}中定義的 OpenCL C 數據型別。
 
 \item 地址空間限定符：
  \cqlf{__global}、 \cqlf{global}、 \cqlf{__local}、 \cqlf{local}、

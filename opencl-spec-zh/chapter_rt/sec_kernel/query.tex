@@ -20,7 +20,7 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-其值必須 >= \reftab{clGetKernelInfo}中返回類型的大小。
+其值必須 >= \reftab{clGetKernelInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -35,7 +35,7 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
-或者 \carg{param_value_size} 的值 < \reftab{clGetKernelInfo}中返回類型的大小，
+或者 \carg{param_value_size} 的值 < \reftab{clGetKernelInfo}中返回型別的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_INVALID_KERNEL}，如果 \carg{kernel} 無效。
@@ -70,7 +70,7 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-其值必須 >= \reftab{clGetKernelWorkGroupInfo}中返回類型的大小。
+其值必須 >= \reftab{clGetKernelWorkGroupInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -92,7 +92,7 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 或者 \carg{device} 是 \cenum{NULL}，但 \carg{kernel} 所關聯的\cnglo{device}多於一個。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
-或者 \carg{param_value_size} 的值 < \reftab{clGetKernelWorkGroupInfo}中返回類型的大小，
+或者 \carg{param_value_size} 的值 < \reftab{clGetKernelWorkGroupInfo}中返回型別的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
@@ -138,7 +138,7 @@ cl_int clGetKernelArgInfo (cl_kernel kernel,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-其值必須 >= \reftab{clGetKernelArgInfo}中返回類型的大小。
+其值必須 >= \reftab{clGetKernelArgInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -158,7 +158,7 @@ cl_int clGetKernelArgInfo (cl_kernel kernel,
 \item \cenum{CL_INVALID_ARG_INDEX}，如果 \carg{arg_indx} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
-或者 \carg{param_value_size} 的值 < \reftab{clGetKernelArgInfo}中返回類型的大小，
+或者 \carg{param_value_size} 的值 < \reftab{clGetKernelArgInfo}中返回型別的大小，
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_KERNEL_ARG_INFO_NOT_AVAILABLE}，如果沒有可用的參數信息。

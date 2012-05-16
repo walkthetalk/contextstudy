@@ -130,7 +130,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 中的任意一個超過了對應的 \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
-如果給類型為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
+如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
 並且創建此子\cnglo{bufobj}時所指定的 \carg{offset} 沒有按 \carg{command_queue}
  所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
 
@@ -141,7 +141,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 
 \item \cenum{CL_IMAGE_FORMAT_NOT_SUPPORTED}，
 如果參數是\cnglo{imgobj}，但是圖像的格式
-（圖像通道順序和數據類型）
+（圖像通道順序和數據型別）
 不被 \carg{command_queue} 所關聯的\cnglo{device}所支持。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，
@@ -224,7 +224,7 @@ clEnqueueTask (cl_command_queue command_queue,
  指定的\cnglo{workgrp}大小不是 \math{(1, 1, 1)}。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
-如果給類型為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
+如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
 並且創建此子\cnglo{bufobj}時所指定的 \carg{offset} 沒有按 \carg{command_queue}
  所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
 
@@ -235,7 +235,7 @@ clEnqueueTask (cl_command_queue command_queue,
 
 \item \cenum{CL_IMAGE_FORMAT_NOT_SUPPORTED}，
 如果參數是\cnglo{imgobj}，但是圖像的格式
-（圖像通道順序和數據類型）
+（圖像通道順序和數據型別）
 不被 \carg{command_queue} 所關聯的\cnglo{device}所支持。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，

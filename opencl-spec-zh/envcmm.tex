@@ -476,7 +476,7 @@ bolditalic=texgyreherosbolditalic]
   %evenmargin	dimension
   %oddmargin	dimension
   %blank	dimension small medium big standard halfline line
-  %escape	character
+  escape=yes,	%character %{[[,]]}
   %space	on off
   tab=8,	%number yes no
   %page	yes no
@@ -718,8 +718,8 @@ bolditalic=texgyreherosbolditalic]
   \setupTABLE[c][each][align={middle,lohi}]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
-        \bTH OpenCL 語言中的類型 \eTH
-        \bTH 應用所用 API 中的類型 \eTH
+        \bTH OpenCL 語言中的型別 \eTH
+        \bTH 應用所用 API 中的型別 \eTH
     \eTR
   \eTABLEhead
   \bTABLEbody
@@ -970,6 +970,13 @@ bolditalic=texgyreherosbolditalic]
   %conversion	numbers characters Characters romannumerals Romannumerals text
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%misc%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the textbackgournd will extends to the page boundary,
+% which include the footnote and not as expected
+% workaround is:
+\chardef\kindofpagetextareas\plusone
+
+% \postponenotes\footnote{...}
+
 \define[1]\todo{#1}
 %\define[1]\todo{\error}
 \stopenvironment

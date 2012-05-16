@@ -4,8 +4,8 @@
 \refglo{bufobj}中所存儲的元素是一維的，
 而\refglo{imgobj}則用來存儲二維或三維的材質、幀緩衝（frame-buffer）或圖像。
 
-\refglo{bufobj}中的元素可以是標量數據類型（如 int、float）、
-矢量數據類型或用戶自定義的結構體。
+\refglo{bufobj}中的元素可以是標量數據型別（如 int、float）、
+矢量數據型別或用戶自定義的結構體。
 \refglo{imgobj}用來表示材質、幀緩衝等緩衝區（ buffer ）。
 \cnglo{imgobj}中元素的格式必須從預定義格式中選取。
 \cnglo{memobj}中至少要有一個元素。
@@ -19,7 +19,7 @@
 
 \item 對於\refglo{bufobj}，\cnglo{kernel}按其存儲格式訪問其中的數據。
 而對於\refglo{imgobj}，其元素的存儲格式可能與\cnglo{kernel}中使用的數據格式不一樣。
-\cnglo{kernel}中的圖像元素始終是四元矢量（每一元都可以是浮點類型或者帶符號/無符號整形）。
+\cnglo{kernel}中的圖像元素始終是四元矢量（每一元都可以是浮點型別或者帶符號/無符號整形）。
 內建函數在讀寫圖像元素時會進行相應的格式轉換。
 \stopigBase
 

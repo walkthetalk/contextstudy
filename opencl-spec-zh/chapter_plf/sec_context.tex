@@ -174,7 +174,7 @@ cl_int clGetContextInfo(cl_context context,
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
-必須大於等於\reftab{paramNameclGetContextInfo}中所列返回類型的大小。
+必須大於等於\reftab{paramNameclGetContextInfo}中所列返回型別的大小。
 
 \carg{param_value_size_ret} 會返回 \carg{param_value} 所存查詢結果的實際字節數。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
@@ -188,7 +188,7 @@ cl_int clGetContextInfo(cl_context context,
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}——如果 \carg{context} 不是一個有效的 OpenCL \cnglo{context}。
 \item \cenum{CL_INVALID_VALUE}——如果 \carg{param_name} 的值不受支持，
-  或者 \carg{param_value_size} 的值 < \reftab{paramNameclGetContextInfo}中返回類型的大小且 \carg{param_value} 不是 \cenum{NULL}。
+  或者 \carg{param_value_size} 的值 < \reftab{paramNameclGetContextInfo}中返回型別的大小且 \carg{param_value} 不是 \cenum{NULL}。
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase

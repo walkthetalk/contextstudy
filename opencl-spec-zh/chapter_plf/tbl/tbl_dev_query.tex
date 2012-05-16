@@ -1,4 +1,4 @@
-\startETD[cl_device_info][返回類型]
+\startETD[cl_device_info][返回型別]
 
 \clETD{CL_DEVICE_TYPE}{cl_device_type}{
   OpenCL \cnglo{device}類型，當前支持：
@@ -28,7 +28,7 @@
 \clETD{CL_DEVICE_MAX_WORK_ITEM_SIZES}{size_t[]}{
   對\capi{clEnqueueNDRangeKernel}而言，\cnglo{workgrp}中每個維度上\cnglo{workitem}的最大數目。
 
-  返回 \carg{n} 個 \ctype{size_t} 類型的表項。
+  返回 \carg{n} 個型別為 \ctype{size_t} 的表項。
   其中 \carg{n} 是查詢 \cenum{CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS} 時所返回的值。
 
   對於不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的\cnglo{device}，最小值是$(1, 1, 1)$。
@@ -48,10 +48,10 @@
   CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE
   CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF
 }{cl_uint}{
-  可以放入矢量中的內建標量類型所期望的原生矢量的寬度。
+  可以放入矢量中的內建標量型別所期望的原生矢量的寬度。
   矢量寬度定義為可以可以容納標量元素的數目。
 
-  如果不支持雙精度浮點類型，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE} 必須返回0。
+  如果不支持雙精度浮點型別，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE} 必須返回0。
 
   如果不支持擴展 \clext{cl_khr_fp16}，\cenum{CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF} 必須返回0。
 }
@@ -68,7 +68,7 @@
   返回原生 ISA 矢量寬度。
   此矢量寬度定義為所能容納標量元素的數目。
 
-  如果不支持雙精度浮點類型，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE} 必須返回0。
+  如果不支持雙精度浮點型別，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE} 必須返回0。
 
   如果不支持擴展 \clext{cl_khr_fp16}，\cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF} 必須返回0。
 }
@@ -156,7 +156,7 @@
 }
 
 \clETD{CL_DEVICE_MEM_BASE_ADDR_ALIGN}{cl_uint}{
-  如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，其最小值是\cnglo{device}所支持的 OpenCL 內建數據類型中最大的那種的大小，單位：bit。
+  如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，其最小值是\cnglo{device}所支持的 OpenCL 內建數據型別中最大的那種的大小，單位：bit。
   （ FULL 規格中是 \ctype{long16}，EMBEDDED 規格中是 \ctype{long16} 或 \ctype{int16} ）
 }
 
@@ -175,7 +175,7 @@
   \item \cenum{CL_FP_SOFT_FLOAT}——軟件中實現了基本的浮點運算（加、減、乘）。
   \stopigBase
 
-  對於非\cenum{CL_DEVICE_TYPE_CUSTOM}類型的\cnglo{device}，其浮點能力至少要是：
+  對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的\cnglo{device}，其浮點能力至少要是：
   \cenum{CL_FP_ROUND_TO_NEAREST} \textbar \cenum{CL_FP_INF_NAN}。
 }
 
@@ -444,7 +444,7 @@
 
 \clETD{CL_DEVICE_PARTITION_PROPERTIES}{cl_device_partition_property[]}{
   返回 \carg{device} 所支持的劃分方式。
-  這是一個數組，元素類型為 \ctype{cl_device_partition_property}，其值可以是：
+  這是一個數組，元素型別為 \ctype{cl_device_partition_property}，其值可以是：
   \startigBase
   \item \cenum{CL_DEVICE_PARTITION_EQUALLY}
   \item \cenum{CL_DEVICE_PARTITION_BY_COUNTS}
