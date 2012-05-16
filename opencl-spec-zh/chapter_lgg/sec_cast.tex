@@ -325,3 +325,14 @@ float4 f;
 float3 g = /BTEX\bf{as_float3}/ETEX(f);
 \stopclc
 \stopexample
+
+% Pointer Casting
+\subsection{指針轉型}
+
+分別指向新舊型別的指針可以相互轉換。
+將指針轉型成新的型別時會斷言地址已經正確對齊，雖然實際並沒有做檢查。
+開發人員還是需要知道 OpenCL \cnglo{device}的字節序和數據的字節序，
+從而可以確定標量和矢量數據元素在內存中的存儲方式。
+
+% Usual Arithmetic Conversions
+\subsection{常見的算術轉換}
