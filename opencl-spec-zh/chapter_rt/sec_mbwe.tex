@@ -1,7 +1,7 @@
 \section{記號、屏障以及對事件的等待}
 
 % clEnqueueMarkerWithWaitList
-函數
+函式
 \startclc
 cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
 				cl_uint num_events_in_wait_list,
@@ -28,7 +28,7 @@ cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
 並且 \carg{num_events_in_wait_list} 必須大於 0。
  \carg{event_wait_list} 中的事件充當同步點。
  \carg{event_wait_list} 中的事件與 \carg{command_queue} 必須位於同一\cnglo{context}中。
-當此函數返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
+當此函式返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
 
 如果 \carg{event_wait_list} 是 \cenum{NULL}，
 則此\cnglo{cmd}會等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}完成。
@@ -57,7 +57,7 @@ cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
 \stopigBase
 
 % clEnqueueBarrierWithWaitList
-函數
+函式
 \startclc
 cl_int clEnqueueBarrierWithWaitList (cl_command_queue command_queue,
 				cl_uint num_events_in_wait_list,
@@ -86,7 +86,7 @@ cl_int clEnqueueBarrierWithWaitList (cl_command_queue command_queue,
 並且 \carg{num_events_in_wait_list} 必須大於 0。
  \carg{event_wait_list} 中的事件充當同步點。
  \carg{event_wait_list} 中的事件與 \carg{command_queue} 必須位於同一\cnglo{context}中。
-當此函數返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
+當此函式返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
 
 如果 \carg{event_wait_list} 是 \cenum{NULL}，
 則此\cnglo{cmd}會等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}完成。

@@ -9,7 +9,7 @@
 \item 將\cnglo{memobj}從一個\cnglo{device}遷移到另一個上面。
 \stopigBase
 
-函數
+函式
 \startclc
 cl_int clEnqueueMigrateMemObjects (cl_command_queue command_queue,
 			cl_uint num_mem_objects,
@@ -29,7 +29,7 @@ cl_int clEnqueueMigrateMemObjects (cl_command_queue command_queue,
 這些對象會一直在這個\cnglo{device}上，直到另一\cnglo{cmd}顯式或隱式將其再次遷移。
 
 \capi{clEnqueueMigrateMemObjects} 也可以用來控制\cnglo{memobj}在創建後的初始位置，
-這樣可以避免第一條\cnglo{cmd}將其實例化時可能的開銷。
+這樣可以避免第一條\cnglo{cmd}將其實體化時可能的開銷。
 
 為了避免對\cnglo{memobj}的訪問相互衝突，與此\cnglo{cmd}相關的所有事件間的依賴關係由用戶負責。
 如果依賴關係有問題，則 \capi{clEnqueueMigrateMemObjects} 會導致未定義的結果。
@@ -51,7 +51,7 @@ cl_int clEnqueueMigrateMemObjects (cl_command_queue command_queue,
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
 如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函數返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。

@@ -1,7 +1,7 @@
 \startETD[cl_kernel_info][返回型別]
 
 \clETD{CL_KERNEL_FUNCTION_NAME}{char[]}{
-返回\cnglo{kernel}函數的名字。
+返回\cnglo{kernel}函式的名字。
 }
 
 \clETD{CL_KERNEL_NUM_ARGS}{cl_uint}{
@@ -23,9 +23,9 @@
 }
 
 \clETD{CL_KERNEL_ATTRIBUTES}{char[]}{
-返回\cnglo{program}源碼中聲明\cnglo{kernel}函數時
+返回\cnglo{program}源碼中聲明\cnglo{kernel}函式時
 所有通過限定符 \cqlf{__attribute__} 指定的特性。
-這些特性包括\todo{6.11.2}中所列特性以及實現所支持的其它特性。
+這些特性包括\todo{6.11.2}中所列特性以及實作所支持的其它特性。
 
 所返回的特性就是聲明時 \ccmm{__attribute__((...))} 中的內容，
 但是會移除兩頭的空格以及內嵌的換行。

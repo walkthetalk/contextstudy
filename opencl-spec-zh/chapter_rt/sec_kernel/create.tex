@@ -1,7 +1,7 @@
 \subsection{創建內核對象}
 
 % clCreateKernel
-使用如下函數創建\cnglo{kernelobj}：
+使用如下函式創建\cnglo{kernelobj}：
 \startclc
 cl_kernel clCreateKernel (cl_program program,
 			const char *kernel_name,
@@ -10,7 +10,7 @@ cl_kernel clCreateKernel (cl_program program,
 
 \carg{program} 是一個\cnglo{programobj}，帶有成功構建的執行體。
 
-\carg{kernel_name} 是\cnglo{program}中一個函數的名字，聲明時帶有限定符 \cqlf{__kernel}。
+\carg{kernel_name} 是\cnglo{program}中一個函式的名字，聲明時帶有限定符 \cqlf{__kernel}。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。
 如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
@@ -26,7 +26,7 @@ cl_kernel clCreateKernel (cl_program program,
 \item \cenum{CL_INVALID_KERNEL_NAME}，如果 \carg{program} 中找不到 \carg{kernel_name}。
 
 \item \cenum{CL_INVALID_KERNEL_DEFINITION}，
-如果 \carg{kernel_name} 的函數定義（如參數個數、參數型別）
+如果 \carg{kernel_name} 的函式定義（如參數個數、參數型別）
 在已經具有對應執行體的那些\cnglo{device}上有所區別。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{kernel_name} 是 \cenum{NULL}。
@@ -37,15 +37,15 @@ cl_kernel clCreateKernel (cl_program program,
 \stopigBase
 
 % clCreateKernelsInProgram
-函數
+函式
 \startclc
 cl_int clCreateKernelsInProgram (cl_program program,
 			cl_uint num_kernels,
 			cl_kernel *kernels,
 			cl_uint *num_kernels_ret)
 \stopclc
-會為 \carg{program} 中的所有\cnglo{kernel}函數創建對應的\cnglo{kernelobj}。
-如果 \cqlf{__kernel} 函數的定義在已經具有執行體的那些\cnglo{device}上不完全一樣，
+會為 \carg{program} 中的所有\cnglo{kernel}函式創建對應的\cnglo{kernelobj}。
+如果 \cqlf{__kernel} 函式的定義在已經具有執行體的那些\cnglo{device}上不完全一樣，
 則不會為其創建\cnglo{kernelobj}。
 
 \carg{program} 是一個\cnglo{programobj}，具有成功構建的執行體。
@@ -88,7 +88,7 @@ cl_int clCreateKernelsInProgram (cl_program program,
 就可以執行此對象中聲明的\cnglo{kernel}。
 
 % clRetainKernel
-函數
+函式
 \startclc
 cl_int clRetainKernel (cl_kernel kernel)
 \stopclc
@@ -106,7 +106,7 @@ cl_int clRetainKernel (cl_kernel kernel)
 \capi{clCreateKernel} 或 \capi{clCreateKernelsInProgram} 會實施隱式的\cnglo{retain}。
 
 % clReleaseKernel
-函數
+函式
 \startclc
 cl_int clReleaseKernel (cl_kernel kernel)
 \stopclc

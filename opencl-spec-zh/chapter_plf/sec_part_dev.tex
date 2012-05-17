@@ -1,6 +1,6 @@
 \section{劃分設備}
 %clCreateSubDevices
-函數
+函式
 \startclc[indentnext=no]
 cl_int clCreateSubDevices (cl_device_id in_device,
 			   const cl_device_partition_property *properties,
@@ -39,7 +39,7 @@ cl_int clCreateSubDevices (cl_device_id in_device,
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{in_devices} 無效。
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{properties} 中的值無效，或者有效但是此\cnglo{device}不支持。
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{out_devices} 不是 \cenum{NULL}，且 \carg{num_devices} 小於所創建\cnglo{subdev}的數目。
-\item \cenum{CL_DEVICE_PARTITION_FAILED}，如果實現支持此劃分方式，但是 \carg{in_device} 不能再細分了。
+\item \cenum{CL_DEVICE_PARTITION_FAILED}，如果實作支持此劃分方式，但是 \carg{in_device} 不能再細分了。
 \item \cenum{CL_INVALID_DEVICE_PARTITION_COUNT}，如果 \carg{properties} 所指定的劃分策略是 \cenum{CL_DEVICE_PARTITION_BY_COUNTS}，
   且所要求的\cnglo{subdev}數目超過了 \cenum{CL_DEVICE_PARTITION_MAX_SUB_DEVICES}，
   或者所要求的\cnglo{computeunit}總數超過了 \carg{in_device} 的 \cenum{CL_DEVICE_PARTITION_MAX_COMPUTE_UNITS}，

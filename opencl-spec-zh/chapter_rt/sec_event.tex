@@ -41,10 +41,10 @@
 （包括其中的其他\cnglo{cmdq}）就不再可用。
 這時如果 OpenCL API 調用要使用這個\cnglo{context}（和其中的\cnglo{cmdq}），
 則其行為\cnglo{impdef}。
-創建\cnglo{context}時用戶所註冊的回調函數可用來報告相應的錯誤信息。
+創建\cnglo{context}時用戶所註冊的回調函式可用來報告相應的錯誤信息。
 
 % clCreateUserEvent
-函數
+函式
 \startclc
 cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
 \stopclc
@@ -71,7 +71,7 @@ cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
 用戶\cnglo{evtobj}在創建後，其執行狀態缺省為 \cenum{CL_SUBMITTED}。
 
 % clSetUserEventStatus
-函數
+函式
 \startclc
 cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
 \stopclc
@@ -128,7 +128,7 @@ clReleaseMemObject(buf2);
 \stopclc
 
 % clWaitForEvents
-函數
+函式
 \startclc
 cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
 \stopclc
@@ -158,7 +158,7 @@ cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
 \stopigBase
 
 % clGetEventInfo
-函數
+函式
 \startclc
 cl_int clGetEventInfo (cl_event event,
 			cl_event_info param_name,
@@ -215,7 +215,7 @@ cl_int clGetEventInfo (cl_event event,
 \stopigBase
 
 % clSetEventCallback
-函數
+函式
 \startclc
 cl_int clSetEventCallback (cl_event event,
 			cl_int command_exec_callback_type,
@@ -224,12 +224,12 @@ cl_int clSetEventCallback (cl_event event,
 					void *user_data),
 			void *user_data)
 \stopclc
-可以為\cnglo{cmd}的某個執行狀態註冊一個用戶回調函數。
+可以為\cnglo{cmd}的某個執行狀態註冊一個用戶回調函式。
 當 \carg{event} 所關聯的\cnglo{cmd}的執行狀態變成或越過 \carg{command_exec_status} 時，
-所註冊的回調函數就會被調用。
+所註冊的回調函式就會被調用。
 
-調用 \capi{clSetEventCallback} 會將用戶回調函數註冊到 \carg{event} 的回調棧上。
-而對於所註冊用戶回調函數的調用順序，則沒有定義。
+調用 \capi{clSetEventCallback} 會將用戶回調函式註冊到 \carg{event} 的回調棧上。
+而對於所註冊用戶回調函式的調用順序，則沒有定義。
 
 \carg{event} 是一個\cnglo{evtobj}。
 
@@ -237,22 +237,22 @@ cl_int clSetEventCallback (cl_event event,
 能註冊回調的狀態為：
  \cenum{CL_SUBMITTED}、 \cenum{CL_RUNNING} 或 \cenum{CL_COMPLETE}
 \footnote{如果 \carg{command_exec_callback} 是 \cenum{CL_COMPLETE}，
-當命令執行成功或者異常終止時都會調用所註冊的回調函數。}。
-不保證按執行狀態的變化順序來調用相應的回調函數。
+當命令執行成功或者異常終止時都會調用所註冊的回調函式。}。
+不保證按執行狀態的變化順序來調用相應的回調函式。
 進而，需要注意的是，調用回調時，事件的狀態可能不是 \cenum{CL_COMPLETE}，
 但這絕不意味着 OpenCL 規範所定義的內存模型或執行模型發生了變化。
 例如，除非事件的狀態是 \cenum{CL_COMPLETE}，否則不能假設相應的內存遷移已經完成。
 
-\carg{pfn_event_notify} 即\cnglo{app}所註冊的事件回調函數。
-此函數可能會被 OpenCL 實現異步調用。
-\cnglo{app}要保證此函數是線程安全的。
-此函數的參數為：
+\carg{pfn_event_notify} 即\cnglo{app}所註冊的事件回調函式。
+此函式可能會被 OpenCL 實作異步調用。
+\cnglo{app}要保證此函式是線程安全的。
+此函式的參數為：
 \startigBase
-\item \carg{event} 即此函數所關注的事件。
+\item \carg{event} 即此函式所關注的事件。
 
-\item \carg{event_command_exec_status} 即此函數所關注的\cnglo{cmd}執行狀態。
+\item \carg{event_command_exec_status} 即此函式所關注的\cnglo{cmd}執行狀態。
 關於\cnglo{cmd}的執行狀態請參見\reftab{clGetEventInfo}。
-如果是由於\cnglo{cmd}異常終止而調用的此函數，
+如果是由於\cnglo{cmd}異常終止而調用的此函式，
 那麼傳給 \carg{event_command_exec_status} 的將是相應的錯誤碼。
 
 \item \carg{user_data} 指向用戶提供的數據。
@@ -303,7 +303,7 @@ cl_int clSetEventCallback (cl_event event,
 \stopigBase
 
 % clRetainEvent
-函數
+函式
 \startclc
 cl_int clRetainEvent (cl_event event)
 \stopclc
@@ -321,7 +321,7 @@ cl_int clRetainEvent (cl_event event)
 \stopigBase
 
 % clReleaseEvent
-函數
+函式
 \startclc
 cl_int clReleaseEvent (cl_event event)
 \stopclc

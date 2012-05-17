@@ -1,4 +1,4 @@
-函數
+函式
 \startclc
 cl_program clLinkProgram (cl_context context,
 			cl_uint num_devices,
@@ -48,15 +48,15 @@ cl_int *errcode_ret)
 \item 所有其它情況都會返回錯誤 \cenum{CL_INVALID_OPERATION}。
 \stopigBase
 
-\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函數。在鏈接完成後（無論成功還是失敗）會被調用。
+\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在鏈接完成後（無論成功還是失敗）會被調用。
 
 如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始鏈接，
  \capi{clLinkProgram} 就會立刻返回，而不必等待鏈接完成。
 一旦鏈接完成， \carg{pfn_notify} 就會被調用，
 並返回一個\cnglo{programobj}（跟 \capi{clLinkProgram} 返回的一樣）。
 \cnglo{app}可以查詢鏈接的狀態以及日誌。
-此函數可能會被異步調用。
-\cnglo{app}需要保證此函數是線程安全的。
+此函式可能會被異步調用。
+\cnglo{app}需要保證此函式是線程安全的。
 
 如果 \carg{pfn_notify} 是 \cenum{NULL}，直到鏈接完畢， \capi{clLinkProgram} 才會返回。
 

@@ -22,12 +22,12 @@
 % placeholder A
 \startigBase
 \item \refglo{cmdqbarrier}本身是一個\refglo{cmd}，
- OpenCL API 提供一個函數可以將其插入隊列。
+ OpenCL API 提供一個函式可以將其插入隊列。
 此命令可以保證在此之前入隊的所有\cnglo{cmd}都執行完畢後，
 在此之後入隊的\cnglo{cmd}才能開始執行。
 % placeholder B
-\item OpenCL C 編程語言內建有一個\refglo{workgrpbarrier}函數。
-運行在\refglo{device}上的\refglo{kernel}可以利用此函數在
+\item OpenCL C 編程語言內建有一個\refglo{workgrpbarrier}函式。
+運行在\refglo{device}上的\refglo{kernel}可以利用此函式在
 同一\refglo{workgrp}中的不同\refglo{workitem}間進行同步
 （這些\cnglo{workitem}正在執行此\refglo{kernel}）。
 對於一個\refglo{workgrp}而言，
@@ -98,7 +98,7 @@
 （用來對\refglo{kernel}的執行和\refglo{memobj}上的相關操作進行調度）。
 
 \clglo{customdev}{自定義設備}{Custom Device}
-一種 OpenCL \refglo{device}，完整實現了 OpenCL 運行時，
+一種 OpenCL \refglo{device}，完整實作了 OpenCL 運行時，
 但不支持用 OpenCL C 寫的\refglo{program}。
 \refglo{customdev}可能是不可編程的專用硬件，高效節能，僅可執行定向任務；
 也可能具有有限的編程能力，如專用的 DSP。
@@ -163,7 +163,7 @@
 
 \startclglo{imgobj}{圖像對象}{Image Object}
 一種\refglo{memobj}，用來存儲二維或三維的結構化數組。
-只能通過讀寫函數訪問其中的圖像數據。讀函數需要使用\refglo{sampler}。
+只能通過讀寫函式訪問其中的圖像數據。讀函式需要使用\refglo{sampler}。
 
 \refglo{imgobj}封裝了以下信息：
 \startigBase
@@ -176,9 +176,9 @@
 圖像中的所有元素均從預定義的一系列圖像格式中選取。
 \stopclglo
 
-\clglo{impdef}{依賴於具體實現}{Implementation Defined}
-在符合 OpenCL 標準的實現中，明確規定可以有不同實現的那些行為。
-對於這種行為，要求 OpenCL 的實現者提供相關文檔。
+\clglo{impdef}{依賴於具體實作}{Implementation Defined}
+在符合 OpenCL 標準的實作中，明確規定可以有不同實作的那些行為。
+對於這種行為，要求 OpenCL 的實作者提供相關文檔。
 
 \clglo{inordexec}{順序執行}{In-order Execution}
 OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順序執行，
@@ -186,15 +186,15 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 参看\refglo{outordexec}。
 
 \clglo{kernel}{內核}{Kernel}
-\refglo{kernel}是\refglo{program}中聲明的一種函數，
+\refglo{kernel}是\refglo{program}中聲明的一種函式，
 可以在 OpenCL \refglo{device}上執行。
-在\refglo{program}中定義的任何函數，
+在\refglo{program}中定義的任何函式，
 都可以通過加上限定符 \cqlf{__kernel} 或 \cqlf{kernel} 將其標識成\refglo{kernel}。
 
 \clglo{kernelobj}{內核對象}{Kernel Object}
 \refglo{kernelobj}封裝了
-\refglo{program}中聲明的一個 \cqlf{__kernel} 函數
-以及執行此函數時所需的參數。
+\refglo{program}中聲明的一個 \cqlf{__kernel} 函式
+以及執行此函式時所需的參數。
 
 \clglo{locid}{局部 ID}{Local ID}
 \refglo{workitem}的一種 ID，在執行\refglo{kernel}的\refglo{workgrp}中是唯一的。
@@ -254,7 +254,7 @@ OpenCL 中的一個確切的地址空間。
 
 \clglo{program}{程序}{Program}
 由一組\refglo{kernel}組成，
-可能還包含一些輔助函數（由 \cqlf{__kernel} 函數調用）和常量数据。
+可能還包含一些輔助函式（由 \cqlf{__kernel} 函式調用）和常量数据。
 
 \startclglo{programobj}{程序對象}{Program Object}
 \refglo{programobj}封裝有以下信息：
@@ -288,7 +288,7 @@ OpenCL 對象的生命周期由其\refglo{refcnt}來確定，
 
 \clglo{res}{資源}{Resource}
 OpenCL 所定義的一類\refglo{obj}。
-\refglo{res}的一個實例就是一個\refglo{obj}。
+\refglo{res}的一個實體就是一個\refglo{obj}。
 最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、
 \refglo{kernelobj}以及\refglo{memobj}。
 計算用資源主要指那些參與推進程序計數器動作的硬件元件。
@@ -298,7 +298,7 @@ OpenCL 所定義的一類\refglo{obj}。
 \clglo{release}{釋放}{Release}
 會使 OpenCL \refglo{obj}的\refglo{refcnt}增一（ retain）或減一（ release）。
 這是一個記賬功能，
-可以保證在使用某個\refglo{obj}的所有實例都結束之前，系統不會移除此\refglo{obj}。
+可以保證在使用某個\refglo{obj}的所有實體都結束之前，系統不會移除此\refglo{obj}。
 參見\refglo{refcnt}。
 
 \clglo{rootdev}{根設備}{Root Device}
@@ -307,7 +307,7 @@ OpenCL 所定義的一類\refglo{obj}。
 
 \clglo{sampler}{採樣器}{Sampler}
 一種\refglo{obj}，用來描述\refglo{kernel}讀取圖像時怎樣對其採樣。
-讀取圖像的函數將\refglo{sampler}作為一個參數。
+讀取圖像的函式將\refglo{sampler}作為一個參數。
 \refglo{sampler}指定圖像的尋址方式，
 如圖像的坐標越限時怎樣處理、濾波模式、輸入的圖像坐標是否已規範化。
 
@@ -343,9 +343,9 @@ OpenCL 所定義的一類\refglo{obj}。
 而不必在這些線程間實施互斥，即它們也是重入安全的。
 
 \clglo{undef}{未定義}{Undefined}
-調用 OpenCL API、\refglo{kernel}中使用內建函數或者執行\refglo{kernel}時，
+調用 OpenCL API、\refglo{kernel}中使用內建函式或者執行\refglo{kernel}時，
 如果 OpenCL 沒有對其行為顯式定義，那麼這種行為就是\refglo{undef}的。
-至於在 OpenCL 中碰到這種情況時會發生什麼，不要求實現明確指出。
+至於在 OpenCL 中碰到這種情況時會發生什麼，不要求實作明確指出。
 
 \clglo{workgrp}{作業組}{Work-group}
 一組相關的\refglo{workitem}，在同一個\refglo{computeunit}上執行。

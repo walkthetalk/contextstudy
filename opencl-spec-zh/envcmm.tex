@@ -523,10 +523,10 @@ bolditalic=texgyreherosbolditalic]
 \setupitemgroup[igBase]
 [each]
 [packed,joinedup,]
-%standard broad serried packed unpacked stopper joinedup atmargin inmargin autointro loose repeat section paragraph intext random
+%standard broad serried packed unpacked stopper joinedup atmargin inmargin autointro loose repeat section paragraph intext random columns
 %standard: default setup
 %n*broad:  extra horizontal white space after symbol
-%n*serried:little horizontal white space after symbol 
+%n*serried:little horizontal white space after symbol
 %packed:   no whitespace between items
 %stopper:  punctuation after item separator
 %joinedup: no white space before and after itemization
@@ -580,6 +580,20 @@ bolditalic=texgyreherosbolditalic]
   after=,	%command
 ]
 \setupitemgroup[igNum][1][n]
+
+% big item
+\defineitemgroup[igBig][levels=1]
+\setupitemgroup[igBig]
+[each]
+[packed,joinedup,]
+[
+  leftmargin=0em,
+  before=,
+  inbetween=,
+  after=,
+  width=2em,
+]
+\setupitemgroup[igBig][1][a]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setupTABLE[%
@@ -739,8 +753,8 @@ bolditalic=texgyreherosbolditalic]
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scver{1.2}
 \define\scclver{OpenCL 1.2}
-\define\schostfailres{在為\cnglo{host}上的 OpenCL 實現分配資源時失敗}
-\define\scdevfailres{在為\cnglo{device}上的 OpenCL 實現分配資源時失敗}
+\define\schostfailres{在為\cnglo{host}上的 OpenCL 實作分配資源時失敗}
+\define\scdevfailres{在為\cnglo{device}上的 OpenCL 實作分配資源時失敗}
 \define\scinf{INF}
 \define\scqnan{Quiet NaN}
 \define\scfma{FMA}

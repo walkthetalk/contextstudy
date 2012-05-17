@@ -15,12 +15,12 @@
 \item \refglo{bufobj}中的元素是順序存儲的，
 \cnglo{kernel}在\cnglo{device}上運行時可以用指針訪問這些元素。
 而\refglo{imgobj}中元素的存儲格式對用戶是透明的，不能通過指針直接訪問。
-可以使用 OpenCL C 編程語言提供的內建函數來讀寫\cnglo{imgobj}。
+可以使用 OpenCL C 編程語言提供的內建函式來讀寫\cnglo{imgobj}。
 
 \item 對於\refglo{bufobj}，\cnglo{kernel}按其存儲格式訪問其中的數據。
 而對於\refglo{imgobj}，其元素的存儲格式可能與\cnglo{kernel}中使用的數據格式不一樣。
 \cnglo{kernel}中的圖像元素始終是四元矢量（每一元都可以是浮點型別或者帶符號/無符號整形）。
-內建函數在讀寫圖像元素時會進行相應的格式轉換。
+內建函式在讀寫圖像元素時會進行相應的格式轉換。
 \stopigBase
 
 \cnglo{memobj}是用 \ctype{cl_mem} 來表示的。

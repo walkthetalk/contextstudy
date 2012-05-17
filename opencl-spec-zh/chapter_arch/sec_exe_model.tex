@@ -8,8 +8,8 @@ OpenCL \cnglo{program}的執行分為兩種情況：
 
 OpenCL 執行模型的核心就是\cnglo{kernel}是怎麼執行的。
 \cnglo{host}提交\cnglo{kernel}時會定義一個索引空間。
-\cnglo{kernel}的實例會在此空間中的所有點上執行。
-\cnglo{kernel}的實例稱為\cngloemp{workitem}，
+\cnglo{kernel}的實體會在此空間中的所有點上執行。
+\cnglo{kernel}的實體稱為\cngloemp{workitem}，
 通過在索引空間中的坐標來標識，這個坐標就是\cnglo{workitem}的\cnglo{glbid}。
 所有\cnglo{workitem}都會執行相同的代碼，但是代碼的執行路徑和參與運算的數據可能會不同。
 
@@ -85,14 +85,14 @@ NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及�
 \cnglo{context}包括以下\cnglo{res}：
 \startigNum
 \item \cngloemp{device}：\cnglo{host}可以使用的 OpenCL \cnglo{device}集。
-\item \cngloemp{kernel}：運行在 OpenCL \cnglo{device}上的 OpenCL 函數。
+\item \cngloemp{kernel}：運行在 OpenCL \cnglo{device}上的 OpenCL 函式。
 \item \cngloemp{programobj}：實現\cnglo{kernel}的\cnglo{program}源碼和執行體。
 \item \cngloemp{memobj}：一組\cnglo{memobj}，
 對\cnglo{host}和 OpenCL \cnglo{device}可見。
-\cnglo{memobj}包含一些值，\cnglo{kernel}實例可以在其上進行運算。
+\cnglo{memobj}包含一些值，\cnglo{kernel}實體可以在其上進行運算。
 \stopigBase
 
-\cnglo{host}使用 OpenCL API 中的函數來創建並操控\cnglo{context}。
+\cnglo{host}使用 OpenCL API 中的函式來創建並操控\cnglo{context}。
 \cnglo{host}會創建一個稱為\cnglo{cmdq}的數據結構
 來協調\cnglo{device}上\cnglo{kernel}的執行。
 \cnglo{host}還會將\cnglo{cmd}插入\cnglo{cmdq}，
@@ -136,17 +136,17 @@ OpenCL 執行模型支持兩種\cnglo{kernel}：
 \startigBase
 \item {\ftEmp{OpenCL \cnglo{kernel}}}，
 用 OpenCL C 編程語言寫就，並用 OpenCL C 編譯器編譯而成。
-所有 OpenCL 的實現都支持 OpenCL \cnglo{kernel}。
-實現也可能提供其他機制創建 OpenCL \cnglo{kernel}。
+所有 OpenCL 的實作都支持 OpenCL \cnglo{kernel}。
+實作也可能提供其他機制創建 OpenCL \cnglo{kernel}。
 
 \item {\ftEmp{原生\cnglo{kernel}}}，
-通過\cnglo{host}函數指針訪問。
+通過\cnglo{host}函式指針訪問。
 原生\cnglo{kernel}與 OpenCL \cnglo{kernel}一起入隊在\cnglo{device}上執行，
 並共享\cnglo{memobj}。
-例如，這些原生\cnglo{kernel}可以是\cnglo{app}代碼中定義的函數，也可以是從庫中導出的函數。
+例如，這些原生\cnglo{kernel}可以是\cnglo{app}代碼中定義的函式，也可以是從庫中導出的函式。
 注意，在 OpenCL 中，
 執行原生\cnglo{kernel}的能力是一個可選功能，原生\cnglo{kernel}的語義\cnglo{impdef}。
-可以使用 OpenCL API 中的一些函數來查詢\cnglo{device}的能力
+可以使用 OpenCL API 中的一些函式來查詢\cnglo{device}的能力
 並確定\cnglo{device}是否具有某種能力。
 \stopigBase
 

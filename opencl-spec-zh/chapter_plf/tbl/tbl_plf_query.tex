@@ -1,15 +1,15 @@
 \startETD[cl_platform_info][
 返回型別
-\footnote{對於 OpenCL 查詢函數，如果所查詢信息的型別為 \ctype{char[]}，則會返回一個以 null 結尾的字符串。}
+\footnote{對於 OpenCL 查詢函式，如果所查詢信息的型別為 \ctype{char[]}，則會返回一個以 null 結尾的字符串。}
 ]
 
 \clETD{CL_PLATFORM_PROFILE}{char[]}{
   OpenCL 規格字符串。
-  返回實現所支持的規格的名字。
+  返回實作所支持的規格的名字。
   可以是下列之一：
   \startigBase
-  \item FULL\_PROFILE——表示實現支持 OpenCL 規範（核心規範所定義的功能，無須支持任何擴展）。
-  \item EMBEDDED\_PROFILE——表示實現支持 OpenCL 嵌入式規格。它是對應版本 OpenCL 的一個子集。
+  \item FULL\_PROFILE——表示實作支持 OpenCL 規範（核心規範所定義的功能，無須支持任何擴展）。
+  \item EMBEDDED\_PROFILE——表示實作支持 OpenCL 嵌入式規格。它是對應版本 OpenCL 的一個子集。
     OpenCL \scver 的嵌入式規格請參考\todo{secion 10}。
   \stopigBase
 }

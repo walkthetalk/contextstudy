@@ -54,8 +54,8 @@
 為了顯式拷貝數據，\cnglo{host}會將一些\cnglo{cmd}插入隊列，
 用來在\cnglo{memobj}和\cnglo{host}內存之間傳輸數據。
 這些用於傳輸內存的命令可以是阻塞式的，也可以是非阻塞式的。
-對於前者，一旦\cnglo{host}上相關內存資源可以被安全的重用，OpenCL 函數調用就會立刻返回。
-而對於後者，一旦命令入隊，OpenCL 函數調用就會返回，而不管\cnglo{host}內存是否可以安全使用。
+對於前者，一旦\cnglo{host}上相關內存資源可以被安全的重用，OpenCL 函式調用就會立刻返回。
+而對於後者，一旦命令入隊，OpenCL 函式調用就會返回，而不管\cnglo{host}內存是否可以安全使用。
 
 用映射、解映射的方法處理\cnglo{host}和 OpenCL \cnglo{memobj}的交互時，
 \cnglo{host}可以將\cnglo{memobj}的某個區域映射到自己的地址空間中。

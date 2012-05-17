@@ -1,9 +1,9 @@
-\section{對內存對象以及內核的剖析}
+\section{對內存對象以及內核的評測}
 
-一些 OpenCL 函數可以作為\cnglo{cmd}插入到\cnglo{cmdq}中，
+一些 OpenCL 函式可以作為\cnglo{cmd}插入到\cnglo{cmdq}中，
 所入隊的\cnglo{cmd}是通過唯一的\cnglo{evtobj}來標識的。
-本節將描述對這些函數的剖析（profiling）。
-這些函數
+本節將描述對這些函式的評測（profiling）。
+這些函式
 \footnote{OpenCL 1.2 擴展規範的節 9.6.6 中定義的 \capi{clEnqueueAcquireGLObjects}
  和 \capi{clEnqueueReleaseGLObjects} 也包含在內。}
 是：
@@ -23,7 +23,7 @@
 \stopigBase
 
 % clGetEventProfilingInfo
-如果使能了剖析，則函數
+如果使能了評測，則函式
 \startclc
 cl_int clGetEventProfilingInfo (cl_event event,
 			cl_profiling_info param_name,
@@ -31,11 +31,11 @@ cl_int clGetEventProfilingInfo (cl_event event,
 			void *param_value,
 			size_t *param_value_size_ret)
 \stopclc
-會返回 \carg{event} 所指代\cnglo{cmd}的剖析信息。
+會返回 \carg{event} 所指代\cnglo{cmd}的評測信息。
 
 \carg{event} 即\cnglo{evtobj}。
 
-\carg{param_name} 指定所要查詢的剖析數據。
+\carg{param_name} 指定所要查詢的評測數據。
 對於所支持的信息類型以及 \carg{param_value} 中返回的信息，
 請參見\reftab{clGetEventProfilingInfo}。
 
@@ -64,7 +64,7 @@ cl_int clGetEventProfilingInfo (cl_event event,
  \cenum{CL_DEVICE_PROFILING_TIMER_RESOLUTION} 指定了時鐘的精度，
 即，定時器增一時所經過的納秒數。
 
-如果執行成功，且記錄了剖析信息，
+如果執行成功，且記錄了評測信息，
 則 \capi{clGetEventProfilingInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase

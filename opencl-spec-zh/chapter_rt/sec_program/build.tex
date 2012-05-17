@@ -1,6 +1,6 @@
 \subsection{構建可執行程序}
 
-函數
+函式
 \startclc
 cl_int clBuildProgram (cl_program program,
 			cl_uint num_devices,
@@ -31,13 +31,13 @@ cl_int clBuildProgram (cl_program program,
 
 \carg{options} 指向一個以 null 結尾的字符串，用來描述構建選項。所支持的選項請參閱\todo{5.6.4}。
 
-\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函數。在構建完可執行\cnglo{program}後（無論成功還是失敗）會被調用。
+\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在構建完可執行\cnglo{program}後（無論成功還是失敗）會被調用。
 如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始構建， \capi{clBuildProgram} 就會立刻返回，而不必等待構建完成。
 如果\cnglo{context}、所要編譯鏈接的\cnglo{program}、\cnglo{device}清單以及構建選項都是有效的，
 以及實施構建所需的\cnglo{host}和\cnglo{device}資源都可用，則就可以開始進行構建了。
 如果 \carg{pfn_notify} 是 \cenum{NULL}，直到構建完畢， \capi{clBuildProgram} 才會返回。
-對此函數的調用可能是異步的。
-\cnglo{app}需要保證此函數是線程安全的。
+對此函式的調用可能是異步的。
+\cnglo{app}需要保證此函式是線程安全的。
 
 \carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cenum{NULL}。
 

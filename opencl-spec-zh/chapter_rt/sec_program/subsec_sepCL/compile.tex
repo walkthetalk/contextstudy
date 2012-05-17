@@ -1,4 +1,4 @@
-函數
+函式
 \startclc
 cl_int clCompileProgram (cl_program program,
 			cl_uint num_devices,
@@ -73,13 +73,13 @@ clCompileProgram(program_A,
 		NULL, NULL);	// pfn_notify & user_data
 \stopclc
 
-\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函數。在編譯完成後（無論成功還是失敗）會被調用。
+\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在編譯完成後（無論成功還是失敗）會被調用。
 如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始編譯， \capi{clCompileProgram} 就會立刻返回，而不必等待編譯完成。
 如果\cnglo{context}、所要編譯的\cnglo{program}源碼、\cnglo{device}清單、所輸入的頭文件以及相應的\cnglo{program}，還有構建選項都是有效的，
 並且實施編譯所需的\cnglo{host}和\cnglo{device}資源都可用，則就可以開始進行編譯了。
 如果 \carg{pfn_notify} 是 \cenum{NULL}，直到編譯完畢， \capi{clCompileProgram} 才會返回。
-對此函數的調用可能是異步的。
-\cnglo{app}需要保證此函數是線程安全的。
+對此函式的調用可能是異步的。
+\cnglo{app}需要保證此函式是線程安全的。
 
 \carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cenum{NULL}。
 

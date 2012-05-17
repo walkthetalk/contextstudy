@@ -1,7 +1,7 @@
 \subsection{讀、寫以及拷貝圖像對象}
 
 %% clEnqueueReadImage / clEnqueueWriteImage
-下列函數會將一個用於讀寫\cnglo{imgobj}的\cnglo{cmd}插入隊列，
+下列函式會將一個用於讀寫\cnglo{imgobj}的\cnglo{cmd}插入隊列，
 此\cnglo{cmd}可以將圖像或圖像陣列的內容讀到\cnglo{host}內存中，
 或者由\cnglo{host}內存寫入到圖像或圖像陣列中。
 \startclc
@@ -45,11 +45,11 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢讀\cnglo{cmd}的執行情況。
 讀\cnglo{cmd}完成後，\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內容了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_TRUE}， OpenCL 實現會拷貝 \carg{ptr} 所指向的數據，並將寫\cnglo{cmd}插入隊列。
+如果 \carg{blocking_write} 是 \cenum{CL_TRUE}， OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將寫\cnglo{cmd}插入隊列。
 當 \capi{clEnqueueWriteBuffer} 返回後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_FALSE}， OpenCL 實現會用 \carg{ptr} 實施非阻塞的寫操作。
-既然非阻塞，實現就可以立即返回。返回後，\cnglo{app}還不能立刻就使用 \carg{ptr} 所指內存。
+如果 \carg{blocking_write} 是 \cenum{CL_FALSE}， OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
+既然非阻塞，實作就可以立即返回。返回後，\cnglo{app}還不能立刻就使用 \carg{ptr} 所指內存。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢寫\cnglo{cmd}的執行情況。
 寫\cnglo{cmd}完成後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
 
@@ -82,7 +82,7 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
 如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函數返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
@@ -161,8 +161,8 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 \item 在寫\cnglo{cmd}執行完以前，任何\cnglo{cmdq}都不能使用此\cnglo{imgobj}。
 \stopigBase
 
-%% clEnqueueCopyImage 
-函數
+%% clEnqueueCopyImage
+函式
 \startclc
 cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 			cl_mem src_image,
@@ -214,7 +214,7 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
 如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函數返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。

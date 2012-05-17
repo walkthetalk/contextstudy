@@ -73,19 +73,19 @@
 
 下列選項會控制編譯器中與浮點算術有關的行為。
 這些選項以犧牲正確性為代價來換取性能的提升，必須明確使能。
-由於它們可能會導致不正確的輸出，而這些輸出則依賴於數學函數對 IEEE 754 標準的具體實現，
+由於它們可能會導致不正確的輸出，而這些輸出則依賴於數學函式對 IEEE 754 標準的具體實作，
 因此缺省這些選項都是關閉的。
 
 \startclOption{-cl-mad-enable}
 允許用 \ccmm{mad} 代替 \ccmm{a * b + c}。
  \ccmm{mad} 會用較低的精確度來計算 \ccmm{a * b + c}。
-例如，一些 OpenCL \cnglo{device}實現的 \ccmm{mad} 在加 \ccmm{c} 前會對 \ccmm{a * b} 進行截斷。
+例如，一些 OpenCL \cnglo{device}實作的 \ccmm{mad} 在加 \ccmm{c} 前會對 \ccmm{a * b} 進行截斷。
 \stopclOption
 
 \startclOption{-cl-no-signed-zeros}
 允許在進行浮點算術運算時忽略零的正負。
 在 IEEE 754 中，對於 \ccmm{+0.0} 和 \ccmm{-0.0} 的行為是不同的，
-這會導致不能對像 \ccmm{x + 0.0} 或 \ccmm{0.0 * x} 這樣的表達式進行簡化
+這會導致不能對像 \ccmm{x + 0.0} 或 \ccmm{0.0 * x} 這樣的算式進行簡化
 （即使只帶有 \ccmm{-cl-finite-math} ）。
 \stopclOption
 

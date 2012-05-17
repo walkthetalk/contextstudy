@@ -8,7 +8,7 @@ OpenCL 支持\reftab{builtInScalarDataTypes}中所定義的內建標量型別間
 （conversion）
 （\ctype{void} 和 \ctype{half}\footnote{如果支持擴展 \clext{cl_khr_fp16}，
 則 \ctype{half} 也在支持之列。} 除外）。
-隱式轉換不僅是對表達式值的重釋（reinterpret），同時會將其轉換成另一個型別與其相等的值。
+隱式轉換不僅是對算式值的重釋（reinterpret），同時會將其轉換成另一個型別與其相等的值。
 例如，可以將整數 \ccmm{5} 轉換成浮點數 \ccmm{5.0}。
 
 對於內建矢量數據型別，不允許進行隱式轉換。
@@ -72,11 +72,11 @@ uchar4	vtrue = (uchar4)true;
 % Explicit Conversions
 \subsection{顯式轉換}
 
-下面一組函數可用來實施顯式轉換
+下面一組函式可用來實施顯式轉換
 \startclc
 convert_destType(sourceType)
 \stopclc
-這組函數可以支持所有所支持型別（參加\refsec{bisdt}、\refsec{bivdt}和\refsec{obidt}）
+這組函式可以支持所有所支持型別（參加\refsec{bisdt}、\refsec{bivdt}和\refsec{obidt}）
 間的型別轉換，這些型別除外：
  \ctype{bool}、 \ctype{half}、 \ctype{size_t}、 \ctype{ptrdiff_t}、
  \ctype{intptr_t}、 \ctype{uintptr_t} 和 \ctype{void}。
@@ -101,12 +101,12 @@ int	i = convert_int(f);
 可以通過兩個可選的修飾符（modifier）來改變轉換的行為，
 其中一個修飾符可以對溢出的輸入使用飽和算法（saturation），另一個可以指定舍入模式。
 
-完整的標量轉換函數形如：
+完整的標量轉換函式形如：
 \startclc
 destType convert_destType<_sat><_roundingMode> (sourceType)
 \stopclc
 
-完整的矢量轉換函數形如：
+完整的矢量轉換函式形如：
 \startclc
 destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 \stopclc
@@ -118,7 +118,7 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
  \ctype{int}、 \ctype{uint}、 \ctype{long}、 \ctype{ulong}、 \ctype{float}
  以及由此所衍生的內建矢量型別，都可以進行轉換。
 運算元和結果的型別中所含元素的數目必須相同。
-運算元和結果的型別可能相同，這種情況下不會進行轉換，表達式的型別和值都不變。
+運算元和結果的型別可能相同，這種情況下不會進行轉換，算式的型別和值都不變。
 
 整數之間的轉換遵循 C99 規範的節 6.3.1.1 和節 6.3.1.3 中的轉換規則，
 不過\refsec{oorbasc}中所描述的溢出行為和飽和轉換例外。
@@ -148,7 +148,7 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 其結果由 C99 規範的節 6.3 中的轉換規則來確定。
 如果要將浮點型別轉換成整形，則其行為\cnglo{impdef}。
 
-轉換成整形時可以使用飽和模式（在轉換函數的名字後面加上修飾符 \ccmm{_sat}）。
+轉換成整形時可以使用飽和模式（在轉換函式的名字後面加上修飾符 \ccmm{_sat}）。
 此模式下，如果發生溢出，結果將是目標格式所能表示的值中與源運算元最近的那個
 （會將 NaN 轉換成 0）。
 
@@ -214,12 +214,12 @@ float4 f = convert_float4_rtp( i );
 在 OpenCL 中，經常有需要將某一種數據型別重釋為另一種數據型別。
 在需要直接訪問浮點型別中的位元時就需要這樣做，
 例如，屏蔽掉（mask off）浮點數據的符號位，
-或者使用浮點矢量關係運算符的結果（參加\todo{6.3.d}）
+或者使用浮點矢量關係運算子的結果（參加\todo{6.3.d}）
 \footnote{另外，對於一些設計用來支持特定矢量 ISA
 （如 AltiVec\high{TM}、 CELL Broadband Engine\high{TM} 架構）的 C 語言擴展，
-會將這樣的轉換與重排運算符（swizzle oprator）一起使用對型別進行還原（unconversion）。
+會將這樣的轉換與重排運算子（swizzle oprator）一起使用對型別進行還原（unconversion）。
 為支持這種遺留代碼， \clapiv{as_type}() 允許在大小相同但元素數目不同的矢量間進行轉換，
-即使這種轉換的行為不能移植到其他硬件架構的 OpenCL 實現上。
+即使這種轉換的行為不能移植到其他硬件架構的 OpenCL 實作上。
  AltiVec\high{TM} 是 Motorola Inc. 的商標。
  Cell Broadband Engine 是 Sony Computer Entertainment Inc. 的商標。}。
 對於這種（反）轉換， C 語言中經常使用的有這幾種方法：
@@ -268,17 +268,17 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 因此基於寄存器的表示方式也可能會由於寄存器中元素大小的原因而不同。
 （例如，在某種架構上，可能將 \ccmm{char} 裝載進 32 位寄存器中，
 或者將 \ccmm{char} 矢量裝載進元素大小固定為 32 位的 SIMD 矢量寄存器。）
-如果元素數目不同，則實現可以根據直觀感受選擇恰當的數據表示方式，
-如同在包含源型別數據的寄存器上應用相應的型別運算符一樣。
+如果元素數目不同，則實作可以根據直觀感受選擇恰當的數據表示方式，
+如同在包含源型別數據的寄存器上應用相應的型別運算子一樣。
 如果元素數目一樣，則 \clapiv{as_type} 的行為必須與用內存拷貝或聯合體重釋類似的數據型別相一致。
-所以，例如，如果某種實現中所有單精度數據在寄存器中都是以雙精度存儲的，
+所以，例如，如果某種實作中所有單精度數據在寄存器中都是以雙精度存儲的，
 那麼它所實現的 as_int(float) 就應該先將雙精度數據轉換成單精度，
 然後（如果有必要）再將單精度數據的位元轉移到合適的寄存器中以參與整形數據運算。
 如果不同地址空間中所存儲的數據具有不同的字節序，
 則按設備的主字節序（dominant endianness）進行處理。
 }。
 如果運算元和結果的型別所含元素數目相同，則會直接返回運算元中的位元，而不會將其修正為新型別。
-通常對函數參數都會實施型別晉陞（type promotion），而這裡不會。
+通常對函式參數都會實施型別晉陞（type promotion），而這裡不會。
 
 例如， \ccmm{as_float(0x3f800000)} 返回 \ccmm{1.0f}，
 而 \ccmm{1.0f} 正式將 \ccmm{0x3f800000} 看作 IEEE-754 單精度浮點數時的值。
@@ -287,10 +287,10 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 但將四元矢量轉換為三元矢量則例外。
 這種情況下，會直接返回運算元中的位元，不會將其修正為新類型。
 也就是說，如果運算元和結果類型所包含元素的數目不同，
-符合 OpenCL 的實現需要將其行為顯式的定義清楚，但兩種實現的行為不必相同。
-實現所定義的結果中可能包含所有或部分原始位元，也可能完全沒有原始位元，
-而且位元的順序也可由實現自由選擇。
-不能使用運算符 \clapis{as_type} 和 \clapiv{as_type} 將數據重釋為另一種字節數不同的型別。
+符合 OpenCL 的實作需要將其行為顯式的定義清楚，但兩種實作的行為不必相同。
+實作所定義的結果中可能包含所有或部分原始位元，也可能完全沒有原始位元，
+而且位元的順序也可由實作自由選擇。
+不能使用運算子 \clapis{as_type} 和 \clapiv{as_type} 將數據重釋為另一種字節數不同的型別。
 
 \startexample
 \startclc
@@ -337,7 +337,7 @@ float3 g = /BTEX\bf{as_float3}/ETEX(f);
 % Usual Arithmetic Conversions
 \subsection{常見的算術轉換}
 
-許多期望運算元為算術類型的運算符所引起轉換並得到結果的方式都類似。
+許多期望運算元為算術類型的運算子所引起轉換並得到結果的方式都類似。
 其目的是為運算元和結果確定一種兩者通用的實型（real type，即實數）。
 在不改變型域（type domain）的情況下，所有運算元都會進行轉換，
 其目標型別所對應的實型即為上面所說的通用實型。
@@ -353,7 +353,7 @@ float3 g = /BTEX\bf{as_float3}/ETEX(f);
 其元素數目與矢量運算元相同，且所有元素的值都與標量值相同。
 如果任一標量運算元的轉換級別比矢量運算元元素的級別高，那麼就會發生錯誤。
 出於此目的，轉換級別的次序定義如下：
-\startigBase
+\startigNum
 \item 對於兩個浮點型別，如果第一個可以精確的表示另一個型別的所有數值，則第一個的級別比另一個高。
 （出於此目的，使用的是浮點值的完整編碼方案，而\cnglo{device}所用的可能是其子集。）
 
@@ -370,7 +370,7 @@ float3 g = /BTEX\bf{as_float3}/ETEX(f);
 
 \item 對於所有型別， T1、 T2 和 T3，如果 T1 的級別比 T2 高，並且 T2 的級別比 T3 高，
 那麼 T1 的級別也比 T3 高。
-\stopigBase
+\stopigNum
 
 而如果所有運算元都是標量，則按照 C99 標準的節 6.3.1.8 應用算術轉換。
 

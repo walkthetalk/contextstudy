@@ -1,6 +1,6 @@
 \section{上下文}
 %clGetDeviceIDs
-函數
+函式
 \startclc
 cl_context clCreateContext(
 		const cl_context_properties *properties,
@@ -40,17 +40,17 @@ OpenCL runtime 使用\cnglo{context}來管理對象，
 都是由 \capi{clGetDeviceIDs} 所返回的，
 或者由 \capi{clCreateSubDevices} 所創建的\cnglo{subdev}。
 
-\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函數。
-對於此\cnglo{context}，無論創建時還是運行時，只要發生了錯誤，OpenCL 的實現都會調用此函數，但調用可能是異步的。
-\cnglo{app}需要保證此函數是線程安全的。
-此函數的參數為：
+\carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。
+對於此\cnglo{context}，無論創建時還是運行時，只要發生了錯誤，OpenCL 的實作都會調用此函式，但調用可能是異步的。
+\cnglo{app}需要保證此函式是線程安全的。
+此函式的參數為：
 \startigBase
 \item \carg{errinfo} 指向一個錯誤字符串。
-\item \carg{private_info} 指向一塊二進制數據，其大小為 \carg{cb}，這塊數據由 OpenCL 實現所返回，可用來記錄一些附加信息來幫助調試錯誤。
+\item \carg{private_info} 指向一塊二進制數據，其大小為 \carg{cb}，這塊數據由 OpenCL 實作所返回，可用來記錄一些附加信息來幫助調試錯誤。
 \item \carg{user_data} 指向用戶提供的數據。
 \stopigBase
 
-如果 \carg{pfn_notify} 是 \cenum{NULL}，則表示不註冊回調函數。
+如果 \carg{pfn_notify} 是 \cenum{NULL}，則表示不註冊回調函式。
 
 注意：很多情況下，即使在\cnglo{context}外發生了錯誤，也需要發出錯誤通告。
 這種情況 \carg{pfn_notify} 就無能為力了，怎樣發出這種錯誤通告\cnglo{impdef}。
@@ -122,7 +122,7 @@ cl_context clCreateContextFromType(
 \stopigBase
 
 %clRetainContext
-函數 \capi{clRetainContext} 會使 \carg{context} 的\cnglo{refcnt}增一。
+函式 \capi{clRetainContext} 會使 \carg{context} 的\cnglo{refcnt}增一。
 \startclc
 cl_int clRetainContext(cl_context context)
 \stopclc
@@ -137,10 +137,10 @@ cl_int clRetainContext(cl_context context)
 \capi{clCreateContext} 和 \capi{clCreateContextFromType} 會執行隱式的\cnglo{retain}。
 這對第三方庫非常有用，這樣\cnglo{app}可以將\cnglo{context}傳給它們使用。
 然而，\cnglo{app}可能會在沒有通知它們的情況下刪除此\cnglo{context}。
-通過使用函數\cnglo{retain}或\cnglo{release}\cnglo{context}，在庫所使用的\cnglo{context}不再有效時就不會出問題。
+通過使用函式\cnglo{retain}或\cnglo{release}\cnglo{context}，在庫所使用的\cnglo{context}不再有效時就不會出問題。
 
 %clReleaseContext
-函數 \capi{clReleaseContext} 會使 \carg{context} 的\cnglo{refcnt}減一。
+函式 \capi{clReleaseContext} 會使 \carg{context} 的\cnglo{refcnt}減一。
 \startclc
 cl_int clReleaseContext(cl_context context)
 \stopclc
@@ -157,7 +157,7 @@ cl_int clReleaseContext(cl_context context)
 \carg{context} 就會被刪除。
 
 %clGetContextInfo
-函數 \capi{clGetContextInfo} 可用來查詢\cnglo{context}的相關信息。
+函式 \capi{clGetContextInfo} 可用來查詢\cnglo{context}的相關信息。
 \startclc
 cl_int clGetContextInfo(cl_context context,
 		cl_context_info param_name,

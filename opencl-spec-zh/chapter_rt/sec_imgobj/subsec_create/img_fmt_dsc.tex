@@ -66,7 +66,7 @@ typedef struct _cl_image_format {
 對於 \cenum{CL_UNORM_INT_101010}， 比特 \ccmm{31:30} 未定義；
  \ccmm{R} 佔據比特 \ccmm{29:20}； \ccmm{G} 佔據比特 \ccmm{19:10}； \ccmm{B} 佔據比特 \ccmm{9:0}。
 
-OpenCL 實現必須保持 \cvar{image_channel_data_type} 中比特數所指定的最小精度。
-如果 OpenCL 實現不支持由 \cvar{image_channel_order} 和 \cvar{image_channel_data_type} 所定義的圖像格式，
+OpenCL 實作必須保持 \cvar{image_channel_data_type} 中比特數所指定的最小精度。
+如果 OpenCL 實作不支持由 \cvar{image_channel_order} 和 \cvar{image_channel_data_type} 所定義的圖像格式，
 則 \capi{clCreateImage} 會返回 \cenum{NULL}。
 

@@ -1,6 +1,6 @@
 \subsection{創建程序對象}
 
-函數
+函式
 \startclc
 cl_program clCreateProgramWithSource (cl_context context,
 			cl_uint count,
@@ -35,7 +35,7 @@ cl_program clCreateProgramWithSource (cl_context context,
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-函數
+函式
 \startclc
 cl_program clCreateProgramWithBinary (cl_context context,
 			cl_uint num_devices,
@@ -76,7 +76,7 @@ $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 二進制\cnglo{program}可能包含下列之一，或二者兼有：
 \startigBase
 \item 特定\cnglo{device}（ device-specific ）的代碼，和/或
-\item 特定實現（ implementation-specific ）的中間表示（ intermediate representation，简称 IR ）（將被轉換程特定\cnglo{device}的代碼）。
+\item 特定實作（ implementation-specific ）的中間表示（ intermediate representation，简称 IR ）（將被轉換程特定\cnglo{device}的代碼）。
 \stopigBase
 
 \carg{binary_status} 將返回對應 \carg{device_list} 中\cnglo{device}的二進制\cnglo{program}是否加載成功。
@@ -112,7 +112,7 @@ OpenCL 中，\cnglo{app}可以使用\cnglo{program}源碼或二進制版本創�
 然後\cnglo{app}就可以查詢這些執行體並將其緩存起來，後續再使用此\cnglo{program}時就不必編譯、鏈接了。
 \cnglo{app}可以讀取並加載緩存起來的執行體，從而很大程度上減少\cnglo{app}花在初始化上的時間。
 
-函數
+函式
 \startclc
 cl_program clCreateProgramWithBuiltInKernels (cl_context context,
 			cl_uint num_devices,
@@ -156,7 +156,7 @@ cl_program clCreateProgramWithBuiltInKernels (cl_context context,
 \stopigBase
 
 %% retain
-函數
+函式
 \startclc
 cl_int clRetainProgram (cl_program program)
 \stopclc
@@ -172,7 +172,7 @@ cl_int clRetainProgram (cl_program program)
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
 
-函數
+函式
 \startclc
 cl_int clReleaseProgram (cl_program program)
 \stopclc

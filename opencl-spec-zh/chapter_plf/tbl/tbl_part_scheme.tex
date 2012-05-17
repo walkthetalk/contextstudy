@@ -25,7 +25,7 @@
   \item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE}——\cnglo{subdev}中的\cnglo{computeunit}之間共享一個 2 級數據 cache。
   \item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE}——\cnglo{subdev}中的\cnglo{computeunit}之間共享一個 1 級數據 cache。
   \item \cenum{CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE}——將\cnglo{device}按下一個可再分的相似域進行分割。
-    實現會判定此\cnglo{device}或者\cnglo{subdev}可以怎樣進一步細分，按 NUMA、L4、L3、L2、L1 的順序，取最前面的那個。
+    實作會判定此\cnglo{device}或者\cnglo{subdev}可以怎樣進一步細分，按 NUMA、L4、L3、L2、L1 的順序，取最前面的那個。
     對於所劃分成的\cnglo{subdev}，其中的\cnglo{computeunit}間共享這一級的內存子系統。
   \stopigBase
 

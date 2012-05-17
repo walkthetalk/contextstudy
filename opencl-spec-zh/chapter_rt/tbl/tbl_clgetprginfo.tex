@@ -45,14 +45,14 @@
 或者是用 \capi{clBuildProgram} 或 \capi{clLinkProgram} 所生成的可執行二元碼。
 如果是用 \capi{clCreateProgramWithSource} 生成的 \carg{program}，
 則返回的是 \capi{clBuildProgram}、 \capi{clCompileProgram} 或 \capi{clLinkProgram} 所生成的二元碼。
-所返回的可能是特定實現的中間表示（又叫做 IR），或特定設備的可執行二元碼，也可能二者兼有。
-至於二元碼中會返回哪種信息由 OpenCL 實現來決定。
+所返回的可能是特定實作的中間表示（又叫做 IR），或特定設備的可執行二元碼，也可能二者兼有。
+至於二元碼中會返回哪種信息由 OpenCL 實作來決定。
 
 \carg{param_value} 指向一個包含\math{n}個指針的數組，所有指針都由調用者分配，
 其中\math{n}就是 \carg{program} 所關聯\cnglo{device}的數目。
 對於每個指針需要分配多少內存，可以通過此表中的 \cenum{CL_PROGRAM_BINARY_SIZES} 進行查詢。
 
-實現可以使用數組中的元素來存儲特定\cnglo{device}所對應的\cnglo{program}二元碼，如果有的話。
+實作可以使用數組中的元素來存儲特定\cnglo{device}所對應的\cnglo{program}二元碼，如果有的話。
 至於數組中的元素都對應於哪個\cnglo{device}，可以使用 \cenum{CL_PROGRAM_DEVICES} 進行查詢。
  \cenum{CL_PROGRAM_BINARIES} 和 \cenum{CL_PROGRAM_DEVICES} 所返回的數組具有一對一的關係。
 }

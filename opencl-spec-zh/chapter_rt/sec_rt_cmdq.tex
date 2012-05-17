@@ -8,7 +8,7 @@ OpenCL 對象，如\cnglo{memobj}、\cnglo{programobj}和\cnglo{kernelobj}都是
 如果要在多個\cnglo{cmdq}間共享對象，就要求\cnglo{app}實施相應的同步。
 這在\todo{附录A}中會有所描述。
 
-函數 \capi{clCreateCommandQueue} 可用來在某個\cnglo{device}上創建\cnglo{cmdq}。
+函式 \capi{clCreateCommandQueue} 可用來在某個\cnglo{device}上創建\cnglo{cmdq}。
 \startclc
 cl_command_queue clCreateCommandQueue(
 			cl_context context,
@@ -48,7 +48,7 @@ cl_command_queue clCreateCommandQueue(
 \stopigBase
 
 %clRetainCommandQueue
-函數
+函式
 \startclc
 cl_int clRetainCommandQueue(
 		cl_command_queue command_queue)
@@ -127,5 +127,5 @@ cl_int clGetCommandQueueInfo(
 
 如果創建了\cnglo{context}和\cnglo{cmdq}並且已經有\cnglo{cmd}入隊了，而這時它們所使用的\cnglo{device}可能變的不可用了。
 這種情況下，對於使用這個\cnglo{context}（和\cnglo{cmdq}）的 OpenCL API 而言，其行為\cnglo{impdef}。
-在\cnglo{device}變的不可用時，如果創建\cnglo{context}時用戶指定了回調函數，則可以在傳遞給它的參數 \carg{errinfo}、\carg{private_info} 中記錄相應的信息。
+在\cnglo{device}變的不可用時，如果創建\cnglo{context}時用戶指定了回調函式，則可以在傳遞給它的參數 \carg{errinfo}、\carg{private_info} 中記錄相應的信息。
 

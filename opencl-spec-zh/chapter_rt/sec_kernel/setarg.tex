@@ -2,7 +2,7 @@
 
 要想執行\cnglo{kernel}，必須設置\cnglo{kernel}參數。
 
-函數
+函式
 \startclc
 cl_int clSetKernelArg (cl_kernel kernel,
 			cl_uint arg_index,
@@ -73,7 +73,7 @@ image_filter (int n, int m,
 注意：
 
 \startbuffer[footnotesetkernelargrefcnt]
-實現不能讓 \ctype{cl_kernel} 對象擁有其參數的\cnglo{refcnt}，
+實作不能讓 \ctype{cl_kernel} 對象擁有其參數的\cnglo{refcnt}，
 因為沒有為用戶提供任何機制來告訴\cnglo{kernel}去釋放此所有權。
 如果\cnglo{kernel}把持了其參數的所有權，用戶就不可能確切的知道什麼時候可以安全的釋放為其分配的資源，
 如用 \cenum{CL_MEM_USE_HOST_PTR} 對 \ctype{cl_mem} 進行回寫。

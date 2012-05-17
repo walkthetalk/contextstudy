@@ -1,0 +1,10 @@
+instance 實體
+data pattern 數據樣式
+operator 運算子
+operand 運算元
+data type 數據型別
+argument 引數 *********
+parameter 參數 ********
+expression 算式
+function 函式
+profile 評測

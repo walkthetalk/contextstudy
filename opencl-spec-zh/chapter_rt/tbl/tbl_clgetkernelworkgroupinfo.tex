@@ -12,7 +12,7 @@
 \clETD{CL_KERNEL_WORK_GROUP_SIZE}{size_t}{
 利用此機制，
 \cnglo{app}可以查詢用來在 \carg{device} 上執行\cnglo{kernel}的\cnglo{workgrp}的大小。
- OpenCL 實現可以用\cnglo{kernel}的資源需求（寄存器的使用情況等）來確定\cnglo{workgrp}的大小。
+ OpenCL 實作可以用\cnglo{kernel}的資源需求（寄存器的使用情況等）來確定\cnglo{workgrp}的大小。
 }
 
 \clETD{CL_KERNEL_COMPILE_WORK_GROUP_SIZE}{size_t[3]}{
@@ -24,7 +24,7 @@
 
 \clETD{CL_KERNEL_LOCAL_MEM_SIZE}{cl_ulong}{
 返回\cnglo{kernel}所使用的\cnglo{locmem}的大小。
-它包括實現執行\cnglo{kernel}所需的內存、
+它包括實作執行\cnglo{kernel}所需的內存、
 \cnglo{kernel}中所聲明的帶有地址限定符 \cqlf{__local} 的變量、
 以及為帶有地址限定符 \cqlf{__local} 的指針參數所分配的內存
 （其大小由 \capi{clSetKernelArg} 指定）。
@@ -36,12 +36,12 @@
 返回所期望的\cnglo{workgrp}大小的粒度。僅為性能建議。
 在調用 \capi{clEnqueueNDRangeKernel} 時，
 如果給參數 \carg{local_work_size} 所指定的\cnglo{workgrp}大小不是此查詢結果的倍數，
-並不會導致函數執行失敗，除非此值超過了\cnglo{device}的數目。
+並不會導致函式執行失敗，除非此值超過了\cnglo{device}的數目。
 }
 
 \clETD{CL_KERNEL_PRIVATE_MEM_SIZE}{cl_ulong}{
 \cnglo{kernel}中每個\cnglo{workitem}至少要使用多少\cnglo{prvmem}。
-它包括實現執行\cnglo{kernel}所需的所有\cnglo{prvmem}；
+它包括實作執行\cnglo{kernel}所需的所有\cnglo{prvmem}；
 包括語言本身所需的\cnglo{prvmem}，以及\cnglo{kernel}中聲明的 \cqlf{__private} 變量。
 }
 
