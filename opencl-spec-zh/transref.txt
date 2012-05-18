@@ -8,3 +8,4 @@ parameter 參數 ********
 expression 算式
 function 函式
 profile 評測
+access 存取
