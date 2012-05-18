@@ -491,7 +491,6 @@ bolditalic=texgyreherosbolditalic]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \defineenumeration[example][
-  location=top,
   text={例},
 %  inbetween=\blank,
 %  after=\blank,
@@ -506,7 +505,7 @@ bolditalic=texgyreherosbolditalic]
 %text	text
 %align	flushleft middle flushright
 %margin	standard yes no dimension
-%location	left right top serried inmargin inleft inright hanging
+  location=top,	%left right top serried inmargin inleft inright hanging
 %headcommand	command
 %hang	fit broad number
 %before	command
@@ -988,6 +987,10 @@ bolditalic=texgyreherosbolditalic]
 % which include the footnote and not as expected
 % workaround is:
 \chardef\kindofpagetextareas\plusone
+
+% the footnote can't process linebreak correctly
+% workaround is:
+\setupfootnotes[style={\setscript[hanzi]}]
 
 % \postponenotes\footnote{...}
 

@@ -38,7 +38,7 @@
 
 \startclglo{bufobj}{緩衝對象}{Buffer Object}
 存儲線性字節序列的\refglo{memobj}。
-\refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來訪問它。
+\refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來存取它。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
 \refglo{bufobj}封裝了以下信息：
 \startigBase
@@ -80,7 +80,7 @@
 一個 OpenCL \refglo{device}中包含一個或多個\refglo{computeunit}。
 一個\refglo{workgrp}只能在單個\refglo{computeunit}上執行。
 一個\refglo{computeunit}由一個或多個\refglo{prcele}以及\refglo{locmem}組成。
-\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被它的\refglo{prcele}訪問。
+\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被它的\refglo{prcele}存取。
 
 \clglo{concurrency}{並發}{Concurrency}
 系統的一個屬性，這樣的系統中有一系列任務，這些任務可以同時保持活躍並取得進展。
@@ -93,7 +93,7 @@
 
 \clglo{context}{上下文}{Context}
 \refglo{kernel}在執行時所處的環境，同步和內存管理就是在此概念上定義的。
-\refglo{context}包含一系列\refglo{device}、這些\refglo{device}可以訪問的內存、
+\refglo{context}包含一系列\refglo{device}、這些\refglo{device}可以存取的內存、
 相應的內存屬性、一個或多個\refglo{cmdq}
 （用來對\refglo{kernel}的執行和\refglo{memobj}上的相關操作進行調度）。
 
@@ -140,13 +140,13 @@
 請參考\refglo{locid}。
 
 \clglo{glbmem}{全局內存}{Global Memory}
-一塊內存，\refglo{context}中的所有\refglo{workitem}都可訪問。
-\refglo{host}可以使用\refglo{cmd}來訪問它（如讀、寫以及映射）。
+一塊內存，\refglo{context}中的所有\refglo{workitem}都可存取。
+\refglo{host}可以使用\refglo{cmd}來存取它（如讀、寫以及映射）。
 
 \clglo{glsharegrp}{GL 共享組}{GL share group}
 此對象用來管理共享的 OpenGL 或 OpenGL ES 資源（如材質、緩存、幀緩存或渲染緩存），
 並與一個或多個 GL 上下文對象關聯在一起。
-典型的\refglo{glsharegrp}是不透明的，不能直接訪問。
+典型的\refglo{glsharegrp}是不透明的，不能直接存取。
 
 \clglo{handle}{句柄}{Handle}
 一種不透明的型別，用來引用 OpenCL 所分配的\refglo{obj}。
@@ -163,7 +163,7 @@
 
 \startclglo{imgobj}{圖像對象}{Image Object}
 一種\refglo{memobj}，用來存儲二維或三維的結構化數組。
-只能通過讀寫函式訪問其中的圖像數據。讀函式需要使用\refglo{sampler}。
+只能通過讀寫函式存取其中的圖像數據。讀函式需要使用\refglo{sampler}。
 
 \refglo{imgobj}封裝了以下信息：
 \startigBase
@@ -203,7 +203,7 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 
 \clglo{locmem}{局部內存}{Local Memory}
 一塊內存，隸屬於某個\refglo{workgrp}，
-只有此\refglo{workgrp}中的\refglo{workitem}才能訪問。
+只有此\refglo{workgrp}中的\refglo{workitem}才能存取。
 
 \clglo{marker}{記號}{Marker}
 一種\refglo{cmd}，可用來給之前入隊的所有\refglo{cmd}作標記。
