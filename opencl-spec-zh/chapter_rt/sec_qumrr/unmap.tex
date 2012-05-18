@@ -15,7 +15,7 @@ cl_int clEnqueueUnmapMemObject (cl_command_queue command_queue,
 
 \carg{memobj} 是一個\cnglo{memobj}，它必須與 \carg{command_queue} 位於同一 OpenCL \cnglo{context}中。
 
-\carg{mapped_ptr} 即之前調用 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 所返回的\cnglo{host}地址。
+\carg{mapped_ptr} 即之前調用 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 所返回的\cnglo{host}位址。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。

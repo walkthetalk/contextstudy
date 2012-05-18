@@ -25,11 +25,11 @@
 \clETD{CL_KERNEL_LOCAL_MEM_SIZE}{cl_ulong}{
 返回\cnglo{kernel}所使用的\cnglo{locmem}的大小。
 它包括實作執行\cnglo{kernel}所需的內存、
-\cnglo{kernel}中所聲明的帶有地址限定符 \cqlf{__local} 的變量、
-以及為帶有地址限定符 \cqlf{__local} 的指針參數所分配的內存
+\cnglo{kernel}中所聲明的帶有位址限定符 \cqlf{__local} 的變量、
+以及為帶有位址限定符 \cqlf{__local} 的指針參數所分配的內存
 （其大小由 \capi{clSetKernelArg} 指定）。
 
-對於任一帶有地址限定符 \cqlf{__local} 的指針參數，如果沒有為其指定內存大小，則假定為 0。
+對於任一帶有位址限定符 \cqlf{__local} 的指針參數，如果沒有為其指定內存大小，則假定為 0。
 }
 
 \clETD{CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE}{size_t}{

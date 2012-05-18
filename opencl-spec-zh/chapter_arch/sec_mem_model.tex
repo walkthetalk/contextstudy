@@ -58,7 +58,7 @@
 而對於後者，一旦命令入隊，OpenCL 函式調用就會返回，而不管\cnglo{host}內存是否可以安全使用。
 
 用映射、解映射的方法處理\cnglo{host}和 OpenCL \cnglo{memobj}的交互時，
-\cnglo{host}可以將\cnglo{memobj}的某個區域映射到自己的地址空間中。
+\cnglo{host}可以將\cnglo{memobj}的某個區域映射到自己的位址空間中。
 內存映射命令可能是阻塞的，也可能是非阻塞的。
 一旦映射了\cnglo{memobj}的某個區域，\cnglo{host}就可以讀寫這塊區域。
 當\cnglo{host}對這塊區域的存取（讀和/或寫）結束後，就會將其解映射。

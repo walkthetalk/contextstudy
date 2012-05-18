@@ -15,7 +15,7 @@ void * clEnqueueMapImage (cl_command_queue command_queue,
 			cl_event *event,
 			cl_int *errcode_ret)
 \stopclc
-所要插入隊列的\cnglo{cmd}會將 \carg{image} 的某個區域映射到\cnglo{host}的地址空間中，並返回新地址。
+所要插入隊列的\cnglo{cmd}會將 \carg{image} 的某個區域映射到\cnglo{host}的位址空間中，並返回新位址。
 
 \carg{command_queue} 必須是一個有效的\cnglo{cmd}。
 

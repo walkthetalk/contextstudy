@@ -152,8 +152,8 @@ OpenCL 編譯器負責數據項的對齊。
 如果裝載或存儲時沒有對齊，則其行為是未定義的，
 \todo{6.12.7}中定義的函式 \clapiv{vload}、 \clapiv{vload_half}、
  \clapiv{vstore} 和 \clapiv{vstore_half} 例外。
-矢量裝載函式可以從已經按矢量元素型別對齊的地址中讀取矢量數據。
-矢量存儲函式可以將矢量數據寫入已經按矢量元素型別對齊的地址中。
+矢量裝載函式可以從已經按矢量元素型別對齊的位址中讀取矢量數據。
+矢量存儲函式可以將矢量數據寫入已經按矢量元素型別對齊的位址中。
 
 % Vector Literals
 \subsection{常值矢量}
@@ -393,7 +393,7 @@ OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
 \item \reftab{builtInVectorDataTypes}、\reftab{otherBuiltInDataTypes}
 和\reftab{reservedDataTypes}中定義的 OpenCL C 數據型別。
 
-\item 地址空間限定符：
+\item 位址空間限定符：
  \cqlf{__global}、 \cqlf{global}、 \cqlf{__local}、 \cqlf{local}、
  \cqlf{__constant}、 \cqlf{constant}、 \cqlf{__private} 和 \cqlf{private}。
 

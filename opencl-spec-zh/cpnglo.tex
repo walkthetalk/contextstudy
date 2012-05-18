@@ -156,7 +156,7 @@
 \refglo{host}使用 OpenCL API 與\refglo{context}進行交互。
 
 \clglo{hostptr}{宿主機指針}{Host pointer}
-一種指針，指向\refglo{host}上虛擬地址空間中的內存。
+一種指針，指向\refglo{host}上虛擬位址空間中的內存。
 
 \clglo{illegal}{違規}{Illegal}
 明確規定不允許的系統行為，遇到這種問題時， OpenCL 會將其視為錯誤進行報告。
@@ -215,7 +215,7 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 請參考\refglo{bufobj}和\refglo{imgobj}。
 
 \clglo{memregion}{內存區域}{Memory Region}
-OpenCL 中的一個確切的地址空間。
+OpenCL 中的一個確切的位址空間。
 不同的\refglo{memregion}在物理上可能重疊，但在邏輯上 OpenCL 會將其視為不同。
 分為\refglo{prvmem}、\refglo{locmem}、\refglo{constmem}以及\refglo{glbmem}。
 
