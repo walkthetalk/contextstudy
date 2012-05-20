@@ -14,9 +14,9 @@ cl_program clCreateProgramWithSource (cl_context context,
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
-\carg{strings} 是一個字符串數組，有 \carg{count} 個元素，字符串可以 null 結尾，這些字符串就構成了源代碼。
+\carg{strings} 是一個字符串陣列，有 \carg{count} 個元素，字符串可以 null 結尾，這些字符串就構成了源代碼。
 
-\carg{lengths} 也是一個數組，其中的元素代表字符個數（字符串長度）。如果某個元素是零，則相應的字符串以 null 結尾。
+\carg{lengths} 也是一個陣列，其中的元素代表字符個數（字符串長度）。如果某個元素是零，則相應的字符串以 null 結尾。
 如果 \carg{lengths} 是 \cenum{NULL}，則 \carg{strings} 中所有字符串都以 null 結尾。
 所有大於零的值都不包括 null 終止符。
 
@@ -58,9 +58,9 @@ cl_program clCreateProgramWithBinary (cl_context context,
 此\cnglo{programobj}所對應的\cnglo{device}就是 \carg{device_list} 中的\cnglo{device}。
 而 \carg{device_list} 中的\cnglo{device}又必須是 \carg{context} 中的\cnglo{device}。
 
-\carg{lengths} 是一個數組，其元素是所加載的\cnglo{program}的字節數。
+\carg{lengths} 是一個陣列，其元素是所加載的\cnglo{program}的字節數。
 
-\carg{binaries} 也是一個數組，每個元素都指向所要加載的\cnglo{program}。
+\carg{binaries} 也是一個陣列，每個元素都指向所要加載的\cnglo{program}。
 $binaries[i]$ 對應於 $device\_list[i]$，其大小為 $lengths[i]$。
 $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 
@@ -80,7 +80,7 @@ $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 \stopigBase
 
 \carg{binary_status} 將返回對應 \carg{device_list} 中\cnglo{device}的二進制\cnglo{program}是否加載成功。
-它是一個有 \carg{num_devices} 個元素的數組。
+它是一個有 \carg{num_devices} 個元素的陣列。
 如果 $device\_list[i]$ 所對應的二進制\cnglo{program}加載成功，則 $binary\_status[i]$ 為 \cenum{CL_SUCCESS}；
 如果 $lengths[i]$ 是零或者 $binaries[i]$ 是 \cenum{NULL}，則 $binary\_status[i]$ 為 \cenum{CL_INVALID_VALUE}；
 如果二進制\cnglo{program}無效，則 $binary\_status[i]$ 為 \cenum{CL_INVALID_BINARY}。

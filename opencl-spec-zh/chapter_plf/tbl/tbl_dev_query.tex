@@ -135,7 +135,7 @@
 }
 
 \clETD{CL_DEVICE_IMAGE_MAX_ARRAY_SIZE}{size_t}{
-  1D 或 2D 圖像數組最大圖像數。
+  1D 或 2D 圖像陣列最大圖像數。
   如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是2048。
 }
 
@@ -444,7 +444,7 @@
 
 \clETD{CL_DEVICE_PARTITION_PROPERTIES}{cl_device_partition_property[]}{
   返回 \carg{device} 所支持的劃分方式。
-  這是一個數組，元素型別為 \ctype{cl_device_partition_property}，其值可以是：
+  這是一個陣列，元素型別為 \ctype{cl_device_partition_property}，其值可以是：
   \startigBase
   \item \cenum{CL_DEVICE_PARTITION_EQUALLY}
   \item \cenum{CL_DEVICE_PARTITION_BY_COUNTS}

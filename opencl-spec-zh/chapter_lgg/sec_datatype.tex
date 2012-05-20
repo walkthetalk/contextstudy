@@ -112,7 +112,7 @@ a = *p;		<- not allowed. must use vload_half function
  \cldts{image1d_t}、 \cldts{image1d_buffer_t}、 \cldts{image1d_array_t}、
  \cldts{sampler_t}。
 
-C99 的衍生型別（數組、結構體、聯合體、函式以及指針）也在支持之列，
+C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也在支持之列，
 不過必須是由\refsec{bisdt}、\refsec{bivdt}
 和\refsec{obidt}中所描述的內建數據型別所構造的，
 同時有\refsec{restrictions}中所描述的限制。
@@ -381,7 +381,7 @@ OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
 （在 C99 規範的節 6.5 的第 7 項中定義）。
 為了應用這些別名規則， OpenCL C 內建矢量數據型別會被當成聚合（aggregate）型別
 \footnote{也就是說，出於使用基於型別的別名規則的目的，
-認為內建矢量數據型別等同於對應的數組型別。}。
+認為內建矢量數據型別等同於對應的陣列型別。}。
 
 % Keywords
 \subsection{關鍵字}

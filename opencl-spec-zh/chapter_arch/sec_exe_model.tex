@@ -24,13 +24,13 @@ OpenCL 執行模型的核心就是\cnglo{kernel}是怎麼執行的。
 
 在 OpenCL 中，索引空間又叫做 NDRange。
  NDRange 是一個 N 維的索引空間，其中 N 可以是一、二或者三。
- NDRange 由一個長度為 N 的整數數組來定義，
+ NDRange 由一個長度為 N 的整數陣列來定義，
 指定了索引空間各個維度上的寬度（起自偏移索引 F， F 缺省為 0）。
 每個\cnglo{workitem}的\cnglo{glbid}和\cnglo{locid}都是 N 維元組。
 \cnglo{glbid}的取值範圍從 F 開始，直到 F 加相應維度上的元素個數減一。
 
 \cnglo{workgrp}的 ID 跟\cnglo{workitem}的\cnglo{glbid}差不多。
-一個長度為 N 的數組定義了每個維度上\cnglo{workgrp}的數目。
+一個長度為 N 的陣列定義了每個維度上\cnglo{workgrp}的數目。
 \cnglo{workitem}在所隸屬的\cnglo{workgrp}中有一個\cnglo{locid}，
 此 ID 中各維度的取值範圍為0到\cnglo{workgrp}在相應維度上的大小減一。
 因此，\cnglo{workgrp}的 ID 加上其中一個\cnglo{locid}可以唯一確定一個\cnglo{workitem}。
