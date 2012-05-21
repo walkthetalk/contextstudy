@@ -297,7 +297,7 @@
 
   只有嵌入式平台的規格才可以是 \cenum{CL_FALSE}。
 
-  如果 \cenum{CL_DEVICE_COMPILER_AVAILABLE} 是 \cenum{CL_TRUE}，則它必須是 \cenum{CL_TRUE}。
+  如果 \cenum{CL_DEVICE_COMPILER_AVAILABLE} 是 \cenum{CL_TRUE}，則他必須是 \cenum{CL_TRUE}。
 }
 
 \clETD{}{}{}
@@ -328,7 +328,7 @@
 
 \clETD{CL_DEVICE_BUILT_IN_KERNELS}{char[]}{
   \cnglo{device}所支持的內建\cnglo{kernel}的清單，以分號分隔。
-  如果不支持內建\cnglo{kernel}，則返回空字符串。
+  如果不支持內建\cnglo{kernel}，則返回空字串。
 }
 
 \clETD{}{}{}
@@ -354,9 +354,9 @@
 }
 
 \clETD{CL_DEVICE_PROFILE}{char[]}{
-  OpenCL 規格字符串。
+  OpenCL 規格字串。
   返回\cnglo{device}所支持的規格名稱。
-  可以是下列字符串之一：
+  可以是下列字串之一：
   \startigBase
   \item \cenum{FULL_PROFILE}——如果\cnglo{device}支持 OpenCL 規範（核心規格所定義的功能，不要求支持任何擴展）。
   \item \cenum{EMBEDDED_PROFILE}——如果\cnglo{device}支持 OpenCL 嵌入式規格。
@@ -369,7 +369,7 @@
 }
 
 \clETD{CL_DEVICE_VERSION}{char[]}{
-  OpenCL 版本字符串。返回\cnglo{device}所支持的 OpenCL 版本。
+  OpenCL 版本字串。返回\cnglo{device}所支持的 OpenCL 版本。
   格式如下：
 
   {\ftFmt OpenCL<space><major\_version.minor\_version><space><vendor-specific information>}
@@ -378,7 +378,7 @@
 }
 
 \clETD{CL_DEVICE_OPENCL_C_VERSION}{char[]}{
-  OpenCL C 版本字符串。
+  OpenCL C 版本字串。
   對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的 \cnglo{device}，返回編譯器在其上所支持的 OpenCL C 的最高版本。
   格式如下：
 

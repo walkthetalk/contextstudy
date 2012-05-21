@@ -30,7 +30,7 @@ cl_sampler clCreateSampler (cl_context context,
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{addressing_mode}、 \carg{filter_mode}、 \carg{normalized_coords} 或它們的組合無效。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{addressing_mode}、 \carg{filter_mode}、 \carg{normalized_coords} 或他們的組合無效。
 
 \item \cenum{CL_INVALID_OPERATION}，如果 \carg{context} 中的所有\cnglo{device}都不支持圖像（即 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_FALSE}，參見\reftab{cldevquery}）。
 
@@ -59,7 +59,7 @@ cl_int clRetainSampler (cl_sampler sampler)
 cl_int clReleaseSampler (cl_sampler sampler)
 \stopclc
 會使 \carg{sampler} 的\cnglo{refcnt}減一。
-当 \carg{sampler} 的\cnglo{refcnt}降為 0，並且所有使用它的\cnglo{cmd}全部執行完畢，此\cnglo{sampler}就會被刪除。
+当 \carg{sampler} 的\cnglo{refcnt}降為 0，並且所有使用他的\cnglo{cmd}全部執行完畢，此\cnglo{sampler}就會被刪除。
 
 如果執行成功，\capi{clReleaseSampler} 會返回 \cenum{CL_SUCCESS}。否則，返回下列錯誤碼之一：
 \startigBase

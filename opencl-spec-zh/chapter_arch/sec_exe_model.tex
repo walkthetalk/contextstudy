@@ -15,7 +15,7 @@ OpenCL 執行模型的核心就是\cnglo{kernel}是怎麼執行的。
 
 \cnglo{workitem}被組織到\cngloemp{workgrp}中。
 \cnglo{workgrp}以更粗粒度對索引空間進行了分解。
-\cnglo{workgrp}帶有一個唯一的 ID，它與\cnglo{workitem}所使用的索引空間具有同樣的維數。
+\cnglo{workgrp}帶有一個唯一的 ID，他與\cnglo{workitem}所使用的索引空間具有同樣的維數。
 \cnglo{workitem}具有一個\cnglo{locid}，此 ID 在其所隸屬的\cnglo{workgrp}中是唯一的；
 因此任一\cnglo{workitem}都可以通過其\cnglo{glbid}
 或其\cnglo{locid}加\cnglo{workgrp} ID 來唯一標識。
@@ -48,7 +48,7 @@ OpenCL 執行模型的核心就是\cnglo{kernel}是怎麼執行的。
 如果知道每個\cnglo{workgrp}的大小和\cnglo{workitem}的總數，
 就能算出有多少\cnglo{workgrp}。
 \cnglo{workgrp}是由一個二維的索引空間來唯一標識的。
-\cnglo{workitem}可以用它的\cnglo{glbid} \math{(g_x, g_y)} 標識，
+\cnglo{workitem}可以用他的\cnglo{glbid} \math{(g_x, g_y)} 標識，
 或用\cnglo{workgrp} ID \math{(w_x, w_y)}、
 \cnglo{workgrp}的大小 \math{(S_x, S_y)} 和
 在\cnglo{workgrp}中的\cnglo{locid} \math{(s_x, s_y)} 三項組合起來標識：
@@ -127,7 +127,7 @@ NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及�
 協調\cnglo{cmd}在\cnglo{host}和\cnglo{device}間的運行。
 
 一個\cnglo{context}中可以有多個隊列。
-這些隊列並發運行、相互獨立，OpenCL 中沒有顯式的機制來對它們進行同步。
+這些隊列並發運行、相互獨立，OpenCL 中沒有顯式的機制來對他們進行同步。
 
 % Execution Model: Categories of Kernels
 \subsection{執行模型：內核的種類}

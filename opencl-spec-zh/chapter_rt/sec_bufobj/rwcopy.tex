@@ -357,7 +357,7 @@ cl_int clEnqueueCopyBuffer (cl_command_queue command_queue,
 
 \item \cenum{CL_MEM_COPY_OVERLAP}，
   如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，且源和目的區域重疊。
-  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且它們重疊。
+  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且他們重疊。
   當 $src\_offset <= dst\_offset <= src\_offset + size - 1$ 或
   $dst\_offset <= src\_offset <= dst\_offset + size - 1$ 時就認為重疊了。
 
@@ -478,7 +478,7 @@ $dst\_origin[2] * dst\_slice\_pitch + dst\_origin[1] * dst\_row\_pitch + dst\_or
 
 \item \cenum{CL_MEM_COPY_OVERLAP}，
   如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，且源和目的區域重疊。
-  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且它們重疊。
+  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且他們重疊。
   對於怎樣確定源和目的區域重疊，請參考\todo{appendix E}。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{src_buffer} 是子\cnglo{bufobj}，

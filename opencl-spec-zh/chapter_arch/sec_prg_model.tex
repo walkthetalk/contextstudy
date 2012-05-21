@@ -27,7 +27,7 @@ OpenCL 所提供的\cnglo{dppm}是分級的。
 \startigBase
 \item 使用\cnglo{device}所實現的矢量數據型別；
 \item 將多個任務入隊，和/或
-\item 將多個原生\cnglo{kernel}入隊（它們是使用一個與 OpenCL 正交的編程模型開發的）。
+\item 將多個原生\cnglo{kernel}入隊（他們是使用一個與 OpenCL 正交的編程模型開發的）。
 \stopigBase
 
 % Synchronization
@@ -50,13 +50,13 @@ OpenCL 所提供的\cnglo{dppm}是分級的。
 \cnglo{cmdq}中\cnglo{cmd}間的同步點是:
 \startigBase
 \item \cnglo{cmdqbarrier}。
-它保證：所有之前排隊的\cnglo{cmd}都執行完畢，
-並且它們對\cnglo{memobj}的所有更新，在後續\cnglo{cmd}開始執行前都是可見的。
-它只能在隸屬同一\cnglo{cmdq}的\cnglo{cmd}間進行同步。
+他保證：所有之前排隊的\cnglo{cmd}都執行完畢，
+並且他們對\cnglo{memobj}的所有更新，在後續\cnglo{cmd}開始執行前都是可見的。
+他只能在隸屬同一\cnglo{cmdq}的\cnglo{cmd}間進行同步。
 
 \item 等在一個事件上。
 所有會將\cnglo{cmd}入隊的 OpenCL API 函式都會返回一個事件
-（用來標識這個\cnglo{cmd}以及它所更新的\cnglo{memobj}）。
+（用來標識這個\cnglo{cmd}以及他所更新的\cnglo{memobj}）。
 如果某個後續\cnglo{cmd}正在等待那個事件，可以保證在其開始執行前，
 可以見到對那些\cnglo{memobj}的所有更新。
 \stopigBase

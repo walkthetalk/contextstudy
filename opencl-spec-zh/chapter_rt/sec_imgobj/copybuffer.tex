@@ -79,7 +79,7 @@ cl_int clEnqueueCopyImageToBuffer (cl_command_queue command_queue,
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
   如果 \carg{dst_buffer} 是一個子\cnglo{bufobj}，
-  並且創建它時所指定的參數 \carg{offset} 沒有和 \carg{queue} 所在\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+  並且創建他時所指定的參數 \carg{offset} 沒有和 \carg{queue} 所在\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，如果圖像的大小（寬度、高度、指定的或自動計算的行間距或平面間距）不被 \carg{queue} 所在\cnglo{device} 支持。
 
@@ -174,7 +174,7 @@ cl_int clEnqueueCopyBufferToImage (cl_command_queue command_queue,
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
   如果 \carg{src_buffer} 是一個子\cnglo{bufobj}，
-  並且創建它時所指定的參數 \carg{offset} 沒有和 \carg{queue} 所在\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+  並且創建他時所指定的參數 \carg{offset} 沒有和 \carg{queue} 所在\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，如果 \carg{dst_image} 的圖像大小（寬度、高度、指定的或自動計算的行間距或平面間距）不被 \carg{queue} 所在\cnglo{device} 支持。
 

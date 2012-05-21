@@ -27,7 +27,7 @@
 
 \item \cenum{CL_RUNNING}，這表明\cnglo{device}已經開始執行\cnglo{cmd}。
 \cnglo{cmd}的執行狀態要想從 \cenum{CL_SUBMITTED} 變成 \cenum{CL_RUNNING}，
-它所等待的所有事件必須都已經成功完成，即它們的執行狀態必須是 \cenum{CL_COMPLETE}。
+他所等待的所有事件必須都已經成功完成，即他們的執行狀態必須是 \cenum{CL_COMPLETE}。
 
 \item \cenum{CL_COMPLETE}，這表明\cnglo{cmd}已經成功完成。
 
@@ -37,7 +37,7 @@
 
 注意：\cnglo{cmd}的執行狀態是 \cenum{CL_COMPLETE} 或者負整數都表示已經完成。
 
-如果\cnglo{cmd}被終止執行，那麼它所關聯的\cnglo{cmdq}、\cnglo{context}
+如果\cnglo{cmd}被終止執行，那麼他所關聯的\cnglo{cmdq}、\cnglo{context}
 （包括其中的其他\cnglo{cmdq}）就不再可用。
 這時如果 OpenCL API 調用要使用這個\cnglo{context}（和其中的\cnglo{cmdq}），
 則其行為\cnglo{impdef}。
@@ -338,17 +338,17 @@ cl_int clReleaseEvent (cl_event event)
 \stopigBase
 
 一旦 \carg{event} 的\cnglo{refcnt}變成零，
-並且它所標識的\cnglo{cmd}執行完畢（或終止），
-同時沒有正在等待它完成的\cnglo{cmd}，
+並且他所標識的\cnglo{cmd}執行完畢（或終止），
+同時沒有正在等待他完成的\cnglo{cmd}，
 則此事件就會被刪除。
 
 注意：
 
 對於用 \capi{clCreateUserEvent} 創建的事件而言，
 如果還未將其狀態置為 \cenum{CL_COMPLETE} 或者一個錯誤碼，
-這時要\cnglo{release}它的最後一個\cnglo{refcnt}，開發人員就要小心了。
+這時要\cnglo{release}他的最後一個\cnglo{refcnt}，開發人員就要小心了。
 如果用戶事件作為參數 \carg{event_wait_list} 傳給了 \capi{clEnqueue***}，
-或者另一個\cnglo{host}線程正在用 \capi{clWaitForEvents} 等待它，
+或者另一個\cnglo{host}線程正在用 \capi{clWaitForEvents} 等待他，
 那麼即使用戶\cnglo{release}了此對象，
 這些\cnglo{cmd}和\cnglo{host}線程也會等待其狀態變為 \cenum{CL_COMPLETE} 或錯誤。
 這種情況下，如果開發人員\cnglo{release}了用戶事件的最後一個\cnglo{refcnt}，

@@ -24,7 +24,7 @@
 
 \clETD{CL_KERNEL_LOCAL_MEM_SIZE}{cl_ulong}{
 返回\cnglo{kernel}所使用的\cnglo{locmem}的大小。
-它包括實作執行\cnglo{kernel}所需的內存、
+他包括實作執行\cnglo{kernel}所需的內存、
 \cnglo{kernel}中所聲明的帶有位址限定符 \cqlf{__local} 的變量、
 以及為帶有位址限定符 \cqlf{__local} 的指針參數所分配的內存
 （其大小由 \capi{clSetKernelArg} 指定）。
@@ -41,7 +41,7 @@
 
 \clETD{CL_KERNEL_PRIVATE_MEM_SIZE}{cl_ulong}{
 \cnglo{kernel}中每個\cnglo{workitem}至少要使用多少\cnglo{prvmem}。
-它包括實作執行\cnglo{kernel}所需的所有\cnglo{prvmem}；
+他包括實作執行\cnglo{kernel}所需的所有\cnglo{prvmem}；
 包括語言本身所需的\cnglo{prvmem}，以及\cnglo{kernel}中聲明的 \cqlf{__private} 變量。
 }
 

@@ -69,7 +69,7 @@ cl_int clEnqueueBarrierWithWaitList (cl_command_queue command_queue,
 如果 \carg{event_wait_list} 為空，
 則等待 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。
 此\cnglo{cmd}會阻塞\cnglo{cmd}的執行，
-即，所遇之後入隊的\cnglo{cmd}都得等到它完成後才能執行。
+即，所遇之後入隊的\cnglo{cmd}都得等到他完成後才能執行。
 此\cnglo{cmd}會返回一個可以等待的事件，
 即可以等在這個事件上，來確定 \carg{event_wait_list} 中的事件完成，
 或者 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。

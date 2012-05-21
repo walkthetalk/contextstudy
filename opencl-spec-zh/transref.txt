@@ -1,4 +1,6 @@
 instance 實體
+implement 實現
+implementation 實作
 data pattern 數據樣式
 operator 運算子
 operand 運算元
@@ -10,3 +12,7 @@ function 函式
 profile 評測
 access 存取
 address 位址
+array 陣列
+scope 作用域
+string 字串
+literal 常值

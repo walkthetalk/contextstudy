@@ -11,7 +11,7 @@ cl_int clBuildProgram (cl_program program,
 			void *user_data)
 \stopclc
 會由\cnglo{program}源碼或二進制\cnglo{program}構建（編譯 & 鏈接）可執行\cnglo{program}，
-它可以在 \carg{program} 所在\cnglo{context}中的所有或部分\cnglo{device}上執行。
+他可以在 \carg{program} 所在\cnglo{context}中的所有或部分\cnglo{device}上執行。
 對於用 \capi{clCreateProgramWithSource} 或 \capi{clCreateProgramWithBinary} 創建的 \carg{program}，
 必須調用 \capi{clBuildProgram} 來構建可執行程序。
 如果是用 \capi{clCreateProgramWithBinary} 創建的 \carg{program}，
@@ -29,7 +29,7 @@ cl_int clBuildProgram (cl_program program,
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
 
-\carg{options} 指向一個以 null 結尾的字符串，用來描述構建選項。所支持的選項請參閱\todo{5.6.4}。
+\carg{options} 指向一個以 null 結尾的字串，用來描述構建選項。所支持的選項請參閱\todo{5.6.4}。
 
 \carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在構建完可執行\cnglo{program}後（無論成功還是失敗）會被調用。
 如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始構建， \capi{clBuildProgram} 就會立刻返回，而不必等待構建完成。

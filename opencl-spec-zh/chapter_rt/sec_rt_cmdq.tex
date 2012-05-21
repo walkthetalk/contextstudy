@@ -26,11 +26,11 @@ cl_command_queue clCreateCommandQueue(
 {\input{chapter_rt/tbl/tbl_cmdq_prop.tex}}
 
 \carg{device} 必須是與 \carg{context} 關聯的\cnglo{device}。
-它要麼是用 \capi{clCreateContext} 創建 \carg{context} 時所指定的\cnglo{device}清單中的一個，
+他要麼是用 \capi{clCreateContext} 創建 \carg{context} 時所指定的\cnglo{device}清單中的一個，
 要麼其類型與用 \capi{clCreateContextFromType} 創建 \carg{context} 時所指定的\cnglo{device}類型相同。
 
 \carg{properties} 指定了\cnglo{cmdq}的一系列屬性。
-它是位域，參見\reftab{clcmdprop}。
+他是位域，參見\reftab{clcmdprop}。
 其值只能從\reftab{clcmdprop}所列屬性中選取，否則無效。
 
 \carg{errcode_ret} 用來返回錯誤碼。
@@ -63,7 +63,7 @@ cl_int clRetainCommandQueue(
 \stopigBase
 
 \capi{clCreateCommandQueue} 會實施隱式的 \englo{retain}。
-這對第三方庫非常有用，這樣\cnglo{app}可以將\cnglo{cmdq}傳給它們使用。
+這對第三方庫非常有用，這樣\cnglo{app}可以將\cnglo{cmdq}傳給他們使用。
 然而，\cnglo{app}可能在沒有通知庫的情況下刪除\cnglo{cmdq}。
 通過 \englo{retain} 或 \englo{release} \cnglo{cmdq}，在庫所使用的\cnglo{cmdq}不再有效時就不會出現問題。
 
@@ -125,7 +125,7 @@ cl_int clGetCommandQueueInfo(
 
 注意：
 
-如果創建了\cnglo{context}和\cnglo{cmdq}並且已經有\cnglo{cmd}入隊了，而這時它們所使用的\cnglo{device}可能變的不可用了。
+如果創建了\cnglo{context}和\cnglo{cmdq}並且已經有\cnglo{cmd}入隊了，而這時他們所使用的\cnglo{device}可能變的不可用了。
 這種情況下，對於使用這個\cnglo{context}（和\cnglo{cmdq}）的 OpenCL API 而言，其行為\cnglo{impdef}。
-在\cnglo{device}變的不可用時，如果創建\cnglo{context}時用戶指定了回調函式，則可以在傳遞給它的參數 \carg{errinfo}、\carg{private_info} 中記錄相應的信息。
+在\cnglo{device}變的不可用時，如果創建\cnglo{context}時用戶指定了回調函式，則可以在傳遞給他的參數 \carg{errinfo}、\carg{private_info} 中記錄相應的信息。
 

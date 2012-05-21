@@ -45,7 +45,7 @@ OpenCL runtime 使用\cnglo{context}來管理對象，
 \cnglo{app}需要保證此函式是線程安全的。
 此函式的參數為：
 \startigBase
-\item \carg{errinfo} 指向一個錯誤字符串。
+\item \carg{errinfo} 指向一個錯誤字串。
 \item \carg{private_info} 指向一塊二進制數據，其大小為 \carg{cb}，這塊數據由 OpenCL 實作所返回，可用來記錄一些附加信息來幫助調試錯誤。
 \item \carg{user_data} 指向用戶提供的數據。
 \stopigBase
@@ -135,8 +135,8 @@ cl_int clRetainContext(cl_context context)
 \stopigBase
 
 \capi{clCreateContext} 和 \capi{clCreateContextFromType} 會執行隱式的\cnglo{retain}。
-這對第三方庫非常有用，這樣\cnglo{app}可以將\cnglo{context}傳給它們使用。
-然而，\cnglo{app}可能會在沒有通知它們的情況下刪除此\cnglo{context}。
+這對第三方庫非常有用，這樣\cnglo{app}可以將\cnglo{context}傳給他們使用。
+然而，\cnglo{app}可能會在沒有通知他們的情況下刪除此\cnglo{context}。
 通過使用函式\cnglo{retain}或\cnglo{release}\cnglo{context}，在庫所使用的\cnglo{context}不再有效時就不會出問題。
 
 %clReleaseContext

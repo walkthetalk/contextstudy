@@ -21,10 +21,10 @@
 
 \clETD{CL_PROGRAM_SOURCE}{char[]}{
 返回傳給 \capi{clCreateProgramWithSource} 的\cnglo{program}源碼。
-返回的字符串中將所有源碼都串在了一起，並以 null 終止（原有的 null 會被剝離）。
+返回的字串中將所有源碼都串在了一起，並以 null 終止（原有的 null 會被剝離）。
 
 如果 \carg{program} 是用 \capi{clCreateProgramWithBinary} 或 \capi{clCreateProgramWithBuiltinKernels} 創建的，
-可能返回空字符串，或者相應的\cnglo{program}源碼，這取決於二元碼中是否包含\cnglo{program}源碼。
+可能返回空字串，或者相應的\cnglo{program}源碼，這取決於二元碼中是否包含\cnglo{program}源碼。
 
 \carg{param_value_size_ret} 中會返回源碼中字符的實際數目，包含 null 終止符。
 }

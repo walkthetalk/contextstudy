@@ -30,7 +30,7 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 \carg{pattern_size} 的最大值就是 OpenCL \cnglo{device}所支持的最大的整數或浮點數類型的矢量數據型別的大小。
 函式返回後，就可以重用或者釋放 \carg{pattern} 所指向的內存了。
 
-\carg{offset} 即填充區域在 \carg{buffer} 中的偏移量，單位：字節，它必須是 \carg{pattern_size} 的整數倍。
+\carg{offset} 即填充區域在 \carg{buffer} 中的偏移量，單位：字節，他必須是 \carg{pattern_size} 的整數倍。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
 如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。

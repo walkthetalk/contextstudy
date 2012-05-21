@@ -26,7 +26,7 @@
 % Math Intrinsics Options
 \subsubsection[sec:MathIntrinsicsOption]{數學本徵選項}
 這些選項會控制編譯器中與浮點算術有關的行為。
-它們會影響速度與正確性之間的權衡。
+他們會影響速度與正確性之間的權衡。
 
 \startclOption{-cl-single-precision-constant}
 將雙精度浮點常數視為單精度浮點常數。
@@ -53,8 +53,8 @@
 
 \startclOption{-cl-fp32-correctly-rounded-divide-sqrt}
 對於\cnglo{program}源碼中的單精度浮點除法（ \ccmm{x/y} 和 \ccmm{1/x} ）和 \ccmm{sqrt} 而言，
-\cnglo{app}可以使用此選項來保證對它們進行正確的舍入；
-而如果沒有使用此選項，則它們的最小精度在\todo{節7.4}中定義。
+\cnglo{app}可以使用此選項來保證對他們進行正確的舍入；
+而如果沒有使用此選項，則他們的最小精度在\todo{節7.4}中定義。
 
 只有在對應\cnglo{device}的 \cenum{CL_DEVICE_SINGLE_FP_CONFIG} （參見\reftab{cldevquery}）
 中設置了 \cenum{CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT} 時，才能使用此選項；
@@ -73,7 +73,7 @@
 
 下列選項會控制編譯器中與浮點算術有關的行為。
 這些選項以犧牲正確性為代價來換取性能的提升，必須明確使能。
-由於它們可能會導致不正確的輸出，而這些輸出則依賴於數學函式對 IEEE 754 標準的具體實作，
+由於他們可能會導致不正確的輸出，而這些輸出則依賴於數學函式對 IEEE 754 標準的具體實作，
 因此缺省這些選項都是關閉的。
 
 \startclOption{-cl-mad-enable}

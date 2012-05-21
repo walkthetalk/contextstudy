@@ -32,13 +32,13 @@
 （這些\cnglo{workitem}正在執行此\refglo{kernel}）。
 對於一個\refglo{workgrp}而言，
 其中任一\refglo{workitem}要想越過此\refglo{barrier}繼續執行，
-則它所包含的所有\refglo{workitem}都必須先執行此\refglo{barrier}。
+則他所包含的所有\refglo{workitem}都必須先執行此\refglo{barrier}。
 \stopigBase
 \stopclglo
 
 \startclglo{bufobj}{緩衝對象}{Buffer Object}
 存儲線性字節序列的\refglo{memobj}。
-\refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來存取它。
+\refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來存取他。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
 \refglo{bufobj}封裝了以下信息：
 \startigBase
@@ -80,7 +80,7 @@
 一個 OpenCL \refglo{device}中包含一個或多個\refglo{computeunit}。
 一個\refglo{workgrp}只能在單個\refglo{computeunit}上執行。
 一個\refglo{computeunit}由一個或多個\refglo{prcele}以及\refglo{locmem}組成。
-\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被它的\refglo{prcele}存取。
+\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被他的\refglo{prcele}存取。
 
 \clglo{concurrency}{並發}{Concurrency}
 系統的一個屬性，這樣的系統中有一系列任務，這些任務可以同時保持活躍並取得進展。
@@ -124,7 +124,7 @@
 
 \clglo{evtobj}{事件對象}{Event Object}
 \refglo{evtobj}封裝了運算（如一個\refglo{cmd}）的狀態。
-它可以用來對\refglo{context}中的運算進行同步。
+他可以用來對\refglo{context}中的運算進行同步。
 
 \clglo{evtwaitlist}{事件等待序列}{Event Wait List}
 \refglo{evtwaitlist}是\refglo{evtobj}的序列，可用來控制何時執行\refglo{cmd}。
@@ -141,7 +141,7 @@
 
 \clglo{glbmem}{全局內存}{Global Memory}
 一塊內存，\refglo{context}中的所有\refglo{workitem}都可存取。
-\refglo{host}可以使用\refglo{cmd}來存取它（如讀、寫以及映射）。
+\refglo{host}可以使用\refglo{cmd}來存取他（如讀、寫以及映射）。
 
 \clglo{glsharegrp}{GL 共享組}{GL share group}
 此對象用來管理共享的 OpenGL 或 OpenGL ES 資源（如材質、緩存、幀緩存或渲染緩存），
@@ -337,10 +337,10 @@ OpenCL 所定義的一類\refglo{obj}。
 
 \clglo{thsafe}{線程安全}{Thread-safe}
 當一個 OpenCL API 被多個\refglo{host}線程同時調用時，
-如果 OpenCL 所管理的內部狀態始終保持一致，就認為它是\refglo{thsafe}的。
+如果 OpenCL 所管理的內部狀態始終保持一致，就認為他是\refglo{thsafe}的。
 如果一个 OpenCL API 是\refglo{thsafe}的，
-那麼就允許\refglo{app}在多個\refglo{host}線程中同時調用它，
-而不必在這些線程間實施互斥，即它們也是重入安全的。
+那麼就允許\refglo{app}在多個\refglo{host}線程中同時調用他，
+而不必在這些線程間實施互斥，即他們也是重入安全的。
 
 \clglo{undef}{未定義}{Undefined}
 調用 OpenCL API、\refglo{kernel}中使用內建函式或者執行\refglo{kernel}時，

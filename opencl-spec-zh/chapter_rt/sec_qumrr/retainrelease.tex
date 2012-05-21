@@ -30,7 +30,7 @@ cl_int clReleaseMemObject (cl_mem memobj)
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
 
-一旦 \carg{memobj} 的\cnglo{refcnt}變成零，並且所有使用它的\cnglo{cmd}都執行完畢，此\cnglo{memobj}就會被刪除。
+一旦 \carg{memobj} 的\cnglo{refcnt}變成零，並且所有使用他的\cnglo{cmd}都執行完畢，此\cnglo{memobj}就會被刪除。
 如果 \carg{memobj} 是一個\cnglo{bufobj}，只有等到其所有子\cnglo{bufobj}都被刪除後，才能將其刪除。
 
 函式
@@ -54,7 +54,7 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 \cnglo{app}需要保證此函式是線程安全的。
 此函式的參數有：
 \startigBase
-\item \carg{memobj} 就是要被刪除的\cnglo{memobj}。當此函式被調用時，這個\cnglo{memobj}就已經無效了。此處提供它只是出於參考的目的。
+\item \carg{memobj} 就是要被刪除的\cnglo{memobj}。當此函式被調用時，這個\cnglo{memobj}就已經無效了。此處提供他只是出於參考的目的。
 
 \item \carg{user_data} 指向用戶提供的數據。
 \stopigBase
@@ -90,9 +90,9 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 \stopigBase
 
 如果\cnglo{app}需要在回調函式中等待上面某一例程執行完畢，請使用相應例程的非阻塞方式，並設置回調來完成剩下的工作。
-需要注意的是，如果回調（或其它代碼）在\cnglo{cmdq}中插入了\cnglo{cmd}，在隊列刷新（flush）前不要求這些\cnglo{cmd}已經開始執行。
+需要注意的是，如果回調（或其他代碼）在\cnglo{cmdq}中插入了\cnglo{cmd}，在隊列刷新（flush）前不要求這些\cnglo{cmd}已經開始執行。
 在標準用法中，阻塞式的入隊調用通過顯式的刷新隊列來達到目的。
-由於回調中不允許阻塞式的調用，對於那些會在隊列中插入\cnglo{cmd}的回調而言，需要在返回前調用 \capi{clFlush} 或者將其安排在其它線程中隨後調用。
+由於回調中不允許阻塞式的調用，對於那些會在隊列中插入\cnglo{cmd}的回調而言，需要在返回前調用 \capi{clFlush} 或者將其安排在其他線程中隨後調用。
 
-回調函式不能用參數 \carg{memobj} 調用其它 OpenCL API，否則其行為未定義。
+回調函式不能用參數 \carg{memobj} 調用其他 OpenCL API，否則其行為未定義。
 

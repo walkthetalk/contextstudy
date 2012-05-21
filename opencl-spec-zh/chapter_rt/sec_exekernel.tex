@@ -31,7 +31,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 
 \carg{global_work_size} 也是一個陣列，有 \carg{work_dim} 個元素，且元素均為無符號值；
 對於將要執行 \carg{kernel} 的全局\cnglo{workitem}而言，
-它在某個維度上的數目由陣列中的相應元素表示，
+他在某個維度上的數目由陣列中的相應元素表示，
 總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{global_work_size}}[i]}。
 
 \carg{local_work_size} 也是一個陣列，有 \carg{work_dim} 個元素，且元素均為無符號值；

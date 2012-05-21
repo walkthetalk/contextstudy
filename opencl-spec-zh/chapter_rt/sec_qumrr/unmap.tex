@@ -13,7 +13,7 @@ cl_int clEnqueueUnmapMemObject (cl_command_queue command_queue,
 
 \carg{command_queue} 就是解映射\cnglo{cmd}要進入的隊列。
 
-\carg{memobj} 是一個\cnglo{memobj}，它必須與 \carg{command_queue} 位於同一 OpenCL \cnglo{context}中。
+\carg{memobj} 是一個\cnglo{memobj}，他必須與 \carg{command_queue} 位於同一 OpenCL \cnglo{context}中。
 
 \carg{mapped_ptr} 即之前調用 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 所返回的\cnglo{host}位址。
 

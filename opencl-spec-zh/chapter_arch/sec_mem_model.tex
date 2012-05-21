@@ -44,11 +44,11 @@
 
 \cnglo{app}在\cnglo{host}上運行時，
 使用 OpenCL API 在\cnglo{glbmem}中創建\cnglo{memobj}，
-並將內存命令(\refsec{exemodel:contextandcmdq}中有所描述)入隊以操作它們。
+並將內存命令(\refsec{exemodel:contextandcmdq}中有所描述)入隊以操作他們。
 
 多數情況下，\cnglo{host}和 OpenCL \cnglo{device}的內存模型是相互獨立的。
 其必然性主要在於 OpenCL 沒有囊括\cnglo{host}的定義。
-然而，有時它們確實需要交互。
+然而，有時他們確實需要交互。
 有兩種交互方式：顯式拷貝數據、將\cnglo{memobj}的部分区域映射和解映射。
 
 為了顯式拷貝數據，\cnglo{host}會將一些\cnglo{cmd}插入隊列，
