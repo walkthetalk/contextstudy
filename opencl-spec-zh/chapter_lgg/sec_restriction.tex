@@ -115,13 +115,87 @@ image1d_buffer_t or image1d_array_t）。
 這些型別的大小（除了 \ctype{half}）\cnglo{impdef}，
 而且在 OpenCL \cnglo{device} 和 \cnglo{host} 處理器上也可能不同，
 這樣如果\cnglo{kernel}參數聲明為這些型別的指針，就很難為這樣的參數分配\cnglo{bufobj}。
-這裡不支持 \ctype{half}，是因為他僅僅是一種存儲格式，
+這裡不支持 \ctype{half}，是因為他僅僅是一種存儲格式\footnote{
+除非支持擴展 \clext{cl_khr_fp16}。}，
 不能作為一種數據型別來參與算術運算。
 \stopitem
 
 % irreducible control flow
 \startitem
 不可規約的控制流（irreducible control flow）是否違規\cnglo{impdef}。
+\stopitem
+
+% built-in types less than 32 bits
+\overstrike{
+\startitem
+對於大小小於 32 位的內建型別，即
+ \ctype{char}、 \ctype{uchar}、 \ctype{char2}、 \ctype{uchar2}、
+ \ctype{short}、 \ctype{ushort} 和 \ctype{half}，有如下限制：
+\startigBig
+\startitem
+不能對
+ \ctype{char}、 \ctype{uchar}、 \ctype{char2}、 \ctype{uchar2}、
+ \ctype{short}、 \ctype{ushort} 和 \ctype{half} 的指針（或陣列）
+或者型別為
+ \ctype{char}、 \ctype{uchar}、 \ctype{char2}、 \ctype{uchar2}、
+ \ctype{short} 或 \ctype{ushort} 的結構體成員進行寫操作。
+參見節 9.9。
+\stopitem
+\stopigBig
+
+下面的\cnglo{kernel}示例中展示了少於 32 位的內建型別不支持哪些內存操作。
+\startclc
+kernel void
+do_proc (__global char *pA, short b, __global short *pB)
+{
+	char		x[100];
+	__private char	*px = x;
+	int		id = (int)get_global_id(0);
+	short		f;
+
+	f = pB[id] + b;	<- is allowed
+
+	px[1] = pA[1];	<- error. px cannot be written.
+
+	pB[id] = b;	<- error. pB cannot be written.
+}
+
+\stopclc
+\stopitem
+}
+
+% event_t
+\startitem
+\cnglo{program}中\cnglo{kernel}函式引數的型別不能是 \ctype{event_t}。
+\stopitem
+
+% address space
+\startitem
+結構體或聯合體的元素必須屬於同一個位址空間中，否則違規。
+\stopitem
+
+% struct / union's elements as OpenCL object
+\startitem
+如果\cnglo{kernel}函式的引數是結構體或聯合體，
+其元素不能是 OpenCL 對象。
+\stopitem
+
+% type qualifier
+\startitem
+支持 C99 中定義的型別限定符 \cqlf{const}、 \cqlf{restrict} 和 \cqlf{volatile}。
+這些限定符不能與下列型別一起使用：
+ \ctype{image2d_t}、 \ctype{image3d_t}、 \ctype{image2d_array_t}、
+ \ctype{image1d_t}、 \ctype{image1d_buffer_t}、 \ctype{image1d_array_t}。
+非指針型別不能使用限定符 \cqlf{restrict}。
+\stopitem
+
+% event_t
+\startitem
+\cnglo{kernel}函式引數的型別不能是事件（\ctype{event_t}）。
+事件型別不能用來聲明作用域為整個\cnglo{program}的變量。
+事件型別也不能用來聲明結構體或聯合體的欄位。
+事件型別不能與位址空間限定符
+ \cqlf{__local}、 \cqlf{__constant} 或 \cqlf{__global} 一起使用。
 \stopitem
 
 \stopigBig
