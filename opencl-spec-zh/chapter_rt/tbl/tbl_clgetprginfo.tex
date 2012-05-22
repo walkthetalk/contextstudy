@@ -46,7 +46,7 @@
 如果是用 \capi{clCreateProgramWithSource} 生成的 \carg{program}，
 則返回的是 \capi{clBuildProgram}、 \capi{clCompileProgram} 或 \capi{clLinkProgram} 所生成的二元碼。
 所返回的可能是特定實作的中間表示（又叫做 IR），或特定設備的可執行二元碼，也可能二者兼有。
-至於二元碼中會返回哪種信息由 OpenCL 實作來決定。
+至於二元碼中會返回哪種資訊由 OpenCL 實作來決定。
 
 \carg{param_value} 指向一個包含\math{n}個指針的陣列，所有指針都由調用者分配，
 其中\math{n}就是 \carg{program} 所關聯\cnglo{device}的數目。
@@ -60,13 +60,13 @@
 \clETD{CL_PROGRAM_NUM_KERNELS}{size_t}{
 返回 \carg{program} 中聲明的\cnglo{kernel}總數。
 對於 \carg{program} 所關聯的\cnglo{device}而言，至少要為其中之一成功構建了可執行\cnglo{program}，
-然後才能使用此信息。
+然後才能使用此資訊。
 }
 
 \clETD{CL_PROGRAM_KERNEL_NAMES}{char[]}{
 返回 \carg{program} 中\cnglo{kernel}的名字，以分號間隔。
 對於 \carg{program} 所關聯的\cnglo{device}而言，至少要為其中之一成功構建了可執行\cnglo{program}，
-然後才能使用此信息。
+然後才能使用此資訊。
 }
 
 \stopETD

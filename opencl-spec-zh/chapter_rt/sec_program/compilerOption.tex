@@ -115,17 +115,18 @@
 \stopclOption
 
 % Options to Request or Suppress Warnings
-\subsubsection{請求或抑制告警的選項}
+\subsubsection{請求或抑制警告的選項}
 
-告警是一些診斷信息，表示一些構造不屬於錯誤但是有風險，或者可能是錯誤。
-下列選項是獨立於語言的，不是用來打開特定告警，而是用來控制 OpenCL 編譯器所產生的告警的種類。
+警告（warning）是一些診斷訊息，表示一些構造不屬於錯誤但是有風險，或者可能是錯誤。
+下列選項是獨立於語言的，不是用來打開特定警告，
+而是用來控制 OpenCL 編譯器所產生的診斷訊息的種類。
 
 \startclOption{-w}
-禁止所有告警。
+禁止所有警告訊息。
 \stopclOption
 
 \startclOption{-Werror}
-把所有告警都當成錯誤。
+把所有警告都當成錯誤。
 \stopclOption
 
 % Options Controlling the OpenCL C version
@@ -150,11 +151,11 @@
 如果沒有指定選項 \ccmm{-cl-std}，則使用相應\cnglo{device}的 \cenum{CL_DEVICE_OPENCL_C_VERSION} 作為 OpenCL C 的版本為其編譯\cnglo{program}。
 
 % Options for Querying Kernel Argument Information
-\subsubsection{用於查詢內核參數信息的選項}
+\subsubsection{用於查詢內核參數資訊的選項}
 
 \startclOption{-cl-kernel-arg-info}
-此選項允許編譯器將\cnglo{kernel}參數的信息存儲到可執行\cnglo{program}中。
-所存儲的信息包括參數名、參數型別、所使用的位址限定符以及存取限定符。
-至於怎樣查詢這些信息請參考 \capi{clGetKernelArgInfo} 的描述。
+此選項允許編譯器將\cnglo{kernel}參數的資訊存儲到可執行\cnglo{program}中。
+所存儲的資訊包括參數名、參數型別、所使用的位址限定符以及存取限定符。
+至於怎樣查詢這些資訊請參考 \capi{clGetKernelArgInfo} 的描述。
 \stopclOption
 

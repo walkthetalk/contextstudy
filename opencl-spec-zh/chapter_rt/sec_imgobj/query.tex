@@ -9,23 +9,23 @@ cl_int clGetSupportedImageFormats (cl_context context,
 			cl_image_format *image_formats,
 			cl_uint *num_image_formats)
 \stopclc
-可用來查詢 OpenCL 實作所支持的圖像格式，對於\cnglo{imgobj}，需要指定如下信息：
+可用來查詢 OpenCL 實作所支持的圖像格式，對於\cnglo{imgobj}，需要指定如下資訊：
 \startigBase
 \item \cnglo{context}
 \item 圖像類型 ———— 1D、 2D 或 3D 圖像， 1D 圖像 buffer， 1D 或 2D 圖像陣列
-\item \cnglo{imgobj}的分配信息
+\item \cnglo{imgobj}的分配資訊
 \stopigBase
 
 \capi{clGetSupportedImageFormats} 會返回一個聯合體（union），其中的圖像格式是 \carg{contex} 中所有\cnglo{device}都支持的。
 
 \carg{context} 是 OpenCL \cnglo{context}，將在其上創建\cnglo{imgobj}。
 
-\carg{flags} 是位域，用來描述所創建的\cnglo{imgobj}的分配和使用信息。參見\reftab{clmapflags}。
+\carg{flags} 是位域，用來描述所創建的\cnglo{imgobj}的分配和用法資訊。參見\reftab{clmapflags}。
 
-\carg{image_type} 即圖像類型，其值可以是： \cenum{CL_MEM_OBJECT_IMAGE1D}、 
-\cenum{CL_MEM_OBJECT_IMAGE1D_BUFFER}、 \cenum{CL_MEM_OBJECT_IMAGE2D}、 
-\cenum{CL_MEM_OBJECT_IMAGE3D}、 \cenum{CL_MEM_OBJECT_IMAGE1D_ARRAY} 或 
-\cenum{CL_MEM_OBJECT_IMAGE2D_ARRAY}。
+\carg{image_type} 即圖像類型，其值可以是：
+ \cenum{CL_MEM_OBJECT_IMAGE1D}、 \cenum{CL_MEM_OBJECT_IMAGE1D_BUFFER}、
+ \cenum{CL_MEM_OBJECT_IMAGE2D}、 \cenum{CL_MEM_OBJECT_IMAGE3D}、
+ \cenum{CL_MEM_OBJECT_IMAGE1D_ARRAY} 或 \cenum{CL_MEM_OBJECT_IMAGE2D_ARRAY}。
 
 \carg{num_entries} 即 \carg{image_formats} 所能容納的表項數目。
 

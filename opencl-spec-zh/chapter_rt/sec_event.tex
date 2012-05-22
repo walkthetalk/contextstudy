@@ -41,7 +41,7 @@
 （包括其中的其他\cnglo{cmdq}）就不再可用。
 這時如果 OpenCL API 調用要使用這個\cnglo{context}（和其中的\cnglo{cmdq}），
 則其行為\cnglo{impdef}。
-創建\cnglo{context}時用戶所註冊的回調函式可用來報告相應的錯誤信息。
+創建\cnglo{context}時用戶所註冊的回調函式可用來報告相應的錯誤資訊。
 
 % clCreateUserEvent
 函式
@@ -166,12 +166,12 @@ cl_int clGetEventInfo (cl_event event,
 			void *param_value,
 			size_t *param_value_size_ret)
 \stopclc
-會返回\cnglo{evtobj}的相關信息。
+會返回\cnglo{evtobj}的相關資訊。
 
 \carg{event} 即所要查詢的\cnglo{evtobj}。
 
-\carg{param_name} 指定要查詢什麼信息。
-對於所支持的信息類型以及 \carg{param_value} 中返回的信息，請參見\reftab{clGetEventInfo}。
+\carg{param_name} 指定要查詢什麼資訊。
+對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，請參見\reftab{clGetEventInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
@@ -205,7 +205,7 @@ cl_int clGetEventInfo (cl_event event,
 且 \carg{param_value} 不是 \cenum{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果對於 \carg{event} 而言，所要查詢的信息還不能被查詢。
+如果對於 \carg{event} 而言，所要查詢的資訊還不能被查詢。
 
 \item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
 

@@ -40,7 +40,7 @@
 存儲線性字節序列的\refglo{memobj}。
 \refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來存取他。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
-\refglo{bufobj}封裝了以下信息：
+\refglo{bufobj}封裝了以下資訊：
 \startigBase
 \item 字節數；
 \item 一些屬性，用來描述使用情況以及分配自哪個區域；
@@ -165,7 +165,7 @@
 一種\refglo{memobj}，用來存儲二維或三維的結構化陣列。
 只能通過讀寫函式存取其中的圖像數據。讀函式需要使用\refglo{sampler}。
 
-\refglo{imgobj}封裝了以下信息：
+\refglo{imgobj}封裝了以下資訊：
 \startigBase
 \item 圖像的維數；
 \item 圖像中每個元素的描述；
@@ -257,7 +257,7 @@ OpenCL 中的一個確切的位址空間。
 可能還包含一些輔助函式（由 \cqlf{__kernel} 函式調用）和常量数据。
 
 \startclglo{programobj}{程序對象}{Program Object}
-\refglo{programobj}封裝有以下信息：
+\refglo{programobj}封裝有以下資訊：
 \startigBase
 \item 對所屬\refglo{context}的引用。
 

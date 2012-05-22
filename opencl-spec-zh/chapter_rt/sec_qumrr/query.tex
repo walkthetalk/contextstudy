@@ -1,6 +1,6 @@
 \subsection{內存對象的相關查詢}
 
-對於所有型別的\cnglo{memobj}（\cnglo{bufobj}和\cnglo{imgobj}）所通用的一些信息，可以由以下函式獲取：
+對於所有型別的\cnglo{memobj}（\cnglo{bufobj}和\cnglo{imgobj}）所通用的一些資訊，可以由以下函式獲取：
 \startclc
 cl_int clGetMemObjectInfo (cl_mem memobj,
 			cl_mem_info param_name,
@@ -11,7 +11,7 @@ cl_int clGetMemObjectInfo (cl_mem memobj,
 
 \carg{memobj} 指定所要查詢的\cnglo{memobj}。
 
-\carg{param_name} 指定要查詢什麼信息。所支持信息的種類以及 \carg{param_value} 中返回的內容如\reftab{meminfo}所示。
+\carg{param_name} 指定要查詢什麼資訊。所支持資訊的種類以及 \carg{param_value} 中返回的內容如\reftab{meminfo}所示。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。如果是 \cenum{NULL}，則忽略。
 

@@ -1,8 +1,8 @@
 \subsection{圖像對象查詢}
 
-對於所有\cnglo{memobj}都適用的信息可以使用 \capi{clGetMemObjectInfo} 來獲取，參見\todo{5.4.5}。
+對於所有\cnglo{memobj}都適用的資訊可以使用 \capi{clGetMemObjectInfo} 來獲取，參見\todo{5.4.5}。
 
-而對於由 \capi{clCreateImage} 創建的\cnglo{imgobj}而言，一些特定信息使用如下函式獲取：
+而對於由 \capi{clCreateImage} 創建的\cnglo{imgobj}而言，一些特定資訊使用如下函式獲取：
 \startclc
 cl_int clGetImageInfo (cl_mem image,
 			cl_image_info param_name,
@@ -13,7 +13,7 @@ cl_int clGetImageInfo (cl_mem image,
 
 \carg{image} 即被查詢的\cnglo{imgobj}。
 
-\carg{param_name} 指明要查詢什麼信息。他所支持的類型以及在 \carg{param_value} 中返回的信息如\reftab{clgetimginfo}所示。
+\carg{param_name} 指明要查詢什麼資訊。他所支持的類型以及在 \carg{param_value} 中返回的資訊如\reftab{clgetimginfo}所示。
 
 \carg{param_value} 用來存儲查詢結果。如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
 

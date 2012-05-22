@@ -13,7 +13,7 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 			cl_event *event)
 \stopclc
 會將一個\cnglo{cmd}插入隊列，此\cnglo{cmd}可以按給定的樣式（ pattern ）填充\cnglo{bufobj}。
-\carg{buffer} 的一些使用信息，如此\cnglo{memobj}是否可讀、是否可寫，
+\carg{buffer} 的一些用法資訊，如此\cnglo{memobj}是否可讀、是否可寫，
 還有創建 \carg{buffer} 時所指定的參數 \ctype{cl_mem_flags}，
 都會被 \capi{clEnqueueFillBuffer} 忽略。
 

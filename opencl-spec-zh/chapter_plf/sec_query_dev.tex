@@ -51,7 +51,7 @@ cl_int clGetDeviceIDs(
 對於 \capi{clGetDeviceIDs} 所返回的 OpenCL \cnglo{device}，\cnglo{app}可以查詢其能力，從而決定使用哪些\cnglo{device}。
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%clGetDeviceInfo
-函数 \capi{clGetDeviceInfo} 可用來獲取 OpenCL \cnglo{device}的特定信息，如\reftab{cldevquery}所示。
+函数 \capi{clGetDeviceInfo} 可用來獲取 OpenCL \cnglo{device}的特定資訊，如\reftab{cldevquery}所示。
 \startclc
 cl_int clGetDeviceInfo(
 		cl_device_id device,
@@ -62,9 +62,9 @@ cl_int clGetDeviceInfo(
 \stopclc
 
 \carg{device} 是 \capi{clGetDeviceIDs} 所返回的\cnglo{device}，或者由 \capi{clCreateSubDevices} 創建的\cnglo{subdev}。
-如果是\cnglo{subdev}，則返回的是\cnglo{subdev}的信息。
+如果是\cnglo{subdev}，則返回的是\cnglo{subdev}的資訊。
 
-\carg{param_name} 是枚舉常量，用來指明要查詢什麼信息，參見\reftab{cldevquery}。
+\carg{param_name} 是枚舉常量，用來指明要查詢什麼資訊，參見\reftab{cldevquery}。
 
 \carg{param_value} 是指針，所指內存用來存儲 \carg{param_name} 所對應的值（參見\reftab{cldevquery}）。
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
@@ -86,7 +86,7 @@ OpenCL \cnglo{device}查询
 }
 
 無論對於\cnglo{rootdev}（即 \capi{clGetDeviceIDs} 所返回的\cnglo{device}）還是由此創建的\cnglo{subdev}，
-\reftab{cldevquery}中所列的查詢都硬返回相同的信息，不過下列查詢例外：
+\reftab{cldevquery}中所列的查詢都硬返回相同的資訊，不過下列查詢例外：
 \startigBase
 \item \cenum{CL_DEVICE_GLOBAL_MEM_CACHE_SIZE}
 \item \cenum{CL_DEVICE_BUILT_IN_KERNELS}

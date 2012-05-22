@@ -46,7 +46,7 @@ OpenCL runtime 使用\cnglo{context}來管理對象，
 此函式的參數為：
 \startigBase
 \item \carg{errinfo} 指向一個錯誤字串。
-\item \carg{private_info} 指向一塊二進制數據，其大小為 \carg{cb}，這塊數據由 OpenCL 實作所返回，可用來記錄一些附加信息來幫助調試錯誤。
+\item \carg{private_info} 指向一塊二進制數據，其大小為 \carg{cb}，這塊數據由 OpenCL 實作所返回，可用來記錄一些附加資訊來幫助調試錯誤。
 \item \carg{user_data} 指向用戶提供的數據。
 \stopigBase
 
@@ -157,7 +157,7 @@ cl_int clReleaseContext(cl_context context)
 \carg{context} 就會被刪除。
 
 %clGetContextInfo
-函式 \capi{clGetContextInfo} 可用來查詢\cnglo{context}的相關信息。
+函式 \capi{clGetContextInfo} 可用來查詢\cnglo{context}的相關資訊。
 \startclc
 cl_int clGetContextInfo(cl_context context,
 		cl_context_info param_name,
@@ -168,7 +168,7 @@ cl_int clGetContextInfo(cl_context context,
 
 \carg{context} 指定要查詢哪個 OpenCL \cnglo{context}。
 
-\carg{param_name} 是枚舉常量，指定要查詢什麼信息。
+\carg{param_name} 是枚舉常量，指定要查詢什麼資訊。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
 如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
@@ -179,7 +179,7 @@ cl_int clGetContextInfo(cl_context context,
 \carg{param_value_size_ret} 會返回 \carg{param_value} 所存查詢結果的實際字節數。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
 
-\reftab{paramNameclGetContextInfo}列出了所支持的 \carg{param_name} 和 \capi{clGetContextInfo} 返回的 \carg{param_value} 中的信息。
+\reftab{paramNameclGetContextInfo}列出了所支持的 \carg{param_name} 和 \capi{clGetContextInfo} 返回的 \carg{param_value} 中的資訊。
 
 \placetable[here,force][tab:paramNameclGetContextInfo]{\capi{clGetContextInfo}所支持的\carg{param_names}的清单}
 {\input{chapter_plf/tbl/tbl_clcontextinfo.tex}}

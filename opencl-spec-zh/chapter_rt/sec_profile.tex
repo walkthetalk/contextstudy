@@ -31,12 +31,12 @@ cl_int clGetEventProfilingInfo (cl_event event,
 			void *param_value,
 			size_t *param_value_size_ret)
 \stopclc
-會返回 \carg{event} 所指代\cnglo{cmd}的評測信息。
+會返回 \carg{event} 所指代\cnglo{cmd}的評測資訊。
 
 \carg{event} 即\cnglo{evtobj}。
 
 \carg{param_name} 指定所要查詢的評測數據。
-對於所支持的信息類型以及 \carg{param_value} 中返回的信息，
+對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，
 請參見\reftab{clGetEventProfilingInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
@@ -64,7 +64,7 @@ cl_int clGetEventProfilingInfo (cl_event event,
  \cenum{CL_DEVICE_PROFILING_TIMER_RESOLUTION} 指定了時鐘的精度，
 即，定時器增一時所經過的納秒數。
 
-如果執行成功，且記錄了評測信息，
+如果執行成功，且記錄了評測資訊，
 則 \capi{clGetEventProfilingInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
