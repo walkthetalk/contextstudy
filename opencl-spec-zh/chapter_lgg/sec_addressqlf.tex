@@ -139,7 +139,7 @@ __kernel void my_func(...)
 每個指向 \cqlf{__constant} 位址空間的指針引數都會使計數增一。
 參見\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_CONSTANT_ARGS}。
 
-如果變量的作用域是整個\cnglo{program}或最外層的\cnglo{kernel}函式，
+如果變量的作用域是整個\cnglo{program}或\cnglo{kernel}函式的最外層，
 則可以在 \cqlf{__constant} 位址空間中聲明他。
 必須對這種變量進行初始化，並且所用的值必須是編譯時常數。
 對這種變量的寫操作會導致編譯時錯誤。

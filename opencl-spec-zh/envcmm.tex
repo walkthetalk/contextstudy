@@ -584,9 +584,8 @@ bolditalic=texgyreherosbolditalic]
 \setupitemgroup[igNum][1][n]
 
 % big item
-\defineitemgroup[igBig][levels=1]
-\setupitemgroup[igBig]
-[each]
+\defineitemgroup[igBig][levels=2]
+\setupitemgroup[igBig][1]
 [packed,joinedup,]
 [
   leftmargin=0em,
@@ -596,6 +595,16 @@ bolditalic=texgyreherosbolditalic]
   width=2em,
 ]
 \setupitemgroup[igBig][1][a]
+\setupitemgroup[igBig][2]
+[packed,joinedup,]
+[
+  leftmargin=2em,
+  before=,
+  inbetween=,
+  after=,
+  width=2em,
+]
+\setupitemgroup[igBig][2][1]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%table%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setupTABLE[%

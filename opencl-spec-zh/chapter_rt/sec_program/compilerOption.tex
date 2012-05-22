@@ -9,7 +9,7 @@
 這些選項用於控制預處理器，在真正編譯前對源碼進行預處理。
 
 \startclOption{-D \carg{name}}
-預定義一個名為 \carg{name} 的宏，其值為 1。
+預定義一個名為 \carg{name} 的巨集，其值為 1。
 \stopclOption
 
 \startclOption{-D \carg{name}=\carg{definition}}
@@ -20,7 +20,7 @@
 對於選項 -D，會按照在 \capi{clBuildProgram} 或 \capi{clCompileProgram} 的參數 \carg{options} 中出現的順序進行處理。
 
 \startclOption{-I \carg{dir}}
-將 \carg{dir} 加入到頭文件的搜索路徑中。
+將 \carg{dir} 加入到頭檔的搜索路徑中。
 \stopclOption
 
 % Math Intrinsics Options
@@ -111,7 +111,7 @@
 對浮點算術的優化可以違反 IEEE 754 的標準，
 也可以違反 \todo{節 7.4}中所定義的對單雙精度浮點數的數值一致性需求，
 還有\todo{節7.5}中的邊界條件的行為。
-此選項會使得\cnglo{program}中定義預處理器宏 \ccmm{__FAST_RELAXED_MATH__}。
+此選項會使得\cnglo{program}中定義預處理器巨集 \ccmm{__FAST_RELAXED_MATH__}。
 \stopclOption
 
 % Options to Request or Suppress Warnings

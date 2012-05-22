@@ -1,1 +1,128 @@
-\section[sec:restrictions]{限制}
+\section[sec:restrictions]{限制\footnote{
+加了刪除線的項是 OpenCL 1.0 中的限制，但在 OpenCL 1.1 中已經移除。}}
+
+\startigBig
+
+% pointer
+\startitem
+對於指針的使用有一點限制。規定如下：
+\startigBig
+
+\startitem
+對於\cnglo{kernel}函式，\cnglo{program}中聲明其參數時必須帶有限定符
+ \cqlf{__global}、 \cqlf{__constant} 或 \cqlf{__local}。
+\stopitem
+
+\startitem
+兩個指針相互賦值時，在聲明他們時其限定符必須同為
+ \cqlf{__global}、 \cqlf{__constant} 或 \cqlf{__local}。
+\stopitem
+
+\startitem
+不允許指針指向函式。
+\stopitem
+
+\startitem
+在\cnglo{program}中，\cnglo{kernel}函式的參數不能聲明為指針的指針。
+但是函式內部的變量或者非\cnglo{kernel}函式的參數可以是指針的指針。
+\stopitem
+
+\stopigBig
+\stopitem
+
+% image
+\startitem
+只有函式參數的型別才能是圖像（image2d_t, image3d_t, image2d_array_t, image1d_t,
+image1d_buffer_t or image1d_array_t）。
+不能修改這種參數。
+並且只能用內建函式來存取其元素（參見\todo{節 6.12.14}）。
+
+圖像型別不能用來聲明變量、結構體或聯合體的欄位，
+也不能聲明圖像陣列或圖像指針，
+函式返回值的型別也不能是圖像。
+圖像型別不能與位址空間限定符
+ \cqlf{__private}、 \cqlf{__local} 和 \cqlf{__constant} 一起使用。
+型別 \ctype{image3d_t} 不能與存取限定符 \cqlf{__write_only} 一起使用，
+除非使能了擴展 \clext{cl_khr_3d_image_writes}。
+圖像型別不能與存取限定符 \cqlf{__read_write} 一起使用，
+這種用法暫時保留，將來可能會使用。
+
+\cnglo{sampler}型別（\ctype{sampler_t}）只能作為函式參數的型別，
+或者用來聲明作用域為整個\cnglo{program}或\cnglo{kernel}函式最外層的變量。
+如果\cnglo{kernel}函式中所聲明的\cnglo{sampler}變量沒有位於最外層，
+則其行為\cnglo{impdef}。
+如果引數或變量是\cnglo{sampler}，則不能修改他。
+
+\cnglo{sampler}型別不能用來聲明結構體或聯合體的欄位，
+也不能聲明\cnglo{sampler}陣列或\cnglo{sampler}指針，
+函式返回值的型別也不能是\cnglo{sampler}。
+\cnglo{sampler}型別不能與位址空間限定符 \cqlf{__local} 或 \cqlf{__global} 一起使用。
+\stopitem
+
+% bit-field
+\startitem
+不支持結構體中的位欄（bit-field）成員。
+\stopitem
+
+% variable length array
+\startitem
+不支持變長陣列和帶有彈性（沒有指明大小的）陣列的結構體。
+\stopitem
+
+% variadic
+\startitem
+不支持變參巨集和變參函式。
+\stopitem
+
+% library function
+\startitem
+\cnglo{program}中不能包含下列 C99 標準頭檔，也不能使用其中的庫函式：
+ \ccmm{assert.h}、 \ccmm{ctype.h}、 \ccmm{complex.h}、 \ccmm{errno.h}、
+ \ccmm{fenv.h}、 \ccmm{float.h}、 \ccmm{inttypes.h}、 \ccmm{limits.h}、
+ \ccmm{locale.h}、 \ccmm{setjmp.h}、 \ccmm{signal.h}、 \ccmm{stdarg.h}、
+ \ccmm{stdio.h}、 \ccmm{stdlib.h}、 \ccmm{string.h}、 \ccmm{tgmath.h}、
+ \ccmm{time.h}、 \ccmm{wchar.h} 和 \ccmm{wctype.h}。
+\stopitem
+
+% auto and register
+\startitem
+不支持存儲類別限定符 \cqlf{auto} 和 \cqlf{register}。
+\stopitem
+
+% predefined identifier
+\overstrike{
+\startitem
+不支持預定義標識符。
+\stopitem
+}
+
+% recursion
+\startitem
+不支持遞迴（recursion）。
+\stopitem
+
+% __kernel function
+\startitem
+源碼中帶有限定符 \cqlf{__kernel} 的函式所返回的型別只能是 \ctype{void}。
+\stopitem
+
+% scalar argument
+\startitem
+\cnglo{kernel}函式參數的型別不能是內建標量型別
+ \ctype{bool}、 \ctype{half}、 \ctype{size_t}、 \ctype{ptrdiff_t}、
+ \ctype{intptr_t} 和 \ctype{uintptr_t}，
+如果是結構體或聯合體，其中的欄位也不能是這些標量型別。
+這些型別的大小（除了 \ctype{half}）\cnglo{impdef}，
+而且在 OpenCL \cnglo{device} 和 \cnglo{host} 處理器上也可能不同，
+這樣如果\cnglo{kernel}參數聲明為這些型別的指針，就很難為這樣的參數分配\cnglo{bufobj}。
+這裡不支持 \ctype{half}，是因為他僅僅是一種存儲格式，
+不能作為一種數據型別來參與算術運算。
+\stopitem
+
+% irreducible control flow
+\startitem
+不可規約的控制流（irreducible control flow）是否違規\cnglo{impdef}。
+\stopitem
+
+\stopigBig
+

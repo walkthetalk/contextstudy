@@ -18,3 +18,8 @@ string 字串
 literal 常值
 message 訊息
 information 資訊
+field 欄位
+bitfield 位欄
+macro 巨集
+header (file) 頭檔
+recursion 遞迴

@@ -29,14 +29,14 @@ cl_int clCompileProgram (cl_program program,
 
 \carg{num_input_headers} 即陣列 \carg{input_headers} 中\cnglo{program}的數目。
 
-\carg{input_headers} 是一個陣列，元素為內嵌頭文件內容的\cnglo{program}，
+\carg{input_headers} 是一個陣列，元素為內嵌頭檔內容的\cnglo{program}，
 這些\cnglo{program}由 \capi{clCreateProgramWithSource} 創建。
 
 \carg{header_include_names} 也是一個陣列，並與 \carg{input_headers} 一一對應。
-每一項就是相應\cnglo{program}源碼中一個內嵌頭文件的名字。
- \carg{input_headers} 中對應項即為包含此頭文件源碼的\cnglo{programobj}。
-搜索頭文件時，內嵌頭文件比編譯選項 -I 所列目錄（\todo{5.6.4.1}）有更高優先級。
-如果 \carg{header_include_names} 中有多項名字相同的頭文件，則使用最先搜索到的。
+每一項就是相應\cnglo{program}源碼中一個內嵌頭檔的名字。
+ \carg{input_headers} 中對應項即為包含此頭檔源碼的\cnglo{programobj}。
+搜索頭檔時，內嵌頭檔比編譯選項 -I 所列目錄（\todo{5.6.4.1}）有更高優先級。
+如果 \carg{header_include_names} 中有多項名字相同的頭檔，則使用最先搜索到的。
 
 例如，假設有如下\cnglo{program}源碼：
 \startclc
@@ -51,7 +51,7 @@ __kernel void image_filter (int n, int m,
 	...
 }
 \stopclc
-這個\cnglo{kernel}包含了兩個頭文件 foo.h 和 mydir/myinc.h。
+這個\cnglo{kernel}包含了兩個頭檔 foo.h 和 mydir/myinc.h。
 下面來看怎樣將其傳遞並內嵌到\cnglo{programobj}中：
 \startclc
 cl_program foo_pg = clCreateProgramWithSource(context,
@@ -75,7 +75,7 @@ clCompileProgram(program_A,
 
 \carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在編譯完成後（無論成功還是失敗）會被調用。
 如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始編譯， \capi{clCompileProgram} 就會立刻返回，而不必等待編譯完成。
-如果\cnglo{context}、所要編譯的\cnglo{program}源碼、\cnglo{device}清單、所輸入的頭文件以及相應的\cnglo{program}，還有構建選項都是有效的，
+如果\cnglo{context}、所要編譯的\cnglo{program}源碼、\cnglo{device}清單、所輸入的頭檔以及相應的\cnglo{program}，還有構建選項都是有效的，
 並且實施編譯所需的\cnglo{host}和\cnglo{device}資源都可用，則就可以開始進行編譯了。
 如果 \carg{pfn_notify} 是 \cenum{NULL}，直到編譯完畢， \capi{clCompileProgram} 才會返回。
 對此函式的調用可能是異步的。
