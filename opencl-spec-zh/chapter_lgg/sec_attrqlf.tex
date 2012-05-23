@@ -1,1 +1,42 @@
 \section{特性限定符}
+
+本節描述 \cqlf{__attribute__} 的相關語法以及他所綁定的構件。
+
+特性限定符的形式為 \ccmm{__attribute__ ((attribute-list))}。
+
+特性列定義如下：
+\startclc
+attribute-list:
+	attribute/BTEX\low{opt}/ETEX
+	attribute-list , attribute/BTEX\low{opt}/ETEX
+
+attribute:
+	attribute-token attribute-argument-clause/BTEX\low{opt}/ETEX
+
+attribute-token:
+	identifier
+
+attribute-argument-clause:
+	( attribute-argument-list )
+
+attribute-argument-list:
+	attribute-argument
+	attribute-argument-list, attribute-argument
+
+attribute-argument:
+	assignment-expression
+\stopclc
+
+此語法直接取自 GCC，但跟 GCC 又有不同。
+在 GCC 中，特性只能用在函式、型別和變量上，而 OpenCL 特性可與下列項相關聯：
+\startigBase
+\item 型別
+\item 函式
+\item 變量
+\item 塊
+\item 控制流語句
+\stopigBase
+
+通常，對於在給定的上下文中如何綁定特性，其規則有很多值得仔細研究的地方，
+關於細節讀者可以參考 GCC 的文檔以及 Maurer 和 Wong 的論文（
+\todo{第 11 章參考文獻中的第16項和第17項）。

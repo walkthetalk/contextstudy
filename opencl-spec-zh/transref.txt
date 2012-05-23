@@ -29,3 +29,5 @@ directive 指示
 instruction 指令
 token 符記
 endianness 端序
+component 組件
+costruct 構件
