@@ -98,40 +98,49 @@ bolditalic=texgyreherosbolditalic]
   tolerant, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define[1]\ftEmp{	% emphasize
-\rm\bf{#1}
-}
-
+\define\ftEmp{\rm\bf} % emphasize
 \define\ftRef{\tt\it} % reference
 \define\ftFmt{\ss\it} % format
-\definetype[capi][
+\define\ftClc{\tt\tf}
+\define\ftClcEmp{\ftClc\bf}
+\define\ftClcRef{\ftClc\it}
+\definetype[capi][ % api
   %space	on off
   %option	slanted normal none
   style=\rm\bf,	%normal bold slanted boldslanted type cap small ... command
   %color	name
 ]
-\definetype[carg][
+\definetype[carg][ % argument
   style=\rm\it,
 ]
-\definetype[ctype][
+\definetype[ctype][ % type
   style=\tt\tf,
 ]
-\definetype[cenum][
+\definetype[cenum][ % enumeration
   style=\rm\tf,
 ]
-\definetype[cqlf][
+\definetype[cqlf][ % qualifier
   style=\tt\it,
 ]
 \definetype[cqlfemp][
   style=\tt\bf,
 ]
-\definetype[cvar][
+\definetype[cdrt][ % directive
   style=\tt\tf,
 ]
-\definetype[ccmm][
+\definetype[cdrtemp][
+  style=\tt\bf,
+]
+\definetype[cmacro][
   style=\tt\tf,
 ]
-\definetype[clext][
+\definetype[cvar][ % variable
+  style=\tt\tf,
+]
+\definetype[ccmm][ % common
+  style=\tt\tf,
+]
+\definetype[clext][ % opencl extension
   style=\rm\bf,
 ]
 
@@ -484,7 +493,7 @@ bolditalic=texgyreherosbolditalic]
   tab=8,	%number yes no
   %page	yes no
   %indentnext	yes no
-  %style	normal bold slanted boldslanted type cap small... command
+  style=\ftClc,		%normal bold slanted boldslanted type cap small... command
   %color	name
   %palet	name
   %lines=yes,	%yes no hyphenated

@@ -264,7 +264,7 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 而 \clapis{as_type} 和 \clapiv{as_type} 則是用來反應數據在寄存器中是怎麼組織的。
 如果在設備上運算元和結果共享同一個寄存器檔（register file），
 則 \clapis{as_type} 和 \clapiv{as_type} 在編譯和應該不會產生任何指令。
-注意，內存中數據組織方式的不同大部分都是由於字節序（endianness）的不同所導致，
+注意，內存中數據組織方式的不同大部分都是由於端序（endianness）的不同所導致，
 因此基於寄存器的表示方式也可能會由於寄存器中元素大小的原因而不同。
 （例如，在某種架構上，可能將 \ccmm{char} 裝載進 32 位寄存器中，
 或者將 \ccmm{char} 矢量裝載進元素大小固定為 32 位的 SIMD 矢量寄存器。）
@@ -274,8 +274,8 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 所以，例如，如果某種實作中所有單精度數據在寄存器中都是以雙精度存儲的，
 那麼他所實現的 as_int(float) 就應該先將雙精度數據轉換成單精度，
 然後（如果有必要）再將單精度數據的位元轉移到合適的寄存器中以參與整形數據運算。
-如果不同位址空間中所存儲的數據具有不同的字節序，
-則按設備的主字節序（dominant endianness）進行處理。
+如果不同位址空間中所存儲的數據具有不同的端序，
+則按設備的主端序（dominant endianness）進行處理。
 }。
 如果運算元和結果的型別所含元素數目相同，則會直接返回運算元中的位元，而不會將其修正為新型別。
 通常對函式參數都會實施型別晉陞（type promotion），而這裡不會。
@@ -295,34 +295,34 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 \startexample
 \startclc
 float f = 1.0f;
-uint u = /BTEX\bf{as_uint}/ETEX(f);	// Legal. Contains:	0x3f800000
+uint u = /BTEX\ftClcEmp{as_uint}/ETEX(f);	// Legal. Contains:	0x3f800000
 
 float4 f = (float4)(1.0f, 2.0f, 3.0f, 4.0f);
 // Legal. Contains:
 // (int4)(0x3f800000, 0x40000000, 0x40400000, 0x40800000)
-int4 i = /BTEX\bf{as_int4}/ETEX(f);
+int4 i = /BTEX\ftClcEmp{as_int4}/ETEX(f);
 
 float4 f, g;
 int4 is_less = f < g;
 
 // Legal. f[i] = f[i] < g[i] ? f[i] : 0.0f
-f = /BTEX\bf{as_float4}/ETEX(/BTEX\bf{as_int4}/ETEX(f) & is_less);
+f = /BTEX\ftClcEmp{as_float4}/ETEX(/BTEX\ftClcEmp{as_int4}/ETEX(f) & is_less);
 
 int i;
 // Legal. Result is implementation-defined.
-short2 j = /BTEX\bf{as_short2}/ETEX(i);
+short2 j = /BTEX\ftClcEmp{as_short2}/ETEX(i);
 
 int4 i;
 // Legal. Result is implementation-defined.
-short8 j = /BTEX\bf{as_short8}/ETEX(i);
+short8 j = /BTEX\ftClcEmp{as_short8}/ETEX(i);
 
 float4 f;
 // Error. Result and operand have different sizes
-double4 g = /BTEX\bf{as_double4}\footnote{僅當支持雙精度時才有效。}/ETEX(f);
+double4 g = /BTEX\ftClcEmp{as_double4}\footnote{僅當支持雙精度時才有效。}/ETEX(f);
 
 float4 f;
 // Legal. g.xyz will have same values as f.xyz.
-float3 g = /BTEX\bf{as_float3}/ETEX(f);
+float3 g = /BTEX\ftClcEmp{as_float3}/ETEX(f);
 \stopclc
 \stopexample
 
@@ -331,7 +331,7 @@ float3 g = /BTEX\bf{as_float3}/ETEX(f);
 
 分別指向新舊型別的指針可以相互轉換。
 將指針轉型成新的型別時會斷言位址已經正確對齊，雖然實際並沒有做檢查。
-開發人員還是需要知道 OpenCL \cnglo{device}的字節序和數據的字節序，
+開發人員還是需要知道 OpenCL \cnglo{device}的端序和數據的端序，
 從而可以確定標量和矢量數據元素在內存中的存儲方式。
 
 % Usual Arithmetic Conversions

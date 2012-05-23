@@ -21,5 +21,11 @@ information 資訊
 field 欄位
 bitfield 位欄
 macro 巨集
+macro replacement 巨集代換
 header (file) 頭檔
+source file 源檔
 recursion 遞迴
+directive 指示
+instruction 指令
+token 符記
+endianness 端序
