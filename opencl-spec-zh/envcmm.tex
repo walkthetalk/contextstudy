@@ -517,7 +517,7 @@ bolditalic=texgyreherosbolditalic]
 %text	text
 %align	flushleft middle flushright
 %margin	standard yes no dimension
-  location=top,	%left right top serried inmargin inleft inright hanging
+  alternative=top,	%left right top serried inmargin inleft inright hanging
 %headcommand	command
 %hang	fit broad number
 %before	command
@@ -791,7 +791,7 @@ bolditalic=texgyreherosbolditalic]
   %text	text
   %align	flushleft middle flushright
   margin=2em,	%standard yes no dimension
-  location=top,	%left right top serried inmargin inleft inright hanging
+  alternative=top,	%left right top serried inmargin inleft inright hanging
   %headcommand=,	%command
   command=\hskip-2em,	%command
   %hang=,	%fit broad number
@@ -812,8 +812,8 @@ bolditalic=texgyreherosbolditalic]
   %text=,		%text
   %align=,		%flushleft middle flushright
   %margin=2em,		%standard yes no dimension
-  location=top,		%left right top serried inmargin inleft inright hanging
-  headcommand=\vskip.0em,		%command
+  alternative=top,		%left right top serried inmargin inleft inright hanging
+  %headcommand=\vskip.0em,		%command
   %command=\hskip-2em,	%command
   %hang=,		%fit broad number
   before=\vskip.0em,		%command
@@ -825,7 +825,7 @@ bolditalic=texgyreherosbolditalic]
 
 %如果reference放到\glossary前面，会多加一个空行
 \define[3]\clglohead{
-{\color[blue]#2}（#3）
+{#2}（#3）
 \reference[clglo:#1]{#2}
 \reference[clglo:en#1]{#3}
 }

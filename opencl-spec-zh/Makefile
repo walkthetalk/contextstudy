@@ -1,5 +1,5 @@
 fig_name=figclassdiag
-tex_name=cttext
+tex_name=opencl-spec-zh
 
 tex_deps=$(shell find . -type f -name \*.tex)
 
