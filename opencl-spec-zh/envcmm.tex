@@ -5,6 +5,12 @@
 \startenvironment envcmm
 
 %%%%%%%%%%%%%%%%%%% simplefonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% use `mtxrun --script font --list --all` to list all fonts
+% only MKII need specify encoding,
+% it is UTF-8 defaultly in MKIV
+% \enableregime[utf]
+% \usemodule[chi-00]
+%\mainlanguage[cn]
 
 %%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usemodule[zhfonts][style=rm, size=10.5pt]
@@ -16,7 +22,7 @@
 [serif]
 [regular=adobesongstd,
 bold=adobeheitistd,
-italic=adobesongstd,
+italic=adobekaitistd,
 bolditalic=adobeheitistd]
 
 \setupzhfonts
@@ -78,7 +84,7 @@ bolditalic=texgyreherosbolditalic]
   %width	dimension
   %height	dimension
   %depth	dimension
-  style=\rm\it,	%normal bold slanted boldslanted type cap small...command
+  style=\ftRef,	%normal bold slanted boldslanted type cap small...command
   color=black,	%name	link to other page
   contrastcolor=black,	%name	link to the same page
   %symbolset	name
@@ -98,8 +104,8 @@ bolditalic=texgyreherosbolditalic]
   tolerant, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\define\ftEmp{\rm\bf} % emphasize
-\define\ftRef{\tt\it} % reference
+\define\ftEmp{\bf} % emphasize
+\define\ftRef{\it} % reference
 \define\ftFmt{\ss\it} % format
 \define\ftClc{\tt\tf}
 \define\ftClcEmp{\ftClc\bf}
@@ -135,6 +141,9 @@ bolditalic=texgyreherosbolditalic]
   style=\tt\tf,
 ]
 \definetype[cvar][ % variable
+  style=\tt\tf,
+]
+\definetype[ckey][
   style=\tt\tf,
 ]
 \definetype[ccmm][ % common
@@ -802,6 +811,8 @@ bolditalic=texgyreherosbolditalic]
   indenting=yes,	%never not no yes always first next
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% glossary
+\definesynonyms[sClGlo][sClGlos][\englo][\cnglo]
+
 \definedescription[clglodsc][
   headstyle={\rm\bfa},	%normal bold slanted boldslanted type cap small... command
   %style=normal,	%normal bold slanted boldslanted type cap small... command
@@ -823,51 +834,27 @@ bolditalic=texgyreherosbolditalic]
   indenting=yes,	%never not no yes always first next
 ]
 
-%如果reference放到\glossary前面，会多加一个空行
-\define[3]\clglohead{
-{#2}（#3）
-\reference[clglo:#1]{#2}
-\reference[clglo:en#1]{#3}
-}
-
-\define[3]\clglo{
-\clglodsc{\clglohead{#1}{#2}{#3}}
-}
-
-\define[3]\startclglo{
-\startclglodsc{\clglohead{#1}{#2}{#3}}
-}
-
-\define\stopclglo{
+% NOTE: you can only use the star/stop form of clglo
+\def\startclglo{\dotripleargument\dostartclglo}
+\long\def\dostartclglo[#1][#2][#3]#4\stopclglo{
+\sClGlo[#1]{#2}{#3}
+\startclglodsc{#2（#3）}
+\reference[clglocn:#1]{#2}
+#4
 \stopclglodsc
 }
 
-\define[1]\refglo{
-\goto{\ftRef\ref[t][clglo:#1]}[clglo:#1]
-}
-\define[1]\empglo{
-\goto{\ftEmp{\ref[t][clglo:#1]}}[clglo:#1]
-}
-
-\define[1]\cnglo{\ref[t][clglo:#1]}
 \define[1]\cngloemp{{\ftEmp{\cnglo{#1}}}}
-\define[1]\englo{\ref[t][clglo:en#1]}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
 
 \if 0
-\definereferenceformat[infig][
-  left={图},	%text
-  %right=,	%text
-  %text=,	%text
-  %label=,	%name
-]
 \setupreferencing[
   %state	start stop
   %sectionnumber=yes,	%yes no
   %prefix	+ - text
   %interaction	label text all symbol
   %width	dimension
-  left=\ftRef,	%command	\about会用到
+  left=,	%command	\about 默認會被“”包起來，此處移除雙引號
   right=,	%command
   %convertfile	yes no small big
   %separator	text
@@ -875,6 +862,18 @@ bolditalic=texgyreherosbolditalic]
   %global	yes no
 ]
 \fi
+
+
+\definereferenceformat[refclglo][
+  left=,	%text
+  right=,	%text
+  %text=,	%text
+  %label=,	%name
+  command=\about,	%command % default is \in
+]
+\define[1]\refglo{
+\refclglo[clglocn:#1]
+}
 
 \define[1]\refsec{
 \in{節}{}[sec:#1]

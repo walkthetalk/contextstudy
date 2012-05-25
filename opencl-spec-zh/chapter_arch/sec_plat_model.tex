@@ -1,7 +1,7 @@
 \section{平台模型}
 
 OpenCL 平台模型的定義可以查看\reffig{plfmodel}。
-此模型中有一個\empglo{host}，
+此模型中有一個\cngloemp{host}，
 以及與其相連的一個或多個 {\ftEmp{OpenCL}} \cnglo{device}。
 OpenCL \cnglo{device}被劃分成一個或多個\cnglo{computeunit}（CU），
 每個\cnglo{computeunit}又被劃分成一個或多個\cnglo{prcele}（PE）。
@@ -20,7 +20,7 @@ OpenCL \cnglo{device}被劃分成一個或多個\cnglo{computeunit}（CU），
 
 OpenCL \cnglo{app}會按照\cnglo{host}\cnglo{platform}的原生模型
 在這個\cnglo{host}上運行。
-\cnglo{host}上的 OpenCL \cnglo{app}提交\empglo{cmd}
+\cnglo{host}上的 OpenCL \cnglo{app}提交\cngloemp{cmd}
 給\cnglo{device}中的\cnglo{prcele}以執行計算任務。
 \cnglo{computeunit}中的\cnglo{prcele}會作為 SIMD 單元（執行指令流的步伐一致）
 或 SPMD 單元（每個 PE 維護自己的程序計數器）執行指令流。
