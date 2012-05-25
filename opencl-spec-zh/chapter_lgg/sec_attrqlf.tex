@@ -44,6 +44,38 @@ attribute-argument:
 % specifying attributes of types
 \subsection{用於型別的特性}
 
+定義 \ckey{enum}、 \ckey{struct} 和 \ckey{union} 型別時，
+可以用關鍵字 \cqlf{__atrribute__} 為其指定某些特性。
+此關鍵字後緊跟用雙層括號括起來的特性規格。
+目前型別有兩種特性： \ccmm{aligned} 和 \ccmm{packed}。
+
+在聲明或定義 \ckey{enum}、 \ckey{struct} 或 \ckey{union} 時，
+或者 \ckey{typedef} 其他型別時都可以指定型別特性。
+
+對於 \ckey{enum}、 \ckey{struct} 和 \ckey{union} 型別，
+特性限定符可以位於標籤 \ckey{enum}、 \ckey{struct} 或 \ckey{union} 和型別名字中間，
+也可以跟在右大括號之後。優選前者。
+
+\startclOption{\ccmm{aligned (}\carg{alignment}\ccmm{)}}
+此特性用來指定某種型別變量的最小對齊字節數。
+\startclc
+struct S { short f[3]; } __attribute__ ((aligned (8)));
+typedef int more_aligned_int __attribute__ ((aligned (8)));
+\stopclc
+
+迫使編譯器保證（盡其所能）
+在分配型別為 \ccmm{struct S} 或 \ccmm{more_aligned_int} 的變量時
+{\ftEmp{至少}}按 8 字節邊界進行對齊。
+
+需要注意的是， ISO C 標準要求任一給定的 \ckey{struct} 或 \ckey{union} 型別的齊位
+都至少要是其所有成員齊位（alignment）的最小公倍數的整數倍，同時必須是二的冪。
+這意味着對於 \ckey{struct} 或 \ckey{union} 型別，
+你{\ftEmp{可以}}通過給其任一成員附加特性 \ccmm{aligned}
+ 來有效的調整整個 \ckey{struct} 或 \ckey{union} 的齊位。
+不過如果要想調整整個 \ckey{struct} 或 \ckey{union} 型別的齊位，
+上面示例所演示的方式無疑更明顯、更直觀、可讀性更好。
+\stopclOption
+
 % Specifying Attributes of Functions
 \subsection{用於函式的特性}
 
