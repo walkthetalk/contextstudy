@@ -17,11 +17,9 @@ cl_mem clCreateBuffer(
 \reftab{clmemflags}列出了 \carg{flags} 可能的值。
 如果 \carg{flags} 的值是 0，則使用缺省值 \cenum{CL_MEM_READ_WRITE}。
 
-\splitfloat{
-  \placetable[here,force][tab:clmemflags]{\carg{cl_mem_flags}的值的清单}
-}{
-  {\input{chapter_rt/tbl/tbl_mem_flags.tex}}
-}
+\placetable[here,force,split][tab:clmemflags]
+{\carg{cl_mem_flags}的值的清单}
+{\input{chapter_rt/tbl/tbl_mem_flags.tex}}
 
 \carg{size} 即所要分配的\cnglo{bufobj}的大小，單位：字節。
 

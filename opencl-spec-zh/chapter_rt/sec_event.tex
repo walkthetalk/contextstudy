@@ -182,14 +182,9 @@ cl_int clGetEventInfo (cl_event event,
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
 
-\startbuffer[tblclgeteventinfo]
-\capi{clGetEventInfo} 所支持的 \carg{param_names}
-\stopbuffer
-\splitfloat{
-\placetable[here,force][tab:clGetEventInfo]{\getbuffer[tblclgeteventinfo]}
-}{
+\placetable[here,force,split][tab:clGetEventInfo]
+{\capi{clGetEventInfo} 所支持的 \carg{param_names}}
 {\input{chapter_rt/tbl/tbl_clgeteventinfo.tex}}
-}
 
 可以使用 \capi{clGetEventInfo} 來確定 \carg{event} 所標識的命令是否執行完畢
 （即 \cenum{CL_EVENT_COMMAND_EXECUTION_STATUS} 返回 \cenum{CL_COMPLETE}），

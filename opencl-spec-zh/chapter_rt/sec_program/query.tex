@@ -25,12 +25,9 @@ cl_int clGetProgramInfo (cl_program program,
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
 
-\splitfloat{
-\placetable[here,force][tab:clGetProgramInfo]
+\placetable[here,force,split][tab:clGetProgramInfo]
 {\capi{clGetProgramInfo} 所支持的 \carg{param_names}}
-}{
 {\input{chapter_rt/tbl/tbl_clgetprginfo.tex}}
-}
 
 如果執行成功，\capi{clGetProgramInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -79,14 +76,9 @@ cl_int clGetProgramBuildInfo (cl_program program,
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
 
-\startbuffer[tblclgetprgbuildinfo]
-\capi{clGetProgramBuildInfo} 所支持的 \carg{param_names}
-\stopbuffer
-\splitfloat{
-\placetable[here,force][tab:clGetProgramBuildInfo]{\getbuffer[tblclgetprgbuildinfo]}
-}{
+\placetable[here,force,split][tab:clGetProgramBuildInfo]
+{\capi{clGetProgramBuildInfo} 所支持的 \carg{param_names}}
 {\input{chapter_rt/tbl/tbl_clgetprgbuildinfo.tex}}
-}
 
 如果執行成功，\capi{clGetProgramBuildInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：

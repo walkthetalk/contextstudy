@@ -36,12 +36,7 @@ cl_int clGetImageInfo (cl_mem image,
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-\startbuffer[tblclgetimginfo]
-\capi{clGetImageInfo} 所支持的 \carg{param_names}
-\stopbuffer
-
-\splitfloat{
-\placetable[here,force][tab:clgetimginfo]{\getbuffer[tblclgetimginfo]}
-}{
+\placetable[here,force,split][tab:clgetimginfo]
+{\capi{clGetImageInfo} 所支持的 \carg{param_names}}
 {\input{chapter_rt/tbl/tbl_clgetimginfo.tex}}
-}
+

@@ -98,10 +98,10 @@ bolditalic=texgyreherosbolditalic]
 %\stopallmodes
 
 \setuptolerance[horizontal,
-  strict, %stretch space verystrict strict tolerant verytolerant
+  verystrict, %stretch space verystrict strict tolerant verytolerant
 ]
 \setuptolerance[vertical,
-  tolerant, %stretch space verystrict strict tolerant verytolerant
+  verystrict, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\ftEmp{\bf} % emphasize
@@ -165,10 +165,10 @@ bolditalic=texgyreherosbolditalic]
 
 % opencl api scalar / vector
 \definetype[clapis][
-  style=\rm\bf,
+  style=\tt\bf,
 ]
 \definetype[clapivfix][% don't use it directly
-  style=\rm\bi,
+  style=\tt\bi,
 ]
 \define[1]\clapiv{\clapis{#1}\clapivfix{n}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

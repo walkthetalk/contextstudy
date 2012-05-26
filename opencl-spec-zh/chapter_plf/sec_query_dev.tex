@@ -79,11 +79,9 @@ cl_int clGetDeviceInfo(
 OpenCL \cnglo{device}查询
 \stopbuffer
 
-\splitfloat{
-\placetable[here,force][tab:cldevquery]{\getbuffer[tblcapdevquery]}
-}{
+\placetable[here,force,split][tab:cldevquery]
+{\getbuffer[tblcapdevquery]}
 {\input{chapter_plf/tbl/tbl_dev_query.tex}}
-}
 
 無論對於\cnglo{rootdev}（即 \capi{clGetDeviceIDs} 所返回的\cnglo{device}）還是由此創建的\cnglo{subdev}，
 \reftab{cldevquery}中所列的查詢都硬返回相同的資訊，不過下列查詢例外：
