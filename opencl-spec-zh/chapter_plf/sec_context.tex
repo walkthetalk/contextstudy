@@ -1,7 +1,7 @@
 \section{上下文}
 %clGetDeviceIDs
 函式
-\startclc
+\startCLFUNC
 cl_context clCreateContext(
 		const cl_context_properties *properties,
 		cl_uint num_devices,
@@ -13,7 +13,7 @@ cl_context clCreateContext(
 			void *user_data),
 		void *user_data,
 		cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 可以創建一個 OpenCL \cnglo{context}。
 OpenCL \cnglo{context}是在一個或多個\cnglo{device}上創建的。
 OpenCL runtime 使用\cnglo{context}來管理對象，
@@ -83,7 +83,7 @@ OpenCL runtime 使用\cnglo{context}來管理對象，
 函数 \capi{clCreateContextFromType}\footnote{\getbuffer[footnotecccft]}
 會由特定類型的\cnglo{device}創建一個 OpenCL \cnglo{context}，
 此\cnglo{context}不會引用由這些\cnglo{device}所創建的\cnglo{subdev}。
-\startclc
+\startCLFUNC
 cl_context clCreateContextFromType(
 		const cl_context_properties *properties,
 		cl_device_type device_type,
@@ -94,8 +94,7 @@ cl_context clCreateContextFromType(
 			void *user_data),
 		void *user_data,
 		cl_int *errcode_ret)
-\stopclc
-
+\stopCLFUNC
 \carg{properties} 指定了\cnglo{context}的一系列屬性及其相應的值。
 每個屬性名後面緊跟其對應的期望值。
 \reftab{prptForclCreateContext}列出了所支持的屬性。
@@ -123,9 +122,9 @@ cl_context clCreateContextFromType(
 
 %clRetainContext
 函式 \capi{clRetainContext} 會使 \carg{context} 的\cnglo{refcnt}增一。
-\startclc
+\startCLFUNC
 cl_int clRetainContext(cl_context context)
-\stopclc
+\stopCLFUNC
 
 如果執行成功，\capi{clRetainContext} 會返回 \cenum{CL_SUCCESS}。否則返回下列錯誤碼之一：
 \startigBase
@@ -141,9 +140,9 @@ cl_int clRetainContext(cl_context context)
 
 %clReleaseContext
 函式 \capi{clReleaseContext} 會使 \carg{context} 的\cnglo{refcnt}減一。
-\startclc
+\startCLFUNC
 cl_int clReleaseContext(cl_context context)
-\stopclc
+\stopCLFUNC
 
 如果執行成功，\capi{clReleaseContext} 會返回\cenum{CL_SUCCESS}。否則返回下列錯誤碼之一：
 \startigBase
@@ -158,13 +157,13 @@ cl_int clReleaseContext(cl_context context)
 
 %clGetContextInfo
 函式 \capi{clGetContextInfo} 可用來查詢\cnglo{context}的相關資訊。
-\startclc
+\startCLFUNC
 cl_int clGetContextInfo(cl_context context,
 		cl_context_info param_name,
 		size_t param_value_size,
 		void *param_value,
 		size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{context} 指定要查詢哪個 OpenCL \cnglo{context}。
 

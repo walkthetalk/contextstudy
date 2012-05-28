@@ -10,15 +10,16 @@
 \stopigBase
 
 函式
-\startclc
-cl_int clEnqueueMigrateMemObjects (cl_command_queue command_queue,
+\startCLFUNC
+cl_int clEnqueueMigrateMemObjects(
+			cl_command_queue command_queue,
 			cl_uint num_mem_objects,
 			const cl_mem *mem_objects,
 			cl_mem_migration_flags flags,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 所插入隊列的\cnglo{cmd}可以將一組\cnglo{memobj}強制關聯到某個\cnglo{device}上。
 典型的，在\cnglo{device}上執行\cnglo{cmd}時，會將所使用的\cnglo{memobj}隱式的遷移到此\cnglo{device}上。
 \capi{clEnqueueMigrateMemObjects} 使得可以在相應\cnglo{cmd}執行前實施顯式的遷移。

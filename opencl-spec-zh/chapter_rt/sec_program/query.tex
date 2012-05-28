@@ -2,13 +2,13 @@
 
 % clGetProgramInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetProgramInfo (cl_program program,
 			cl_program_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{programobj}的相關資訊。
 
 \carg{program} 即所要查詢的\cnglo{programobj}。
@@ -49,14 +49,14 @@ cl_int clGetProgramInfo (cl_program program,
 
 % clGetProgramBuildInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetProgramBuildInfo (cl_program program,
 			cl_device_id device,
 			cl_program_build_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{programobj}中某個\cnglo{device}所對應的構建資訊。
 
 \carg{program} 即所要查詢的\cnglo{programobj}。

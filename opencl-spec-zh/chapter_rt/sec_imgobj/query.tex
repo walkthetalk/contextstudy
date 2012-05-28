@@ -1,14 +1,14 @@
 \subsection{查詢所支持的圖像格式}
 
 函式
-\startclc
+\startCLFUNC
 cl_int clGetSupportedImageFormats (cl_context context,
 			cl_mem_flags flags,
 			cl_mem_object_type image_type,
 			cl_uint num_entries,
 			cl_image_format *image_formats,
 			cl_uint *num_image_formats)
-\stopclc
+\stopCLFUNC
 可用來查詢 OpenCL 實作所支持的圖像格式，對於\cnglo{imgobj}，需要指定如下資訊：
 \startigBase
 \item \cnglo{context}

@@ -6,14 +6,14 @@
 函式 \capi{clGetDeviceIDs}
 \footnote{\capi{clGetDeviceIDs} 可能返回\carg{platform}中所有與 \carg{device_type} 匹配的真正的物理設備，也可能只是其中一個子集。}
 可以用來獲取一個\cnglo{platform}上所有可用\cnglo{device}的清單。
-\startclc
+\startCLFUNC
 cl_int clGetDeviceIDs(
 		cl_platform_id platform,
 		cl_device_type device_type,
 		cl_uint num_entries,
 		cl_device_id *devices,
 		cl_uint *num_devices)
-\stopclc
+\stopCLFUNC
 
 \carg{platform} 即 \capi{clGetPlatformIDs} 所返回的\cnglo{platform} ID，或者是 \cenum{NULL}。
 如果是 \cenum{NULL}，則其行為\cnglo{impdef}。
@@ -52,14 +52,14 @@ cl_int clGetDeviceIDs(
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%clGetDeviceInfo
 函数 \capi{clGetDeviceInfo} 可用來獲取 OpenCL \cnglo{device}的特定資訊，如\reftab{cldevquery}所示。
-\startclc
+\startCLFUNC
 cl_int clGetDeviceInfo(
 		cl_device_id device,
 		cl_device_info param_name,
 		size_t param_value_size,
 		void *param_value,
 		size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{device} 是 \capi{clGetDeviceIDs} 所返回的\cnglo{device}，或者由 \capi{clCreateSubDevices} 創建的\cnglo{subdev}。
 如果是\cnglo{subdev}，則返回的是\cnglo{subdev}的資訊。

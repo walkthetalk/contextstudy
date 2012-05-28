@@ -295,34 +295,34 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 \startexample
 \startclc
 float f = 1.0f;
-uint u = /BTEX\ftClcEmp{as_uint}/ETEX(f);	// Legal. Contains:	0x3f800000
+uint u = /BTEX\ftEmp{as_uint}/ETEX(f);	// Legal. Contains:	0x3f800000
 
 float4 f = (float4)(1.0f, 2.0f, 3.0f, 4.0f);
 // Legal. Contains:
 // (int4)(0x3f800000, 0x40000000, 0x40400000, 0x40800000)
-int4 i = /BTEX\ftClcEmp{as_int4}/ETEX(f);
+int4 i = /BTEX\ftEmp{as_int4}/ETEX(f);
 
 float4 f, g;
 int4 is_less = f < g;
 
 // Legal. f[i] = f[i] < g[i] ? f[i] : 0.0f
-f = /BTEX\ftClcEmp{as_float4}/ETEX(/BTEX\ftClcEmp{as_int4}/ETEX(f) & is_less);
+f = /BTEX\ftEmp{as_float4}/ETEX(/BTEX\ftEmp{as_int4}/ETEX(f) & is_less);
 
 int i;
 // Legal. Result is implementation-defined.
-short2 j = /BTEX\ftClcEmp{as_short2}/ETEX(i);
+short2 j = /BTEX\ftEmp{as_short2}/ETEX(i);
 
 int4 i;
 // Legal. Result is implementation-defined.
-short8 j = /BTEX\ftClcEmp{as_short8}/ETEX(i);
+short8 j = /BTEX\ftEmp{as_short8}/ETEX(i);
 
 float4 f;
 // Error. Result and operand have different sizes
-double4 g = /BTEX\ftClcEmp{as_double4}\footnote{僅當支持雙精度時才有效。}/ETEX(f);
+double4 g = /BTEX\ftEmp{as_double4}\footnote{僅當支持雙精度時才有效。}/ETEX(f);
 
 float4 f;
 // Legal. g.xyz will have same values as f.xyz.
-float3 g = /BTEX\ftClcEmp{as_float3}/ETEX(f);
+float3 g = /BTEX\ftEmp{as_float3}/ETEX(f);
 \stopclc
 \stopexample
 

@@ -4,7 +4,7 @@
 下列函式會將一個用於讀寫\cnglo{imgobj}的\cnglo{cmd}插入隊列，
 此\cnglo{cmd}可以將圖像或圖像陣列的內容讀到\cnglo{host}內存中，
 或者由\cnglo{host}內存寫入到圖像或圖像陣列中。
-\startclc
+\startCLFUNC
 cl_int clEnqueueReadImage (cl_command_queue command_queue,
 			cl_mem image,
 			cl_bool blocking_read,
@@ -28,7 +28,7 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 
 \carg{command_queue} 就是\cnglo{cmd}要進入的隊列。
 \carg{command_queue} 和 \carg{image} 必須是由同一個 OpenCL \cnglo{context}創建的。
@@ -163,7 +163,7 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 
 %% clEnqueueCopyImage
 函式
-\startclc
+\startCLFUNC
 cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 			cl_mem src_image,
 			cl_mem dst_image,
@@ -173,7 +173,7 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 會將一個拷貝\cnglo{cmd}插入隊列。
  \carg{src_image} 和 \carg{dst_image} 可以是 1D、 2D、 3D 圖像或者 1D、 2D 圖像陣列對象，
 允許我們實施下列拷貝動作：

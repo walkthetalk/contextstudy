@@ -1,16 +1,18 @@
 函式
-\startclc
-cl_int clCompileProgram (cl_program program,
-			cl_uint num_devices,
-			const cl_device_id *device_list,
-			const char *options,
-			cl_uint num_input_headers,
-			const cl_program *input_headers,
-			const char **header_include_names,
-			void (CL_CALLBACK *pfn_notify)(cl_program program,
-					void *user_data),
-			void *user_data)
-\stopclc
+\startCLFUNC
+cl_int clCompileProgram(
+		cl_program program,
+		cl_uint num_devices,
+		const cl_device_id *device_list,
+		const char *options,
+		cl_uint num_input_headers,
+		const cl_program *input_headers,
+		const char **header_include_names,
+		void (CL_CALLBACK *pfn_notify)(
+				cl_program program,
+				void *user_data),
+		void *user_data)
+\stopCLFUNC
 可以編譯\cnglo{program}源碼。
 編譯前會先運行預處理器。
 編譯工作的目標\cnglo{device}是 \carg{program} 所關聯的所有\cnglo{device}或指定的那些\cnglo{device}。

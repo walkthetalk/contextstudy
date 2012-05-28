@@ -24,13 +24,13 @@
 
 % clGetEventProfilingInfo
 如果使能了評測，則函式
-\startclc
+\startCLFUNC
 cl_int clGetEventProfilingInfo (cl_event event,
 			cl_profiling_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回 \carg{event} 所指代\cnglo{cmd}的評測資訊。
 
 \carg{event} 即\cnglo{evtobj}。

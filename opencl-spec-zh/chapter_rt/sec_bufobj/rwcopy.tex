@@ -4,7 +4,7 @@
 下列函式會將一個用於讀寫\cnglo{bufobj}的\cnglo{cmd}插入隊列，
 此\cnglo{cmd}可以將\cnglo{bufobj}的內容讀到\cnglo{host}內存中，
 或者由\cnglo{host}內存寫入到\cnglo{bufobj}中。
-\startclc
+\startCLFUNC
 cl_int clEnqueueReadBuffer(cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_read,
@@ -24,7 +24,7 @@ cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 
 \carg{command_queue} 就是\cnglo{cmd}要進入的隊列。
 \carg{command_queue} 和 \carg{buffer} 必須是由同一個 OpenCL \cnglo{context}創建的。
@@ -104,8 +104,9 @@ cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
 
 %% clEnqueueReadBuffer / clEnqueueWriteBuffer
 下列函式會將一個可以讀寫\cnglo{bufobj}中 2D 或 3D 矩形區域的\cnglo{cmd}插入隊列。
-\startclc
-cl_int clEnqueueReadBufferRect (cl_command_queue command_queue,
+\startCLFUNC
+cl_int clEnqueueReadBufferRect (
+			cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_read,
 			const size_t *buffer_origin,
@@ -120,7 +121,8 @@ cl_int clEnqueueReadBufferRect (cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event)
 
-cl_int clEnqueueWriteBufferRect (cl_command_queue command_queue,
+cl_int clEnqueueWriteBufferRect (
+			cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_write,
 			const size_t *buffer_origin,
@@ -134,7 +136,7 @@ cl_int clEnqueueWriteBufferRect (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 
 \carg{command_queue} 就是\cnglo{cmd}要進入的隊列。
 \carg{command_queue} 和 \carg{buffer} 必須是由同一個 OpenCL \cnglo{context}創建的。
@@ -295,8 +297,9 @@ $host\_origin[2] * host\_slice\_pitch + host\_origin[1] * host\_row\_pitch + hos
 
 %% clEnqueueCopyBuffer
 函式
-\startclc
-cl_int clEnqueueCopyBuffer (cl_command_queue command_queue,
+\startCLFUNC
+cl_int clEnqueueCopyBuffer (
+			cl_command_queue command_queue,
 			cl_mem src_buffer,
 			cl_mem dst_buffer,
 			size_t src_offset,
@@ -305,7 +308,7 @@ cl_int clEnqueueCopyBuffer (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 會將一個拷貝\cnglo{cmd}插入隊列，此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的內容拷貝到 \carg{dst_buffer} 中。
 
 \carg{command_queue} 即拷貝\cnglo{cmd}要插入的\cnglo{cmdq}。
@@ -375,8 +378,9 @@ cl_int clEnqueueCopyBuffer (cl_command_queue command_queue,
 
 %% clEnqueueCopyBufferRect
 函式
-\startclc
-cl_int clEnqueueCopyBufferRect (cl_command_queue command_queue,
+\startCLFUNC
+cl_int clEnqueueCopyBufferRect (
+			cl_command_queue command_queue,
 			cl_mem src_buffer,
 			cl_mem dst_buffer,
 			const size_t *src_origin,
@@ -389,7 +393,7 @@ cl_int clEnqueueCopyBufferRect (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 會將一個拷貝\cnglo{cmd}插入隊列，此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的一個 2D 或 3D 矩形區域拷貝到 \carg{dst_buffer} 中。
 拷貝時源和宿的偏移量的計算方式在下面 \carg{src_origin} 和 \carg{dst_origin} 的描述中會涉及。
 每次拷貝的字節數等於區域寬度，然後源和宿的偏移量會增加相應的行間距（ row pitch ）。

@@ -1,15 +1,16 @@
 \subsection{構建可執行程序}
 
 函式
-\startclc
-cl_int clBuildProgram (cl_program program,
-			cl_uint num_devices,
-			const cl_device_id *device_list,
-			const char *options,
-			void (CL_CALLBACK *pfn_notify)(cl_program program,
-						void *user_data),
-			void *user_data)
-\stopclc
+\startCLFUNC
+cl_int clBuildProgram (
+		cl_program program,
+		cl_uint num_devices,
+		const cl_device_id *device_list,
+		const char *options,
+		void (CL_CALLBACK *pfn_notify)(cl_program program,
+					void *user_data),
+		void *user_data)
+\stopCLFUNC
 會由\cnglo{program}源碼或二進制\cnglo{program}構建（編譯 & 鏈接）可執行\cnglo{program}，
 他可以在 \carg{program} 所在\cnglo{context}中的所有或部分\cnglo{device}上執行。
 對於用 \capi{clCreateProgramWithSource} 或 \capi{clCreateProgramWithBinary} 創建的 \carg{program}，

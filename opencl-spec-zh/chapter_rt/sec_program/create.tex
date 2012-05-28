@@ -1,13 +1,13 @@
 \subsection{創建程序對象}
 
 函式
-\startclc
+\startCLFUNC
 cl_program clCreateProgramWithSource (cl_context context,
 			cl_uint count,
 			const char **strings,
 			const size_t *lengths,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 可以創建一個\cnglo{programobj}，並將 \carg{strings} 中的源碼加載到這個對象中。
 此對象所對應的\cnglo{device}與 \carg{context} 所對應的\cnglo{device}是一樣的。
  \carg{strings} 中的源碼是 OpenCL C 程序源碼、頭檔，或者自定義的代碼（對應與自定義\cnglo{device}，並且需要在線編譯器的支持）。
@@ -36,7 +36,7 @@ cl_program clCreateProgramWithSource (cl_context context,
 \stopigBase
 
 函式
-\startclc
+\startCLFUNC
 cl_program clCreateProgramWithBinary (cl_context context,
 			cl_uint num_devices,
 			const cl_device_id *device_list,
@@ -44,7 +44,7 @@ cl_program clCreateProgramWithBinary (cl_context context,
 			const unsigned char **binaries,
 			cl_int *binary_status,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 會創建一個\cnglo{programobj}，並將 \carg{binary} 中的內容加載到此對象中。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
@@ -113,13 +113,14 @@ OpenCL 中，\cnglo{app}可以使用\cnglo{program}源碼或二進制版本創�
 \cnglo{app}可以讀取並加載緩存起來的執行體，從而很大程度上減少\cnglo{app}花在初始化上的時間。
 
 函式
-\startclc
-cl_program clCreateProgramWithBuiltInKernels (cl_context context,
+\startCLFUNC
+cl_program clCreateProgramWithBuiltInKernels(
+			cl_context context,
 			cl_uint num_devices,
 			const cl_device_id *device_list,
 			const char *kernel_names,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 會創建一個\cnglo{programobj}，並將內建\cnglo{kernel}的相關資訊加載到此對象中。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
@@ -157,9 +158,9 @@ cl_program clCreateProgramWithBuiltInKernels (cl_context context,
 
 %% retain
 函式
-\startclc
+\startCLFUNC
 cl_int clRetainProgram (cl_program program)
-\stopclc
+\stopCLFUNC
 會使 \carg{program} 的\cnglo{refcnt}增一。
 \capi{clRetainProgram} 會實施隱式的\cnglo{retain}。
 執行成功後會返回 \cenum{CL_SUCCESS}。
@@ -173,9 +174,9 @@ cl_int clRetainProgram (cl_program program)
 \stopigBase
 
 函式
-\startclc
+\startCLFUNC
 cl_int clReleaseProgram (cl_program program)
-\stopclc
+\stopCLFUNC
 會使 \carg{program} 的\cnglo{refcnt}減一。
 當與 \carg{program} 相關的所有\cnglo{kernelobj}都被刪除，並且 \carg{program} 的\cnglo{refcnt}變成零，此\cnglo{programobj}就會被刪除。
 執行成功後會返回 \cenum{CL_SUCCESS}。

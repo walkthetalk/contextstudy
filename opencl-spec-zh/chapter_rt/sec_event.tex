@@ -45,9 +45,9 @@
 
 % clCreateUserEvent
 函式
-\startclc
+\startCLFUNC
 cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 可用來創建用戶自己的\cnglo{evtobj}。
 有了用戶事件，
 \cnglo{app}就可以讓所入隊的\cnglo{cmd}先等待用戶事件完成，然後再由\cnglo{device}來執行。
@@ -72,9 +72,9 @@ cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
 
 % clSetUserEventStatus
 函式
-\startclc
+\startCLFUNC
 cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
-\stopclc
+\stopCLFUNC
 可用來設置用戶\cnglo{evtobj}的執行狀態。
 
 \carg{event} 即用 \capi{clCreateUserEvent} 創建的用戶\cnglo{evtobj}。
@@ -108,30 +108,30 @@ cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
 否則其行為未定義。
 
 例如，下列代碼序列會導致 \capi{clReleaseMemObject} 的未定義行為：
-\startclc
+\startCLFUNC
 ev1 = clCreateUserEvent(ctx, NULL);
 clEnqueueWriteBuffer(cq, buf1, CL_FALSE, ...,
 				1, &ev1, NULL);
 clEnqueueWriteBuffer(cq, buf2, CL_FALSE,...);
 clReleaseMemObject(buf2);
 clSetUserEventStatus(ev1, CL_COMPLETE);
-\stopclc
+\stopCLFUNC
 
 而下列代碼序列則可以正確工作：
-\startclc
+\startCLFUNC
 ev1 = clCreateUserEvent(ctx, NULL);
 clEnqueueWriteBuffer(cq, buf1, CL_FALSE, ...,
 				1, &ev1, NULL);
 clEnqueueWriteBuffer(cq, buf2, CL_FALSE,...);
 clSetUserEventStatus(ev1, CL_COMPLETE);
 clReleaseMemObject(buf2);
-\stopclc
+\stopCLFUNC
 
 % clWaitForEvents
 函式
-\startclc
+\startCLFUNC
 cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
-\stopclc
+\stopCLFUNC
 會使\cnglo{host}線程等待 \carg{event_list} 中的\cnglo{evtobj}所標識的\cnglo{cmd}完成。
 對於一個\cnglo{cmd}而言，如果其執行狀態是 \cenum{CL_COMPLETE} 或負整數，則任務已經完成了。
  \carg{event_list} 中的事件充當同步點。
@@ -159,13 +159,13 @@ cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
 
 % clGetEventInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetEventInfo (cl_event event,
 			cl_event_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{evtobj}的相關資訊。
 
 \carg{event} 即所要查詢的\cnglo{evtobj}。
@@ -211,14 +211,14 @@ cl_int clGetEventInfo (cl_event event,
 
 % clSetEventCallback
 函式
-\startclc
+\startCLFUNC
 cl_int clSetEventCallback (cl_event event,
 			cl_int command_exec_callback_type,
 			void (CL_CALLBACK *pfn_event_notify)(cl_event event,
 					cl_int event_command_exec_status,
 					void *user_data),
 			void *user_data)
-\stopclc
+\stopCLFUNC
 可以為\cnglo{cmd}的某個執行狀態註冊一個用戶回調函式。
 當 \carg{event} 所關聯的\cnglo{cmd}的執行狀態變成或越過 \carg{command_exec_status} 時，
 所註冊的回調函式就會被調用。
@@ -299,9 +299,9 @@ cl_int clSetEventCallback (cl_event event,
 
 % clRetainEvent
 函式
-\startclc
+\startCLFUNC
 cl_int clRetainEvent (cl_event event)
-\stopclc
+\stopCLFUNC
 會使 \carg{memobj} 的\cnglo{refcnt}增一。
 那些會返回事件的 OpenCL \cnglo{cmd}會實施隱式的\cnglo{retain}。
 
@@ -317,9 +317,9 @@ cl_int clRetainEvent (cl_event event)
 
 % clReleaseEvent
 函式
-\startclc
+\startCLFUNC
 cl_int clReleaseEvent (cl_event event)
-\stopclc
+\stopCLFUNC
 會使 \carg{event} 的\cnglo{refcnt}減一。
 
 如果執行成功， \capi{clReleaseEvent} 會返回 \cenum{CL_SUCCESS}。

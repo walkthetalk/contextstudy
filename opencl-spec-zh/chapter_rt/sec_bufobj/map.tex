@@ -1,7 +1,7 @@
 \subsection{映射緩衝對象}
 
 函式
-\startclc
+\startCLFUNC
 void * clEnqueueMapBuffer (cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_map,
@@ -12,7 +12,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 所要插入隊列的\cnglo{cmd}會將 \carg{buffer} 的某個區域映射到\cnglo{host}的位址空間中，並返回新位址。
 
 \carg{command_queue} 必須是一個有效的\cnglo{cmd}。

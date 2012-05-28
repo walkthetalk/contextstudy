@@ -4,7 +4,7 @@
 
 其中是這樣描述 \cdrtemp{# pragma} 指示的：
 \startclc
-/BTEX\ftClcEmp{\# pragma}/ETEX /BTEX{\ftClcRef{pp-tokens\low{opt} new-line}}/ETEX
+/BTEX\ftEmp{\# pragma}/ETEX /BTEX{\ftRef{pp-tokens\low{opt} new-line}}/ETEX
 \stopclc
 
 在進行巨集代換（macro replacement）之前，如果在指令 \cdrtemp{# pragma} 中，
@@ -16,11 +16,11 @@
 在進行巨集代換之前，如果 \cdrtemp{pragma} 後面緊跟的是預處理符記 {\ftEmp{OpenCL}}，
 則不會在此指示之上實施任何巨集代換，並且此指示只能是下列形式之一（其意義在別處有描述）：
 \startclc
-/BTEX\ftClcEmp{\#pragma OPENCL FP_CONTRACT}/ETEX /BTEX\ftClcRef{on-off-switch}/ETEX
-	/BTEX\ftClcRef{on-off-switch}/ETEX: one of /BTEX\ftClcEmp{ON OFF DEFAULT}/ETEX
+/BTEX\ftEmp{\#pragma OPENCL FP_CONTRACT}/ETEX /BTEX\ftRef{on-off-switch}/ETEX
+	/BTEX\ftRef{on-off-switch}/ETEX: one of /BTEX\ftEmp{ON OFF DEFAULT}/ETEX
 
-/BTEX\ftClcEmp{\#pragma OPENCL EXTENSION}/ETEX extensionname : behavior
-/BTEX\ftClcEmp{\#pragma OPENCL EXTENSION}/ETEX all : behavior
+/BTEX\ftEmp{\#pragma OPENCL EXTENSION}/ETEX extensionname : behavior
+/BTEX\ftEmp{\#pragma OPENCL EXTENSION}/ETEX all : behavior
 \stopclc
 
 可用的預定義巨集的名字如下所示：
@@ -62,7 +62,7 @@
 定義為：
 \startclc
 __kernel __attribute__((work_group_size_hint(X, 1, 1))) \
-	 __attribute__((vec_type_hint(type/BTEX\ftClcRef{n}/ETEX)))
+	 __attribute__((vec_type_hint(type/BTEX\ftRef{n}/ETEX)))
 \stopclc
 
 \cmacro{__IMAGE_SUPPORT__}

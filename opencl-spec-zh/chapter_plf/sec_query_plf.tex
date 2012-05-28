@@ -1,10 +1,10 @@
 \section{查詢平台資訊}
 可以使用下面函式獲取可用平台的清單：
-\startclc
+\startCLFUNC
 cl_int clGetPlatformIDs(cl_uint num_entries,
 			cl_platform_id *platforms,
 			cl_uint *num_platforms)
-\stopclc
+\stopCLFUNC
 
 \carg{num_entries} 是 \carg{platforms} 中可以容納 \ctype{cl_platform_id} 表項的數目。
 如果 \carg{platforms} 不是 \cenum{NULL}，\carg{num_entries}必須大於零。
@@ -25,14 +25,14 @@ cl_int clGetPlatformIDs(cl_uint num_entries,
 \stopigBase
 
 如下函式可用來獲取 OpenCL \cnglo{platform}的特定資訊。這些資訊如\reftab{plfquery}所示。
-\startclc
+\startCLFUNC
 cl_int clGetPlatformInfo(
 		cl_platform_id platform,
 		cl_platform_info param_name,
 		size_t param_value_size,
 		void *param_value,
 		size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{platform} 即 \capi{clGetPlatformIDs} 所返回的\cnglo{platform} ID，指明要查詢哪個\cnglo{platform}，也可以是 \cenum{NULL}。
 而如果是 \cenum{NULL}，其行為\cnglo{impdef}。

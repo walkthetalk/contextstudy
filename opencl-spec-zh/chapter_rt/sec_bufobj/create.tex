@@ -2,14 +2,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% clCreateBuffer
 可用如下函式創建\cngloemp{bufobj}。
-\startclc
+\startCLFUNC
 cl_mem clCreateBuffer(
 		cl_context context,
 		cl_mem_flags flags,
 		size_t size,
 		void *host_ptr,
 		cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{context} 是 OpenCL \cnglo{context}，用來創建\cnglo{bufobj}。
 
@@ -52,13 +52,14 @@ cl_mem clCreateBuffer(
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% clCreateSubBuffer
 函式
-\startclc
-cl_mem clCreateSubBuffer(cl_mem buffer,
-			cl_mem_flags flags,
-			cl_buffer_create_type buffer_create_type,
-			const void *buffer_create_info,
-			cl_int *errcode_ret)
-\stopclc
+\startCLFUNC
+cl_mem clCreateSubBuffer(
+		cl_mem buffer,
+		cl_mem_flags flags,
+		cl_buffer_create_type buffer_create_type,
+		const void *buffer_create_info,
+		cl_int *errcode_ret)
+\stopCLFUNC
 可以由一個現有的\cnglo{bufobj}創建一個新的\cnglo{bufobj}（叫做子\cnglo{bufobj}， sub-buffer object）。
 
 \carg{buffer} 必須是一個有效的\cnglo{bufobj}，且不能是子\cnglo{bufobj}。

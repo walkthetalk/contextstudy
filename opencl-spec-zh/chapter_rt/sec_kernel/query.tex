@@ -2,13 +2,13 @@
 
 % clGetKernelInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetKernelInfo (cl_kernel kernel,
 			cl_kernel_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{kernelobj}的相關資訊。
 
 \carg{kernel} 即所要查詢的\cnglo{kernel}。
@@ -47,14 +47,14 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 
 % clGetKernelWorkGroupInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 			cl_device_id device,
 			cl_kernel_work_group_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{kernelobj}針對某個\cnglo{device}的資訊。
 
 \carg{kernel} 即所要查詢的\cnglo{kernel}。
@@ -103,14 +103,14 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 
 % clGetKernelArgInfo
 函式
-\startclc
+\startCLFUNC
 cl_int clGetKernelArgInfo (cl_kernel kernel,
 			cl_uint arg_indx,
 			cl_kernel_arg_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 會返回\cnglo{kernel}參數的相關資訊。
 只有滿足下列條件時，\cnglo{kernel}參數資訊才可用：
 \startigBase

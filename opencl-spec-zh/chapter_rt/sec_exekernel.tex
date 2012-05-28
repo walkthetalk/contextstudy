@@ -2,7 +2,7 @@
 
 % clEnqueueNDRangeKernel
 函式
-\startclc
+\startCLFUNC
 cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 			cl_kernel kernel,
 			cl_uint work_dim,
@@ -12,7 +12,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
 
 \carg{command_queue} 是一個\cnglo{cmdq}。
@@ -170,14 +170,14 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 
 % clEnqueueTask
 函式
-\startclc
+\startCLFUNC
 cl_int
 clEnqueueTask (cl_command_queue command_queue,
 		cl_kernel kernel,
 		cl_uint num_events_in_wait_list,
 		const cl_event *event_wait_list,
 		cl_event *event)
-\stopclc
+\stopCLFUNC
 所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
 執行\cnglo{kernel}時使用單個\cnglo{workitem}。
 
@@ -256,7 +256,7 @@ clEnqueueTask (cl_command_queue command_queue,
 
 % clEnqueueNativeKernel
 函式
-\startclc
+\startCLFUNC
 cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 			void (CL_CALLBACK *user_func)(void *)
 			void *args,
@@ -267,7 +267,7 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 所入隊的\cnglo{cmd}將執行一個原生的 C/C++ 函式（所謂原生的即不是用 OpenCL 編譯器編譯的）。
 
 \carg{command_queue} 是一個\cnglo{cmdq}。

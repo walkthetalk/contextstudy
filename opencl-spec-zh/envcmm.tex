@@ -107,9 +107,6 @@ bolditalic=texgyreherosbolditalic]
 \define\ftEmp{\bf} % emphasize
 \define\ftRef{\it} % reference
 \define\ftFmt{\ss\it} % format
-\define\ftClc{\tt\tf}
-\define\ftClcEmp{\ftClc\bf}
-\define\ftClcRef{\ftClc\it}
 \definetype[capi][ % api
   %space	on off
   %option	slanted normal none
@@ -221,10 +218,9 @@ bolditalic=texgyreherosbolditalic]
 %\setupcolors[state=start]
 \setupbackgrounds[page][background=color,backgroundcolor=lightgray]
 \setupbackgrounds[top, bottom][background=color,backgroundcolor=lightgray]
-%\setupbackgrounds[text][background=color,backgroundcolor=green]
 \setupbackgrounds[header][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[footer][background=color,backgroundcolor=darkyellow]
-\setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=darkcyan]
+\setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=white]
 
 %\setupheader[state=none]
 \setupheadertexts[margin]
@@ -477,11 +473,24 @@ bolditalic=texgyreherosbolditalic]
 % referencing	on off
 ]
 \definetextbackground
-  [verb]
-  [frame=on,location=paragraph,
-   leftoffset=0.5em,rightoffset=0.5em,
-   topoffset=0.25em,bottomoffset=0.25em,
-   rulethickness=0.75pt]
+[verb][
+  frame=on,
+  location=paragraph,
+  leftoffset=0.5em,
+  rightoffset=0.5em,
+  topoffset=0.25em,bottomoffset=0.25em,
+  rulethickness=0.75pt,
+  strut=no,
+]
+
+\usemodule[t-pretty-clfunc]
+\setuptyping[CLFUNC][
+  margin=no,	%dimension standard yes no
+  escape=yes,	%character %{[[,]]}
+  tab=8,	%number yes no
+  numbering=no,	%line file no
+]
+
 \definetyping[clc][%option=c,
   bodyfont=9pt,
   %space	on off
@@ -502,7 +511,7 @@ bolditalic=texgyreherosbolditalic]
   tab=8,	%number yes no
   %page	yes no
   %indentnext	yes no
-  style=\ftClc,		%normal bold slanted boldslanted type cap small... command
+  style=\tt\tf,		%normal bold slanted boldslanted type cap small... command
   %color	name
   %palet	name
   %lines=yes,	%yes no hyphenated

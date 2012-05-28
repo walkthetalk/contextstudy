@@ -3,13 +3,13 @@
 對於所有\cnglo{memobj}都適用的資訊可以使用 \capi{clGetMemObjectInfo} 來獲取，參見\todo{5.4.5}。
 
 而對於由 \capi{clCreateImage} 創建的\cnglo{imgobj}而言，一些特定資訊使用如下函式獲取：
-\startclc
+\startCLFUNC
 cl_int clGetImageInfo (cl_mem image,
 			cl_image_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{image} 即被查詢的\cnglo{imgobj}。
 

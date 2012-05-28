@@ -1,14 +1,14 @@
 \subsection{創建圖像對象}
 如下函式可以用來創建 1D 圖像、 1D 圖像緩衝（ image buffer ）、 1D 圖像陣列（ image array ）、
 2D 圖像、 2D 圖像陣列以及 3D 圖像對象：
-\startclc
+\startCLFUNC
 cl_mem clCreateImage (cl_context context,
 		cl_mem_flags flags,
 		const cl_image_format *image_format,
 		const cl_image_desc *image_desc,
 		void *host_ptr,
 		cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{context} 即所要創建的\cnglo{imgobj}所位於的 OpenCL \cnglo{context}。
 

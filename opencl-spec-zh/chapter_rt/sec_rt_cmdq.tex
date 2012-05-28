@@ -9,13 +9,13 @@ OpenCL 對象，如\cnglo{memobj}、\cnglo{programobj}和\cnglo{kernelobj}都是
 這在\todo{附录A}中會有所描述。
 
 函式 \capi{clCreateCommandQueue} 可用來在某個\cnglo{device}上創建\cnglo{cmdq}。
-\startclc
+\startCLFUNC
 cl_command_queue clCreateCommandQueue(
 			cl_context context,
 			cl_device_id device,
 			cl_command_queue_properties properties,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{context} 必須是一個有效的 OpenCL \cnglo{context}。
 
@@ -49,10 +49,10 @@ cl_command_queue clCreateCommandQueue(
 
 %clRetainCommandQueue
 函式
-\startclc
+\startCLFUNC
 cl_int clRetainCommandQueue(
 		cl_command_queue command_queue)
-\stopclc
+\stopCLFUNC
 會使 \carg{command_queue} 的\cnglo{refcnt}增一。
 
 如果執行成功，\capi{clRetainCommandQueue} 會返回 \cenum{CL_SUCCESS}。否則，返回下列錯誤碼之一：
@@ -69,10 +69,10 @@ cl_int clRetainCommandQueue(
 
 % clReleaseCommandQueue
 函数
-\startclc
+\startCLFUNC
 cl_int clReleaseCommandQueue(
 		cl_command_queue command_queue)
-\stopclc
+\stopCLFUNC
 會使 \carg{command_queue} 的\cnglo{refcnt}減一。
 
 如果執行成功，\capi{clReleaseCommandQueue} 會返回 \cenum{CL_SUCCESS}。否則，返回下列錯誤碼之一：
@@ -88,14 +88,14 @@ cl_int clReleaseCommandQueue(
 \capi{clReleaseCommandQueue}會實施隱式的刷新（ flush ），這會觸發所有之前入隊的 OpenCL \cnglo{cmd}。
 
 函数
-\startclc
+\startCLFUNC
 cl_int clGetCommandQueueInfo(
 		cl_command_queue command_queue,
 		cl_command_queue_info param_name,
 		size_t param_value_size,
 		void *param_value,
 		size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 可用來查詢\cnglo{cmdq}的資訊。
 
 \carg{command_queue} 指定要查詢哪個\cnglo{cmdq}。

@@ -1,13 +1,14 @@
 \section{劃分設備}
 %clCreateSubDevices
 函式
-\startclc[indentnext=no]
-cl_int clCreateSubDevices (cl_device_id in_device,
-			   const cl_device_partition_property *properties,
-			   cl_uint num_devices,
-			   cl_device_id *out_devices,
-			   cl_uint *num_devices_ret)
-\stopclc
+\startCLFUNC
+cl_int clCreateSubDevices (
+		cl_device_id in_device,
+		const cl_device_partition_property *properties,
+		cl_uint num_devices,
+		cl_device_id *out_devices,
+		cl_uint *num_devices_ret)
+\stopCLFUNC
 會按照 \carg{properties} 所規定的劃分方案，
 在 \carg{in_device} 中創建一個\cnglo{subdev}的陣列，
 其中每個\cnglo{subdev}包含一組\cnglo{computeunit}，且他們之間沒有交集。
@@ -72,9 +73,9 @@ cl_int clCreateSubDevices (cl_device_id in_device,
 \stopclc
 
 %clRetainDevice
-\startclc
+\startCLFUNC
 cl_int clRetainDevice (cl_device_id device)
-\stopclc
+\stopCLFUNC
 
 如果 \carg{device} 是通過調用 \capi{clCreateSubDevices} 創建的一個\cnglo{subdev}，
 則 \capi{clRetainDevice} 會使 \carg{device} 的引用計數增一。
@@ -89,9 +90,9 @@ cl_int clRetainDevice (cl_device_id device)
 \stopigBase
 
 %clReleaseDevice
-\startclc
+\startCLFUNC
 cl_int clReleaseDevice (cl_device_id device)
-\stopclc
+\stopCLFUNC
 
 如果 \carg{device} 是通過調用 \capi{clCreateSubDevices} 創建的一個\cnglo{subdev}，
 則 \capi{clReleaseDevice} 會使 \carg{device} 的引用計數減一。

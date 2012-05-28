@@ -1,13 +1,13 @@
 \subsection{內存對象的相關查詢}
 
 對於所有型別的\cnglo{memobj}（\cnglo{bufobj}和\cnglo{imgobj}）所通用的一些資訊，可以由以下函式獲取：
-\startclc
+\startCLFUNC
 cl_int clGetMemObjectInfo (cl_mem memobj,
 			cl_mem_info param_name,
 			size_t param_value_size,
 			void *param_value,
 			size_t *param_value_size_ret)
-\stopclc
+\stopCLFUNC
 
 \carg{memobj} 指定所要查詢的\cnglo{memobj}。
 
