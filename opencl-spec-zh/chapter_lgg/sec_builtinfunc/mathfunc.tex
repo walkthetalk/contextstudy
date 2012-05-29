@@ -1,0 +1,34 @@
+% Math Functions
+\subsection{數學函式}
+
+\reftab{svMathFunc}中列出了內建的數學函式。
+內建的數學函式分為兩種：
+\startigBase
+\item 第一種函式有兩個版本，一個版本的引數是標量，一個版本的引數是矢量；
+
+\item 第二種函式只有一個版本，引數為標量浮點數。
+\stopigBase
+
+矢量版本的數學函式按組件逐一進行運算。
+描述也是針對單個組件的。
+
+無論調用環境中使用那種舍入模式，
+內建數學函式始終按舍入到最近偶數進行運算，返回的結果也始終如一。
+
+\reftab{svMathFunc}中所列函式即可接受標量引數，也可接受矢量引數。
+通用型別名 \ctype{gentype} 表示函式引數的型別可以是
+ \ctype{float}、 \ctype{float2}、 \ctype{float3}、 \ctype{float4}、
+ \ctype{float8}、 \ctype{float16}、 \ctype{double}、 \ctype{double2}、
+ \ctype{double3}、 \ctype{double4}、 \ctype{double8} 或 \ctype{double16}。
+通用型別名 \ctype{gentypef} 表示函式引數的型別可以是
+ \ctype{float}、 \ctype{float2}、 \ctype{float3}、 \ctype{float4}、
+ \ctype{float8} 或 \ctype{float16}。
+通用型別名 \ctype{gentyped} 表示函式引數的型別可以是
+ \ctype{double}、 \ctype{double2}、 \ctype{double3}、 \ctype{double4}、
+ \ctype{double8} 或 \ctype{double16}。
+如果沒有特殊說明，函式的返回值與引數的型別都相同。
+
+\placetable[here,force,split][tab:svMathFunc]
+{引數既可為標量，也可為矢量的內建數學函式表}
+{\input{chapter_lgg/tbl/tbl_svmathfunc.tex}}
+

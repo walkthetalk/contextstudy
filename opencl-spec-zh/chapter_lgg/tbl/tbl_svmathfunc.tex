@@ -1,0 +1,306 @@
+%% acos-related
+% acos
+\startbuffer[funcproto:acos]
+gentype acos(gentype)
+\stopbuffer
+\startbuffer[funcdesc:acos]
+反餘弦函數。
+\stopbuffer
+
+% acosh
+\startbuffer[funcproto:acosh]
+gentype acosh(gentype)
+\stopbuffer
+\startbuffer[funcdesc:acosh]
+反雙曲餘弦函數。
+\stopbuffer
+
+% acospi
+\startbuffer[funcproto:acospi]
+gentype acospi(gentype)
+\stopbuffer
+\startbuffer[funcdesc:acospi]
+計算 \math{acos(x) / \pi}。
+\stopbuffer
+
+%% asin-related
+% asin
+\startbuffer[funcproto:asin]
+gentype asin(gentype)
+\stopbuffer
+\startbuffer[funcdesc:asin]
+反正弦函數。
+\stopbuffer
+
+% asinh
+\startbuffer[funcproto:asinh]
+gentype asinh(gentype)
+\stopbuffer
+\startbuffer[funcdesc:asinh]
+反雙曲正弦函數。
+\stopbuffer
+
+% asinpi
+\startbuffer[funcproto:asinpi]
+gentype asinpi(gentype)
+\stopbuffer
+\startbuffer[funcdesc:asinpi]
+計算 \math{asin(x) / \pi}。
+\stopbuffer
+
+%% atan-related
+% atan
+\startbuffer[funcproto:atan]
+gentype atan (gentype y_over_x)
+\stopbuffer
+\startbuffer[funcdesc:atan]
+反正切函數。
+\stopbuffer
+
+% atan2
+\startbuffer[funcproto:atan2]
+gentype atan2 (gentype y, gentype x)
+\stopbuffer
+\startbuffer[funcdesc:atan2]
+\math{y / x} 的反正切。
+\stopbuffer
+
+% atanh
+\startbuffer[funcproto:atanh]
+gentype atanh (gentype)
+\stopbuffer
+\startbuffer[funcdesc:atanh]
+反雙曲正切函數。
+\stopbuffer
+
+% atanpi
+\startbuffer[funcproto:atanpi]
+gentype atanpi (gentype x)
+\stopbuffer
+\startbuffer[funcdesc:atanpi]
+計算 \math{atan(x) / \pi}。
+\stopbuffer
+
+% atan2pi
+\startbuffer[funcproto:atan2pi]
+gentype atan2pi (gentype y, gentype x)
+\stopbuffer
+\startbuffer[funcdesc:atan2pi]
+計算 \math{atan2(y,x) / \pi}。
+\stopbuffer
+
+% cbrt
+\startbuffer[funcproto:cbrt]
+gentype cbrt(gentype)
+\stopbuffer
+\startbuffer[funcdesc:cbrt]
+計算立方根。
+\stopbuffer
+
+% ceil
+\startbuffer[funcproto:ceil]
+gentype ceil(gentype)
+\stopbuffer
+\startbuffer[funcdesc:ceil]
+向正無窮舍入成整數值。
+\stopbuffer
+
+% copysign
+\startbuffer[funcproto:copysign]
+gentype copysign(gentype x,
+		 gentype y)
+\stopbuffer
+\startbuffer[funcdesc:copysign]
+將 \carg{x} 的符號改成 \carg{y} 的，並將其返回。
+\stopbuffer
+
+% cos
+\startbuffer[funcproto:cos]
+gentype cos(gentype)
+\stopbuffer
+\startbuffer[funcdesc:cos]
+計算餘弦。
+\stopbuffer
+
+% cosh
+\startbuffer[funcproto:cosh]
+gentype cosh(gentype)
+\stopbuffer
+\startbuffer[funcdesc:cosh]
+計算雙曲餘弦。
+\stopbuffer
+
+% cospi
+\startbuffer[funcproto:cospi]
+gentype cospi(gentype x)
+\stopbuffer
+\startbuffer[funcdesc:cospi]
+計算 \math{cos(\pi x)}。
+\stopbuffer
+
+% erfc
+\startbuffer[funcproto:erfc]
+gentype erfc(gentype)
+\stopbuffer
+\startbuffer[funcdesc:erfc]
+餘補誤差函數
+ \math{1 - erf(x) = \frac{2}{\sqrt{\pi}} \intop^{\infty}_{x}e^{-\theta^2}d\theta}。
+\stopbuffer
+
+% erf
+\startbuffer[funcproto:erf]
+gentype erf(gentype)
+\stopbuffer
+\startbuffer[funcdesc:erf]
+誤差函數，表示正態分布的積分
+ \math{\frac{2}{\sqrt{\pi}} \intop^{\infty}_{x}e^{-\theta^2}d\theta}。
+\stopbuffer
+
+% exp
+\startbuffer[funcproto:exp]
+gentype exp(gentype x)
+\stopbuffer
+\startbuffer[funcdesc:exp]
+計算 \math{e} 的 \carg{x} 次冪 \math{e^x}。
+\stopbuffer
+
+% exp
+\startbuffer[funcproto:exp]
+gentype exp(gentype x)
+\stopbuffer
+\startbuffer[funcdesc:exp]
+計算 \math{e} 的 \carg{x} 次冪 \math{e^x}。
+\stopbuffer
+
+% exp2
+\startbuffer[funcproto:exp2]
+gentype exp2(gentype)
+\stopbuffer
+\startbuffer[funcdesc:exp2]
+底數為 \math{2} 的冪。
+\stopbuffer
+
+% exp10
+\startbuffer[funcproto:exp10]
+gentype exp10(gentype)
+\stopbuffer
+\startbuffer[funcdesc:exp10]
+底數為 \math{10} 的冪。
+\stopbuffer
+
+% expm1
+\startbuffer[funcproto:expm1]
+gentype expm1(gentype x)
+\stopbuffer
+\startbuffer[funcdesc:expm1]
+計算 \math{e^x-1.0}。
+\stopbuffer
+
+% fabs
+\startbuffer[funcproto:fabs]
+gentype fabs(gentype)
+\stopbuffer
+\startbuffer[funcdesc:fabs]
+計算浮點數的絕對值。
+\stopbuffer
+
+% fdim
+\startbuffer[funcproto:fdim]
+gentype fdim(gentype x,
+	     gentype y)
+\stopbuffer
+\startbuffer[funcdesc:fdim]
+如果 \math{x < y}，返回 \math{x - y}；否則返回 \math{+0}。
+\stopbuffer
+
+% floor
+\startbuffer[funcproto:floor]
+gentype floor(gentype)
+\stopbuffer
+\startbuffer[funcdesc:floor]
+向負無窮舍入成整數值。
+\stopbuffer
+
+% fma
+\startbuffer[funcproto:fma]
+gentype fma(gentype a,
+	    gentype b,
+	    gentype c)
+\stopbuffer
+\startbuffer[funcdesc:fma]
+返回 \math{a \times b + c}，其中乘法具有無限精度即不會進行舍入，但會對加法進行正確地舍入。
+邊界案例下的行為遵循 IEEE 754-2008 標準。
+\stopbuffer
+
+% fmax
+\startbuffer[funcproto:fmax]
+gentype fmax (gentype x, gentype y)
+gentypef fmax (gentypef x, float y)
+gentyped fmax (gentyped x, double y)
+\stopbuffer
+\startbuffer[funcdesc:fmax]
+如果 \math{x < y}，則返回 \math{y}，否則返回 \math{x}。
+如果一個引數是 NaN，則返回另一個引數；
+如果兩個引數都是 NaN，則返回 NaN。
+\stopbuffer
+\stopbuffer
+
+% fmin
+\startbuffer[funcproto:fmin]
+gentype fmin (gentype x, gentype y)
+gentypef fmin (gentypef x, float y)
+gentyped fmin (gentyped x, double y)
+\stopbuffer
+\startbuffer[funcdesc:fmin]
+如果 \math{y < x}，則返回 \math{y}，否則返回 \math{x}。
+如果一個引數是 NaN，則返回另一個引數；
+如果兩個引數都是 NaN，則返回 NaN。
+\stopbuffer
+
+% fmod
+\startbuffer[funcproto:fmod]
+gentype fmod (gentyped x, gentype y)
+\stopbuffer
+\startbuffer[funcdesc:fmod]
+模。返回 \math{x - y * trunc(x/y)}。
+\stopbuffer
+
+% fract
+
+
+% begin TABLE
+\startCLFD
+
+\clFD{acos}
+\clFD{acosh}
+\clFD{acospi}
+\clFD{asin}
+\clFD{asinh}
+\clFD{asinpi}
+\clFD{atan}
+\clFD{atan2}
+\clFD{atanh}
+\clFD{atanpi}
+\clFD{atan2pi}
+\clFD{cbrt}
+\clFD{ceil}
+\clFD{copysign}
+\clFD{cos}
+\clFD{cosh}
+\clFD{cospi}
+\clFD{erfc}
+\clFD{erf}
+\clFD{exp}
+\clFD{exp2}
+\clFD{exp10}
+\clFD{expm1}
+\clFD{fabs}
+\clFD{fdim}
+\clFD{floor}
+\clFD{fma}
+\clFD{fmax}
+\clFD{fmin}
+\clFD{fmod}
+
+\stopCLFD
+

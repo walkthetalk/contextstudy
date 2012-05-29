@@ -791,6 +791,7 @@ bolditalic=texgyreherosbolditalic]
 \def\startCLFD{\dostartCLFD}
 
 \long\def\dostartCLFD#1\stopCLFD{%
+  \startlocalfootnotes
   \bTABLE[option=stretch]
   \setuptyping[option=CLFUNC]
 
@@ -804,6 +805,8 @@ bolditalic=texgyreherosbolditalic]
     #1
   \eTABLEbody
   \eTABLE
+  \placelocalfootnotes[style=\rmx,before=,after=,]
+  \stoplocalfootnotes
 }
 
 \define[1]\clFD{

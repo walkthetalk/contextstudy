@@ -13,15 +13,6 @@ OpenCL C 編程語言提供了一套豐富的內建函式用於標量和矢量�
 不過由於同一個內建函式可能有多種形式，為避免歧義，不會有隱式的標量擴展。
 然而需要注意的是，可能某些內建函式的某些形式是針對標量以及矢量型別的混合運算。
 
-% work-item functions
-\subsection{\cnglo{workitem}函式}
+\input{chapter_lgg/sec_builtinfunc/workitemfunc.tex}
+\input{chapter_lgg/sec_builtinfunc/mathfunc.tex}
 
-\reftab{workItemFunction}列出了內建的\cnglo{workitem}函式，
-這些函式可用來查詢指定給 \capi{clEnqueueNDRangeKernel} 的維數、全局和局部的索引空間大小、
-以及在\cnglo{device}上執行此\cnglo{kernel}時
-每個\cnglo{workitem}的\cnglo{glbid}和\cnglo{locid}。
-如果使用的是 \capi{clEnqueueTask}，則維數、全局和局部索引空間的大小都是一。
-
-\placetable[here,force,split][tab:workItemFunction]
-{\cnglo{workitem}函式表}
-{\input{chapter_lgg/tbl/tbl_workitemfunc.tex}}
