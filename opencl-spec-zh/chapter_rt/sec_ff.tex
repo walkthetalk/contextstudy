@@ -2,9 +2,9 @@
 
 % clFlush
 函式
-\startclc
+\startCLFUNC
 cl_int clFlush (cl_command_queue command_queue)
-\stopclc
+\stopCLFUNC
 會將 \carg{command_queue} 中所有之前入隊的 OpenCL \cnglo{cmd}
 都提交給 \carg{command_queue} 所在\cnglo{device}去執行。
  \capi{clFlush} 返回時僅保證\cnglo{cmd}已經提交，不保證執行完畢。
@@ -42,9 +42,9 @@ cl_int clFlush (cl_command_queue command_queue)
 
 % clFinish
 函式
-\startclc
+\startCLFUNC
 cl_int clFinish (cl_command_queue command_queue)
-\stopclc
+\stopCLFUNC
 是阻塞的，等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}
 都被提交給相應的\cnglo{device}並執行完畢後才會返回。
  \capi{clFinish} 也是一個同步點。

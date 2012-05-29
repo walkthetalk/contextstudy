@@ -735,7 +735,7 @@ bolditalic=texgyreherosbolditalic]
   \eTC
 \eTR
 }
-%%%%%%%%%%%%%%%%%%% TD: object / desc
+%%%%%%%%%%%%%%%%%%% OD: object / desc
 \def\startCLOD{\dodoubleempty\dostartCLOD}
 
 \long\def\dostartCLOD[#1][#2]#3\stopCLOD{%
@@ -761,7 +761,7 @@ bolditalic=texgyreherosbolditalic]
   \bTD #2 \eTD
 \eTR
 }
-%%%%%%%%%%%%%%%%%%% TD: type / type
+%%%%%%%%%%%%%%%%%%% TT: type / type
 \def\startCLTT{\dostartCLTT}
 
 \long\def\dostartCLTT#1\stopCLTT{%
@@ -785,6 +785,31 @@ bolditalic=texgyreherosbolditalic]
 \bTR
   \bTD #1 \eTD
   \bTD #2 \eTD
+\eTR
+}
+%%%%%%%%%%%%%%%%%%% FD: fuction / desc
+\def\startCLFD{\dostartCLFD}
+
+\long\def\dostartCLFD#1\stopCLFD{%
+  \bTABLE[option=stretch]
+  \setuptyping[option=CLFUNC]
+
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+        \bTH 函式 \eTH
+        \bTH 描述 \eTH
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #1
+  \eTABLEbody
+  \eTABLE
+}
+
+\define[1]\clFD{
+\bTR
+  \bTD \typebuffer[funcproto:#1] \eTD
+  \bTD \parindent2em\getbuffer[funcdesc:#1] \eTD
 \eTR
 }
 
@@ -1019,7 +1044,7 @@ bolditalic=texgyreherosbolditalic]
 
 % the footnote can't process linebreak correctly
 % workaround is:
-\setupfootnotes[style={\setscript[hanzi]}]
+\setupfootnotes[before={\setscript[hanzi]}]
 
 % \postponenotes\footnote{...}
 

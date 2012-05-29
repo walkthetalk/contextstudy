@@ -2,12 +2,13 @@
 
 % clEnqueueMarkerWithWaitList
 函式
-\startclc
-cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
-				cl_uint num_events_in_wait_list,
-				const cl_event *event_wait_list,
-				cl_event *event)
-\stopclc
+\startCLFUNC
+cl_int clEnqueueMarkerWithWaitList(
+			cl_command_queue command_queue,
+			cl_uint num_events_in_wait_list,
+			const cl_event *event_wait_list,
+			cl_event *event)
+\stopCLFUNC
 會將一個\cnglo{marker}\cnglo{cmd}入隊，
 此\cnglo{cmd}會等待 \carg{event_wait_list} 中的事件完成，
 如果 \carg{event_wait_list} 為空，
@@ -58,12 +59,13 @@ cl_int clEnqueueMarkerWithWaitList (cl_command_queue command_queue,
 
 % clEnqueueBarrierWithWaitList
 函式
-\startclc
-cl_int clEnqueueBarrierWithWaitList (cl_command_queue command_queue,
-				cl_uint num_events_in_wait_list,
-				const cl_event *event_wait_list,
-				cl_event *event)
-\stopclc
+\startCLFUNC
+cl_int clEnqueueBarrierWithWaitList(
+			cl_command_queue command_queue,
+			cl_uint num_events_in_wait_list,
+			const cl_event *event_wait_list,
+			cl_event *event)
+\stopCLFUNC
 會將一個\cnglo{barrier}\cnglo{cmd}入隊，
 此\cnglo{cmd}會等待 \carg{event_wait_list} 中的事件完成，
 如果 \carg{event_wait_list} 為空，
