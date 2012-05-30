@@ -1,0 +1,27 @@
+%Integer Functions
+\subsection{整數函式}
+
+\reftab{}中列出了內建的整數函式，其引數即可為標量，亦可為矢量。
+矢量版本的整數函式按組件逐一運算。其中的描述針對單個組件的。
+
+泛型 \ctype{gentype} 表示函式引數的型別可以是
+ \ctype{char}、 \ctype{char{2|3|4|8|16}}、
+ \ctype{uchar}、 \ctype{uchar{2|3|4|8|16}}、
+ \ctype{short}、 \ctype{short{2|3|4|8|16}}、
+ \ctype{ushort}、 \ctype{ushort{2|3|4|8|16}}、
+ \ctype{int}、 \ctype{int{2|3|4|8|16}}、
+ \ctype{uint}、 \ctype{uint{2|3|4|8|16}}、
+ \ctype{long}、 \ctype{long{2|3|4|8|16}}、
+ \ctype{ulong} 或 \ctype{ulong{2|3|4|8|16}}。
+泛型 \ctype{ugentype} 指代無符號版本的 \ctype{gentype}。
+例如，如果 \ctype{gentype} 為 \ctype{char4}，則 \ctype{ugentype} 為 \ctype{uchar4}。
+同時，泛型 \ctype{sgentype} 指明函式的引數可以是標量（即
+ \ctype{char}、 \ctype{uchar}、 \ctype{short}、 \ctype{ushort}、
+ \ctype{int}、 \ctype{uint}、 \ctype{long} 或 \ctype{ulong}）。
+對於既有 \ctype{gentype} 引數，又有 \ctype{sgentype} 引數的內建整數函式，
+ \ctype{gentype} 必須是標量或矢量版本的 \ctype{sgentype}。
+例如，如果 \ctype{sgentype} 是 \ctype{uchar}，
+則 \ctype{gentype} 必須是 \ctype{uchar} 或 \ctype{uchar{2|3|4|8|16}}。
+對於矢量版本， \ctype{sgentype} 只是簡單的拓寬成 \ctype{gentype}，
+參見\refsec{operator}中的\refitem{arithoperator}。
+

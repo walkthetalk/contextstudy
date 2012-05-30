@@ -35,3 +35,6 @@ costruct 構件
 alignement 齊位
 notation 符號
 illustrate 演示
+widen 拓寬
+extension 擴展
+extent 擴充
