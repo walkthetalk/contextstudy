@@ -13,11 +13,11 @@ cl_kernel clCreateKernel (cl_program program,
 \carg{kernel_name} 是\cnglo{program}中一個函式的名字，聲明時帶有限定符 \cqlf{__kernel}。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。
-如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
+如果 \carg{errcode_ret} 是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{kernelobj}，則 \capi{clCreateKernel} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_PROGRAM}，如果 \carg{program} 無效。
 
@@ -29,7 +29,7 @@ cl_kernel clCreateKernel (cl_program program,
 如果 \carg{kernel_name} 的函式定義（如參數個數、參數型別）
 在已經具有對應執行體的那些\cnglo{device}上有所區別。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{kernel_name} 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{kernel_name} 是 \cmacro{NULL}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
@@ -53,11 +53,11 @@ cl_int clCreateKernelsInProgram (cl_program program,
 \carg{num_kernels} 即 \carg{kernels} 中 \ctype{cl_kernel} 的數目。
 
 \carg{kernels} 用來存儲所返回的\cnglo{kernelobj}。
-如果 \carg{kernels} 是 \cenum{NULL}，則忽略；
+如果 \carg{kernels} 是 \cmacro{NULL}，則忽略；
 否則， \carg{num_kernels} 的值必須大於或等於 \carg{program} 中\cnglo{kernel}的數目。
 
 \carg{num_kernels_ret} 即 \carg{program} 中\cnglo{kernel}的數目。
-如果 \carg{num_kernels_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{num_kernels_ret} 是 \cmacro{NULL}，則忽略。
 
 如果執行成功， \capi{clCreateKernelsInProgram} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -68,7 +68,7 @@ cl_int clCreateKernelsInProgram (cl_program program,
 如果 \carg{program} 中的任一\cnglo{device}沒有對應的執行體。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{kernels} 不是 \cenum{NULL}，
+如果 \carg{kernels} 不是 \cmacro{NULL}，
 或者 \carg{num_kernels} 的值小於 \carg{program} 中\cnglo{kernel}的數目。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。

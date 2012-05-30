@@ -43,10 +43,10 @@ cl_mem clCreateImage (cl_context context,
 每個 1D 圖像就是一個掃描線，是相鄰圖像元素的線性序列。
 
 \carg{errcode_ret} 會返回相應的錯誤碼。
-如果 \carg{errcode_ret} 是 \cenum{NULL}，不會返回錯誤碼。
+如果 \carg{errcode_ret} 是 \cmacro{NULL}，不會返回錯誤碼。
 
 如果成功創建了\cnglo{imgobj}， \capi{clCreateImage} 會將其返回，並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL} 並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL} 並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
@@ -54,19 +54,19 @@ cl_mem clCreateImage (cl_context context,
 
 \item \cenum{CL_INVALID_IMAGE_FORMAT_DESCRIPTOR}，
   如果 \carg{image_format} 中的值無效，
-  或者 \carg{image_format} 是 \cenum{NULL}。
+  或者 \carg{image_format} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_IMAGE_DESCRIPTOR}，
   如果 \carg{image_desc} 中的值無效，
-  或者 \carg{image_desc} 是 \cenum{NULL}。
+  或者 \carg{image_desc} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，
   如果對於 \carg{context} 中的所有\cnglo{device}而言，
  \carg{image_desc} 中圖像任一維度的值超過了\reftab{cldevquery}中相應維度的最大值。
 
 \item \cenum{CL_INVALID_HOST_PTR}，
-  如果 \carg{image_desc} 中 \carg{host_ptr} 是 \cenum{NULL}，且 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR} 或 {CL_MEM_COPY_HOST_PTR}；
-  或者 \carg{host_ptr} 不是 \cenum{NULL}，但 \carg{flags} 中設置了 \cenum{CL_MEM_COPY_HOST_PTR} 或 {CL_MEM_USE_HOST_PTR}。
+  如果 \carg{image_desc} 中 \carg{host_ptr} 是 \cmacro{NULL}，且 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR} 或 {CL_MEM_COPY_HOST_PTR}；
+  或者 \carg{host_ptr} 不是 \cmacro{NULL}，但 \carg{flags} 中設置了 \cenum{CL_MEM_COPY_HOST_PTR} 或 {CL_MEM_USE_HOST_PTR}。
 
 \item \cenum{CL_INVALID_VALUE}，如果要創建的是 1D \cnglo{imgobj}，
   為其指定 \cenum{CL_MEM_WRITE_ONLY} 的同時 \carg{flags} 中設置了 \cenum{CL_MEM_READ_WRITE} 或 {CL_MEM_READ_ONLY}；

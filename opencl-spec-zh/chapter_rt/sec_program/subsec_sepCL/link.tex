@@ -17,14 +17,14 @@ cl_int *errcode_ret)
  \cenum{CL_PROGRAM_BINARIES}, ...) 對其進行查詢，
 也可以由 \capi{clCreateProgramWithBinary} 用來創建新的\cnglo{programobj}。
 
-如果 \carg{device_list} 不是 \cenum{NULL}，
+如果 \carg{device_list} 不是 \cmacro{NULL}，
 則所返回的\cnglo{programobj}所關聯的就是 \carg{device_list} 中的\cnglo{device}；
 否則，關聯的就是 \carg{context} 中的\cnglo{device}。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
 \carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
-如果 \carg{device_list} 是 \cenum{NULL}，
+如果 \carg{device_list} 是 \cmacro{NULL}，
 則鏈接動作的目標\cnglo{device}是 \carg{context} 中的所有\cnglo{device}。
 否則，僅為此清單中的\cnglo{device}實施鏈接。
 
@@ -50,7 +50,7 @@ cl_int *errcode_ret)
 
 \carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在鏈接完成後（無論成功還是失敗）會被調用。
 
-如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始鏈接，
+如果 \carg{pfn_notify} 不是 \cmacro{NULL}，一旦可以開始鏈接，
  \capi{clLinkProgram} 就會立刻返回，而不必等待鏈接完成。
 一旦鏈接完成， \carg{pfn_notify} 就會被調用，
 並返回一個\cnglo{programobj}（跟 \capi{clLinkProgram} 返回的一樣）。
@@ -58,41 +58,41 @@ cl_int *errcode_ret)
 此函式可能會被異步調用。
 \cnglo{app}需要保證此函式是線程安全的。
 
-如果 \carg{pfn_notify} 是 \cenum{NULL}，直到鏈接完畢， \capi{clLinkProgram} 才會返回。
+如果 \carg{pfn_notify} 是 \cmacro{NULL}，直到鏈接完畢， \capi{clLinkProgram} 才會返回。
 
-\carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cenum{NULL}。
+\carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cmacro{NULL}。
 
 如果\cnglo{context}、\cnglo{device}、輸入的\cnglo{program}以及鏈接選項都是有效的，
 以及實施鏈接所需的\cnglo{host}和\cnglo{device}資源都可用，則就可以開始進行鏈接了。
 如果可以開始鏈接， \capi{clLinkProgram} 會返回一個非零的\cnglo{programobj}。
 
-如果 \carg{pfn_notify} 是 \cenum{NULL}，鏈接成功會將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}，
+如果 \carg{pfn_notify} 是 \cmacro{NULL}，鏈接成功會將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}，
 鏈接失敗會將其置為 \cenum{CL_LINK_FAILURE}。
 
-如果 \carg{pfn_notify} 不是 \cenum{NULL}， \capi{clLinkProgram} 不必等到鏈接完成，
+如果 \carg{pfn_notify} 不是 \cmacro{NULL}， \capi{clLinkProgram} 不必等到鏈接完成，
 一旦可以開始鏈接，就可以將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS} 並返回。
  \carg{pfn_notify} 會返回 \cenum{CL_SUCCESS} 或 \cenum{CL_LINK_FAILURE} 以表示鏈接成功與否。
 
-否則 \capi{clLinkProgram} 會返回 \cenum{NULL}，並在 \carg{errcode_ret} 中返回相應的錯誤碼。
+否則 \capi{clLinkProgram} 會返回 \cmacro{NULL}，並在 \carg{errcode_ret} 中返回相應的錯誤碼。
 \cnglo{app}應當查詢此\cnglo{programobj}的鏈接狀態，以判定鏈接是否成功。
 返回的錯誤碼可以是：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{device_list} 是 \cenum{NULL} 而 \carg{num_devices} 大於零，
-或者 \carg{device_list} 不是 \cenum{NULL} 而 \carg{num_devices} 等於零。
+如果 \carg{device_list} 是 \cmacro{NULL} 而 \carg{num_devices} 大於零，
+或者 \carg{device_list} 不是 \cmacro{NULL} 而 \carg{num_devices} 等於零。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{num_input_programs} 是零，且 \carg{input_programs} 是 \cenum{NULL}；
-或者 \carg{num_input_programs} 是零，而 \carg{input_programs} 不是 \cenum{NULL}；
-或者 \carg{num_input_programs} 不是零，而 \carg{input_programs} 是 \cenum{NULL}。
+如果 \carg{num_input_programs} 是零，且 \carg{input_programs} 是 \cmacro{NULL}；
+或者 \carg{num_input_programs} 是零，而 \carg{input_programs} 不是 \cmacro{NULL}；
+或者 \carg{num_input_programs} 不是零，而 \carg{input_programs} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_PROGRAM}，
 如果 \carg{input_programs} 中的\cnglo{programobj}無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{pfn_notify} 是 \cenum{NULL}，而 \carg{user_data} 不是 \cenum{NULL}。
+如果 \carg{pfn_notify} 是 \cmacro{NULL}，而 \carg{user_data} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_DEVICE}，
 如果 \carg{device_list} 中的任一\cnglo{device}不屬於 \carg{context}。

@@ -25,7 +25,7 @@ cl_int clBuildProgram (
 \carg{program} 就是\cnglo{programobj}。
 
 \carg{device_list} 指向 \carg{program} 所關聯的\cnglo{device}。
-如果 \carg{device_list} 是 \cenum{NULL}，則會為 \carg{program} 所關聯的所有\cnglo{device}構建可執行\cnglo{program}。
+如果 \carg{device_list} 是 \cmacro{NULL}，則會為 \carg{program} 所關聯的所有\cnglo{device}構建可執行\cnglo{program}。
 否則，僅為此清單中的\cnglo{device}構建可執行\cnglo{program}。
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
@@ -33,24 +33,24 @@ cl_int clBuildProgram (
 \carg{options} 指向一個以 null 結尾的字串，用來描述構建選項。所支持的選項請參閱\todo{5.6.4}。
 
 \carg{pfn_notify} 是\cnglo{app}所註冊的一個回調函式。在構建完可執行\cnglo{program}後（無論成功還是失敗）會被調用。
-如果 \carg{pfn_notify} 不是 \cenum{NULL}，一旦可以開始構建， \capi{clBuildProgram} 就會立刻返回，而不必等待構建完成。
+如果 \carg{pfn_notify} 不是 \cmacro{NULL}，一旦可以開始構建， \capi{clBuildProgram} 就會立刻返回，而不必等待構建完成。
 如果\cnglo{context}、所要編譯鏈接的\cnglo{program}、\cnglo{device}清單以及構建選項都是有效的，
 以及實施構建所需的\cnglo{host}和\cnglo{device}資源都可用，則就可以開始進行構建了。
-如果 \carg{pfn_notify} 是 \cenum{NULL}，直到構建完畢， \capi{clBuildProgram} 才會返回。
+如果 \carg{pfn_notify} 是 \cmacro{NULL}，直到構建完畢， \capi{clBuildProgram} 才會返回。
 對此函式的調用可能是異步的。
 \cnglo{app}需要保證此函式是線程安全的。
 
-\carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cenum{NULL}。
+\carg{user_data} 在調用 \carg{pfn_notify} 時作為參數傳入，可以是 \cmacro{NULL}。
 
 如果執行成功，則 \capi{clBuildProgram} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_PROGRAM}，如果 \carg{program} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cenum{NULL} 而 \carg{num_devices} 大於零，
-或者 \carg{device_list} 不是 \cenum{NULL} 而 \carg{num_devices} 等於零。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cmacro{NULL} 而 \carg{num_devices} 大於零，
+或者 \carg{device_list} 不是 \cmacro{NULL} 而 \carg{num_devices} 等於零。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_notify} 是 \cenum{NULL}，而 \carg{user_data} 不是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_notify} 是 \cmacro{NULL}，而 \carg{user_data} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{device_list} 中的 OpenCL \cnglo{device} 不是 \carg{program} 所關聯\cnglo{device}。
 

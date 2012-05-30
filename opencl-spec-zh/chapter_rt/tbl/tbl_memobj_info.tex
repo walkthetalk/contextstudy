@@ -20,11 +20,11 @@
 
 \clETD{CL_MEM_HOST_PTR}{void *}{
   如果 \carg{memobj} 是由 \capi{clCreate{Buffer | Image}} 創建，且 \carg{mem_flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR}，
-  則返回參數 \carg{host_ptr} 的值。否則返回 \cenum{NULL}。
+  則返回參數 \carg{host_ptr} 的值。否則返回 \cmacro{NULL}。
 
   如果 \carg{memobj} 是由 \capi{clCreateSubBuffer} 創建，則返回 $host\_ptr + origin$。
   \carg{host_ptr} 即用 \capi{clCreateBuffer} 創建 \carg{memobj} 的父對象時（\carg{mem_flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR}）參數的值。
-  否則返回 \cenum{NULL}。
+  否則返回 \cmacro{NULL}。
 }
 
 \clETD{CL_MEM_MAP_COUNT}{cl_uint}{
@@ -45,7 +45,7 @@
 \clETD{CL_MEM_ASSOCIATED_MEMOBJECT}{cl_mem}{
   返回 \carg{memobj} 的父對象。即 \capi{clCreateSubBuffer} 的參數 \carg{buffer}。
 
-  否則返回 \cenum{NULL}。
+  否則返回 \cmacro{NULL}。
 }
 
 \clETD{CL_MEM_OFFSET}{size_t}{

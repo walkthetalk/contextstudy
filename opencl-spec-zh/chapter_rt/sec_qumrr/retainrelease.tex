@@ -60,14 +60,14 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 \stopigBase
 
 \carg{user_data} 將在調用 \carg{pfn_notify} 時作為參數 \carg{user_data} 傳入。
- \carg{user_data} 可以是 \cenum{NULL}。
+ \carg{user_data} 可以是 \cmacro{NULL}。
 
 如果執行成功， \capi{clSetMemObjectDestructorCallback} 會返回 \cenum{CL_SUCCESS}。
 否則返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{memobj} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_notify} 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_notify} 是 \cmacro{NULL}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 

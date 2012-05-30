@@ -59,7 +59,8 @@ gentype atan (gentype y_over_x)
 
 % atan2
 \startbuffer[funcproto:atan2]
-gentype atan2 (gentype y, gentype x)
+gentype atan2 (gentype y,
+		gentype x)
 \stopbuffer
 \startbuffer[funcdesc:atan2]
 \math{y / x} 的反正切。
@@ -83,7 +84,8 @@ gentype atanpi (gentype x)
 
 % atan2pi
 \startbuffer[funcproto:atan2pi]
-gentype atan2pi (gentype y, gentype x)
+gentype atan2pi (gentype y,
+		gentype x)
 \stopbuffer
 \startbuffer[funcdesc:atan2pi]
 計算 \math{atan2(y,x) / \pi}。
@@ -254,7 +256,10 @@ gentyped fmin (gentyped x, double y)
 \startbuffer[funcdesc:fmin]
 如果 \math{y < x}，則返回 \math{y}，否則返回 \math{x}。
 如果一個引數是 NaN，則返回另一個引數；
-如果兩個引數都是 NaN，則返回 NaN。
+如果兩個引數都是 NaN，則返回 NaN\footnote{
+在處理 signaling NaN 時， \capi{fmin} 和 \capi{fmax} 的行為遵守 C99 中的定義，
+但可能與 IEEE 754-2008 中定義的 \capi{minNum} 和 \capi{maxNum} 處理方式不同。
+特別是，可能將 signaling NaN 當成 quiet NaN。}。
 \stopbuffer
 
 % fmod
@@ -266,6 +271,467 @@ gentype fmod (gentyped x, gentype y)
 \stopbuffer
 
 % fract
+\startbuffer[funcproto:fract]
+gentype fract (gentype x,
+	__global gentype *iptr)
+gentype fract (gentype x,
+	__local gentype *iptr)
+gentype fract (gentype x,
+	__private gentype *iptr)
+\stopbuffer
+\startbuffer[funcdesc:fract]
+返回 \math{\text{\capi{fmin}} (x - \text{\capi{floor}} ( x ), 0x1.fffffep - 1f}。
+而 \math{\text{\capi{floor}}(x)} 將在 \carg{iptr} 中返回\footnote{
+此處的 min() 是為了避免 \capi{fract}(-small) 返回 1.0。
+有了 min()，這種情況就會返回小於 1.0 的最大正浮點數。}。
+\stopbuffer
+
+% frexp float
+\startbuffer[funcproto:frexpf]
+floatn frexp (floatn x,
+	__global intn *exp)
+floatn frexp (floatn x,
+	__local intn *exp)
+floatn frexp (floatn x,
+	__private intn *exp)
+float frexp (float x,
+	__global int *exp)
+float frexp (float x,
+	__local int *exp)
+float frexp (float x,
+	__private int *exp)
+\stopbuffer
+\startbuffer[funcdesc:frexpf]
+從 \carg{x} 中分離出尾數和指數。
+返回的尾數（記為 m)型別為 \ctype{float}，值為 0 或者屬於 \math{[1/2, 1)}。
+\carg{x} 的每個組件都等於 \math{m \times 2^{exp}}。
+\stopbuffer
+
+% frexp double
+\startbuffer[funcproto:frexpd]
+doublen frexp (doublen x,
+	__global intn *exp)
+doublen frexp (doublen x,
+	__local intn *exp)
+doublen frexp (doublen x,
+	__private intn *exp)
+double frexp (double x,
+	__global int *exp)
+double frexp (double x,
+	__local int *exp)
+double frexp (double x,
+	__private int *exp)
+\stopbuffer
+\startbuffer[funcdesc:frexpd]
+從 \carg{x} 中分離出尾數和指數。
+返回的尾數（記為 m)型別為 \ctype{double}，值為 0 或者屬於 \math{[1/2, 1)}。
+\carg{x} 的每個組件都等於 \math{m \times 2^{exp}}。
+\stopbuffer
+
+% hypot
+\startbuffer[funcproto:hypot]
+gentype hypot (gentype x, gentype y)
+\stopbuffer
+\startbuffer[funcdesc:hypot]
+計算 \math{\sqrt{x^2+y^2}}，不會有過分的上溢或下溢。
+\stopbuffer
+
+% ilogb
+\startbuffer[funcproto:ilogb]
+intn ilogb (floatn x)
+int ilogb (float x)
+intn ilogb (doublen x)
+int ilogb (double x)
+\stopbuffer
+\startbuffer[funcdesc:ilogb]
+返回整形對數。
+\stopbuffer
+
+% ldexp
+\startbuffer[funcproto:ldexp]
+floatn ldexp (floatn x, intn k)
+floatn ldexp (floatn x, int k)
+float ldexp (float x, int k)
+doublen ldexp (doublen x, intn k)
+doublen ldexp (doublen x, int k)
+double ldexp (double x, int k)
+\stopbuffer
+\startbuffer[funcdesc:ldexp]
+返回 \math{x \times 2^k}。
+\stopbuffer
+
+% lgamma
+\startbuffer[funcproto:lgamma]
+gentype lgamma (gentype x)
+floatn lgamma_r (floatn x,
+	__global intn *signp)
+floatn lgamma_r (floatn x,
+	__local intn *signp)
+floatn lgamma_r (floatn x,
+	__private intn *signp)
+float lgamma_r (float x,
+	__global int *signp)
+float lgamma_r (float x,
+	__local int *signp)
+float lgamma_r (float x,
+	__private int *signp)
+doublen lgamma_r (doublen x,
+	__global intn *signp)
+doublen lgamma_r (doublen x,
+	__local intn *signp)
+doublen lgamma_r (doublen x,
+	__private intn *signp)
+double lgamma_r (double x,
+	__global int *signp)
+double lgamma_r (double x,
+	__local int *signp)
+double lgamma_r (double x,
+	__private int *signp)
+\stopbuffer
+\startbuffer[funcdesc:lgamma]
+返回伽馬函數絕對值的自然對數。
+\capi{lgamma_r} 的引數 \carg{signp} 中會返回伽馬函數的符號。
+ \math{ln|\Gamma(x)|}
+\stopbuffer
+
+% log
+\startbuffer[funcproto:log]
+gentype log (gentype)
+\stopbuffer
+\startbuffer[funcdesc:log]
+計算自然對數。
+\stopbuffer
+
+% log2
+\startbuffer[funcproto:log2]
+gentype log2 (gentype)
+\stopbuffer
+\startbuffer[funcdesc:log2]
+計算以 2 為底的對數。
+\stopbuffer
+
+% log10
+\startbuffer[funcproto:log10]
+gentype log10 (gentype)
+\stopbuffer
+\startbuffer[funcdesc:log10]
+計算以 10 為底的對數。
+\stopbuffer
+
+% log1p
+\startbuffer[funcproto:log1p]
+gentype log1p (gentype x)
+\stopbuffer
+\startbuffer[funcdesc:log1p]
+計算 \math{log_e(1.0+x)}。
+\stopbuffer
+
+% logb
+\startbuffer[funcproto:logb]
+gentype logb (gentype x)
+\stopbuffer
+\startbuffer[funcdesc:logb]
+\math{log_r|x|}的整數部分。
+\stopbuffer
+
+% mad
+\startbuffer[funcproto:mad]
+gentype mad (gentype a,
+	gentype b,
+	gentype c)
+\stopbuffer
+\startbuffer[funcdesc:mad]
+\capi{mad} 逼近 \math{a \times b + c}。
+至於 \math{a \times b} 是否要舍入、怎樣舍入，
+以及如何處理超常（supernormal）或次常（subnormal）的乘法都沒有定義。
+在那些速度比準確更重要的地方，就可以使用 \capi{mad}\footnote{
+需要提醒用戶的是，對於一些情況,
+如 \math{\text{\capi{mad}}(a, b, -a\times b)}， \capi{mad} 定義的非常寬鬆，
+以至於當 \carg{a} 和 \carg{b} 為某些特定值時，返回任何值都有可能}。
+\stopbuffer
+
+% maxmag
+\startbuffer[funcproto:maxmag]
+gentype maxmag (gentype x, gentype y)
+\stopbuffer
+\startbuffer[funcdesc:maxmag]
+如果 \math{|x| > |y|}，則返回 \carg{x}；
+如果 \math{|y| > |x|}，則返回 \carg{y}；
+否則返回 \math{\text{\capi{fmax}}(x,y)}。
+\stopbuffer
+
+% minmag
+\startbuffer[funcproto:minmag]
+gentype minmag (gentype x, gentype y)
+\stopbuffer
+\startbuffer[funcdesc:minmag]
+如果 \math{|x| < |y|}，則返回 \carg{x}；
+如果 \math{|y| < |x|}，則返回 \carg{y}；
+否則返回 \math{\text{\capi{fmin}}(x,y)}。
+\stopbuffer
+
+% modf
+\startbuffer[funcproto:modf]
+gentype modf (gentype x,
+	__global gentype *iptr)
+gentype modf (gentype x,
+	__local gentype *iptr)
+gentype modf (gentype x,
+	__private gentype *iptr)
+\stopbuffer
+\startbuffer[funcdesc:modf]
+分解浮點數，將引數 \carg{x} 分解為整數部分和小數部分，
+兩部分的符號都與 \carg{x} 相同。
+整數部分存儲在 \carg{iptr} 所指對象中。
+\stopbuffer
+
+% nan
+\startbuffer[funcproto:nan]
+floatn nan (uintn nancode)
+float nan (uint nancode)
+doublen nan (ulongn nancode)
+double nan (ulong nancode)
+\stopbuffer
+\startbuffer[funcdesc:nan]
+返回 quiet NaN。
+其中將 \carg{nancode} 放在尾數的位置。
+\stopbuffer
+
+% nextafter
+\startbuffer[funcproto:nextafter]
+gentype nextafter (gentype x,
+		gentype y)
+\stopbuffer
+\startbuffer[funcdesc:nextafter]
+返回 \carg{x} 在往 \carg{y} 的方向上下一個可表示的單精度浮點值。
+因此，如果 \carg{y} 小於 \carg{x}，
+則返回小於 \carg{x} 的最大的可表示的浮點數。
+\stopbuffer
+
+% pow
+\startbuffer[funcproto:pow]
+gentype pow (gentype x, gentype y)
+\stopbuffer
+\startbuffer[funcdesc:pow]
+計算 \math{x^y}。
+\stopbuffer
+
+% pown
+\startbuffer[funcproto:pown]
+floatn pown (floatn x, intn y)
+float pown (float x, int y)
+doublen pown (doublen x, intn y)
+double pown (double x, int y)
+\stopbuffer
+\startbuffer[funcdesc:pown]
+計算 \math{x^y}，其中 \carg{y} 是整數。
+\stopbuffer
+
+% powr
+\startbuffer[funcproto:powr]
+gentype powr (gentype x,
+		gentype y)
+\stopbuffer
+\startbuffer[funcdesc:powr]
+計算 \math{x^y}，其中 \math{x\geq 0}。
+\stopbuffer
+
+% remainder
+\startbuffer[funcproto:remainder]
+gentype remainder (gentype x,
+		gentype y)
+\stopbuffer
+\startbuffer[funcdesc:remainder]
+返回值記為 \math{r}，則 \math{r = x - n \times y}。
+其中 \math{n} 是最接近精確值 \math{x/y} 的整數。
+如果有兩個這樣的整數，則選擇偶數作為 \math{n}。
+如果 \math{r} 是零，則符號與 \carg{x} 一樣。
+\stopbuffer
+
+% remquof
+\startbuffer[funcproto:remquof]
+floatn remquo (floatn x,
+	floatn y,
+	__global intn *quo)
+floatn remquo (floatn x,
+	floatn y,
+	__local intn *quo)
+floatn remquo (floatn x,
+	floatn y,
+	__private intn *quo)
+float remquo (float x,
+	float y,
+	__global int *quo)
+float remquo (float x,
+	float y,
+	__local int *quo)
+float remquo (float x,
+	float y,
+	__private int *quo)
+\stopbuffer
+\startbuffer[funcdesc:remquof]
+返回值記為 \math{r}，則 \math{r = x - k \times y}。
+其中 \math{k} 是最接近精確值 \math{x/y} 的整數。
+如果有兩個這樣的整數，則選擇偶數作為 \math{k}。
+如果 \math{r} 是零，則符號與 \carg{x} 一樣。
+\math{r} 跟 \capi{remainder} 返回的值一樣。
+區別就是 \capi{remquo} 還會計算整數商 \math{x/y} 的最低七位，
+連帶 \math{x/y} 的符號一同存儲在 \carg{quo} 所指對象中。
+\stopbuffer
+
+% remquod
+\startbuffer[funcproto:remquod]
+doublen remquo (doublen x,
+	doublen y,
+	__global intn *quo)
+doublen remquo (doublen x,
+	doublen y,
+	__local intn *quo)
+doublen remquo (doublen x,
+	doublen y,
+	__private intn *quo)
+double remquo (double x,
+	double y,
+	__global int *quo)
+double remquo (double x,
+	double y,
+	__local int *quo)
+double remquo (double x,
+	double y,
+	__private int *quo)
+\stopbuffer
+\startbuffer[funcdesc:remquod]
+返回值記為 \math{r}，則 \math{r = x - k \times y}。
+其中 \math{k} 是最接近精確值 \math{x/y} 的整數。
+如果有兩個這樣的整數，則選擇偶數作為 \math{k}。
+如果 \math{r} 是零，則符號與 \carg{x} 一樣。
+\math{r} 跟 \capi{remainder} 返回的值一樣。
+區別就是 \capi{remquo} 還會計算整數商 \math{x/y} 的最低七位，
+連帶 \math{x/y} 的符號一同存儲在 \carg{quo} 所指對象中。
+\stopbuffer
+
+% rint
+\startbuffer[funcproto:rint]
+gentype rint (gentype)
+\stopbuffer
+\startbuffer[funcdesc:rint]
+舍入成整數值（使用舍入到最近偶數的舍入模式），但用的是浮點格式。
+關於舍入模式請參考\todo{節 7.1}。
+\stopbuffer
+
+% rootn
+\startbuffer[funcproto:rootn]
+floatn rootn (floatn x, intn y)
+float rootn (float x, int y)
+
+doublen rootn (doublen x, intn y)
+doublen rootn (double x, int y)
+\stopbuffer
+\startbuffer[funcdesc:rootn]
+計算 \math{x^{1/y}}。
+\stopbuffer
+
+% round
+\startbuffer[funcproto:round]
+gentype round (gentype x)
+\stopbuffer
+\startbuffer[funcdesc:round]
+返回整數值，從零往外舍入，無視當前舍入方向。
+\stopbuffer
+
+% rsqrt
+\startbuffer[funcproto:rsqrt]
+gentype rsqrt (gentype)
+\stopbuffer
+\startbuffer[funcdesc:rsqrt]
+計算 \math{ 1 / \sqrt{x}}。
+\stopbuffer
+
+% sin
+\startbuffer[funcproto:sin]
+gentype sin (gentype)
+\stopbuffer
+\startbuffer[funcdesc:sin]
+計算正弦。
+\stopbuffer
+
+% sincos
+\startbuffer[funcproto:sincos]
+gentype sincos (gentype x,
+	__global gentype *cosval)
+gentype sincos (gentype x,
+	__local gentype *cosval)
+gentype sincos (gentype x,
+	__private gentype *cosval)
+\stopbuffer
+\startbuffer[funcdesc:sincos]
+計算 \carg{x} 的正弦和餘弦。
+返回的是正弦，餘弦放到 \carg{cosval} 中。
+\stopbuffer
+
+% sinh
+\startbuffer[funcproto:sinh]
+gentype sinh (gentype)
+\stopbuffer
+\startbuffer[funcdesc:sinh]
+計算雙曲正弦。
+\stopbuffer
+
+% sinpi
+\startbuffer[funcproto:sinpi]
+gentype sinpi (gentype x)
+\stopbuffer
+\startbuffer[funcdesc:sinpi]
+計算 \math{\text{\capi{sin}}(\pi x)}。
+\stopbuffer
+
+% sqrt
+\startbuffer[funcproto:sqrt]
+gentype sqrt (gentype)
+\stopbuffer
+\startbuffer[funcdesc:sqrt]
+計算平方根。
+\stopbuffer
+
+% tan
+\startbuffer[funcproto:tan]
+gentype tan (gentype)
+\stopbuffer
+\startbuffer[funcdesc:tan]
+計算正切。
+\stopbuffer
+
+% tanh
+\startbuffer[funcproto:tanh]
+gentype tanh (gentype)
+\stopbuffer
+\startbuffer[funcdesc:tanh]
+計算雙曲正切。
+\stopbuffer
+
+% tanpi
+\startbuffer[funcproto:tanpi]
+gentype tanpi (gentype)
+\stopbuffer
+\startbuffer[funcdesc:tanpi]
+計算 \math{\text{\capi{tan}}(\pi x)}。
+\stopbuffer
+
+% tgamma
+\startbuffer[funcproto:tgamma]
+gentype tgamma (gentype)
+\stopbuffer
+\startbuffer[funcdesc:tgamma]
+計算 \math{\Gamma(x)}。
+\stopbuffer
+
+% trunc
+\startbuffer[funcproto:trunc]
+gentype trunc (gentype)
+\stopbuffer
+\startbuffer[funcdesc:trunc]
+向零舍入成整數值。
+\stopbuffer
 
 
 % begin TABLE
@@ -301,6 +767,43 @@ gentype fmod (gentyped x, gentype y)
 \clFD{fmax}
 \clFD{fmin}
 \clFD{fmod}
+\clFD{fract}
+\clFD{frexpf}
+\clFD{frexpd}
+\clFD{hypot}
+\clFD{ilogb}
+\clFD{ldexp}
+\clFD{lgamma}
+\clFD{log}
+\clFD{log2}
+\clFD{log10}
+\clFD{log1p}
+\clFD{logb}
+\clFD{mad}
+\clFD{maxmag}
+\clFD{minmag}
+\clFD{modf}
+\clFD{nan}
+\clFD{nextafter}
+\clFD{pow}
+\clFD{pown}
+\clFD{powr}
+\clFD{remainder}
+\clFD{remquof}
+\clFD{remquod}
+\clFD{rint}
+\clFD{rootn}
+\clFD{rsqrt}
+\clFD{sin}
+\clFD{sincos}
+\clFD{sinh}
+\clFD{sinpi}
+\clFD{sqrt}
+\clFD{tan}
+\clFD{tanh}
+\clFD{tanpi}
+\clFD{tgamma}
+\clFD{trunc}
 
 \stopCLFD
 

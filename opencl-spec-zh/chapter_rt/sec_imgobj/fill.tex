@@ -42,15 +42,15 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 如果 \carg{image} 是 1D 圖像或 1D 圖像 buffer 對象， $region[1]$ 和 $region[2]$ 都必須是 0。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
 此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
-而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
+而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 不過可以用 \capi{clEnqueueBarrierWithWaitList} 代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueFillImage} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -63,15 +63,15 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{image} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{fill_color} 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{fill_color} 是 \cmacro{NULL}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 $(origin, region)$ 所指定的區域越限或者 \carg{ptr} 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 $(origin, region)$ 所指定的區域越限或者 \carg{ptr} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{origin} 和 \carg{region} 沒有遵守前面參數描述中所列規則。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cenum{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cenum{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
+  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
   或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，如果圖像的大小（寬度、高度、指定的或自動計算的行間距或平面間距）不被 \carg{queue} 所關聯\cnglo{device} 支持。

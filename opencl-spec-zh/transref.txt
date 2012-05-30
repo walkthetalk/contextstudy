@@ -26,6 +26,7 @@ header (file) 頭檔
 source file 源檔
 recursion 遞迴
 directive 指示
+pragma 雜注
 instruction 指令
 token 符記
 endianness 端序

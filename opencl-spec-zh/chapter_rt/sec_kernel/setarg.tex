@@ -42,15 +42,15 @@ image_filter (int n, int m,
 如果此參數是一個\cnglo{memobj}（緩衝、圖像或圖像陣列），
  \carg{arg_value} 會指向相應的對象。
 此對象必須是用 \carg{kernel} 所在的\cnglo{context}創建的。
-如果參數是一個\cnglo{bufobj}， \carg{arg_value} 可以是 \cenum{NULL}，
-也可以指向一個為 \cenum{NULL} 的值，這時，
+如果參數是一個\cnglo{bufobj}， \carg{arg_value} 可以是 \cmacro{NULL}，
+也可以指向一個為 \cmacro{NULL} 的值，這時，
 如果內核參數聲明時帶有限定符 \cqlf{__global} 或 \cqlf{__constant}，
-則使用 \cenum{NULL} 值作為參數值。
-而如果參數聲明時所帶限定符為 \cqlf{__local}， \carg{arg_value} 必須是 \cenum{NULL}。
+則使用 \cmacro{NULL} 值作為參數值。
+而如果參數聲明時所帶限定符為 \cqlf{__local}， \carg{arg_value} 必須是 \cmacro{NULL}。
 如果參數型別是 \ctype{sampler_t}，則 \carg{arg_value} 必須指向\cnglo{sampler}對象。
 
 如果參數是一個指針，指向的是全局或不變位址空間中的內建標量或矢量型別、或用戶自定義結構體，
-則作為參數值的\cnglo{memobj}必須是一個\cnglo{bufobj}（或 \cenum{NULL}）。
+則作為參數值的\cnglo{memobj}必須是一個\cnglo{bufobj}（或 \cmacro{NULL}）。
 如果參數聲明時帶有限定符 \cqlf{__constant}，
 則\cnglo{memobj}的大小不能超過 \cenum{CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE}，
 且這種參數的個數不能超過 \cenum{CL_DEVICE_MAX_CONSTANT_ARGS}。

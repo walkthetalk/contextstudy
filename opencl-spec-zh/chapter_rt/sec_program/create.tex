@@ -17,18 +17,18 @@ cl_program clCreateProgramWithSource (cl_context context,
 \carg{strings} 是一個字串陣列，有 \carg{count} 個元素，字串可以 null 結尾，這些字串就構成了源代碼。
 
 \carg{lengths} 也是一個陣列，其中的元素代表字符個數（字串長度）。如果某個元素是零，則相應的字串以 null 結尾。
-如果 \carg{lengths} 是 \cenum{NULL}，則 \carg{strings} 中所有字串都以 null 結尾。
+如果 \carg{lengths} 是 \cmacro{NULL}，則 \carg{strings} 中所有字串都以 null 結尾。
 所有大於零的值都不包括 null 終止符。
 
-\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
+\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWidthSource} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{count} 是零，或者 \carg{strings} 或其中任一項是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{count} 是零，或者 \carg{strings} 或其中任一項是 \cmacro{NULL}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
@@ -50,7 +50,7 @@ cl_program clCreateProgramWithBinary (cl_context context,
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
 \carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
-\carg{device_list} 不能是 \cenum{NULL}。
+\carg{device_list} 不能是 \cmacro{NULL}。
 所加載的內容會在此清單中的\cnglo{device}上執行。
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
@@ -62,7 +62,7 @@ cl_program clCreateProgramWithBinary (cl_context context,
 
 \carg{binaries} 也是一個陣列，每個元素都指向所要加載的\cnglo{program}。
 $binaries[i]$ 對應於 $device\_list[i]$，其大小為 $lengths[i]$。
-$lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
+$lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cmacro{NULL}。
 
 \carg{binaries} 中的內容為下列之一：
 \startigBase
@@ -82,23 +82,23 @@ $lengths[i]$ 不能是零，並且 $binaries[i]$ 不能是 \cenum{NULL}。
 \carg{binary_status} 將返回對應 \carg{device_list} 中\cnglo{device}的二進制\cnglo{program}是否加載成功。
 他是一個有 \carg{num_devices} 個元素的陣列。
 如果 $device\_list[i]$ 所對應的二進制\cnglo{program}加載成功，則 $binary\_status[i]$ 為 \cenum{CL_SUCCESS}；
-如果 $lengths[i]$ 是零或者 $binaries[i]$ 是 \cenum{NULL}，則 $binary\_status[i]$ 為 \cenum{CL_INVALID_VALUE}；
+如果 $lengths[i]$ 是零或者 $binaries[i]$ 是 \cmacro{NULL}，則 $binary\_status[i]$ 為 \cenum{CL_INVALID_VALUE}；
 如果二進制\cnglo{program}無效，則 $binary\_status[i]$ 為 \cenum{CL_INVALID_BINARY}。
 
-\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
+\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWithBinary} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cenum{NULL}，或者 \carg{num_devices} 是零。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cmacro{NULL}，或者 \carg{num_devices} 是零。
 
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{device_list} 中的 OpenCL \cnglo{device} 不在 \carg{context} 中。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{lengths} 或者 \carg{binaries} 是 \cenum{NULL}，
-或者任一項 $lengths[i]$ 是零，或者 $binaries[i]$ 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{lengths} 或者 \carg{binaries} 是 \cmacro{NULL}，
+或者任一項 $lengths[i]$ 是零，或者 $binaries[i]$ 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_BINARY}，如果任一二進制\cnglo{program}無效。 \carg{binary_status} 會返回對應於每個\cnglo{device}的狀態。
 
@@ -126,7 +126,7 @@ cl_program clCreateProgramWithBuiltInKernels(
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
 \carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
-\carg{device_list} 不能是 \cenum{NULL}。
+\carg{device_list} 不能是 \cmacro{NULL}。
 所加載的內建\cnglo{kernel}會在此清單中的\cnglo{device}上執行。
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
@@ -136,17 +136,17 @@ cl_program clCreateProgramWithBuiltInKernels(
 
 \carg{kernel_names} 是一組內建\cnglo{kernel}的名字，以分號分隔。
 
-\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cenum{NULL}，則不會返回錯誤碼。
+\carg{errcode_ret} 會返回相應的錯誤碼。如果 \carg{errcode_ret} 是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{programobj}，則 \capi{clCreateProgramWithBuiltInKernels} 會將其返回，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cenum{NULL}，或者 \carg{num_devices} 是零。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{device_list} 是 \cmacro{NULL}，或者 \carg{num_devices} 是零。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{kernel_names} 是 \cenum{NULL}，
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{kernel_names} 是 \cmacro{NULL}，
 或者對於 \carg{kernel_names} 中的任一\cnglo{kernel}， \carg{device_list} 中的所有\cnglo{device}都不支持。
 
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{device_list} 中的 OpenCL \cnglo{device} 不在 \carg{context} 中。

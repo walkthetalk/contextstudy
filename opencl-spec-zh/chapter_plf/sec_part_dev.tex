@@ -27,19 +27,19 @@ cl_int clCreateSubDevices (
 \carg{num_devices} 是 \carg{out_devices} 指向的內存塊所能容納 \ctype{cl_device_id} 的數目。
 
 \carg{out_devices} 是一個 buffer，存儲所返回的 OpenCL \cnglo{subdev}。
-如果 \carg{out_devices} 是 \cenum{NULL}，則忽略。
+如果 \carg{out_devices} 是 \cmacro{NULL}，則忽略。
 否則， \carg{num_devices} 必須大於等於（按照 \carg{properties} 所指定的劃分策略）所劃分成的\cnglo{subdev}的數目。
 
 \carg{num_devices_ret} 返回（按照 \carg{properties} 所指定的劃分策略） \carg{device}可以劃分成\cnglo{subdev}的數目。
-如果 \carg{num_devices_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{num_devices_ret} 是 \cmacro{NULL}，則忽略。
 
 如果劃分成功， \capi{clCreateSubDevices} 會返回 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 
 \startigBase
 \item \cenum{CL_INVALID_DEVICE}，如果 \carg{in_devices} 無效。
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{properties} 中的值無效，或者有效但是此\cnglo{device}不支持。
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{out_devices} 不是 \cenum{NULL}，且 \carg{num_devices} 小於所創建\cnglo{subdev}的數目。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{out_devices} 不是 \cmacro{NULL}，且 \carg{num_devices} 小於所創建\cnglo{subdev}的數目。
 \item \cenum{CL_DEVICE_PARTITION_FAILED}，如果實作支持此劃分方式，但是 \carg{in_device} 不能再細分了。
 \item \cenum{CL_INVALID_DEVICE_PARTITION_COUNT}，如果 \carg{properties} 所指定的劃分策略是 \cenum{CL_DEVICE_PARTITION_BY_COUNTS}，
   且所要求的\cnglo{subdev}數目超過了 \cenum{CL_DEVICE_PARTITION_MAX_SUB_DEVICES}，

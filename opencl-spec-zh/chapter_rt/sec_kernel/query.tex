@@ -17,13 +17,13 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，請參見\reftab{clGetKernelInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
-如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
 其值必須 >= \reftab{clGetKernelInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
-如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則忽略。
 
 \startbuffer[tblclGetKernelInfo]
 \capi{clGetKernelInfo} 所支持的 \carg{param_names}
@@ -36,7 +36,7 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 \startigBase
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetKernelInfo}中返回型別的大小，
-且 \carg{param_value} 不是 \cenum{NULL}。
+且 \carg{param_value} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_KERNEL}，如果 \carg{kernel} 無效。
 
@@ -61,19 +61,19 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 
 \carg{device} 是 \carg{kernel} 所關聯的\cnglo{device}之一。
  \carg{kernel} 所關聯的\cnglo{device}即 \carg{kernel} 所在\cnglo{context}中的\cnglo{device}。
-如果 \carg{kernel} 所關聯的\cnglo{device}只有一個，則 \carg{device} 可以是 \cenum{NULL}。
+如果 \carg{kernel} 所關聯的\cnglo{device}只有一個，則 \carg{device} 可以是 \cmacro{NULL}。
 
 \carg{param_name} 指定要查詢什麼資訊。
 對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，請參見\reftab{clGetKernelWorkGroupInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
-如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
 其值必須 >= \reftab{clGetKernelWorkGroupInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
-如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則忽略。
 
 \placetable[here,force,split][tab:clGetKernelWorkGroupInfo]
 {\capi{clGetKernelWorkGroupInfo} 所支持的 \carg{param_names}}
@@ -84,11 +84,11 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 \startigBase
 \item \cenum{CL_INVALID_DEVICE}，
 如果 \carg{device} 不是 \carg{kernel} 所關聯的\cnglo{device}；
-或者 \carg{device} 是 \cenum{NULL}，但 \carg{kernel} 所關聯的\cnglo{device}多於一個。
+或者 \carg{device} 是 \cmacro{NULL}，但 \carg{kernel} 所關聯的\cnglo{device}多於一個。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetKernelWorkGroupInfo}中返回型別的大小，
-且 \carg{param_value} 不是 \cenum{NULL}。
+且 \carg{param_value} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{param_name} 是 \cenum{CL_KERNEL_GLOBAL_WORK_SIZE}，
@@ -130,13 +130,13 @@ cl_int clGetKernelArgInfo (cl_kernel kernel,
 對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，請參見\reftab{clGetKernelArgInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
-如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
 其值必須 >= \reftab{clGetKernelArgInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
-如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則忽略。
 
 \placetable[here,force,split][tab:clGetKernelArgInfo]
 {\capi{clGetKernelArgInfo} 所支持的 \carg{param_names}}
@@ -149,7 +149,7 @@ cl_int clGetKernelArgInfo (cl_kernel kernel,
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetKernelArgInfo}中返回型別的大小，
-且 \carg{param_value} 不是 \cenum{NULL}。
+且 \carg{param_value} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_KERNEL_ARG_INFO_NOT_AVAILABLE}，如果沒有可用的參數資訊。
 

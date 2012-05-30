@@ -68,5 +68,5 @@ typedef struct _cl_image_format {
 
 OpenCL 實作必須保持 \cvar{image_channel_data_type} 中比特數所指定的最小精度。
 如果 OpenCL 實作不支持由 \cvar{image_channel_order} 和 \cvar{image_channel_data_type} 所定義的圖像格式，
-則 \capi{clCreateImage} 會返回 \cenum{NULL}。
+則 \capi{clCreateImage} 會返回 \cmacro{NULL}。
 

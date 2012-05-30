@@ -32,3 +32,126 @@
 {引數既可為標量，也可為矢量的內建數學函式表}
 {\input{chapter_lgg/tbl/tbl_svmathfunc.tex}}
 
+% half_ & native_ math function
+\reftab{hnMathFunc}中列出了下列函式：
+\startigBase
+\item \reftab{svMathFunc}中的部分函式，但定義時帶有前綴 \ccmm{half_}。
+實現這些函式時，精度至少要有 10 位，即所有 ULP 值都要小於等於 8192 ulp
+（ULP：units in the last place，最後一位的進退位）。
+
+\item \reftab{svMathFunc}中的部分函式，但定義時帶有前綴 \ccmm{native_}。
+這些函式可能會映射到一條或多條原生的\cnglo{device}指令上，
+性能通常比對應的不帶前綴 \ccmm{native_} 的函式更好。
+這些函式的精度（以及某些情況下的輸入範圍）\cnglo{impdef}。
+
+\item 用於除法和倒數運算的 \ccmm{half_} 和 \ccmm{native_} 函式。
+\stopigBase
+
+在\reftab{hnMathFunc}中，通用型別名 \ctype{gentype} 表示函式引數的型別可以是
+ \ctype{float}、 \ctype{float2}、 \ctype{float3}、 \ctype{float4}、
+ \ctype{float8} 或 \ctype{float16}。
+
+\placetable[here,force,split][tab:hnMathFunc]
+{內建的 \ccmm{half_} 和 \ccmm{native_} 數學函式}
+{\input{chapter_lgg/tbl/tbl_hnmathfunc.tex}}
+
+實作可以自行決定 \capi{half_} 函式是否支持去規格化值。
+如果引數是去規格化數， \capi{half_} 函式可以返回任何值，只要\todo{節 7.5.3}允許就行，
+無論 \ccmm{-cl-denorms-are-zero} （參見\refsec{MathIntrinsicsOption}）是否有效。
+
+有下列符號常量可用。這些值的型別都是 \ctype{float}，在單精度浮點數的精度內是精確的。
+\input{chapter_lgg/tbl/tbl_floatconstant.tex}
+
+如果\cnglo{device}支持雙精度浮點數，還有下列符號常量可用：
+\input{chapter_lgg/tbl/tbl_doubleconstant.tex}
+
+% Floating-point macros and pragmas
+\subsubsection{浮點巨集和雜注}
+
+雜注（pragma） \cpragmaemp{FP_CONTRACT} 可用來允許（如果狀態是 \ccmm{on}）
+或禁止（如果狀態是 \ccmm{off}）實作約簡算式。
+他可位於外部聲明的外面，也可位於複合語句中的顯式聲明或語句的前面。
+當在外部聲明外面時，在遇到下一個 \cpragmaemp{FP_CONTRACT} 或者翻譯單元結束時就無效了。
+當在複合語句中時，在遇到下一個 \cpragmaemp{FP_CONTRACT}
+（包括嵌套的複合語句中的 \cpragmaemp{FP_CONTRACT}）或者複合語句結束時就無效了；
+在複合語句末尾處，會恢復成此語句之前的狀態。
+在其他任何上下文中使用此雜注，其行為都是未定義的。
+
+這樣設置 \cpragmaemp{FP_CONTRACT}：
+\startclc
+#pragma OPENCL FP_CONTRACT on-off-switch
+
+on-off-switch is one of:
+	/BTEX\ftEmp{ON}/ETEX, /BTEX\ftEmp{OFF}/ETEX or /BTEX\ftEmp{DEFAULT}/ETEX.
+	The /BTEX\ftEmp{DEFAULT}/ETEX value is /BTEX\ftEmp{ON}/ETEX.
+\stopclc
+
+% float - single precision
+巨集 \cmacroemp{FP_FAST_FMAF} 用來指明對於單精度浮點數，
+函式 \capi{fma} 是否比直接編碼更快。
+如果定義了此巨集，則表明對 \ctype{float} 運算元的乘、加運算，
+函式 \capi{fma} 一般跟直接編碼一樣快，或者更快。
+
+OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
+可以在預處理指示 \ccmm{#if} 中使用這些常量算式。
+\startclc
+#define FLT_DIG		6
+#define FLT_MANT_DIG	24
+#define FLT_MAX_10_EXP	+38
+#define FLT_MAX_EXP	+128
+#define FLT_MIN_10_EXP	-37
+#define FLT_MIN_EXP	-125
+#define FLT_RADIX	2
+#define FLT_MAX		0x1.fffffep127f
+#define FLT_MIN		0x1.0p-126f
+#define FLT_EPSILON	0x1.0p-23f
+\stopclc
+
+下表給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
+
+\input{chapter_lgg/tbl/tbl_mmfloat.tex}
+
+下列兩個巨集將會展開成整數常量算式。
+如果 \carg{x} 是 0 或 NaN，則 \math{\text{\capi{ilogb}}(x)} 會分別返回這兩個值。
+\startigBase
+\item \cmacroemp{FP_ILOGB0} 為 \ccmm{{INT_MIN}} 或 \ccmm{-{INT_MAX}}。
+\item \cmacroemp{FP_ILOGBNAN} 為 \ccmm{{INT_MAX}} 或 \ccmm{{INT_MIN}}。
+\stopigBase
+
+除此之外，還有下列常量可用。
+他們的型別都是 \ctype{float}，在 \ctype{float} 型別的精度內是精確的。
+
+\input{chapter_lgg/tbl/tbl_constfloat.tex}
+
+% double - double precision
+如果\cnglo{device}支持雙精度浮點數，還有下列巨集和常量可用：
+\startigBase
+\item 巨集 \cmacroemp{FP_FAST_FMA} 指明處理雙精度浮點數時，
+ \capi{fma} 系列函式是否比直接編碼更快。
+如果定義了此巨集，則表明對 \ctype{double} 運算元的乘、加運算，
+函式 \capi{fma} 一般跟直接編碼一樣快，或者更快。
+\stopigBase
+
+OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
+可以在預處理指示 \ccmm{#if} 中使用這些常量算式。
+\startclc
+#define DBL_DIG		15
+#define DBL_MANT_DIG	53
+#define DBL_MAX_10_EXP	+308
+#define DBL_MAX_EXP	+1024
+#define DBL_MIN_10_EXP	-307
+#define DBL_MIN_EXP	-1021
+#define DBL_MAX		0x1.fffffffffffffp1023
+#define DBL_MIN		0x1.0p-1022
+#define DBL_EPSILON	0x1.0p-52
+\stopclc
+
+下表給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
+
+\input{chapter_lgg/tbl/tbl_mmdouble.tex}
+
+除此之外，還有下列常量可用。
+他們的型別都是 \ctype{double}，在 \ctype{double} 型別的精度內是精確的。
+
+\input{chapter_lgg/tbl/tbl_constdouble.tex}
+

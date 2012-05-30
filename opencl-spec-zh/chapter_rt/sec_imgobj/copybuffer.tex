@@ -45,15 +45,15 @@ cl_int clEnqueueCopyImageToBuffer(
 如果 \carg{src_image} 是 1D 圖像陣列對象，則為 $width * arraysize * bytes/image element$；
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
 此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
-而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
+而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 這時可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueCopyImageToBuffer} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -73,9 +73,9 @@ cl_int clEnqueueCopyImageToBuffer(
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{src_origin} 和 \carg{region} 沒有遵守上面所描述的相應規則。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cenum{NULL}，
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cmacro{NULL}，
   且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cenum{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
   或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
@@ -141,15 +141,15 @@ cl_int clEnqueueCopyBufferToImage(
 如果 \carg{dst_image} 是 1D 圖像陣列對象，則為 $width * arraysize * bytes/image element$；
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
 此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
-而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
+而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 這時可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueCopyBufferToImage} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -169,9 +169,9 @@ cl_int clEnqueueCopyBufferToImage(
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_origin} 和 \carg{region} 沒有遵守參數說明中描述的相應規則。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cenum{NULL}，
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cmacro{NULL}，
   且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cenum{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
   或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，

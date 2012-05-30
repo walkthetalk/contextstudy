@@ -42,24 +42,24 @@ typedef struct _cl_image_desc {
 如果設置了 \cvar{image_array_size}，其值必須 >= 1 且 <= \cenum{CL_DEVICE_IMAGE_MAX_ARRAY_SIZE}。
 
 \cvar{image_row_pitch} 即掃描線間隔，單位字節。
-如果 \carg{host_ptr} 是 \cenum{NULL}，其值必須是 0；
-如果 \carg{host_ptr} 不是 \cenum{NULL}，則可以是 0 或者 >= \cvar{image_width} * 元素大小。
-如果 \carg{host_ptr} 不是 \cenum{NULL}，並且 \cvar{image_row_pitch} = 0，則用 \cvar{image_width} * 元素大小 代替 \cvar{image_row_pitch}。
+如果 \carg{host_ptr} 是 \cmacro{NULL}，其值必須是 0；
+如果 \carg{host_ptr} 不是 \cmacro{NULL}，則可以是 0 或者 >= \cvar{image_width} * 元素大小。
+如果 \carg{host_ptr} 不是 \cmacro{NULL}，並且 \cvar{image_row_pitch} = 0，則用 \cvar{image_width} * 元素大小 代替 \cvar{image_row_pitch}。
 如果 \cvar{imag_row_pitch} 不是 0，則必須是圖像元素大小的整數倍。
 
 \cvar{image_slice_pitch} 即 3D 圖像中每個 2D 平面的大小，或者 1D、 2D 圖像陣列中每個圖像的大小。單位字節。
-如果 \carg{host_ptr} 是 \cenum{NULL}，其值必須是 0；
-如果 \carg{host_ptr} 不是 \cenum{NULL}，
+如果 \carg{host_ptr} 是 \cmacro{NULL}，其值必須是 0；
+如果 \carg{host_ptr} 不是 \cmacro{NULL}，
   對於 2D 圖像陣列或 3D 圖像，可以是 0 或者 >= \cvar{image_row_pitch} * \cvar{image_height}；
   對於 1D 圖像陣列，可以是 0 或者 >= \cvar{image_row_pitch}。
-如果 \carg{host_ptr} 不是 \cenum{NULL}，並且 \cvar{image_slice_pitch} = 0，
+如果 \carg{host_ptr} 不是 \cmacro{NULL}，並且 \cvar{image_slice_pitch} = 0，
   對於 2D 圖像陣列或 3D 圖像，則用 \cvar{image_row_pitch} * \cvar{image_height} 代替 \cvar{image_slice_pitch}；
   對於 1D 圖像陣列，則用 \cvar{image_row_pitch}。
 如果 \cvar{imag_slice_pitch} 不是 0，則必須是 \cvar{image_row_pitch} 的整數倍。
 
 \cvar{num_mip_levels} 和 \cvar{num_samples} 必須是 0。
 
-如果 \cvar{image_type} 是 \cenum{CL_MEM_OBJECT_IMAGE1D_BUFFER}，則 \cvar{buffer} 引用一個\cnglo{bufobj}，否則 \cvar{buffer} 必須是 \cenum{NULL}。
+如果 \cvar{image_type} 是 \cenum{CL_MEM_OBJECT_IMAGE1D_BUFFER}，則 \cvar{buffer} 引用一個\cnglo{bufobj}，否則 \cvar{buffer} 必須是 \cmacro{NULL}。
 對於 1D 圖像\cnglo{bufobj}，圖像的所有像素均取自\cnglo{bufobj}的數據。
 在相應的同步點上，對\cnglo{bufobj}中數據的改動也會反映到 1D 圖像的內容上，反之亦然。
  \cvar{image_width} * 元素大小 必須 <= \cnglo{bufobj}中的數據大小。

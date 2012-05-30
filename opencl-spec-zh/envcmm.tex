@@ -137,6 +137,12 @@ bolditalic=texgyreherosbolditalic]
 \definetype[cmacro][
   style=\tt\tf,
 ]
+\definetype[cmacroemp][
+  style=\tt\bf,
+]
+\definetype[cpragmaemp][
+  style=\tt\bf,
+]
 \definetype[cvar][ % variable
   style=\tt\tf,
 ]
@@ -761,31 +767,46 @@ bolditalic=texgyreherosbolditalic]
   \bTD #2 \eTD
 \eTR
 }
-%%%%%%%%%%%%%%%%%%% TT: type / type
-\def\startCLTT{\dostartCLTT}
+%%%%%%%%%%%%%%%%%%% OO: object / object
+\def\startCLOO{\dostartCLOO}
 
-\long\def\dostartCLTT#1\stopCLTT{%
+\long\def\dostartCLOO[#1][#2]#3\stopCLOO{%
   \midaligned{
   \bTABLE
   \setupTABLE[c][each][align={middle,lohi}]
   \bTABLEhead
     \bTR[background=color,backgroundcolor=gray]
-        \bTH OpenCL 語言中的型別 \eTH
-        \bTH 應用所用 API 中的型別 \eTH
+        \bTH #1 \eTH
+        \bTH #2 \eTH
     \eTR
   \eTABLEhead
   \bTABLEbody
-    #1
+    #3
   \eTABLEbody
   \eTABLE
   }
 }
 
-\define[2]\clTT{
+\define[2]\clOO{
 \bTR
   \bTD #1 \eTD
   \bTD #2 \eTD
 \eTR
+}
+
+% macro - macro for float
+\define[1]\clMMF{
+\clOO{\cmacroemp{FLT_#1}}{\cmacroemp{CL_FLT_#1}}
+}
+
+% macro - macro for double
+\define[1]\clMMD{
+\clOO{\cmacroemp{DBL_#1}}{\cmacroemp{CL_DBL_#1}}
+}
+
+% constant - math
+\define[2]\clCM{
+\clOO{\cmacroemp{#1}}{\math{#2}}
 }
 %%%%%%%%%%%%%%%%%%% FD: fuction / desc
 \def\startCLFD{\dostartCLFD}

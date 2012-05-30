@@ -30,9 +30,9 @@ cl_int clGetSupportedImageFormats (cl_context context,
 \carg{num_entries} 即 \carg{image_formats} 所能容納的表項數目。
 
 \carg{image_formats} 用來存儲所返回的圖像格式。每一項都是 \ctype{cl_image_format} 結構體。
-如果 \carg{image_formats} 是 \cenum{NULL}，則忽略。
+如果 \carg{image_formats} 是 \cmacro{NULL}，則忽略。
 
-\carg{num_image_formats} 即所返回的圖像格式的實際數目。如果是 \cenum{NULL}，則忽略。
+\carg{num_image_formats} 即所返回的圖像格式的實際數目。如果是 \cmacro{NULL}，則忽略。
 
 如果執行成功，則 \capi{clGetSupportedImageFormats} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -40,7 +40,7 @@ cl_int clGetSupportedImageFormats (cl_context context,
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{flags} 或 \carg{image_type} 無效，或者 \carg{num_entries} 是 0 且 \carg{image_formats} 是 \cenum{NULL}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{flags} 或 \carg{image_type} 無效，或者 \carg{num_entries} 是 0 且 \carg{image_formats} 是 \cmacro{NULL}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
 

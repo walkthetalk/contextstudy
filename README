@@ -13,3 +13,9 @@ definesynonyms
 4 context
 http://getfo.org/context_xml/contents.html
 
+
+問題：
+1. 自定義的prettyprinting尾部的空行無法通過設置after去除，而before可以。
+2. 自定義的buffer無法使用標籤
+3. footnote無法斷行
+

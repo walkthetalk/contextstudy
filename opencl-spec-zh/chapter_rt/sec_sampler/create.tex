@@ -23,10 +23,10 @@ cl_sampler clCreateSampler (cl_context context,
 \carg{filter_mode} 指明讀取圖像時採用哪種過濾器（ filter ）。
 可以是 \cenum{CL_FILTER_NEAREST} 或 \cenum{CL_FILTER_LINEAR}。
 
-\carg{errcode_ret} 會返回相應的錯誤碼。如果是 \cenum{NULL}，則不會返回錯誤碼。
+\carg{errcode_ret} 會返回相應的錯誤碼。如果是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{sampler}對象， \capi{clCreateSampler} 會將其返回，並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則，返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 

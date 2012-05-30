@@ -40,13 +40,13 @@ cl_int clGetEventProfilingInfo (cl_event event,
 請參見\reftab{clGetEventProfilingInfo}。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
-如果 \carg{param_value} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小。
 其值必須 >= \reftab{clGetEventProfilingInfo}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
-如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則忽略。
+如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則忽略。
 
 \placetable[here,force,split][tab:clGetEventProfilingInfo]
 {\capi{clGetEventProfilingInfo} 所支持的 \carg{param_names}}
@@ -70,7 +70,7 @@ cl_int clGetEventProfilingInfo (cl_event event,
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{clGetEventProfilingInfo}中返回型別的大小，
-且 \carg{param_value} 不是 \cenum{NULL}。
+且 \carg{param_value} 不是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
 

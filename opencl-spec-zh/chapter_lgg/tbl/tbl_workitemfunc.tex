@@ -44,7 +44,7 @@ size_t get_local_size(uint dimindx)
 
 \startbuffer[funcdesc:get_local_size]
 返回在 \carg{dimindx} 所標識的維度上指定的局部\cnglo{workitem}的數目。
-如果 \capi{clEnqueueNDRangeKernel} 的引數 \carg{local_work_size} 不是 \cenum{NULL}，
+如果 \capi{clEnqueueNDRangeKernel} 的引數 \carg{local_work_size} 不是 \cmacro{NULL}，
 則返回的就是此引數的值；
 否則 OpenCL 實作會選擇一個恰當的 \carg{local_work_size} 並將其返回。
 \carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}()-1}。

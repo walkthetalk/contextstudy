@@ -17,8 +17,8 @@
   返回調用 \capi{clCreateContext} 或 \capi{clCreateContextFromType} 時所指定的參數 \carg{properties}。
 
   對於調用 \capi{clCreateContext} 或 \capi{clCreateContextFromType} 創建 \carg{context} 時所指定的參數 \carg{properties} 而言，
-  如果此參數不是 \cenum{NULL}，實作必須返回此參數的值。
-  而如果此參數是 \cenum{NULL}，實作可以選擇將 \carg{param_value_size_ret} 置為 0，表示沒有返回屬性值，即没有返回属性值，
+  如果此參數不是 \cmacro{NULL}，實作必須返回此參數的值。
+  而如果此參數是 \cmacro{NULL}，實作可以選擇將 \carg{param_value_size_ret} 置為 0，表示沒有返回屬性值，即没有返回属性值，
   或者將 \carg{param_value} 的內容置為 0 （ 0 用\cnglo{context}屬性清單的終止標記）。
 }
 

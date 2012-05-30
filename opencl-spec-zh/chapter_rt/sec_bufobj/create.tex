@@ -25,10 +25,10 @@ cl_mem clCreateBuffer(
 
 \carg{host_ptr} 指向可能已經由\cnglo{app}分配好了的緩衝數據。其大小必須 >= \carg{size}。
 
-\carg{errcode_ret} 用來返回錯誤碼。如果是 \cenum{NULL}，則不會返回錯誤碼。
+\carg{errcode_ret} 用來返回錯誤碼。如果是 \cmacro{NULL}，則不會返回錯誤碼。
 
 如果成功創建了\cnglo{bufobj}，\capi{clCreateBuffer} 會將其返回，並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
-否則返回 \cenum{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
+否則返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_CONTEXT}，如果 \carg{context} 無效。
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{flags} 的值不是\reftab{clmemflags}中定義的。
@@ -39,8 +39,8 @@ cl_mem clCreateBuffer(
 \item \cenum{CL_INVALID_BUFFER_SIZE}，如果 \carg{size} 是 0\footnote{\getbuffer[footnoteshi]}。
 
 \item \cenum{CL_INVLAID_HOST_PTR}，
-  如果 \carg{host_ptr} 是 \cenum{NULL}，并且 \carg{flags} 中设置了 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_COPY_HOST_PTR}；
-  或者 \carg{host_ptr} 不是 \cenum{NULL}，但是 \carg{flags} 中沒有設置 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_COPY_HOST_PTR}。
+  如果 \carg{host_ptr} 是 \cmacro{NULL}，并且 \carg{flags} 中设置了 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_COPY_HOST_PTR}；
+  或者 \carg{host_ptr} 不是 \cmacro{NULL}，但是 \carg{flags} 中沒有設置 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_COPY_HOST_PTR}。
 
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為\cnglo{bufobj}分配內存失敗。
 
@@ -95,7 +95,7 @@ cl_mem clCreateSubBuffer(
 
 \item \cenum{CL_INVALID_VALUE}，
   如果 \carg{buffer_create_info} 中的值無效（對應於 \carg{buffer_create_type} ），
-  或者 \carg{buffer_create_info} 是 \cenum{NULL}。
+  或者 \carg{buffer_create_info} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_BUFFER_SIZE}，如果 \carg{size} 是 0。
 

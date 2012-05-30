@@ -33,15 +33,15 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 \carg{offset} 即填充區域在 \carg{buffer} 中的偏移量，單位：字節，他必須是 \carg{pattern_size} 的整數倍。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cenum{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cenum{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
 此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，用來標識此\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
-而如果 \carg{event} 是 \cenum{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
+而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 不過可以用 \capi{clEnqueueBarrierWithWaitList} 代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cenum{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueFillBuffer} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -56,15 +56,15 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 
 \item \cenum{CL_INVALID_VALUE}，如果 $(offset,size)$ 所指定的區域越限。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{pattern} 是 \cenum{NULL}，
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{pattern} 是 \cmacro{NULL}，
   或者 \carg{pattern_size} 是 0，
   或者 \carg{pattern_size} 不屬於 $\{1,2,4,8,16,32,64,128\}$。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{offset} 和 \carg{size} 不是 \carg{pattern_size} 的整數倍。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cenum{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cenum{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
+  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
   或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{buffer} 是子\cnglo{bufobj}，
