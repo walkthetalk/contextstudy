@@ -104,7 +104,7 @@ gentype cbrt(gentype)
 gentype ceil(gentype)
 \stopbuffer
 \startbuffer[funcdesc:ceil]
-向正無窮舍入成整數值。
+向正無窮捨入成整數值。
 \stopbuffer
 
 % copysign
@@ -220,7 +220,7 @@ gentype fdim(gentype x,
 gentype floor(gentype)
 \stopbuffer
 \startbuffer[funcdesc:floor]
-向負無窮舍入成整數值。
+向負無窮捨入成整數值。
 \stopbuffer
 
 % fma
@@ -230,7 +230,7 @@ gentype fma(gentype a,
 	    gentype c)
 \stopbuffer
 \startbuffer[funcdesc:fma]
-返回 \math{a \times b + c}，其中乘法具有無限精度即不會進行舍入，但會對加法進行正確地舍入。
+返回 \math{a \times b + c}，其中乘法具有無限精度即不會進行捨入，但會對加法進行正確地捨入。
 邊界案例下的行為遵循 IEEE 754-2008 標準。
 \stopbuffer
 
@@ -442,7 +442,7 @@ gentype mad (gentype a,
 \stopbuffer
 \startbuffer[funcdesc:mad]
 \capi{mad} 逼近 \math{a \times b + c}。
-至於 \math{a \times b} 是否要舍入、怎樣舍入，
+至於 \math{a \times b} 是否要捨入、怎樣捨入，
 以及如何處理超常（supernormal）或次常（subnormal）的乘法都沒有定義。
 在那些速度比準確更重要的地方，就可以使用 \capi{mad}\footnote{
 需要提醒用戶的是，對於一些情況,
@@ -615,8 +615,8 @@ double remquo (double x,
 gentype rint (gentype)
 \stopbuffer
 \startbuffer[funcdesc:rint]
-舍入成整數值（使用舍入到最近偶數的舍入模式），但用的是浮點格式。
-關於舍入模式請參考\todo{節 7.1}。
+向最近偶數捨入成整數值，但用的是浮點格式。
+關於捨入模式請參考\todo{節 7.1}。
 \stopbuffer
 
 % rootn
@@ -636,7 +636,7 @@ doublen rootn (double x, int y)
 gentype round (gentype x)
 \stopbuffer
 \startbuffer[funcdesc:round]
-返回整數值，從零往外舍入，無視當前舍入方向。
+返回整數值，從零往外捨入，無視當前捨入方向。
 \stopbuffer
 
 % rsqrt
@@ -730,7 +730,7 @@ gentype tgamma (gentype)
 gentype trunc (gentype)
 \stopbuffer
 \startbuffer[funcdesc:trunc]
-向零舍入成整數值。
+向零捨入成整數值。
 \stopbuffer
 
 

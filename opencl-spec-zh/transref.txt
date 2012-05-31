@@ -38,3 +38,4 @@ illustrate 演示
 widen 拓寬
 extension 擴展
 extent 擴充
+contract(ion) 化簡

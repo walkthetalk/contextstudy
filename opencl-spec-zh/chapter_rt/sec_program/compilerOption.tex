@@ -53,7 +53,7 @@
 
 \startclOption{-cl-fp32-correctly-rounded-divide-sqrt}
 對於\cnglo{program}源碼中的單精度浮點除法（ \ccmm{x/y} 和 \ccmm{1/x} ）和 \ccmm{sqrt} 而言，
-\cnglo{app}可以使用此選項來保證對他們進行正確的舍入；
+\cnglo{app}可以使用此選項來保證對他們進行正確的捨入；
 而如果沒有使用此選項，則他們的最小精度在\todo{節7.4}中定義。
 
 只有在對應\cnglo{device}的 \cenum{CL_DEVICE_SINGLE_FP_CONFIG} （參見\reftab{cldevquery}）

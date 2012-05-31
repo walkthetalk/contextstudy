@@ -43,8 +43,8 @@ int8	i = (int8) f;	<- not allowed
 
 標量到矢量的轉換可以通過轉型來實施。
 轉型同時會實施恰當的算數轉換。
-轉換成內建整形矢量時會向零舍入。
-轉換成浮點矢量時會使用缺省的舍入模式。
+轉換成內建整形矢量時會向零捨入。
+轉換成浮點矢量時會使用缺省的捨入模式。
 將 \ctype{bool} 轉型成整形矢量時，
 如果 \ctype{bool} 值是 \cenum{true}，會將矢量組件置為 \math{-1} （即設置了所有位），
 否則將矢量組件置為 \math{0}。
@@ -99,7 +99,7 @@ int	i = convert_int(f);
  將 \ctype{float} 標量 \cvar{f} 轉換成了 \ctype{int} 標量 \cvar{i}。
 
 可以通過兩個可選的修飾符（modifier）來改變轉換的行為，
-其中一個修飾符可以對溢出的輸入使用飽和算法（saturation），另一個可以指定舍入模式。
+其中一個修飾符可以對溢出的輸入使用飽和算法（saturation），另一個可以指定捨入模式。
 
 完整的標量轉換函式形如：
 \startclc
@@ -124,22 +124,22 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 不過\refsec{oorbasc}中所描述的溢出行為和飽和轉換例外。
 
 % Rounding Modes
-\subsubsection{舍入模式}
+\subsubsection{捨入模式}
 
-與浮點型別有關的轉換會按照 IEEE-754 中的舍入規則進行舍入。
-轉換可以使用\reftab{roundingModes}中的修飾符指定舍入模式。
+與浮點型別有關的轉換會按照 IEEE-754 中的捨入規則進行捨入。
+轉換可以使用\reftab{roundingModes}中的修飾符指定捨入模式。
 
 \placetable[here,force][tab:roundingModes]
-{舍入模式}
+{捨入模式}
 {\input{chapter_lgg/tbl/tbl_roundingmodes.tex}}
 
-默認情況下，轉換成整形時使用舍入模式 \ccmm{_rtz}，而轉換成浮點型別
+默認情況下，轉換成整形時使用捨入模式 \ccmm{_rtz}，而轉換成浮點型別
 \footnote{轉換成浮點格式時，如果源的值超過了目標型別所能表示的最大有限浮點值，
-舍入模式會影響轉換結果，根據 IEEE-754 的舍入規則來確定結果是最大有限浮點值，
+捨入模式會影響轉換結果，根據 IEEE-754 的捨入規則來確定結果是最大有限浮點值，
 還是和源有相同正負號的無窮值。}
-時使用缺省的舍入模式。
-所支持的唯一一個缺省的浮點舍入模式是向最近偶數舍入，
-即浮點型別的缺省舍入模式是 \ccmm{_rte}。
+時使用缺省的捨入模式。
+所支持的唯一一個缺省的浮點捨入模式是向最近偶數捨入，
+即浮點型別的缺省捨入模式是 \ccmm{_rte}。
 
 % Out-of-Range Behavior and Saturated Conversions
 \subsubsection[sec:oorbasc]{溢出行為和飽和轉換}
@@ -152,7 +152,7 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 此模式下，如果發生溢出，結果將是目標格式所能表示的值中與源運算元最近的那個
 （會將 NaN 轉換成 0）。
 
-轉換成浮點型別時將遵循 IEEE-754 中的舍入規則。
+轉換成浮點型別時將遵循 IEEE-754 中的捨入規則。
 轉換成浮點格式時不能使用修飾符 \ccmm{_sta}。
 
 % Explicit Conversion Examples

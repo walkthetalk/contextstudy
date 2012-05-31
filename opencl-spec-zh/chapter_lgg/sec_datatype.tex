@@ -27,7 +27,7 @@
 不能將 \cldts{half} 型別的去規格化數
 （可能是用 vstore_half 將 \cldts{float} 轉換成 \cldts{half} 時生成的，
 也可能是用 vload_half 將 \cldts{half} 轉換成 \cldts{float} 時生成的）刷成 0。
-從 \cldts{float} 到 \cldts{half} 的轉換會將尾數舍入成 11 位精度。
+從 \cldts{float} 到 \cldts{half} 的轉換會將尾數捨入成 11 位精度。
 從  \cldts{half} 到 \cldts{float} 的轉換是無損的；
 所有 \cldts{half} 數都可精確地表示成 \cldts{float} 值。
 
@@ -61,7 +61,7 @@ a = *p;		<- not allowed. must use vload_half function
  和 \capi{vstore_half}、 \capi{vstore_halfn}、 \capi{vstorea_halfn}
  可分別裝載和存儲 \cldts{half} 指針，參見\todo{6.12.7}。
 裝載函式可從內存中讀取標量或矢量 \cldts{half} 值 並將其轉換成 \cldts{float} 值。
-而存儲函式則將標量或矢量 \cldts{float} 值作為輸入，並（以恰當的舍入模式）
+而存儲函式則將標量或矢量 \cldts{float} 值作為輸入，並（以恰當的捨入模式）
 將其轉換成 \cldts{half} 標量或矢量值後寫入內存中。
 
 
