@@ -46,7 +46,8 @@
 % clCreateUserEvent
 函式
 \startCLFUNC
-cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
+cl_event clCreateUserEvent (cl_context context,
+			cl_int *errcode_ret)
 \stopCLFUNC
 可用來創建用戶自己的\cnglo{evtobj}。
 有了用戶事件，
@@ -73,7 +74,8 @@ cl_event clCreateUserEvent (cl_context context, cl_int *errcode_ret)
 % clSetUserEventStatus
 函式
 \startCLFUNC
-cl_int clSetUserEventStatus (cl_event event, cl_int execution_status)
+cl_int clSetUserEventStatus (cl_event event,
+			cl_int execution_status)
 \stopCLFUNC
 可用來設置用戶\cnglo{evtobj}的執行狀態。
 
@@ -130,7 +132,8 @@ clReleaseMemObject(buf2);
 % clWaitForEvents
 函式
 \startCLFUNC
-cl_int clWaitForEvents (cl_uint num_events, const cl_event *event_list)
+cl_int clWaitForEvents (cl_uint num_events,
+			const cl_event *event_list)
 \stopCLFUNC
 會使\cnglo{host}線程等待 \carg{event_list} 中的\cnglo{evtobj}所標識的\cnglo{cmd}完成。
 對於一個\cnglo{cmd}而言，如果其執行狀態是 \cenum{CL_COMPLETE} 或負整數，則任務已經完成了。
@@ -212,12 +215,14 @@ cl_int clGetEventInfo (cl_event event,
 % clSetEventCallback
 函式
 \startCLFUNC
-cl_int clSetEventCallback (cl_event event,
-			cl_int command_exec_callback_type,
-			void (CL_CALLBACK *pfn_event_notify)(cl_event event,
-					cl_int event_command_exec_status,
-					void *user_data),
-			void *user_data)
+cl_int clSetEventCallback (
+		cl_event event,
+		cl_int command_exec_callback_type,
+		void (CL_CALLBACK *pfn_event_notify)(
+			cl_event event,
+			cl_int event_command_exec_status,
+			void *user_data),
+		void *user_data)
 \stopCLFUNC
 可以為\cnglo{cmd}的某個執行狀態註冊一個用戶回調函式。
 當 \carg{event} 所關聯的\cnglo{cmd}的執行狀態變成或越過 \carg{command_exec_status} 時，

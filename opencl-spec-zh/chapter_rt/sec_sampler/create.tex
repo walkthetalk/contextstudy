@@ -1,13 +1,13 @@
 \subsection{創建採樣器對象}
 
 函式
-\startclc
+\startCLFUNC
 cl_sampler clCreateSampler (cl_context context,
 			cl_bool normalized_coords,
 			cl_addressing_mode addressing_mode,
 			cl_filter_mode filter_mode,
 			cl_int *errcode_ret)
-\stopclc
+\stopCLFUNC
 會創建一個\cnglo{sampler}對象。至於\cnglo{sampler}怎樣工作請參考\todo{6.12.14.1}。
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
@@ -40,9 +40,9 @@ cl_sampler clCreateSampler (cl_context context,
 \stopigBase
 
 函式
-\startclc
+\startCLFUNC
 cl_int clRetainSampler (cl_sampler sampler)
-\stopclc
+\stopCLFUNC
 會使 \carg{sampler} 的\cnglo{refcnt}增一。
 \capi{clCreateSampler} 會實施隱式的 \englo{retain}。
 
@@ -55,9 +55,9 @@ cl_int clRetainSampler (cl_sampler sampler)
 
 % clReleaseCommandQueue
 函数
-\startclc
+\startCLFUNC
 cl_int clReleaseSampler (cl_sampler sampler)
-\stopclc
+\stopCLFUNC
 會使 \carg{sampler} 的\cnglo{refcnt}減一。
 当 \carg{sampler} 的\cnglo{refcnt}降為 0，並且所有使用他的\cnglo{cmd}全部執行完畢，此\cnglo{sampler}就會被刪除。
 

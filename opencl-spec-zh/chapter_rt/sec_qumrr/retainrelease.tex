@@ -1,9 +1,9 @@
 \subsection{保留以及釋放內存對象}
 
 函式
-\startclc
+\startCLFUNC
 cl_int clRetainMemObject (cl_mem memobj)
-\stopclc
+\stopCLFUNC
 會使 \carg{memobj} 的\cnglo{refcnt}增一。執行成功後會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤的一種：
 \startigBase
@@ -17,9 +17,9 @@ cl_int clRetainMemObject (cl_mem memobj)
 \capi{clCreateBuffer}、 \capi{clCreateSubBuffer} 以及 \capi{clCreateImage} 會實施隱式的\cnglo{retain}。
 
 函式
-\startclc
+\startCLFUNC
 cl_int clReleaseMemObject (cl_mem memobj)
-\stopclc
+\stopCLFUNC
 會使 \carg{memobj} 的\cnglo{refcnt}減一。執行成功後會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤的一種：
 \startigBase
@@ -34,12 +34,12 @@ cl_int clReleaseMemObject (cl_mem memobj)
 如果 \carg{memobj} 是一個\cnglo{bufobj}，只有等到其所有子\cnglo{bufobj}都被刪除後，才能將其刪除。
 
 函式
-\startclc
+\startCLFUNC
 cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 		void (CL_CALLBACK *pfn_notify)(cl_mem memobj,
 			void *user_data),
 		void *user_data)
-\stopclc
+\stopCLFUNC
 會向 \carg{memobj} 註冊一個回調函式。
 每次調用 \capi{clSetMemObjectDestructorCallback} 都會將回調函式註冊到 \carg{memobj} 的回調棧上。
 回調函式的調用順序與其註冊順序相反。

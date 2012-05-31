@@ -1,9 +1,9 @@
 \subsection{卸載編譯器}
 
 函式
-\startclc
+\startCLFUNC
 cl_int clUnloadPlatformCompiler (cl_platform_id platform)
-\stopclc
+\stopCLFUNC
 可用來釋放 OpenCL 編譯器為 \carg{platform} 分配的資源。
 這僅作為\cnglo{app}的建議，不保證將來不再使用編譯器，也不保證真正卸載編譯器。
 如果在 \capi{clUnloadPlatformCompiler} 之後調用

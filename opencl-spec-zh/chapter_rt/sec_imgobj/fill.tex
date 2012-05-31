@@ -1,7 +1,7 @@
 \subsection{填充圖像對象}
 
 函式
-\startclc
+\startCLFUNC
 cl_int clEnqueueFillImage (cl_command_queue command_queue,
 			cl_mem image,
 			const void *fill_color,
@@ -10,7 +10,7 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 會將一個\cnglo{cmd}插入隊列，此\cnglo{cmd}可以將\cnglo{imgobj}填充成某種顏色。
  \carg{image} 的一些用法資訊，如是否可讀、是否可寫，
 還有創建 \carg{image} 時所指定的參數 \ctype{cl_mem_flags}，

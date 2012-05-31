@@ -1,7 +1,7 @@
 \subsection{填充緩衝對象}
 
 函式
-\startclc
+\startCLFUNC
 cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 			cl_mem buffer,
 			const void *pattern,
@@ -11,7 +11,7 @@ cl_int clEnqueueFillBuffer (cl_command_queue command_queue,
 			cl_uint num_events_in_wait_list,
 			const cl_event *event_wait_list,
 			cl_event *event)
-\stopclc
+\stopCLFUNC
 會將一個\cnglo{cmd}插入隊列，此\cnglo{cmd}可以按給定的樣式（ pattern ）填充\cnglo{bufobj}。
 \carg{buffer} 的一些用法資訊，如此\cnglo{memobj}是否可讀、是否可寫，
 還有創建 \carg{buffer} 時所指定的參數 \ctype{cl_mem_flags}，
