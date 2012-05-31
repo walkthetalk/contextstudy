@@ -132,29 +132,33 @@ gentype sub_sat (gentype x, gentype y)
 \stopbuffer
 
 % upsample
-\startbuffer[funcproto:upsample]
+\startbuffer[funcproto:upsampleshort]
 short upsample (char hi, uchar lo)
 ushort upsample (uchar hi, uchar lo)
 shortn upsample (charn hi, ucharn lo)
 ushortn upsample (ucharn hi, ucharn lo)
-
+\stopbuffer
+\startbuffer[funcdesc:upsampleshort]
+\math{result[i] = ((short)hi[i] << 8) | lo[i]}\par
+\math{result[i] = ((ushort)hi[i] << 8) | lo[i]}
+\stopbuffer
+\startbuffer[funcproto:upsampleint]
 int upsample (short hi, ushort lo)
 uint upsample (ushort hi, ushort lo)
 intn upsample (shortn hi, ushortn lo)
 uintn upsample (ushortn hi, ushortn lo)
-
+\stopbuffer
+\startbuffer[funcdesc:upsampleint]
+\math{result[i] = ((int)hi[i] << 16) | lo[i]}\par
+\math{result[i] = ((uint)hi[i] << 16) | lo[i]}
+\stopbuffer
+\startbuffer[funcproto:upsamplelong]
 long upsample (int hi, uint lo)
 ulong upsample (uint hi, uint lo)
 longn upsample (intn hi, uintn lo)
 ulongn upsample (uintn hi, uintn lo)
 \stopbuffer
-\startbuffer[funcdesc:upsample]
-\math{result[i] = ((short)hi[i] << 8) | lo[i]}\par
-\math{result[i] = ((ushort)hi[i] << 8) | lo[i]}\par
-
-\math{result[i] = ((int)hi[i] << 16) | lo[i]}\par
-\math{result[i] = ((uint)hi[i] << 16) | lo[i]}\par
-
+\startbuffer[funcdesc:upsamplelong]
 \math{result[i] = ((long)hi[i] << 32) | lo[i]}\par
 \math{result[i] = ((ulong)hi[i] << 32) | lo[i]}
 \stopbuffer
@@ -184,7 +188,9 @@ gentype popcount (gentype x)
 \clFD{mul_hi}
 \clFD{rotate}
 \clFD{sub_sat}
-\clFD{upsample}
+\clFD{upsampleshort}
+\clFD{upsampleint}
+\clFD{upsamplelong}
 \clFD{popcount}
 
 \stopCLFD
