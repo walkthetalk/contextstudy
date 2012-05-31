@@ -794,14 +794,19 @@ bolditalic=texgyreherosbolditalic]
 \eTR
 }
 
+% macro - macro
+\define[1]\clMM{
+\clOO{\cmacroemp{#1}}{\cmacroemp{CL_#1}}
+}
+
 % macro - macro for float
 \define[1]\clMMF{
-\clOO{\cmacroemp{FLT_#1}}{\cmacroemp{CL_FLT_#1}}
+\clMM{FLT_#1}
 }
 
 % macro - macro for double
 \define[1]\clMMD{
-\clOO{\cmacroemp{DBL_#1}}{\cmacroemp{CL_DBL_#1}}
+\clMM{DBL_#1}
 }
 
 % constant - math
