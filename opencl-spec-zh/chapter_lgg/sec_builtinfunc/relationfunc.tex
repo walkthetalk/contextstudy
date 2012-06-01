@@ -4,7 +4,10 @@
 所產生的結果分別為標量或矢量帶符號整形，參見\refsec{operator}。
 
 \reftab{svRelationalFunc}中所列函式\footnote{
-}可以內建標量或矢量型別為引數，返回的結果為標量或矢量整形。
+如果實作對規範進行了擴充，從而支持 IEEE-754 标志和異常，
+則當有一個或多個算數是 NaN 時，
+\reftab{svRelationalFunc}中所定義的內建函式不會引發{\ftRef{無效（invalid）}}浮點異常。}
+可以內建標量或矢量型別為引數，返回的結果為標量或矢量整形。
 泛型 \ctype{gentype} 指代下列內建型別：
  \cldts{char}、 \cldtv{char}、 \cldts{uchar}、 \cldtv{uchar}、
  \cldts{short}、 \cldtv{short}、 \cldts{ushort}、 \cldtv{ushort}、
@@ -18,4 +21,23 @@
  \cldts{uchar}、 \cldtv{uchar}、 \cldts{ushort}、 \cldtv{ushort}、
  \cldts{uint}、 \cldtv{uint}、 \cldts{ulong} 和 \cldtv{ulong}。
 其中 \cldtvfix{n} 為 2、 3、 4、 8 或 16。
+
+對於標量型別的引數，如果所指定的關係為 {\ftRef{false}}，則\reftab{svRelationalFunc}中的函式
+ \capi{isequal}、 \capi{isnotequal}、 \capi{isgreater}、 \capi{isgreaterequal}、
+ \capi{isless}、 \capi{islessequal}、 \capi{islessgreater}、 \capi{isfinite}、
+ \capi{isinf}、 \capi{isnan}、 \capi{isnormal}、 \capi{isordered}、
+ \capi{isunordered} 和 \capi{signbit} 會返回 0，否則返回 1。
+而對於矢量型別的引數，如果所指定的關係為 {\ftRef{false}}，則返回 0，
+否則返回 -1 （即所有位都是 1）。
+
+如果任一引數為 NaN，則關係函式
+ \capi{isequal}、 \capi{isgreater}、 \capi{isgreaterequal}、
+ \capi{isless}、 \capi{islessequal} 和 \capi{islessgreater}
+返回 0。
+如果引數為標量，則當任一引數為 NaN 時， \capi{isnotequal} 返回 1；
+而如果引數為矢量，則當任一引數為 NaN 時， \capi{isnotequal} 返回 -1。
+
+\placetable[here,force,split][tab:svRelationalFunc]
+{標量和矢量關係函式}
+{\input{chapter_lgg/tbl/tbl_svrelationalfunc.tex}}
 

@@ -81,7 +81,7 @@ floatn fast_normalize (floatn p)
 if (/BTEX\capi{all}/ETEX(/BTEX\math{p == 0.0f}/ETEX))
 	/BTEX\math{result = p}/ETEX;
 else
-	/BTEX\math{result = p / \text{\capi{sqrt}}(p.x2 + p.y2 + ... )}/ETEX;
+	/BTEX\math{result = p / \text{\capi{sqrt}}(p.x^2 + p.y^2 + \cdots )}/ETEX;
 \stoptyping
 但是下列情況例外：
 \startigNum
