@@ -2,8 +2,8 @@ instance 實體
 implement 實現
 implementation 實作
 data pattern 數據樣式
-operator 運算子
-operand 運算元
+operator 算子
+operand 算元
 data type 數據型別
 argument 引數 *********
 parameter 參數 ********

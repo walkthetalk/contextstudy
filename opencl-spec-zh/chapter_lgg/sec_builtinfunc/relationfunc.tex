@@ -1,0 +1,21 @@
+\subsection{關係函式}
+
+可以使用關係算子和相等算子（<、 <=、 >、 >=、 !=、 ==）對內建標量和矢量型別進行關係運算，
+所產生的結果分別為標量或矢量帶符號整形，參見\refsec{operator}。
+
+\reftab{svRelationalFunc}中所列函式\footnote{
+}可以內建標量或矢量型別為引數，返回的結果為標量或矢量整形。
+泛型 \ctype{gentype} 指代下列內建型別：
+ \cldts{char}、 \cldtv{char}、 \cldts{uchar}、 \cldtv{uchar}、
+ \cldts{short}、 \cldtv{short}、 \cldts{ushort}、 \cldtv{ushort}、
+ \cldts{int}、 \cldtv{int}、 \cldts{uint}、 \cldtv{uint}、
+ \cldts{long}、 \cldtv{long}、 \cldts{ulong}、 \cldtv{ulong}、
+ \cldts{float}、 \cldtv{float}、 \cldts{double} 和 \cldtv{double}。
+泛型 \ctype{igentype} 指代內建帶符號整形，即：
+ \cldts{char}、 \cldtv{char}、 \cldts{short}、 \cldtv{short}、
+ \cldts{int}、 \cldtv{int}、 \cldts{long} 和 \cldtv{long}。
+泛型 \ctype{ugentype} 指代內建無符號整形，即：
+ \cldts{uchar}、 \cldtv{uchar}、 \cldts{ushort}、 \cldtv{ushort}、
+ \cldts{uint}、 \cldtv{uint}、 \cldts{ulong} 和 \cldtv{ulong}。
+其中 \cldtvfix{n} 為 2、 3、 4、 8 或 16。
+
