@@ -105,11 +105,11 @@ gentyped smoothstep (double edge0,
 在某些地方需要能進行平滑過渡的臨界函式，這時就可使用此函式。
 
 此函式等同於：
-{\setuptyping[option=none]\starttyping
+\starttyping[option=none]
 gentype t;
 t = clamp((x - edge0) / (edge1 - edge1), 0, 1);
 return t * t * (3 - 2 * t);
-\stoptyping}
+\stoptyping
 
 如果 \math{edge0 \geq edge1}，
 或者 \math{x}、 \math{edge0}、 \math{edge1} 中的任意一個是 NaN，則結果未定義。
