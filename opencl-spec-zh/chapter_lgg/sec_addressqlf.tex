@@ -56,7 +56,7 @@ __local int * __private f() { ... }; // should generate an error.
 指代分配自\cnglo{glbmem}的\cnglo{memobj}（\cnglo{bufobj}或\cnglo{imgobj}）。
 
 \cnglo{bufobj} 可聲明為指針，指向標量、矢量或用戶自定義的結構體。
-這樣\cnglo{kernel}就可以讀寫緩存中任意位置的內容。
+這樣\cnglo{kernel}就可以讀寫緩衝區中任意位置的內容。
 
 在\cnglo{host}代碼中通過調用相應 API 分配\cnglo{memobj}陣列時，他的實際大小就確定了。
 
