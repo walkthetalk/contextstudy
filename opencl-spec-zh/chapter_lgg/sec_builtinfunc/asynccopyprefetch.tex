@@ -18,3 +18,8 @@ OpenCL C 編程語言實現了下列函式，
 {內建異步拷貝和預取函式}
 {\input{chapter_lgg/tbl/tbl_asynccopyprefetch.tex}}
 
+注意：
+
+\cnglo{kernel}必須用內建函式 \capi{wait_group_events} 等待所有異步拷貝全部完成後再退出，
+否則其行為未定義。
+
