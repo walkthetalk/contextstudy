@@ -61,12 +61,15 @@ local somecontent = patterns.somecontent
 local gname       = (patterns.letter + patterns.underscore)
                   * (patterns.letter + patterns.underscore + patterns.digit)^0
 
-local gqlf        = P("const")
+-- constant must prior to const for greedy (without word split)
+local gqlf        = P("constant")
+                  + P("const")
                   + P("volatile")
                   + P("__global")
                   + P("__const")
                   + P("__local")
                   + P("__private")
+                  + P("restrict")
 
 local grammar = visualizers.newgrammar(
    "default",
@@ -85,8 +88,9 @@ local grammar = visualizers.newgrammar(
       prp      = makepattern(handler,"default",P(")")) * V("optionalwhitespace"),
       pcommar  = makepattern(handler,"default",P(",")) * V("optionalwhitespace"),
 
-      pparam1  = V("pqlf")^0 * V("ptype") * V("pstar")^0 * V("parg"),
+      pparam1  = V("pqlf")^0 * V("ptype") * V("pstar")^0 * V("pqlf")^0 * V("parg"),
       pparam2  = V("ptype") * V("pstar")^0,
+      pparam3  = makepattern(handler,"farg",P("...")) * V("optionalwhitespace"),
       pparamc  = V("pparam1") + V("pparam2"),
       pparamf  = V("ptype")
                * V("plp") * V("ptype") * V("pstar")^0 * V("parg") * V("prp")
@@ -98,7 +102,7 @@ local grammar = visualizers.newgrammar(
 
       pfunc = V("ptype") * V("pstar")^0 * V("papi")
             * V("plp")
-	    * ((V("pparam") * V("pcommar"))^0 * V("pparam"))^-1
+	    * ((V("pparam") * V("pcommar"))^0 * (V("pparam") + V("pparam3")))^-1
 	    * V("prp"),
 
     pattern = V("pfunc"),
