@@ -72,10 +72,10 @@
 任何其他情況下的隱式轉換都是違規的。
 如果算元都是標量，則結果是標量帶符號整數型別 \ctype{int}。
 而如果算元都是矢量型別，則結果是矢量帶符號整數型別，其元素數目與算元相同。
-如果矢量算元的元素型別為 \cldtv{char} 和 \cldtv{uchar}，則結果為 \cldtv{char}。
-如果矢量算元的元素型別為 \cldtv{short} 和 \cldtv{ushort}，則結果為 \cldtv{short}。
-如果矢量算元的元素型別為 \cldtv{int}、 \cldtv{uint} 和 \cldtv{float}，則結果為 \cldtv{int}。
-如果矢量算元的元素型別為 \cldtv{long}、 \cldtv{ulong} 和 \cldtv{double}，則結果為 \cldtv{long}。
+如果矢量算元的元素型別為 \cldt[n]{char} 和 \cldt[n]{uchar}，則結果為 \cldt[n]{char}。
+如果矢量算元的元素型別為 \cldt[n]{short} 和 \cldt[n]{ushort}，則結果為 \cldt[n]{short}。
+如果矢量算元的元素型別為 \cldt[n]{int}、 \cldt[n]{uint} 和 \cldt[n]{float}，則結果為 \cldt[n]{int}。
+如果矢量算元的元素型別為 \cldt[n]{long}、 \cldt[n]{ulong} 和 \cldt[n]{double}，則結果為 \cldt[n]{long}。
 對於標量型別的關係運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{1}。
 對於矢量型別的關係運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{-1} （即設置了所有位）。
 如果任一引數不是數字（NaN），則關係算子的結果就為 \ccmm{0}。
@@ -106,10 +106,10 @@
 任何其他情況下的隱式轉換都是違規的。
 如果算元都是標量，則結果是標量帶符號整數型別 \ctype{int}。
 而如果算元都是矢量型別，則結果是矢量帶符號整數型別，其元素數目與算元相同。
-如果矢量算元的元素型別為 \cldtv{char} 和 \cldtv{uchar}，則結果為 \cldtv{char}。
-如果矢量算元的元素型別為 \cldtv{short} 和 \cldtv{ushort}，則結果為 \cldtv{short}。
-如果矢量算元的元素型別為 \cldtv{int}、 \cldtv{uint} 和 \cldtv{float}，則結果為 \cldtv{int}。
-如果矢量算元的元素型別為 \cldtv{long}、 \cldtv{ulong} 和 \cldtv{double}，則結果為 \cldtv{long}。
+如果矢量算元的元素型別為 \cldt[n]{char} 和 \cldt[n]{uchar}，則結果為 \cldt[n]{char}。
+如果矢量算元的元素型別為 \cldt[n]{short} 和 \cldt[n]{ushort}，則結果為 \cldt[n]{short}。
+如果矢量算元的元素型別為 \cldt[n]{int}、 \cldt[n]{uint} 和 \cldt[n]{float}，則結果為 \cldt[n]{int}。
+如果矢量算元的元素型別為 \cldt[n]{long}、 \cldt[n]{ulong} 和 \cldt[n]{double}，則結果為 \cldt[n]{long}。
 對於標量型別的等號運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{1}。
 對於矢量型別的等號運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{-1} （即設置了所有位）。
 如果任一引數不是數字（NaN），則相等算子（\ccmm{==}）的結果就為 \ccmm{0}。
@@ -147,10 +147,10 @@
 
 如果算元都是標量，則結果是標量帶符號整數型別 \ctype{int}。
 而如果算元都是矢量型別，則結果是矢量帶符號整數型別，其元素數目與算元相同。
-如果矢量算元的元素型別為 \cldtv{char} 和 \cldtv{uchar}，則結果為 \cldtv{char}。
-如果矢量算元的元素型別為 \cldtv{short} 和 \cldtv{ushort}，則結果為 \cldtv{short}。
-如果矢量算元的元素型別為 \cldtv{int}、 \cldtv{uint} 和 \cldtv{float}，則結果為 \cldtv{int}。
-如果矢量算元的元素型別為 \cldtv{long}、 \cldtv{ulong} 和 \cldtv{double}，則結果為 \cldtv{long}。
+如果矢量算元的元素型別為 \cldt[n]{char} 和 \cldt[n]{uchar}，則結果為 \cldt[n]{char}。
+如果矢量算元的元素型別為 \cldt[n]{short} 和 \cldt[n]{ushort}，則結果為 \cldt[n]{short}。
+如果矢量算元的元素型別為 \cldt[n]{int}、 \cldt[n]{uint} 和 \cldt[n]{float}，則結果為 \cldt[n]{int}。
+如果矢量算元的元素型別為 \cldt[n]{long}、 \cldt[n]{ulong} 和 \cldt[n]{double}，則結果為 \cldt[n]{long}。
 
 對於標量型別的邏輯運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{1}。
 對於矢量型別的邏輯運算，如果所指定的關係為 \ccmm{false} 則結果為 \ccmm{0}，否則結果為 \ccmm{-1} （即設置了所有位）。
@@ -163,10 +163,10 @@
 
 如果算元是標量，則結果是標量帶符號整數型別 \ctype{int}。
 而如果算元是矢量型別，則結果是矢量帶符號整數型別，其元素數目與算元相同。
-如果矢量算元的元素型別為 \cldtv{char} 和 \cldtv{uchar}，則結果為 \cldtv{char}。
-如果矢量算元的元素型別為 \cldtv{short} 和 \cldtv{ushort}，則結果為 \cldtv{short}。
-如果矢量算元的元素型別為 \cldtv{int}、 \cldtv{uint} 和 \cldtv{float}，則結果為 \cldtv{int}。
-如果矢量算元的元素型別為 \cldtv{long}、 \cldtv{ulong} 和 \cldtv{double}，則結果為 \cldtv{long}。
+如果矢量算元的元素型別為 \cldt[n]{char} 和 \cldt[n]{uchar}，則結果為 \cldt[n]{char}。
+如果矢量算元的元素型別為 \cldt[n]{short} 和 \cldt[n]{ushort}，則結果為 \cldt[n]{short}。
+如果矢量算元的元素型別為 \cldt[n]{int}、 \cldt[n]{uint} 和 \cldt[n]{float}，則結果為 \cldt[n]{int}。
+如果矢量算元的元素型別為 \cldt[n]{long}、 \cldt[n]{ulong} 和 \cldt[n]{double}，則結果為 \cldt[n]{long}。
 
 對於標量型別的邏輯非運算，如果算元不等於 0 則結果為 \ccmm{0}，否則結果為 \ccmm{1}。
 對於矢量型別的邏輯非運算，如果算元不等於 0 則結果為 \ccmm{0}，否則結果為 \ccmm{-1} （即設置了所有位）。

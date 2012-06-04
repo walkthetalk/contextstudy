@@ -157,14 +157,23 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 % opencl data type scalar / vector
-\definetype[cldts][
-  style=\tt\tf,
-]
-\definetype[cldtvfix][% don't use it directly
+\definetype[ctypesuffix][% don't use it directly
   style=\tt\it,
 ]
-\define[1]\cldtv{\cldts{#1}\cldtvfix{n}}
-\define[1]\cldtvv{\cldts{#1}\cldtvfix{n}\cldts{x}\cldtvfix{m}}
+
+\def\cldt{\dodoubleempty\doCLDT}
+
+\def\doCLDT[#1][#2]#3{%
+\ifsecondargument
+\ctype{#3}\ctypesuffix{#1}\ctype{x}\ctypesuffix{#2}%
+\else
+\iffirstargument
+\ctype{#3}\ctypesuffix{#1}%
+\else
+\ctype{#3}%
+\fi
+\fi
+}
 
 % opencl api scalar / vector
 \definetype[clapis][
@@ -523,6 +532,13 @@ bolditalic=texgyreherosbolditalic]
   %lines=yes,	%yes no hyphenated
   %empty	yes all no
   numbering=line,	%line file no
+]
+
+\definetyping[cintbl][
+  option=none,
+  before={\blank},
+  after={\blank},
+  tab=8,
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

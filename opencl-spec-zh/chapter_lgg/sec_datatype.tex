@@ -17,21 +17,21 @@
 
 \input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}
 
-\subsubsection{數據型別 \cldts{half}}
+\subsubsection{數據型別 \cldt{half}}
 
-數據型別 \cldts{half} 必須符合 IEEE 754-2008。
-型別為 \cldts{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
+數據型別 \cldt{half} 必須符合 IEEE 754-2008。
+型別為 \cldt{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
 符號、指數、尾數的含義與 IEEE 754 浮點數類似。
 指數偏置值為 15。
-數據型別 \cldts{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
-不能將 \cldts{half} 型別的去規格化數
-（可能是用 vstore_half 將 \cldts{float} 轉換成 \cldts{half} 時生成的，
-也可能是用 vload_half 將 \cldts{half} 轉換成 \cldts{float} 時生成的）刷成 0。
-從 \cldts{float} 到 \cldts{half} 的轉換會將尾數捨入成 11 位精度。
-從  \cldts{half} 到 \cldts{float} 的轉換是無損的；
-所有 \cldts{half} 數都可精確地表示成 \cldts{float} 值。
+數據型別 \cldt{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
+不能將 \cldt{half} 型別的去規格化數
+（可能是用 vstore_half 將 \cldt{float} 轉換成 \cldt{half} 時生成的，
+也可能是用 vload_half 將 \cldt{half} 轉換成 \cldt{float} 時生成的）刷成 0。
+從 \cldt{float} 到 \cldt{half} 的轉換會將尾數捨入成 11 位精度。
+從  \cldt{half} 到 \cldt{float} 的轉換是無損的；
+所有 \cldt{half} 數都可精確地表示成 \cldt{float} 值。
 
-數據型別 \cldts{half} 只能用來聲明指向含有 \cldts{half} 值的緩衝區的指針。
+數據型別 \cldt{half} 只能用來聲明指向含有 \cldt{half} 值的緩衝區的指針。
 下面是幾個例子。
 \startclc
 void bar (__global half *p)
@@ -48,7 +48,7 @@ __kernel void foo (__global half *pg, __local half *pl)
 }
 \stopclc
 
-下面的例子是對型別 \cldts{half} 的不當應用：
+下面的例子是對型別 \cldt{half} 的不當應用：
 \startclc
 half a;
 half b[100];
@@ -59,10 +59,10 @@ a = *p;		<- not allowed. must use vload_half function
 
 函式 \capi{vload_half}、 \capi{vload_halfn}、 \capi{vloada_halfn}
  和 \capi{vstore_half}、 \capi{vstore_halfn}、 \capi{vstorea_halfn}
- 可分別裝載和存儲 \cldts{half} 指針，參見\todo{6.12.7}。
-裝載函式可從內存中讀取標量或矢量 \cldts{half} 值 並將其轉換成 \cldts{float} 值。
-而存儲函式則將標量或矢量 \cldts{float} 值作為輸入，並（以恰當的捨入模式）
-將其轉換成 \cldts{half} 標量或矢量值後寫入內存中。
+ 可分別裝載和存儲 \cldt{half} 指針，參見\todo{6.12.7}。
+裝載函式可從內存中讀取標量或矢量 \cldt{half} 值 並將其轉換成 \cldt{float} 值。
+而存儲函式則將標量或矢量 \cldt{float} 值作為輸入，並（以恰當的捨入模式）
+將其轉換成 \cldt{half} 標量或矢量值後寫入內存中。
 
 
 % Built-in Vector Data Types
@@ -71,12 +71,12 @@ a = *p;		<- not allowed. must use vload_half function
 設備編譯器需要將這些型別翻譯成恰當的指令，以計算設備原生支持的內建型別。
 \todo{附錄 B} 描述了矢量型別所含組件在內存中的順序。}}
 
-支持的矢量數據型別有： \cldts{char}、 \cldts{unsigned char}、 \cldts{short}、
- \cldts{unsigned short}、 \cldts{integer}、 \cldts{unsigned integer}、
- \cldts{long}、 \cldts{unsigned long}、 \cldts{float}。
-矢量數據型別是通過在型別名（即 \cldts{char}、 \cldts{uchar}、 \cldts{short}、
- \cldts{ushort}、 \cldts{int}、 \cldts{uint}、 \cldts{float}、 \cldts{long}、
- \cldts{ulong}）後面跟一個常值 \math{n} 來定義的
+支持的矢量數據型別有： \cldt{char}、 \cldt{unsigned char}、 \cldt{short}、
+ \cldt{unsigned short}、 \cldt{integer}、 \cldt{unsigned integer}、
+ \cldt{long}、 \cldt{unsigned long}、 \cldt{float}。
+矢量數據型別是通過在型別名（即 \cldt{char}、 \cldt{uchar}、 \cldt{short}、
+ \cldt{ushort}、 \cldt{int}、 \cldt{uint}、 \cldt{float}、 \cldt{long}、
+ \cldt{ulong}）後面跟一個常值 \math{n} 來定義的
 （其中 \math{n} 表示矢量元素的數目）。
 對於所有矢量數據型別而言，這個 \math{n} 可以是 2、 3、 4、 8 和 16。
 
@@ -105,9 +105,9 @@ a = *p;		<- not allowed. must use vload_half function
 
 只有當\cnglo{device}支持圖像時
 （即 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，參見\reftab{cldevquery}），
-才會定義型別 \cldts{image2d_t}、 \cldts{image3d_t}、 \cldts{image2d_array_t}、
- \cldts{image1d_t}、 \cldts{image1d_buffer_t}、 \cldts{image1d_array_t}、
- \cldts{sampler_t}。
+才會定義型別 \cldt{image2d_t}、 \cldt{image3d_t}、 \cldt{image2d_array_t}、
+ \cldt{image1d_t}、 \cldt{image1d_buffer_t}、 \cldt{image1d_array_t}、
+ \cldt{sampler_t}。
 
 C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也在支持之列，
 不過必須是由\refsec{bisdt}、\refsec{bivdt}
@@ -130,8 +130,8 @@ C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也�
 \subsection[sec:alignmentOfTypes]{型別對齊}
 
 內存中所聲明的數據項會按起型別的字節數進行對齊。
-例如，型別為 \cldts{float4} 的變量會對齊到 16 字節邊界；
-而 \cldts{char2} 則會對齊到 2 字節邊界。
+例如，型別為 \cldt{float4} 的變量會對齊到 16 字節邊界；
+而 \cldt{char2} 則會對齊到 2 字節邊界。
 
 對於具備 3 個組件的矢量數據型別，其大小為 \math{4 \times sizeof(component)}。
 這意味着此型別會按 \math{4 \times sizeof(component)} 進行對齊。

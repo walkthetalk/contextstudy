@@ -77,12 +77,12 @@ floatn fast_normalize (floatn p)
 \math{p * \text{\capi{half_rsqrt}}(p.x^2 + p.y^2 + \cdots)}
 
 返回值與下面語句結果（具有無窮精度）的誤差在 8192 ulp 內：
-\starttyping[option=none,escape=yes,indentnext=no]
+\startcintbl[escape=yes,indentnext=no]
 if (/BTEX\capi{all}/ETEX(/BTEX\math{p == 0.0f}/ETEX))
 	/BTEX\math{result = p}/ETEX;
 else
 	/BTEX\math{result = p / \text{\capi{sqrt}}(p.x^2 + p.y^2 + \cdots )}/ETEX;
-\stoptyping
+\stopcintbl
 但是下列情況例外：
 \startigNum
 \item 如果平方和大於 \cmacro{FLT_MAX}，則結果中對應的浮點值未定義。
