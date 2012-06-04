@@ -5,3 +5,22 @@ OpenCL C 編程語言還實現有 \capi{printf} 函式。
 \placetable[here,force,split][tab:printfFunc]
 {內建 printf 函式}
 {\input{chapter_lgg/tbl/tbl_printffunc.tex}}
+
+\subsubsection{printf 輸出同步}
+
+當特定\cnglo{kernel}所關聯的事件完成後，
+此\cnglo{kernel}調用 \capi{printf} 得到的輸出會刷入實作所定義的輸出數據流。
+在\cnglo{cmdq}上調用 \capi{clFinish} 會將所有擱置的 \capi{printf} 輸出
+（由之前入隊並完成的\cnglo{cmd}產生）刷入實作所定義的輸出數據流。
+在多個\cnglo{workitem}並發執行 \capi{printf} 的情況下，寫入數據的順序沒有任何保證。
+例如，\cnglo{glbid}為 \math{(0,0,1)}的\cnglo{workitem}的輸出
+與\cnglo{glbid}為 \math{(0,0,4)}的\cnglo{workitem}的輸出很可能混雜在一起。
+
+\subsubsection{printf 格式字串}
+
+格式是一個字符序列，其開始和結束均位於其初始轉義狀態（shift state）下。
+此格式可能包含零個或多個指示：普通字符（非 \%），不作改變直接拷貝到輸出數據流中；
+以及轉換規約，每個都會導致讀取零個或多個後續引數，
+可能還會根據對應的轉換限定符將其轉換（如果可以的話），然後將結果寫入輸出數據流。
+格式字串必須位於 \cqlf{constant} 位址空間中，因此必須在編譯時即可確定，
+不能由可執行程序動態創建。
