@@ -217,6 +217,25 @@ value1 C value2 C ... C valuen
 如果引數為 NaN，
 則轉換後樣式為 \cfmt{[-]nan} 或 \cfmt{[-]nana(n-char-sequence)}
 ——至於是哪一種，以及\cfmt{n-char-sequence}的意義都\cnglo{impdef}。
-轉換說明符 \cemp{F} 
+\startbuffer
+當作用於無窮和 NaN 值時， \cemp{-}、 \cemp{+} 和 \cemp{space} 標誌的意義不變；
+而 \cemp{#} 和 \cemp{0} 標誌沒有效果。
+\stopbuffer
+轉換說明符 \cemp{F} 則會產生 \cemp{INF}、 \cemp{INFINITY} 或 \cemp{NAN}，
+分別代替 \cemp{inf}、 \cemp{infinity} 或 \cemp{nan}\footnote{\getbuffer}。
 \stopclSpecifier
 
+\startclSpecifier{\cemp{e}、 \cemp{E}}
+將 \cldtemp{double}、 \cldtemp[n]{half}、 \cldtemp[n]{float}
+ 或 \cldtemp[n]{double} 型別的浮點引數轉換成十進制符號，
+樣式為 \cfmt{[-]d.dddde\math{\pm}dd}，
+小數點前面有一位數字（如果引數非零，則此數字也非零），
+小數點後面數字的位數等於精度；
+如果沒有指定精度，則使用缺省值 6；
+如果精度為零，並且沒有指定 \# 標誌，則不會有小數部分（包括小數點）。
+會對引數進行舍入。
+轉換說明符 \cemp{E} 所產生的結果會將指數前面的 \cemp{e} 換成 \cemp{E}。
+指數至少包含兩位數字，如果多於兩位，則只包含表示指數所必要的數字。
+如果引數的值為零，則指數也是零。
+如果引數為無窮或 NaN，則轉換結果與轉換說明符 \cemp{f} 或 \cemp{F} 一樣。
+\stopclSpecifier
