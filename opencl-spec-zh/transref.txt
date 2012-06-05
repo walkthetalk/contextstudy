@@ -39,3 +39,6 @@ widen 拓寬
 extension 擴展
 extent 擴充
 contract(ion) 化簡
+qualifier 限定符
+specifier 說明符
+modifier 修飾符

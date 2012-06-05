@@ -350,7 +350,7 @@
 \clETD{CL_DEVICE_VERSION}{char[]}{
   OpenCL 軟件驅動的版本，格式為：
 
-  {\ftFmt major\_number.minor\_number}。
+  \cfmt{major_number.minor_number}。
 }
 
 \clETD{CL_DEVICE_PROFILE}{char[]}{
@@ -372,9 +372,9 @@
   OpenCL 版本字串。返回\cnglo{device}所支持的 OpenCL 版本。
   格式如下：
 
-  {\ftFmt OpenCL<space><major\_version.minor\_version><space><vendor-specific information>}
+  \cfmt{OpenCL<space><major_version.minor_version><space><vendor-specific information>}
 
-  所返回的 {\ftFmt major\_version.minor\_version} 的值將是\scver。
+  所返回的 \cfmt{major_version.minor_version} 的值將是\scver。
 }
 
 \clETD{CL_DEVICE_OPENCL_C_VERSION}{char[]}{
@@ -382,11 +382,11 @@
   對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的 \cnglo{device}，返回編譯器在其上所支持的 OpenCL C 的最高版本。
   格式如下：
 
-  {\ftFmt OpenCL<space>C<space><major\_version.minor\_version><space><vendor-specific information>}
+  \cfmt{OpenCL<space>C<space><major_version.minor_version><space><vendor-specific information>}
 
-  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL \scver, 則 {\ftFmt major\_version.minor\_version} 必須是 \scver。
-  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.1, 則 {\ftFmt major\_version.minor\_version} 必須是 1.1。
-  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.0, 則 {\ftFmt major\_version.minor\_version} 可以是 1.0 或 1.1。
+  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL \scver, 則 \cfmt{major_version.minor_version} 必須是 \scver。
+  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.1, 則 \cfmt{major_version.minor_version} 必須是 1.1。
+  如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.0, 則 \cfmt{major_version.minor_version} 可以是 1.0 或 1.1。
 }
 
 \clETD{CL_DEVICE_EXTENSIONS}{char[]}{

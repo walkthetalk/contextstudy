@@ -22,5 +22,201 @@ OpenCL C 編程語言還實現有 \capi{printf} 函式。
 此格式可能包含零個或多個指示：普通字符（非 \%），不作改變直接拷貝到輸出數據流中；
 以及轉換規約，每個都會導致讀取零個或多個後續引數，
 可能還會根據對應的轉換限定符將其轉換（如果可以的話），然後將結果寫入輸出數據流。
-格式字串必須位於 \cqlf{constant} 位址空間中，因此必須在編譯時即可確定，
+格式字串必須位於 \cqlf{constant} 位址空間中，因此必須在編譯時就需要確定下來，
 不能由可執行程序動態創建。
+
+每個轉換規約都以字符 \% 引入，下面按順序列出了跟在 \% 後面的內容：
+\startigBase
+\item 零個或多個{\ftRef{標誌}}（{\ftRef{flag}}）（順序任意），可修正轉換規約的意義。
+
+\item 最小{\ftRef{欄寬}}（{\ftRef{field width}}），可選。
+如果轉換後，字符數小於欄寬，則在左側以空格填補達到欄寬
+（缺省使用空格，如果有後面所描述的左側調整標誌，則會在右側填補）。
+欄寬為非負十進制整數\footnote{注意，如果欄寬以{\ftEmp{0}}開頭，則將{\ftEmp{0}}當作標誌。}。
+
+\item {\ftRef{精度}}（{\ftRef{precision}}），可選。
+如果出現在 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、
+ \cemp{x} 和 \cemp{X} 轉換中，則作為數字的最小位數；
+如果出現在 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、
+ \cemp{f} 和 \cemp{F} 轉換中，則作為小數點後面數字的位數；
+如果出現在 \cemp{g} 和 \cemp{G} 轉換中，則作為尾數數字的最大位數；
+如果出現在 \cemp{s} 轉換中，則為要寫入的最大字節數。
+精度的形式為點（.）後跟一個可選的十進制整數；
+如果只有點，則用零作精度。
+如果精度與其他任一轉換規約一同出現，則其行為未定義。
+
+\item {\ftRef{矢量說明符}}（{\ftRef{vector specifier}}），可選。
+
+\item {\ftRef{長度修飾符}}（{\ftRef{length modifier}}），指定引數的大小。
+長度修飾符與矢量說明符一起指定矢量型別。
+不允許在矢量型別間進行隱式轉換（遵守\refsec{implicityConversion}）。
+如果沒有指定矢量說明符，則長度修飾符是可選的。
+
+\item {\ftRef{轉換說明符}}（{\ftRef{conversion specifier}}），
+用來指定要應用哪種轉換。
+\stopigBase
+
+標誌字符及其意義如下：
+
+\startclSpecifier{\cemp{-}}
+轉換結果在欄位內左對齊（如果沒有此標誌則為右對齊）。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{+}}
+帶符號的轉換，結果總會帶有正負號（如果沒有此標誌，則只有負數才帶有符號\footnote{
+轉換浮點數時，負零以及舍入到零的負值都會使結果帶有負號。}）。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{space}}
+如果帶符號轉換的第一個字符不是正負號，或者帶符號轉換的結果為空，
+則在結果前添一個空格。
+如果同時指定了 \ccmm{space} 和 \ccmm{+}，則忽略 \ccmm{space}。
+\stopclSpecifier
+
+\startbuffer
+\cemp{#}
+\stopbuffer
+\startclSpecifier{\getbuffer}
+結果將是“另一種形式”。
+對於 \cemp{o} 轉換，他會增加精度強制結果的第一個數字為零
+（僅在有必要時才這樣做，如果值本身就是 0，則只打印一個 0）。
+對於 \cemp{x} （或 \cemp{X}）轉換，
+非零結果將帶有前綴 \cemp{0x} （或 \cemp{0X}）。
+對於 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、 \cemp{f}、
+ \cemp{F}、 \cemp{g} 和 \cemp{G} 轉換，浮點數的轉換結果始終帶有小數點，
+即使後面沒有數字（通常，後面有數字時才有小數點）。
+對於 \cemp{g} 和 \cemp{G} 轉換，{\ftRef{不會}}移除結果中尾隨的零。
+對於其他轉換，其行為未定義。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{0}}
+對於 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x}、
+ \cemp{X}、 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、
+ \cemp{f}、 \cemp{F}、 \cemp{g} 和 \cemp{G} 轉換，
+用前導零（跟在正負號或尾數後面）而不是空格將結果填補到欄寬，轉換無窮或 NaN 時除外。
+如果 \cemp{0} 和 \cemp{-} 同時存在，則忽略 \cemp{0}。
+對於 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x} 和
+ \cemp{X} 轉換，如果指定了精度，則忽略 \cemp{0}；
+對於其他轉換，其行為未定義。
+\stopclSpecifier
+
+矢量說明符及其意義如下：
+
+\startclSpecifier{\clemp[n]{v}}
+表明後面的 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、
+ \cemp{f}、 \cemp{F}、 \cemp{g}、 \cemp{G}、
+ \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、
+ \cemp{x} 或 \cemp{X} 轉換說明符作用到矢量引數上，
+其中 \cempsuffix{n} 是矢量的大小，必須是 2、 3、 4、 8 或 16。
+
+矢量值按如下形式顯示：
+\startclc[indentnext=no]
+value1 C value2 C ... C valuen
+\stopclc
+其中 \ccmm{C} 是分隔符，此分隔符為逗號（\ccmm{,}）。
+\stopclSpecifier
+
+% no vector specifier
+如果沒有使用矢量說明符，長度修飾符及其意義如下：
+\startclSpecifier{\cemp{hh}}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、
+ \cemp{x} 或 \cemp{X} 轉換說明符作用到 \ctypeemp{char} 或 \ctypeemp{uchar} 引數上
+（引數還是先按整數相應規則進行型別晉陞，
+不過在打印前會先轉換成 \ctypeemp{char} 或 \ctypeemp{uchar}）。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{h}}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、
+ \cemp{x} 或 \cemp{X} 轉換說明符作用到 \ctypeemp{short} 或 \ctypeemp{ushort} 引數上
+（引數還是先按整數相應規則進行型別晉陞，
+不過在打印前會先轉換成 \ctypeemp{short} 或 \ctypeemp{ushort}）。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{l}（\ccmm{ell}）}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、
+ \cemp{x} 或 \cemp{X} 轉換說明符作用到 \ctypeemp{long} 或 \ctypeemp{ulong} 引數上。
+完整規格的 OpenCL 是支持修飾符 \cemp{l} 的。
+而對於嵌入式規格的 OpenCL，僅當\cnglo{device}支持 64 位整數時才支持修飾符 \cemp{l}。
+\stopclSpecifier
+
+% has vector specifier
+如果使用了矢量說明符，長度修飾符及其意義如下：
+\startclSpecifier{\cemp{hh}}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x} 或 \cemp{X}
+ 轉換說明符作用到 \cldtemp[n]{char} 或 \cldtemp[n]{uchar} 引數上
+（不會對引數進行型別晉陞）。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{h}}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x} 或 \cemp{X}
+ 轉換說明符作用到 \cldtemp[n]{short} 或 \cldtemp[n]{ushort} 引數上
+（不會對引數進行型別晉陞）；
+而後面的 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、 \cemp{f}、 \cemp{F}、
+ \cemp{g} 或 \cemp{G} 轉換說明符作用到 \cldtemp[n]{half} 引數上。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{hl}}
+此修飾符可以與矢量說明符一起使用。
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x} 或 \cemp{X}
+ 轉換說明符作用到 \cldtemp[n]{int} 或 \cldtemp[n]{uint} 引數上；
+而後面的 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、 \cemp{f}、 \cemp{F}、
+ \cemp{g} 或 \cemp{G} 轉換說明符作用到 \cldtemp[n]{float} 引數上。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{l}（\ccmm{ell}）}
+表明後面的 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、 \cemp{x} 或 \cemp{X}
+ 轉換說明符作用到 \cldtemp[n]{long} 或 \cldtemp[n]{ulong} 引數上；
+而後面的 \cemp{a}、 \cemp{A}、 \cemp{e}、 \cemp{E}、 \cemp{f}、 \cemp{F}、
+ \cemp{g} 或 \cemp{G} 轉換說明符作用到 \cldtemp[n]{double} 引數上。
+完整規格的 OpenCL 是支持修飾符 \cemp{l} 的。
+而對於嵌入式規格的 OpenCL，
+僅當\cnglo{device}支持 64 位整數或雙精度浮點數時才支持修飾符 \cemp{l}。
+\stopclSpecifier
+
+注意：
+
+如果沒有長度說明符，只有矢量說明符，則其行為未定義。
+矢量說明符以及長度修飾符所描述的矢量數據型別必須與引數的型別一致；否則其行為未定義。
+
+如果長度修飾符不是與上述轉換說明符一起出現的，則其行為未定義。
+
+% conversion specifier
+轉換說明符及其意義如下：
+
+\startclSpecifier{\cemp{d}，\cemp{i}}
+將 \cldtemp{int}、 \cldtemp[n]{char}、 \cldtemp[n]{short}、
+ \cldtemp[n]{int} 或 \cldtemp[n]{long} 型別的引數轉換成帶符號十進制數，
+樣式為 \cfmt{[-]dddd}。
+精度指定所顯式數字的最少位數；
+如果所轉換的值可以用更少的數字表示，則添加前導零。
+缺省精度為 1。
+用精度零轉換零值，其結果為空，沒有任何字符。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{o}，\cemp{u}，\cemp{x}，\cemp{X}}
+將 \cldtemp{unsigned int}、 \cldtemp[n]{uchar}、 \cldtemp[n]{ushort}、
+ \cldtemp[n]{uint} 或 \cldtemp[n]{ulong} 型別的引數轉換成無符號八進制數（\cemp{o}）、
+無符號十進制數（\cemp{u}）或無符號十六進制數（\cemp{x} 或 \cemp{X}），樣式為 \cfmt{dddd}；
+\cemp{x} 使用字母 \cemp{abcdef}，而 \cemp{X} 使用字母 \cemp{ABCDEF}。
+精度指定所顯式數字的最少位數；
+如果所轉換的值可以用更少的數字表示，則添加前導零。
+缺省精度為 1。
+用精度零轉換零值，其結果為空，沒有任何字符。
+\stopclSpecifier
+
+\startclSpecifier{\cemp{f}，\cemp{F}}
+將 \cldtemp{double}、 \cldtemp[n]{half}、 \cldtemp[n]{float}
+ 或 \cldtemp[n]{double} 型別的浮點引數轉換成十進制符號，樣式為 \cfmt{[-]ddd.dddd}，
+其中小數點後面數字的位數等於精度。
+如果沒有指定精度，則使用缺省值 6；
+如果精度為零，並且沒有指定 \# 標誌，則不會有小數部分（包括小數點）。
+如果有小數點，則小數點前至少有一位數字。
+會對引數進行舍入。
+如果引數為無窮，
+則轉換後樣式為 \cfmt{[-]inf} 或 \cfmt{[-]infinity}——至於是哪一種\cnglo{impdef}。
+如果引數為 NaN，
+則轉換後樣式為 \cfmt{[-]nan} 或 \cfmt{[-]nana(n-char-sequence)}
+——至於是哪一種，以及\cfmt{n-char-sequence}的意義都\cnglo{impdef}。
+轉換說明符 \cemp{F} 
+\stopclSpecifier
+

@@ -106,7 +106,6 @@ bolditalic=texgyreherosbolditalic]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\ftEmp{\bf} % emphasize
 \define\ftRef{\it} % reference
-\define\ftFmt{\ss\it} % format
 \definetype[capi][ % api
   %space	on off
   %option	slanted normal none
@@ -118,6 +117,9 @@ bolditalic=texgyreherosbolditalic]
 ]
 \definetype[ctype][ % type
   style=\tt\tf,
+]
+\definetype[ctypeemp][ % type
+  style=\tt\bf,
 ]
 \definetype[cenum][ % enumeration
   style=\rm\tf,
@@ -152,28 +154,44 @@ bolditalic=texgyreherosbolditalic]
 \definetype[ccmm][ % common
   style=\tt\tf,
 ]
+\definetype[ccmmsuffix][
+  style=\tt\it,
+]
+\definetype[cemp][
+  style=\tt\bf,
+]
+\definetype[cempsuffix][
+  style=\tt\bi,
+]
+\definetype[cfmt][% format
+  style=\tt\it,
+]
 \definetype[clext][ % opencl extension
   style=\rm\bf,
 ]
 
-% opencl data type scalar / vector
-\definetype[ctypesuffix][% don't use it directly
-  style=\tt\it,
-]
+\def\clcmm{\dodoubleempty\doCLCMM}
+\unexpanded\def\doCLCMM[#1][#2]#3{%
+\doifsomethingelse{#2}%
+{\ccmm{#3}\ccmmsuffix{#1}\ccmm{x}\ccmmsuffix{#2}}%
+{\doifsomethingelse{#1}{\ccmm{#3}\ccmmsuffix{#1}}{\ccmm{#3}}}%
+}
 
-\def\cldt{\dodoubleempty\doCLDT}
-
-\def\doCLDT[#1][#2]#3{%
+\def\clemp{\dodoubleempty\doCLEMP}
+\unexpanded\def\doCLEMP[#1][#2]#3{%
 \ifsecondargument
-\ctype{#3}\ctypesuffix{#1}\ctype{x}\ctypesuffix{#2}%
+\cemp{#3}\cempsuffix{#1}\cemp{x}\cempsuffix{#2}%
 \else
 \iffirstargument
-\ctype{#3}\ctypesuffix{#1}%
+\cemp{#3}\cempsuffix{#1}%
 \else
-\ctype{#3}%
+\cemp{#3}%
 \fi
 \fi
 }
+
+\def\cldt{\clcmm}
+\def\cldtemp{\clemp}
 
 % opencl api scalar / vector
 \definetype[clapis][
@@ -515,8 +533,8 @@ bolditalic=texgyreherosbolditalic]
   %icommand	command
   %vcommand	command
   %ccommand	command
-  before={\blank\starttextbackground[verb]},	%command
-  after={\stoptextbackground\blank},	%command
+  before={\vskip.5ex\starttextbackground[verb]},	%command
+  after={\stoptextbackground\vskip.5ex},	%command
   margin=no,	%dimension standard yes no
   %evenmargin	dimension
   %oddmargin	dimension
@@ -883,11 +901,21 @@ bolditalic=texgyreherosbolditalic]
   headcommand=\hskip-2em,	%command
   %command=\hskip-2em,	%command
   %hang=,	%fit broad number
-  before=\vskip.0em,		%command
+  before=\vskip.5em,		%command
   inbetween=\vskip.0em,		%command
-  after=\vskip.0em,		%command
+  after=\vskip.5em,		%command
   %indentnext	yes no
   indenting=yes,	%never not no yes always first next
+]
+%% clSpecifier
+\definedescription[clSpecifier][
+  width=3em,
+  distance=1em,
+  margin=2em,	%standard yes no dimension
+  alternative=hanging,	%left right top serried inmargin inleft inright hanging
+  before=\vskip.5em,		%command
+  after=\vskip.5em,		%command
+  indenting=yes,
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% glossary
 \definesynonyms[sClGlo][sClGlos][\englo][\cnglo]
