@@ -284,7 +284,7 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 \carg{args} 所指的數據（大小為 \carg{cb_args}）會被拷貝一份，
 這份拷貝的指針將被傳遞給 \carg{user_func}。
 之所以要拷貝，是因為 \carg{args} 可能包含有\cnglo{memobj}（\ccmm{cl_mem}），
-而且需要通過一個指向\cnglo{glbmem}的指針對其進行修改和替換。
+而且需要通過一個指向\cnglo{glbmem}的指針對其進行修改和取代。
 一旦 \capi{clEnqueueNativeKernel} 返回，
 \cnglo{app}就可以重新使用 \carg{args} 所指向的內存區域了。
 
@@ -295,7 +295,7 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 （即 \ccmm{cl_mem}），也可能是 \cmacro{NULL}。
 
 \carg{args_mem_loc} 指向 \carg{args} 中存儲\cnglo{memobj}句柄（即 \ccmm{cl_mem}）的位置。
-在執行用戶函式之前，會用執行\cnglo{glbmem}的指針替換這些句柄。
+在執行用戶函式之前，會用執行\cnglo{glbmem}的指針取代這些句柄。
 
 \carg{event_wait_list}、 \carg{num_events_in_wait_list} 和 \carg{event} 與
  \capi{clEnqueueNDRangeKernel} 中描述的一樣。

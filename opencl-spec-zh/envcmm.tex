@@ -112,6 +112,9 @@ bolditalic=texgyreherosbolditalic]
   style=\rm\bf,	%normal bold slanted boldslanted type cap small ... command
   %color	name
 ]
+\definetype[capiemp][
+  style=\rm\bf,
+]
 \definetype[carg][ % argument
   style=\rm\it,
 ]
@@ -162,6 +165,9 @@ bolditalic=texgyreherosbolditalic]
 ]
 \definetype[cempsuffix][
   style=\tt\bi,
+]
+\definetype[cref][
+  style=\tt\it,
 ]
 \definetype[cfmt][% format
   style=\tt\it,
@@ -1127,5 +1133,6 @@ bolditalic=texgyreherosbolditalic]
 
 \define[1]\todo{#1}
 %\define[1]\todo{\error}
+\define[1]\problem{}
 \stopenvironment
 
