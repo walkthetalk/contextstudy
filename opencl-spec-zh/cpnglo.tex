@@ -316,7 +316,7 @@ OpenCL 中的一個確切的位址空間。
 OpenCL 對象的生命周期由其\refglo{refcnt}來確定，
 這個內部計數記錄了此對象被引用的次數。
 在 OpenCL 中創建一個對象時，其\refglo{refcnt}被置為0。
-后续对\refglo{retain} API 
+后续对\refglo{retain} API
 （如 \capi{clRetainContext}、 \capi{clRetainCommandQueue}）
 的調用會使其\refglo{refcnt}增一。
 而對\refglo{release} API
@@ -360,7 +360,7 @@ OpenCL 所定義的一類\refglo{obj}。
 一種\refglo{obj}，用來描述\refglo{kernel}讀取圖像時怎樣對其採樣。
 讀取圖像的函式將\refglo{sampler}作為一個參數。
 \refglo{sampler}指定圖像的尋址方式，
-如圖像的坐標越限時怎樣處理、濾波模式、輸入的圖像坐標是否已規範化。
+如圖像坐標溢出時如何處置、濾波模式、輸入的圖像坐標是否已規範化。
 \stopclglo
 
 \startclglo[simd][單指令多數據][SIMD]

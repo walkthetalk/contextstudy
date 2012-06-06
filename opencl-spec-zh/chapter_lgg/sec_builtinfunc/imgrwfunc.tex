@@ -1,0 +1,65 @@
+% Image Read and Write Functions
+\subsection{圖像讀寫函式}
+
+本節中所定義的內建函式僅能與\cnglo{imgobj}一起使用。
+
+聲明可被\cnglo{kernel}讀取的\cnglo{imgobj}時應帶有限定符 \cqlf{__read_only}。
+對帶有 \cqlf{__read_only} 的\cnglo{imgobj}調用 \capi{write_image} 會造成編譯錯誤。
+聲明可被\cnglo{kernel}寫入的\cnglo{imgobj}時應帶有限定符 \cqlf{__write_only}。
+對帶有 \cqlf{__write_only} 的\cnglo{imgobj}調用 \capi{read_image} 會造成編譯錯誤。
+不支持在同一\cnglo{kernel}中對同一\cnglo{imgobj}
+同時調用 \capi{read_image} 和 \capi{write_image}。
+
+\capi{read_image} 返回的是一個四組件矢量浮點數、整數或無符號整數顏色值。
+此值用 \ccmm{x}、 \ccmm{y}、 \ccmm{z}、 \ccmm{w} 來標識，
+其中 \ccmm{x} 指代紅色分量， \ccmm{y} 指代綠色分量， \ccmm{z} 指代藍色分量，
+ \ccmm{w} 指代 alpha 分量，每個分量都是一個矢量組件。
+
+% Samplers
+\subsubsection{採樣器}
+
+圖像讀取函式的引數中有一個就是\cnglo{sampler}。
+\cnglo{sampler}可作為引數由 \capi{clSetKernelArg} 傳給\cnglo{kernel}，
+也可以在 \cqlf{kernel} 函式的最外層聲明\cnglo{sampler}，
+或者是\cnglo{program}源碼中聲明的型別為 \ctype{sampler_t} 的常量。
+
+\cnglo{program}中所聲明\cnglo{sampler}變量的型別為 \ctype{sampler_t}。
+這種變量必須用 32 位無符號整形常數進行初始化，
+按位欄解釋此常量，其位欄指定了下列屬性：
+\startigBase[indentnext=no]
+\item 尋址模式
+\item 濾波模式
+\item 規範化坐標
+\stopigBase
+這些數學控制着 \capi{read_image{f|i|ui}} 如何讀取圖像中的元素。
+
+也可在\cnglo{program}源碼中用如下幾種語法將\cnglo{sampler}聲明為全局常量：
+\startclc
+const sampler_t		<sampler name> = <value>
+or
+constant sampler_t	<sampler name> = <value>
+or 
+__constant sampler_t	<sampler_name> = <value>
+\stopclc
+
+注意：
+
+在計算每個\cnglo{device}中指向常數位址空間的引數數目或常數位址空間的大小時，
+不考慮帶有限定符 \cqlf{constant} 的\cnglo{sampler}（參見\reftab{cldevquery}中的
+ \cenum{CL_DEVICE_MAX_CONSTANT_ARGS} 和
+ \cenum{CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE}）。
+
+\placetable[here,force,split][tab:samplerDesc]
+{採樣器描述符}
+{\input{chapter_lgg/tbl/tbl_samplerdesc.tex}}
+
+例：
+\startclc[indentnext=no]
+const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
+			| CLK_ADDRESS_REPEAT
+			| CLK_FILTER_NEAREST;
+\stopclc
+\cnglo{sampler} {\ftEmp{samplerA}} 用的是規格化坐標、重複尋址模式和最近濾波。
+
+對於一個\cnglo{kernel}中所能聲明\cnglo{sampler}的最大數目，
+可以用 \capi{clGetDeviceInfo} 以 \cenum{CL_DEVICE_MAX_SAMPLERS} 進行查詢。

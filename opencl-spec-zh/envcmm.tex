@@ -405,7 +405,7 @@ bolditalic=texgyreherosbolditalic]
 			%c ...page
 			%d 大空格　紧接下一个list
 			%e 编号加方框，标题向左缩
-			%f 
+			%f
 			%g 标题居中... none command
   %coupling	on off
   %criterium	section local previous current all
@@ -804,7 +804,9 @@ bolditalic=texgyreherosbolditalic]
 \define[2]\clOD{
 \bTR
   \bTD #1 \eTD
-  \bTD #2 \eTD
+  \bTD
+    \parindent2em
+    #2 \eTD
 \eTR
 }
 %%%%%%%%%%%%%%%%%%% OO: object / object
