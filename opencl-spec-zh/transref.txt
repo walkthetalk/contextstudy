@@ -42,3 +42,5 @@ contract(ion) 化簡
 qualifier 限定符
 specifier 說明符
 modifier 修飾符
+enable 使能
+disable 去能
