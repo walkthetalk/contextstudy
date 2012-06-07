@@ -257,9 +257,9 @@ gentyped fmin (gentyped x, double y)
 如果 \math{y < x}，則返回 \math{y}，否則返回 \math{x}。
 如果一個引數是 NaN，則返回另一個引數；
 如果兩個引數都是 NaN，則返回 NaN\footnote{
-在處理 signaling NaN 時， \capi{fmin} 和 \capi{fmax} 的行為遵守 C99 中的定義，
+在處理 sNaN （signaling NaN）時， \capi{fmin} 和 \capi{fmax} 的行為遵守 C99 中的定義，
 但可能與 IEEE 754-2008 中定義的 \capi{minNum} 和 \capi{maxNum} 處理方式不同。
-特別是，可能將 signaling NaN 當成 quiet NaN。}。
+特別是，可能將 sNaN 當成 qNaN （quiet NaN）。}。
 \stopbuffer
 
 % fmod

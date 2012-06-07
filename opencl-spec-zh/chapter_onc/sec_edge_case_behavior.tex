@@ -1,0 +1,14 @@
+% Edge Case Behavior
+\section[sec:edgeCaseBehavior]{邊界條件下的行為}
+
+數學函式（\reftab{mathFunc}）在邊界條件下的行為
+要符合 ISO/IEC 9899：TC2 （通常稱作 C99, TC2）中的節 F.9 和節 G.6，
+\reftab{addReqBeyondC99}中所列之處除外。
+
+\subsection[sec:addReqBeyondC99]{C99 TC2 之外的附加要求}
+
+如果函式會返回 NaN，且有多個算元為 NaN，則應當返回其中一個 NaN 算元。
+如果是 sNaN，會返回 NaN 算元的函式可能會使其消音。
+非 sNaN 轉換後應當還是非 sNaN。
+sNaN 轉換後應當是 NaN，但可能被轉換成非 sNaN。
+而 NaN 的凈荷位和正負號如何轉換未定義。
