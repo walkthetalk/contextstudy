@@ -883,6 +883,47 @@ bolditalic=texgyreherosbolditalic]
   \bTD \parindent2em\getbuffer[funcdesc:#1] \eTD
 \eTR
 }
+%%%%%%%%%%%%%%%%%%% FD: fuction / accuracy
+\def\startCLFA{\dostartCLFA}
+
+\long\def\dostartCLFA[#1][#2]#3\stopCLFA{%
+  \bTABLE
+  \setupTABLE[c][odd][align={flushright,lohi}]
+  \setupTABLE[c][even][align={flushleft,lohi}]
+  \bTABLEhead
+    \bTR[background=color,backgroundcolor=gray]
+        \bTH #1 \eTH
+        \bTH #2 \eTH
+    \eTR
+  \eTABLEhead
+  \bTABLEbody
+    #3
+  \eTABLEbody
+  \eTABLE
+}
+
+\define[2]\clFA{
+\bTR
+  \bTD #1 \eTD
+  \bTD #2 \eTD
+\eTR
+}
+
+% api
+\define[2]\clFAA{
+\bTR
+  \bTD \capi{#1} \eTD
+  \bTD #2 \eTD
+\eTR
+}
+
+% math
+\define[2]\clFAM{
+\bTR
+  \bTD \math{#1} \eTD
+  \bTD #2 \eTD
+\eTR
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scver{1.2}
