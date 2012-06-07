@@ -95,7 +95,7 @@
 \item 假定參數和結果都是有效的；
 \item 可能違反 IEEE 754 的標準；以及
 \item 可能違反 \todo{節 7.4}中所定義的對單雙精度浮點數的數值一致性需求，
-還有\todo{節7.5}中的邊界條件的行為。
+還有\todo{節7.5}中的邊界條件下的行為。
 \stopigBase
 此選項包含了 \ccmm{-cl-no-signed-zeros} 和 \ccmm{-cl-mad-enable}。
 \stopclOption
@@ -103,14 +103,14 @@
 \startclOption{-cl-finite-math-only}
 在執行浮點算術運算時，可以假定參數和結果都不是 NaN 或 \math{\pm\infty}。
 這可能違反 \todo{節 7.4}中所定義的對單雙精度浮點數的數值一致性需求，
-還有\todo{節7.5}中的邊界條件的行為。
+還有\todo{節7.5}中的邊界條件下的行為。
 \stopclOption
 
 \startclOption{-cl-fast-relaxed-math}
 相當於 \ccmm{-cl-finite-math-only} 和 \ccmm{-cl-unsafe-math-optimizations} 的組合。
 對浮點算術的優化可以違反 IEEE 754 的標準，
 也可以違反 \todo{節 7.4}中所定義的對單雙精度浮點數的數值一致性需求，
-還有\todo{節7.5}中的邊界案例下的行為。
+還有\todo{節7.5}中的邊界條件下的行為。
 此選項會使得\cnglo{program}中定義預處理器巨集 \ccmm{__FAST_RELAXED_MATH__}。
 \stopclOption
 
