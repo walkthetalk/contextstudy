@@ -37,7 +37,7 @@ uint4 read_imageui (
 用坐標 \math{(coord.x, coord.y)} 查找 2D \cnglo{imgobj} \carg{image} 中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 
 對於 \capi{read_imagei} 而言，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是下列值之一：
@@ -100,7 +100,7 @@ uint4 read_imageui (
 其中 \math{coord.w} 被忽略。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -164,7 +164,7 @@ uint4 read_imageui (
 其中 \math{coord.w} 被忽略。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -233,7 +233,7 @@ uint4 read_imageui (
 用坐標 \math{coord} 查找 1D \cnglo{imgobj}或 1D 圖像緩衝對象 \carg{image} 中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -295,7 +295,7 @@ uint4 read_imageui (
 用坐標 \math{corrd.x} 來查找此 1D 圖像中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，

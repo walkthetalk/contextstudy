@@ -27,7 +27,7 @@ float4 read_imagef (
 
 對於使用整數坐標的 \capi{read_imagef} 所用\cnglo{sampler}而言，
 其濾波模式必須是 \cenum{CLK_FILTER_NEAREST}，
-規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 如果是其他值，結果未定義。
@@ -60,7 +60,7 @@ uint4 read_imageui (
 用坐標 \math{(coord.x, coord.y)} 查找 2D \cnglo{imgobj} \carg{image} 中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 
 對於 \capi{read_imagei} 而言，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是下列值之一：
@@ -85,7 +85,7 @@ uint4 read_imageui (
 否則結果未定義。
 
 對於使用整數坐標的 \capi{read_image{i|ui}} 所用\cnglo{sampler}而言，
-其規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+其歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 否則結果未定義。
@@ -121,7 +121,7 @@ float4 read_imagef (
 
 對於使用整數坐標的 \capi{read_imagef} 所用\cnglo{sampler}而言，
 其濾波模式必須是 \cenum{CLK_FILTER_NEAREST}，
-規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 如果是其他值，結果未定義。
@@ -155,7 +155,7 @@ uint4 read_imageui (
 其中 \math{coord.w} 被忽略。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -181,7 +181,7 @@ uint4 read_imageui (
 否則結果未定義。
 
 對於使用整數坐標的 \capi{read_image{i|ui}} 所用\cnglo{sampler}而言，
-其規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+其歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 否則結果未定義。
@@ -217,7 +217,7 @@ float4 read_imagef (
 
 對於使用整數坐標的 \capi{read_imagef} 所用\cnglo{sampler}而言，
 其濾波模式必須是 \cenum{CLK_FILTER_NEAREST}，
-規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 如果是其他值，結果未定義。
@@ -251,7 +251,7 @@ uint4 read_imageui (
 其中 \math{coord.w} 被忽略。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -277,7 +277,7 @@ uint4 read_imageui (
 否則結果未定義。
 
 對於使用整數坐標的 \capi{read_image{i|ui}} 所用\cnglo{sampler}而言，
-其規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+其歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 否則結果未定義。
@@ -311,7 +311,7 @@ float4 read_imagef (
 
 對於使用整數坐標的 \capi{read_imagef} 所用\cnglo{sampler}而言，
 其濾波模式必須是 \cenum{CLK_FILTER_NEAREST}，
-規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 如果是其他值，結果未定義。
@@ -344,7 +344,7 @@ uint4 read_imageui (
 用坐標 \math{coord} 查找 1D \cnglo{imgobj} \carg{image} 中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -370,7 +370,7 @@ uint4 read_imageui (
 否則結果未定義。
 
 對於使用整數坐標的 \capi{read_image{i|ui}} 所用\cnglo{sampler}而言，
-其規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+其歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 否則結果未定義。
@@ -406,7 +406,7 @@ float4 read_imagef (
 
 對於使用整數坐標的 \capi{read_imagef} 所用\cnglo{sampler}而言，
 其濾波模式必須是 \cenum{CLK_FILTER_NEAREST}，
-規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 如果是其他值，結果未定義。
@@ -439,7 +439,7 @@ uint4 read_imagef (
 用坐標 \math{corrd.x} 來查找此 1D 圖像中的元素。
 
 \capi{read_imagei} 和 \capi{read_imageui} 所返回的值分別為
-非規範化帶符號整數和非規範化無符號整數。
+非歸一化帶符號整數和非歸一化無符號整數。
 每個通道的值都是 32 位整數。
 
 對於 \capi{read_imagei} 而言，
@@ -465,7 +465,7 @@ uint4 read_imagef (
 否則結果未定義。
 
 對於使用整數坐標的 \capi{read_image{i|ui}} 所用\cnglo{sampler}而言，
-其規範化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
+其歸一化坐標必須是 \cenum{CLK_NORMALIZED_COORDS_FALSE}，
 尋址模式必須是 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}、 \cenum{CLK_ADDRESS_CLAMP}
  或 \cenum{CLK_ADDRESS_NONE}；
 否則結果未定義。

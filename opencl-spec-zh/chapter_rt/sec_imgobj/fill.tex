@@ -22,9 +22,9 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 \carg{image} 是一個\cnglo{imgobj}。
 
 \carg{fill_color} 即填充色。
-如果 \carg{image} 通道數據型別不是非規範化帶符號或無符號整形，則他是四元 RGBA 浮點顏色值；
-如果 \carg{image} 通道數據型別是非規範化帶符號整形，則他是四元帶符號整形值；
-如果 \carg{image} 通道數據型別是非規範化無符號整形，則他是四元無符號整形值。
+如果 \carg{image} 通道數據型別不是非歸一化帶符號或無符號整形，則他是四元 RGBA 浮點顏色值；
+如果 \carg{image} 通道數據型別是非歸一化帶符號整形，則他是四元帶符號整形值；
+如果 \carg{image} 通道數據型別是非歸一化無符號整形，則他是四元無符號整形值。
 填充時會根據 \carg{image} 的圖像通道格式以及順序對此顏色進行轉換，參見\todo{6.12.14 和 8.3}。
 
 \carg{origin} 定義了所要填充區域的起始位置 $(x, y, z)$，單位像素；

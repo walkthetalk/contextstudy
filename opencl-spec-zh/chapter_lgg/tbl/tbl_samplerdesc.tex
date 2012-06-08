@@ -1,7 +1,7 @@
 \startCLOD[\cnglo{sampler}屬性][描述]
 
 \clOD{\ccmm{<normalized coords>}}{
-指定所傳入的坐標 \math{x}、 \math{y} 和 \math{z} 是否已規範化。
+指定所傳入的坐標 \math{x}、 \math{y} 和 \math{z} 是否已歸一化。
 他必須是常值，可以是下列預定義枚舉中的一個：
 \startigBase
 \item \cenum{CLK_NORMALIZED_COORDS_TRUE}
@@ -17,12 +17,12 @@
 他必須是常值，可以是下列預定義枚舉中的一個：
 \startigBase
 \item \cenum{CLK_ADDRESS_MIRRORED_REPEAT}——在整數接點處翻轉圖像坐標。
-這種尋址模式只能用於規範化坐標。
-如果使用的不是規範化坐標，則此模式生成的圖像坐標未定義。
+這種尋址模式只能用於歸一化坐標。
+如果使用的不是歸一化坐標，則此模式生成的圖像坐標未定義。
 
 \item \cenum{CLK_ADDRESS_REPEAT}——溢出的坐標會繞回到有效區間內。
-這種尋址模式只能用於規範化坐標。
-如果使用的不是規範化坐標，則此模式生成的圖像坐標未定義。
+這種尋址模式只能用於歸一化坐標。
+如果使用的不是歸一化坐標，則此模式生成的圖像坐標未定義。
 
 \item \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}——溢出的坐標會被壓入有效範圍內。
 

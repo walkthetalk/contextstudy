@@ -12,9 +12,9 @@ cl_sampler clCreateSampler (cl_context context,
 
 \carg{context} 是一個 OpenCL \cnglo{context}。
 
-\carg{normalized_coords} 指明圖像坐標是否已規範化
-（如果 \carg{normalized_coords} 是 \cenum{CL_TRUE}，則代表已規範化，
-如果是 \cenum{CL_FALSE}，則未規範化）。
+\carg{normalized_coords} 指明圖像坐標是否已歸一化
+（如果 \carg{normalized_coords} 是 \cenum{CL_TRUE}，則代表已歸一化，
+如果是 \cenum{CL_FALSE}，則未歸一化）。
 
 \carg{addressing_mode} 指明讀取圖像時怎樣處理越界的坐標。
 可以設置成 \cenum{CL_ADDRESS_MIRRORED_REPEAT}、 \cenum{CL_ADDRESS_REPEAT}、

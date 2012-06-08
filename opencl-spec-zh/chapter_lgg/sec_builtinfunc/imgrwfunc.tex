@@ -29,7 +29,7 @@
 \startigBase[indentnext=no]
 \item 尋址模式
 \item 濾波模式
-\item 規範化坐標
+\item 歸一化坐標
 \stopigBase
 這些數學控制着 \capi{read_image{f|i|ui}} 如何讀取圖像中的元素。
 
@@ -94,7 +94,7 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 下列無\cnglo{sampler}的內建函式也可用於讀取圖像。
 其行為與\refsec{builtInImgReadFunc}中坐標為整數、並帶有\cnglo{sampler}的對應函式一樣，
 相當於\cnglo{sampler}的濾波模式為 \cenum{CLK_FILTER_NEAREST}、
-規範化坐標為 \cenum{CLK_NORMALIZED_COORDS_FALSE}、
+歸一化坐標為 \cenum{CLK_NORMALIZED_COORDS_FALSE}、
 尋址模式為 \cenum{CLK_ADDRESS_NONE}。
 
 \placetable[here,force,split][tab:imgReadWithoutSamplerFunc]
@@ -122,7 +122,7 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 \reftab{imgQueryFunc}中，
 \capi{get_image_channel_data_type} 和 \capi{get_image_channel_order} 所返回的帶有前綴 \cenum{CLK_} 的值
 分別對應於\reftab{imgChannelDataType}和\reftab{imgChannelOrder}中帶有前綴 \cenum{CL_} 的值。
-例如， \cenum{CL_UNORM_INT8} 和 \cenum{CLK_UNORM_INT8} 都是指通道數據類型為非規範化的 8 位整數。
+例如， \cenum{CL_UNORM_INT8} 和 \cenum{CLK_UNORM_INT8} 都是指通道數據類型為非歸一化的 8 位整數。
 
 下表列出了圖像元素的各通道的顏色值與 \ctype{float4}、 \ctype{int4} 或 \ctype{uint4} 中組件的映射關係，
 這些矢量由 \capi{read_image{f|i|ui}} 返回或作為 \capi{write_image{f|i|ui}} 的參數 \carg{color}。
