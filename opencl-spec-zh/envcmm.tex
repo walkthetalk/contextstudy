@@ -281,7 +281,7 @@ bolditalic=texgyreherosbolditalic]
 []
 []
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%title%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%    title   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %两个quad空格	a \qquad b
 %quad空格	a \quad b
 %大空格		a\ b
@@ -397,6 +397,20 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 %\setupheadertexts[hello]
+\definehead[topclfunc][
+  indentnext=yes,
+  style=bold,%normal bold slanted boldslanted % 整体
+%  color=red, %IDENTIFIER % 整體顏色
+  number=no, %yes no % 是否帶編號
+  before={}, %COMMAND
+  after={}, %COMMAND
+  alternative=normal, %normal inmargin middle TEXT
+  deeptextcommand={\framed[
+    frame=on, corner=0, frameoffset=.5ex,
+    framecolor=black,background=color,
+    backgroundcolor=gray, backgroundoffset=.5ex,
+    foreground=color,foregroundcolor=black]},
+]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setuplist[chapter][
   %state	start stop
@@ -459,6 +473,12 @@ bolditalic=texgyreherosbolditalic]
   margin=4em,	%dimension % 左侧缩进
   width=0em,	%dimension fit	% 编号宽度
   distance=0.5em,	%dimension
+]
+
+\setuplist[topclfunc][
+  criterium=all,
+  alternative=c,
+  interaction=all,
 ]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%footnote%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
