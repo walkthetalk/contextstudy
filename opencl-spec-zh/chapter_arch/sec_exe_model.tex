@@ -23,9 +23,9 @@ OpenCL 執行模型的核心就是\cnglo{kernel}是怎麼執行的。
 會在同一\cnglo{computeunit}中的多個\cnglo{prcele}上並發執行。
 
 在 OpenCL 中，索引空間又叫做 NDRange。
- NDRange 是一個 N 維的索引空間，其中 N 可以是一、二或者三。
- NDRange 由一個長度為 N 的整數陣列來定義，
-指定了索引空間各個維度上的寬度（起自偏移索引 F， F 缺省為 0）。
+NDRange 是一個 N 維的索引空間，其中 N 可以是一、二或者三。
+NDRange 由一個長度為 N 的整數陣列來定義，
+他指定了索引空間各維度的寬度（起自偏移索引 F， F 缺省為 0）。
 每個\cnglo{workitem}的\cnglo{glbid}和\cnglo{locid}都是 N 維元組。
 \cnglo{glbid}的取值範圍從 F 開始，直到 F 加相應維度上的元素個數減一。
 
@@ -76,12 +76,12 @@ NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及�
 {\useMPgraphic{box}}
 
 很多編程模型都可以映射到這個執行模型上。
- OpenCL 明確支持的有兩種：\cngloemp{dppm}和\cngloemp{tppm}。
+OpenCL 明確支持的有兩種：\cngloemp{dppm}和\cngloemp{tppm}。
 
 % Execution Model: Context and Command Queues
 \subsection[sec:exemodel:contextandcmdq]{執行模型：上下文和命令隊列}
 
-\cnglo{host}為執行\cnglo{kernel}定義了一個\cnglo{context}。
+\cnglo{host}會為執行\cnglo{kernel}定義一個\cnglo{context}。
 \cnglo{context}包括以下\cnglo{res}：
 \startigNum
 \item \cngloemp{device}：\cnglo{host}可以使用的 OpenCL \cnglo{device}集。
@@ -95,7 +95,7 @@ NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及�
 \cnglo{host}使用 OpenCL API 中的函式來創建並操控\cnglo{context}。
 \cnglo{host}會創建一個稱為\cnglo{cmdq}的數據結構
 來協調\cnglo{device}上\cnglo{kernel}的執行。
-\cnglo{host}還會將\cnglo{cmd}插入\cnglo{cmdq}，
+\cnglo{host}還會將\cnglo{cmd}入隊，
 這些\cnglo{cmd}將在\cnglo{context}中的\cnglo{device}上被調度。
 這些\cnglo{cmd}包括：
 \startigBase
@@ -135,7 +135,7 @@ NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及�
 OpenCL 執行模型支持兩種\cnglo{kernel}：
 \startigBase
 \item {\ftEmp{OpenCL \cnglo{kernel}}}，
-用 OpenCL C 編程語言寫就，並用 OpenCL C 編譯器編譯而成。
+用 OpenCL C 編程語言編寫，並用 OpenCL C 編譯器編譯而成。
 所有 OpenCL 的實作都支持 OpenCL \cnglo{kernel}。
 實作也可能提供其他機制創建 OpenCL \cnglo{kernel}。
 
@@ -147,6 +147,6 @@ OpenCL 執行模型支持兩種\cnglo{kernel}：
 注意，在 OpenCL 中，
 執行原生\cnglo{kernel}的能力是一個可選功能，原生\cnglo{kernel}的語義\cnglo{impdef}。
 可以使用 OpenCL API 中的一些函式來查詢\cnglo{device}的能力
-並確定\cnglo{device}是否具有某種能力。
+並確定\cnglo{device}是否具備某種能力。
 \stopigBase
 

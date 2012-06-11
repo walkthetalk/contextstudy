@@ -2,9 +2,9 @@
 
 OpenCL 平台模型的定義可以查看\reffig{plfmodel}。
 此模型中有一個\cngloemp{host}，
-以及與其相連的一個或多個 {\ftEmp{OpenCL}} \cnglo{device}。
-OpenCL \cnglo{device}被劃分成一個或多個\cnglo{computeunit}（CU），
-每個\cnglo{computeunit}又被劃分成一個或多個\cnglo{prcele}（PE）。
+並且有一個或多個 {\ftEmp{OpenCL}} \cnglo{device}與其相連。
+每個 OpenCL \cnglo{device}可劃分成一個或多個\cnglo{computeunit}（CU），
+每個\cnglo{computeunit}又可劃分成一個或多個\cnglo{prcele}（PE）。
 \cnglo{device}上的計算是在\cnglo{prcele}中進行的。
 
 \startbuffer[buffigplfmodelcaption]

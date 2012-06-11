@@ -43,7 +43,7 @@ OpenCL 所提供的\cnglo{dppm}是分級的。
 任意一個要想越過\cnglo{barrier}繼續執行，
 所有\cnglo{workitem}都必須先執行這個\cnglo{barrier}。
 注意，在同一\cnglo{workgrp}中，
-所有正在執行\cnglo{kernel}的\cnglo{workitem}必須都會去執行這個\cnglo{workgrpbarrier}，
+所有正在執行\cnglo{kernel}的\cnglo{workitem}必須都能執行到這個\cnglo{workgrpbarrier}，
 或者都不會去執行。
 \cnglo{workgrp}之間沒有同步機制。
 
