@@ -20,12 +20,12 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 \carg{blocking_map} 表明此映射操作是{\ftRef 阻塞的}還是{\ftRef 非阻塞的}。
 
 如果 \carg{blocking_map} 是 \cenum{CL_TRUE}，即映射\cnglo{cmd}是阻塞的，
-直到映射完成， \capi{clEnqueueMapBuffer} 才會返回，\cnglo{app}可以用返回的指針存取所映射區域的內容。
+直到映射完成， \capi{clEnqueueMapBuffer} 才會返回，\cnglo{app}可以用返回的指針訪問所映射區域的內容。
 
 如果 \carg{blocking_map} 是 \cenum{CL_FALSE}，即映射\cnglo{cmd}是非阻塞的，
 直到映射\cnglo{cmd}完成後，才能使用 \capi{clEnqueueMapBuffer} 所返回的指針。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢映射\cnglo{cmd}的執行情況。
-映射\cnglo{cmd}完成後，\cnglo{app}就可以使用 \capi{clEnqueueMapBuffer} 所返回的指針存取映射區域的內容了。
+映射\cnglo{cmd}完成後，\cnglo{app}就可以使用 \capi{clEnqueueMapBuffer} 所返回的指針訪問映射區域的內容了。
 
 \carg{map_flags} 是位域，參見\reftab{clmapflags}。
 
@@ -86,8 +86,8 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 \item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
 \stopigBase
 
-所返回的指針僅可用於存取所映射的區域 $(offset,size)$，雖然實作可能映射更大的區域。
-對於存取此區域外的內容，其結果未定義。
+所返回的指針僅可用於訪問所映射的區域 $(offset,size)$，雖然實作可能映射更大的區域。
+對於訪問此區域外的內容，其結果未定義。
 
 注意：
 

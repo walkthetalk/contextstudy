@@ -35,16 +35,16 @@
 只有函式參數的型別才能是圖像（image2d_t, image3d_t, image2d_array_t, image1d_t,
 image1d_buffer_t or image1d_array_t）。
 不能修改這種參數。
-並且只能用內建函式來存取其元素（參見\todo{節 6.12.14}）。
+並且只能用內建函式來訪問其元素（參見\todo{節 6.12.14}）。
 
 圖像型別不能用來聲明變量、結構體或聯合體的欄位，
 也不能聲明圖像陣列或圖像指針，
 函式返回值的型別也不能是圖像。
 圖像型別不能與位址空間限定符
  \cqlf{__private}、 \cqlf{__local} 和 \cqlf{__constant} 一起使用。
-型別 \ctype{image3d_t} 不能與存取限定符 \cqlf{__write_only} 一起使用，
+型別 \ctype{image3d_t} 不能與訪問限定符 \cqlf{__write_only} 一起使用，
 除非使能了擴展 \clext{cl_khr_3d_image_writes}。
-圖像型別不能與存取限定符 \cqlf{__read_write} 一起使用，
+圖像型別不能與訪問限定符 \cqlf{__read_write} 一起使用，
 這種用法暫時保留，將來可能會使用。
 
 \cnglo{sampler}型別（\ctype{sampler_t}）只能作為函式參數的型別，

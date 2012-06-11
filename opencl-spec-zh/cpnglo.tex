@@ -16,33 +16,33 @@
 \stopclglo
 
 \startclglo[nbeac][非阻塞的入隊 API 調用][Non-Blocking Enqueue API calls]
-\refglo{nbeac}在\refglo{cmdq}中放置一個\refglo{cmd}後會立刻返回。
+\refglo{nbeac}在\refglo{cmdq}中放置一個\refglo{cmd}後會立刻返回到\refglo{host}中。
 而\refglo{beac}則會等到\refglo{cmd}結束後再返回。
 \stopclglo
 
 % 如果刪除行 A，而將 B 改為空行，則編譯失敗，不知原因
 \startclglo[barrier][屏障][Barrier]
-有兩種類型的\refglo{barrier}——\refglo{cmdqbarrier}和\refglo{workgrpbarrier}。
+有兩種\refglo{barrier}——\refglo{cmdqbarrier}和\refglo{workgrpbarrier}。
 % placeholder A
 \startigBase
 \item \refglo{cmdqbarrier}本身是一個\refglo{cmd}，
- OpenCL API 提供一個函式可以將其插入隊列。
-此命令可以保證在此之前入隊的所有\cnglo{cmd}都執行完畢後，
-在此之後入隊的\cnglo{cmd}才能開始執行。
+OpenCL API 提供有函式可以將其入隊。
+他可以保證在此之前入隊的所有\refglo{cmd}都執行完畢後，
+在此之後入隊的\refglo{cmd}才會開始執行。
 % placeholder B
-\item OpenCL C 編程語言內建有一個\refglo{workgrpbarrier}函式。
-運行在\refglo{device}上的\refglo{kernel}可以利用此函式在
-同一\refglo{workgrp}中的不同\refglo{workitem}間進行同步
-（這些\cnglo{workitem}正在執行此\refglo{kernel}）。
-對於一個\refglo{workgrp}而言，
+\item OpenCL C 編程語言中有一個內建的\refglo{workgrpbarrier}函式。
+\refglo{kernel}在\refglo{device}上運行時，
+可以利用此函式在同一\refglo{workgrp}中的不同\refglo{workitem}間進行同步
+（這些\refglo{workitem}正在執行此\refglo{kernel}）。
+對這個\refglo{workgrp}而言，
 其中任一\refglo{workitem}要想越過此\refglo{barrier}繼續執行，
 則他所包含的所有\refglo{workitem}都必須先執行此\refglo{barrier}。
 \stopigBase
 \stopclglo
 
 \startclglo[bufobj][緩衝對象][Buffer Object]
-存儲線性字節序列的\refglo{memobj}。
-\refglo{kernel}在\refglo{device}上運行時，可以通過一個指針來存取他。
+一種\refglo{memobj}，其中存儲的是線性字節序列。
+\refglo{kernel}在\refglo{device}上運行時，可以通過指針來訪問他。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
 \refglo{bufobj}封裝了以下資訊：
 \startigBase
@@ -71,7 +71,7 @@
 \stopclglo
 
 \startclglo[cmdq][命令隊列][Command-queue]
-這種對象中持有\refglo{cmd}，而這些\cnglo{cmd}將在某個\refglo{device}上執行。
+這種對象中持有\refglo{cmd}，而這些\refglo{cmd}將在某個特定\refglo{device}上執行。
 \refglo{cmdq}是在\refglo{context}中的某個特定\refglo{device}上創建的。
 \refglo{cmd}按序入隊，但不一定按順序執行。
 參見\refglo{inordexec}和\refglo{outordexec}。
@@ -89,52 +89,52 @@
 一個 OpenCL \refglo{device}中包含一個或多個\refglo{computeunit}。
 一個\refglo{workgrp}只能在單個\refglo{computeunit}上執行。
 一個\refglo{computeunit}由一個或多個\refglo{prcele}以及\refglo{locmem}組成。
-\refglo{computeunit}也可能包含專用的材質過濾器件，此器件可以被他的\refglo{prcele}存取。
+\refglo{computeunit}也可能包含專用的材質濾波器件，此器件可以被他的\refglo{prcele}訪問。
 \stopclglo
 
 \startclglo[concurrency][並發][Concurrency]
-系統的一個屬性，這樣的系統中有一系列任務，這些任務可以同時保持活躍並取得進展。
-運行\cnglo{program}時要想並發執行，程序員必須找出問題中可以並發的部分，
-並在源碼中標示出來，用一個支持並發的標記進行開發。
+系統的一個屬性，這樣的系統中，多個任務可以同時保持活躍並取得進展。
+運行\refglo{program}時要想並發執行，程序員必須找出問題中可以並發的部分，
+並在源碼中標示出來，用一個支持並發的符號進行開發。
 \stopclglo
 
 \startclglo[constmem][不變內存][Constant Memory]
 \refglo{glbmem}中的一個區域，在\refglo{kernel}執行過程中保持不變。
-\refglo{constmem}中的\cnglo{memobj}是由\refglo{host}分配並初始化的。
+放入其中的\refglo{memobj}都是由\refglo{host}分配並初始化的。
 \stopclglo
 
 \startclglo[context][上下文][Context]
 \refglo{kernel}在執行時所處的環境，同步和內存管理就是在此概念上定義的。
-\refglo{context}包含一系列\refglo{device}、這些\refglo{device}可以存取的內存、
-相應的內存屬性、一個或多個\refglo{cmdq}
-（用來對\refglo{kernel}的執行和\refglo{memobj}上的相關操作進行調度）。
+\refglo{context}包括一組\refglo{device}、這些\refglo{device}可以訪問的內存、
+相應的內存屬性、以及一個或多個\refglo{cmdq}
+（用來對\refglo{kernel}的執行和\refglo{memobj}上的相關運算進行調度）。
 \stopclglo
 
 \startclglo[customdev][自定義設備][Custom Device]
-一種 OpenCL \refglo{device}，完整實作了 OpenCL 運行時，
-但不支持用 OpenCL C 寫的\refglo{program}。
+一種 OpenCL \refglo{device}，完整地實現了 OpenCL 運行時，
+但不支持用 OpenCL C 編寫的\refglo{program}。
 \refglo{customdev}可能是不可編程的專用硬件，高效節能，僅可執行定向任務；
 也可能具有有限的編程能力，如專用的 DSP。
-\cnglo{customdev}並不完全符合 OpenCL。
-\cnglo{customdev}可能支持在線編譯器。
+\refglo{customdev}並不符合 OpenCL。
+\refglo{customdev}可能支持在線編譯器。
 可以使用 OopenCL 運行時 API，
 由源碼（如果支持在線編譯器）和/或二元碼、或者\refglo{bikernel}
-來創建針對這種設備的\cnglo{program}。
+來創建針對這種設備的\refglo{program}。
 請參考\refglo{device}。
 \stopclglo
 
 \startclglo[dppm][數據並行編程模型][Data Parallel Programming Model]
-傳統意義上，這種編程模型中，並發由\cnglo{program}中的指令表示，
-這些指令會應用到一組數據結構中的多個元素上。
+傳統意義上，這種編程模型中，並發由單個\refglo{program}中的指令表示，
+這些指令會作用到一組數據結構中的多個元素上。
 在 OpenCL 中，對這個術語進行了推廣，此模型中，
-\cnglo{program}中的一組指令同時應用到一個索引抽象域中的所有點上。
+單個\refglo{program}中的一組指令同時作用到一個索引抽象域中的所有點上。
 \stopclglo
 
 \startclglo[device][设备][Device]
 \refglo{device}是一組\refglo{computeunit}的集合。
-\refglo{cmdq}用來將\refglo{cmd}在\refglo{device}上進行排隊。
-這樣的\refglo{cmd}包括執行\refglo{kernel}或讀寫\refglo{memobj}。
-典型的 OpenCL \cnglo{device}指 GPU、
+\refglo{cmdq}可用來將\refglo{cmd}在\refglo{device}上進行排隊。
+這些\refglo{cmd}包括執行\refglo{kernel}或讀寫\refglo{memobj}。
+典型的 OpenCL \refglo{device}指 GPU、
 多核 CPU 以及其他處理器（如 DSP 和 Cell/B.E. 處理器）。
 \stopclglo
 
@@ -155,31 +155,31 @@
 \startclglo[glbid][全局 ID][Global ID]
 \refglo{glbid}用來唯一標識一個\refglo{workitem}，
 源自執行\refglo{kernel}時所指定的全局\refglo{workitem}數目。
-\refglo{glbid}是一個 N 維的值，起自 \math{(0, 0, … 0)}。
+\refglo{glbid}是一個 N 維的值，起自 \math{(0, 0, \cdots 0)}。
 請參考\refglo{locid}。
 \stopclglo
 
 \startclglo[glbmem][全局內存][Global Memory]
-一塊內存，\refglo{context}中的所有\refglo{workitem}都可存取。
-\refglo{host}可以使用\refglo{cmd}來存取他（如讀、寫以及映射）。
+一塊\refglo{memregion}，\refglo{context}中的所有\refglo{workitem}均可訪問。
+\refglo{host}可以使用\refglo{cmd}來訪問他（如讀、寫以及映射）。
 \stopclglo
 
 \startclglo[glsharegrp][GL 共享組][GL share group]
-此對象用來管理共享的 OpenGL 或 OpenGL ES 資源（如材質、緩存、幀緩存或渲染緩存），
+這種對象用來管理共享的 OpenGL 或 OpenGL ES 資源（如材質、緩衝、幀緩衝或渲染緩衝），
 並與一個或多個 GL 上下文對象關聯在一起。
-典型的\refglo{glsharegrp}是不透明的，不能直接存取。
+典型的\refglo{glsharegrp}是不透明的，不能直接訪問。
 \stopclglo
 
 \startclglo[handle][句柄][Handle]
 一種不透明的型別，用來引用 OpenCL 所分配的\refglo{obj}。
-對\refglo{obj}的任何操作都是通過引用其\cnglo{handle}來進行的。
+對\refglo{obj}的任何操作都是通過引用其\refglo{handle}來進行的。
 \stopclglo
 
-\startclglo[host][宿主機][host]
+\startclglo[host][主機][host]
 \refglo{host}使用 OpenCL API 與\refglo{context}進行交互。
 \stopclglo
 
-\startclglo[hostptr][宿主機指針][Host pointer]
+\startclglo[hostptr][主機指針][Host pointer]
 一種指針，指向\refglo{host}上虛擬位址空間中的內存。
 \stopclglo
 
@@ -189,7 +189,7 @@
 
 \startclglo[imgobj][圖像對象][Image Object]
 一種\refglo{memobj}，用來存儲二維或三維的結構化陣列。
-只能通過讀寫函式存取其中的圖像數據。讀函式需要使用\refglo{sampler}。
+只能通過讀寫函式訪問其中的圖像數據。讀取函式需要使用\refglo{sampler}。
 
 \refglo{imgobj}封裝了以下資訊：
 \startigBase
@@ -203,7 +203,7 @@
 \stopclglo
 
 \startclglo[impdef][依賴於具體實作][Implementation Defined]
-在符合 OpenCL 標準的實作中，明確規定可以有不同實作的那些行為。
+在符合 OpenCL 標準的不同實作中，明確規定可以不同的那些行為。
 對於這種行為，要求 OpenCL 的實作者提供相關文檔。
 \stopclglo
 
@@ -214,7 +214,7 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 \stopclglo
 
 \startclglo[kernel][內核][Kernel]
-\refglo{kernel}是\refglo{program}中聲明的一種函式，
+\refglo{program}中聲明的一種函式，
 可以在 OpenCL \refglo{device}上執行。
 在\refglo{program}中定義的任何函式，
 都可以通過加上限定符 \cqlf{__kernel} 或 \cqlf{kernel} 將其標識成\refglo{kernel}。
@@ -223,33 +223,33 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 \startclglo[kernelobj][內核對象][Kernel Object]
 \refglo{kernelobj}封裝了
 \refglo{program}中聲明的一個 \cqlf{__kernel} 函式
-以及執行此函式時所需的參數。
+以及執行此函式時所需的引數。
 \stopclglo
 
 \startclglo[locid][局部 ID][Local ID]
-\refglo{workitem}的一種 ID，在執行\refglo{kernel}的\refglo{workgrp}中是唯一的。
-\refglo{locid}是一個 N 維的值，起自 \math{(0, 0, … 0)}。
+\refglo{workitem}的一種 ID，在所處\refglo{workgrp}中是唯一的。
+\refglo{locid}是一個 N 維的值，起自 \math{(0, 0, \cdots 0)}。
 請參考\refglo{glbid}。
 \stopclglo
 
 \startclglo[locmem][局部內存][Local Memory]
-一塊內存，隸屬於某個\refglo{workgrp}，
-只有此\refglo{workgrp}中的\refglo{workitem}才能存取。
+一塊\refglo{memregion}，隸屬於某個\refglo{workgrp}，
+只有這個\refglo{workgrp}中的\refglo{workitem}才能訪問。
 \stopclglo
 
-\startclglo[marker][記號][Marker]
-一種\refglo{cmd}，可用來給之前入隊的所有\refglo{cmd}作標記。
-此命令會返回一個事件，\refglo{app}可以等在這個事件上，
-例如等待此\refglo{marker}\cnglo{cmd}之前的\cnglo{cmd}全部完成。
+\startclglo[marker][標註][Marker]
+一種\refglo{cmd}，可用來給之前入隊的所有\refglo{cmd}打標籤。
+此\refglo{cmd}會返回一個事件，\refglo{app}可以等在這個事件上，
+例如等待之前入隊的\refglo{cmd}全部完成。
 \stopclglo
 
 \startclglo[memobj][內存對象][Memory Object]
-某塊帶有\cnglo{refcnt}的\refglo{glbmem}的句柄。
+某塊帶有\refglo{refcnt}的\refglo{glbmem}的\refglo{handle}。
 請參考\refglo{bufobj}和\refglo{imgobj}。
 \stopclglo
 
 \startclglo[memregion][內存區域][Memory Region]
-OpenCL 中的一個確切的位址空間。
+OpenCL 中一個確切的位址空間。
 不同的\refglo{memregion}在物理上可能重疊，但在邏輯上 OpenCL 會將其視為不同。
 分為\refglo{prvmem}、\refglo{locmem}、\refglo{constmem}以及\refglo{glbmem}。
 \stopclglo
@@ -265,7 +265,7 @@ OpenCL 中的一個確切的位址空間。
 
 \startclglo[outordexec][亂序執行][Out-of-Order Execution]
 一種執行模型，\refglo{cmdq}中的\refglo{cmd}可以任意順序開始和結束執行，
-只要符合\refglo{evtwaitlist}和\refglo{cmdqbarrier}即可。
+只要符合\refglo{evtwaitlist}和\refglo{cmdqbarrier}的限制即可。
 參見\refglo{inordexec}。
 \stopclglo
 
@@ -305,7 +305,7 @@ OpenCL 中的一個確切的位址空間。
 
 \item \refglo{program}源碼或二元碼。
 
-\item 最新成功構建的程序執行體，用來運行此程序的\refglo{device}清單，
+\item 最近成功構建的程序執行體，用來運行此\refglo{program}的\refglo{device}清單，
 所用的構建選項以及構建日誌。
 
 \item 當前附着其上的\refglo{kernelobj}的數目。
@@ -313,7 +313,7 @@ OpenCL 中的一個確切的位址空間。
 \stopclglo
 
 \startclglo[refcnt][引用計數][Reference Count]
-OpenCL 對象的生命周期由其\refglo{refcnt}來確定，
+OpenCL 對象的生命周期由其\refglo{refcnt}決定，
 這個內部計數記錄了此對象被引用的次數。
 在 OpenCL 中創建一個對象時，其\refglo{refcnt}被置為0。
 后续对\refglo{retain} API
@@ -333,7 +333,7 @@ OpenCL 對象的生命周期由其\refglo{refcnt}來確定，
 
 \startclglo[res][資源][Resource]
 OpenCL 所定義的一類\refglo{obj}。
-\refglo{res}的一個實體就是一個\refglo{obj}。
+\refglo{res}的實體就是\refglo{obj}。
 最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、
 \refglo{kernelobj}以及\refglo{memobj}。
 計算用資源主要指那些參與推進程序計數器動作的硬件元件。
@@ -358,7 +358,7 @@ OpenCL 所定義的一類\refglo{obj}。
 
 \startclglo[sampler][採樣器][Sampler]
 一種\refglo{obj}，用來描述\refglo{kernel}讀取圖像時怎樣對其採樣。
-讀取圖像的函式將\refglo{sampler}作為一個參數。
+讀取圖像的函式將\refglo{sampler}作為一個引數。
 \refglo{sampler}指定圖像的尋址方式，
 如圖像坐標溢出時如何處置、濾波模式、輸入的圖像坐標是否已歸一化。
 \stopclglo
@@ -385,8 +385,8 @@ OpenCL 所定義的一類\refglo{obj}。
 \stopclglo
 
 \startclglo[tppm][任務並行編程模型][Task Parallel Programming Model]
-一種編程模型，其中用多個並發的任務來表示計算，
-一個任務就是在\refglo{workgrp}（大小是1）中執行的一個\refglo{kernel}。
+一種編程模型，用多個並發的任務來表示計算，
+其中任務就是單個\refglo{workgrp}（大小是1）中所執行的\refglo{kernel}。
 這些並發的任務可以運行不同的\refglo{kernel}。
 \stopclglo
 
@@ -424,9 +424,8 @@ OpenCL 所定義的一類\refglo{obj}。
 % OpenCL class diagram
 \section{OpenCL 类图}
 
-\reffig{classdiag}使用統一建模語言
-{\footnote[uml]{統一建模語言（http://www.uml.org/）
-是 Object Management Group （OMG）的商標。}}
+\reffig{classdiag}使用統一建模語言\footnote{%
+統一建模語言（http://www.uml.org/）是 Object Management Group （OMG）的商標。}
 （UML）以類圖的方式對 OpenCL 規範進行了描述。
 圖中的節點和邊分別代表類和類之間的關係。
 簡化起見，類中沒有特性和操作。
@@ -434,8 +433,8 @@ OpenCL 所定義的一類\refglo{obj}。
 圖中顯示了類之間的關係，有聚集（aggregation，帶有實心方塊）、
 關聯（association，没有註解）和繼承（inheritance，帶有開放的箭頭）。
 邊兩端帶有關係的基數。
-基數“＊”代表“多個”，基數“1”代表“一個且只有一個”，基數“0..1”代表“可選的一個”，
-而基數“1..”代表“一個或多個”。
+其中“{\ftEmp{*}}”代表“多個”，“{\ftEmp{1}}”代表“一個且只有一個”，
+“{\ftEmp{0..1}}”代表“可選的一個”，而“{\ftEmp{1..*}}”代表“一個或多個”。
 普通箭頭代表關係的方向。
 
 \placefigure

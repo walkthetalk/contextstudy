@@ -200,15 +200,15 @@ float4	f = (float4)(1.0f, 2.0f);	<- error
 對於具有 1 到 4 個組件的矢量數據型別，其組件可以用 \ccmm{<vector_data_type>.xyzw} 來尋址。
 矢量數據型別 \ctype{char2}、 \ctype{uchar2}、 \ctype{short2}、 \ctype{ushort2}、
  \ctype{int2}、 \ctype{uint2}、 \ctype{long2}、 \ctype{ulong2} 和 \ctype{float2}
- 可以存取元素 \ccmm{.xy}。
+ 可以訪問元素 \ccmm{.xy}。
 矢量數據型別 \ctype{char3}、 \ctype{uchar3}、 \ctype{short3}、 \ctype{ushort3}、
  \ctype{int3}、 \ctype{uint3}、 \ctype{long3}、 \ctype{ulong3} 和 \ctype{float3}
- 可以存取元素 \ccmm{.xyz}。
+ 可以訪問元素 \ccmm{.xyz}。
 矢量數據型別 \ctype{char4}、 \ctype{uchar4}、 \ctype{short4}、 \ctype{ushort4}、
  \ctype{int4}、 \ctype{uint4}、 \ctype{long4}、 \ctype{ulong4} 和 \ctype{float4}
- 可以存取元素 \ccmm{.xyzw}。
+ 可以訪問元素 \ccmm{.xyzw}。
 
-如果所存取的組件在矢量型別中並不具備，則視為錯誤，例如：
+如果所訪問的組件在矢量型別中並不具備，則視為錯誤，例如：
 \startclc
 float2 pos;	// is legal
 pos.x = 1.0f;	// is illegal
@@ -258,7 +258,7 @@ x = (float16)(a.xxxx, b.xyz, c.xyz, d.xyz, a.yzw);
 x = (float16)(a.xxxxxxx, b.xyz, c.xyz, d.xyz);
 \stopclc
 
-也可以用數值索引來存取矢量數據型別的元素。
+也可以用數值索引來訪問矢量數據型別的元素。
 下表給出了可以使用的數值索引：
 
 \placetable[here,force][tab:ni4bivdt]
@@ -393,7 +393,7 @@ OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
 
 \item 函式限定符： \cqlf{__kernel} 和 \cqlf{kernel}。
 
-\item 存取限定符：
+\item 訪問限定符：
  \cqlf{__read_only}、 \cqlf{read_only}、 \cqlf{__write_only}、 \cqlf{write_only}、
  \cqlf{__read_write} 和 \cqlf{read_write}。
 \stopigBase

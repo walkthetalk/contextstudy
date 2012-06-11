@@ -27,7 +27,7 @@
 }
 
 \clED{CL_MEM_ALLOC_HOST_PTR}{
-    表明\cnglo{app}想讓 OpenCL 實作在\cnglo{host}可以存取的內存中分配內存。
+    表明\cnglo{app}想讓 OpenCL 實作在\cnglo{host}可以訪問的內存中分配內存。
 
     他與 \cenum{CL_MEM_USE_HOST_PTR} 互斥。
 }
@@ -38,7 +38,7 @@
 
   他與 \cenum{CL_MEM_USE_HOST_PTR} 互斥。
 
-  他與 \cenum{CL_MEM_ALLOC_HOST_PTR} 一起使用時，可以對由\cnglo{host}可存取的內存（如 PCIe ）分配的 \ctype{cl_mem} 對象進行初始化。
+  他與 \cenum{CL_MEM_ALLOC_HOST_PTR} 一起使用時，可以對由\cnglo{host}可訪問的內存（如 PCIe ）分配的 \ctype{cl_mem} 對象進行初始化。
 }
 
 \clED{CL_MEM_HOST_WRITE_ONLY}{

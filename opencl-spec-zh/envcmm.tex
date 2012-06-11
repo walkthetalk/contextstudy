@@ -1002,10 +1002,10 @@ bolditalic=texgyreherosbolditalic]
 
 % NOTE: you can only use the star/stop form of clglo
 \def\startclglo{\dotripleargument\dostartclglo}
-\long\def\dostartclglo[#1][#2][#3]#4\stopclglo{
-\sClGlo[#1]{#2}{#3}
-\startclglodsc{#2（#3）}
-\reference[clglocn:#1]{#2}
+\long\def\dostartclglo[#1][#2][#3]#4\stopclglo{%
+\sClGlo[#1]{#2}{#3}%
+\startclglodsc{#2（#3）}%
+\reference[clglocn:#1]{#2}%
 #4
 \stopclglodsc
 }

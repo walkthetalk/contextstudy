@@ -10,7 +10,7 @@ parameter 參數 ********
 expression 算式
 function 函式
 profile 評測
-access 存取
+access 訪問
 address 位址
 array 陣列
 scope 作用域
