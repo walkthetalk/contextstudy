@@ -32,7 +32,7 @@ void * clEnqueueMapImage (cl_command_queue command_queue,
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢映射\cnglo{cmd}的執行情況。
 映射\cnglo{cmd}完成後，\cnglo{app}就可以使用 \capi{clEnqueueMapImage} 所返回的指針訪問映射區域的內容了。
 
-\carg{map_flags} 是位域，參見\reftab{clmapflags}。
+\carg{map_flags} 是位欄，參見\reftab{clmapflags}。
 
 \carg{origin} 定義了所要映射區域的起始位置 $(x, y, z)$，單位像素；
 對於 2D 圖像陣列是 $(x, y)$ 以及圖像索引；

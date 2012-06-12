@@ -13,7 +13,7 @@ cl_mem clCreateBuffer(
 
 \carg{context} 是 OpenCL \cnglo{context}，用來創建\cnglo{bufobj}。
 
-\carg{flags} 是位域，用來表明如何分配（如使用哪個內存區域分配\cnglo{bufobj}）以及怎樣使用。
+\carg{flags} 是位欄，用來表明如何分配（如使用哪個內存區域分配\cnglo{bufobj}）以及怎樣使用。
 \reftab{clmemflags}列出了 \carg{flags} 可能的值。
 如果 \carg{flags} 的值是 0，則使用缺省值 \cenum{CL_MEM_READ_WRITE}。
 
@@ -64,7 +64,7 @@ cl_mem clCreateSubBuffer(
 
 \carg{buffer} 必須是一個有效的\cnglo{bufobj}，且不能是子\cnglo{bufobj}。
 
-\carg{flags} 是位域，用來表明如何分配以及怎樣使用\cnglo{memobj}，參見\reftab{clmemflags}。
+\carg{flags} 是位欄，用來表明如何分配以及怎樣使用\cnglo{memobj}，參見\reftab{clmemflags}。
   如果 \carg{flags} 中沒有設置 \cenum{CL_MEM_READ_WRITE}、 \cenum{CL_MEM_READ_ONLY} 或 \cenum{CL_MEM_WRITE_ONLY}，會從 \carg{buffer} 中繼承這些屬性。
   而 \carg{flags} 中不能設置 \cenum{CL_MEM_USE_HOST_PTR}、 \cenum{CL_MEM_ALLOC_HOST_PTR} 和 \cenum{CL_MEM_COPY_HOST_PTR}，這些也很由 \carg{buffer} 繼承。
   即使 \carg{buffer} 的內存訪問限定符中有 \cenum{CL_MEM_COPY_HOST_PTR}，也並不意味着創建 sub-buffer 時會有額外的拷貝。

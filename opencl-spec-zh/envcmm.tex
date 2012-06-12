@@ -400,9 +400,9 @@ bolditalic=texgyreherosbolditalic]
 \definehead[topclfunc][
   indentnext=yes,
   style=bold,%normal bold slanted boldslanted % 整体
-%  color=red, %IDENTIFIER % 整體顏色
+  incrementnumber=no,
   number=no, %yes no % 是否帶編號
-  before={}, %COMMAND
+  before={\blank[1ex]}, %COMMAND
   after={}, %COMMAND
   alternative=normal, %normal inmargin middle TEXT
   deeptextcommand={\framed[
@@ -731,7 +731,7 @@ bolditalic=texgyreherosbolditalic]
     %left=,
     %right=,
     %setups=,
-    %splitmethod=a%
+    splitmethod=b%
 ]
 \setupTABLE[header][
     style={\rmx\bf},
@@ -1059,6 +1059,10 @@ bolditalic=texgyreherosbolditalic]
 ]
 \define[1]\refglo{%
 \refclglo[clglocn:#1]%
+}
+
+\define[1]\refchapter{%
+\in{第}{章}[chapter:#1]%
 }
 
 \define[1]\refsec{%

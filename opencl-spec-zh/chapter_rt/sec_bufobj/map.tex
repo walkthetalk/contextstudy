@@ -27,7 +27,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢映射\cnglo{cmd}的執行情況。
 映射\cnglo{cmd}完成後，\cnglo{app}就可以使用 \capi{clEnqueueMapBuffer} 所返回的指針訪問映射區域的內容了。
 
-\carg{map_flags} 是位域，參見\reftab{clmapflags}。
+\carg{map_flags} 是位欄，參見\reftab{clmapflags}。
 
 \carg{buffer} 是一個\cnglo{bufobj}，他必須與 \carg{command_queue} 位於同一 OpenCL \cnglo{context}中。
 
