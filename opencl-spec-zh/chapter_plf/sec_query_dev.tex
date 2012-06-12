@@ -112,9 +112,9 @@ cl_int clGetDeviceInfo(
 \startigBase
 \item \cenum{CL_INVALID_DEVICE}——如果 \carg{device} 無效。
 
-\item \cenum{CL_INVALID_VALUE}——如果不支持 \cenum{param_name}；
-或者 \cenum{param_value_size} 的值 < \reftab{cldevquery}中返回型別的大小，
-並且 \cenum{param_value} 不是 \cmacro{NULL}；
+\item \cenum{CL_INVALID_VALUE}——如果不支持 \carg{param_name}；
+或者 \carg{param_value_size} 的值 < \reftab{cldevquery}中所列返回型別的大小，
+並且 \carg{param_value} 不是 \cmacro{NULL}；
 或者 \carg{param_name} 指的是某個擴展，但是此\cnglo{device}不支持此擴展。
 
 \item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。

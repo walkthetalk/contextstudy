@@ -13,7 +13,7 @@ OpenCL \cnglo{device}類型，當前支持：
 }
 
 \clETD{CL_DEVICE_VENDOR_ID}{cl_uint}{
-唯一的\cnglo{device}供應商標識。例如可以是 PCIe ID。
+唯一的\cnglo{device}供應商標識符。例如可以是 PCIe ID。
 }
 
 \clETD{CL_DEVICE_MAX_COMPUTE_UNITS}{cl_uint}{
@@ -163,7 +163,8 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 }
 
 \clETD{CL_DEVICE_MEM_BASE_ADDR_ALIGN}{cl_uint}{
-如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，其最小值是\cnglo{device}所支持的 OpenCL 內建數據型別中最大的那種的大小，單位：bit。
+如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，
+至少要是\cnglo{device}所支持的 OpenCL 內建數據型別中最大的那種的大小，單位：bit。
 （ FULL 規格中是 \ctype{long16}，EMBEDDED 規格中是 \ctype{long16} 或 \ctype{int16} ）
 }
 
@@ -227,11 +228,11 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 }
 
 \clETD{CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE}{cl_uint}{
-全局內存 cache line 的字節數。
+\cnglo{glbmem}緩存列（cache line）的字節數。
 }
 
 \clETD{CL_DEVICE_GLOBAL_MEM_CACHE_SIZE}{cl_ulong}{
-全局內存緩存的字節數。
+\cnglo{glbmem}緩存的字節數。
 }
 
 \clETD{CL_DEVICE_GLOBAL_MEM_SIZE}{cl_ulong}{
@@ -246,7 +247,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 }
 
 \clETD{CL_DEVICE_MAX_CONSTANT_ARGS}{cl_uint}{
-一個\cnglo{kernel}中，最多能有多少個參數在聲明時可以帶有限定符\cqlf{__constant}。
+單個\cnglo{kernel}中，最多能有多少個參數在聲明時帶有限定符\cqlf{__constant}。
 對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的\cnglo{device}，最小值是 8。
 }
 
@@ -285,7 +286,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 \clETD{}{}{}
 
 \clETD{CL_DEVICE_ENDIAN_LITTLE}{cl_bool}{
-如果 OpenCL \cnglo{device}是 little-endian 的，
+如果 OpenCL \cnglo{device}是小端（little-endian）的，
 則為 \cenum{CL_TRUE}，否則為\cenum{CL_FALSE}。
 }
 
@@ -304,7 +305,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 \clETD{CL_DEVICE_LINKER_AVAILABLE}{cl_bool}{
 如果沒有可用的鏈接器，則為 \cenum{CL_FALSE}，否則為 \cenum{CL_TRUE}。
 
-只有嵌入式平台的規格才可以是 \cenum{CL_FALSE}。
+只有在嵌入式平台規格中才可以是 \cenum{CL_FALSE}。
 
 如果 \cenum{CL_DEVICE_COMPILER_AVAILABLE} 是 \cenum{CL_TRUE}，則他必須是 \cenum{CL_TRUE}。
 }
@@ -330,7 +331,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 \item \cenum{CL_QUEUE_PROFILING_ENABLE}
 \stopigBase
 
-請參見\reftab{clcmdprop}。
+參見\reftab{clcmdprop}。
 
 其中 \cenum{CL_QUEUE_PROFILING_ENABLE} 是必需的。
 }
@@ -367,14 +368,20 @@ OpenCL 規格字串。
 返回\cnglo{device}所支持的規格名稱。
 可以是下列字串之一：
 \startigBase
-\item \cenum{FULL_PROFILE}——如果\cnglo{device}支持 OpenCL 規範（核心規格所定義的功能，不要求支持任何擴展）。
+\item \cenum{FULL_PROFILE}——如果\cnglo{device}支持 OpenCL 規範
+（核心規格所定義的功能，不要求支持任何擴展）。
+
 \item \cenum{EMBEDDED_PROFILE}——如果\cnglo{device}支持 OpenCL 嵌入式規格。
 \stopigBase
 
 返回的是 OpenCL \cnglo{framework}所實現了的規格。
-如果返回的是 \cenum{FULL_PROFILE}，則 OpenCL \cnglo{framework}支持符合 \cenum{FULL_PROFILE} 的\cnglo{device}，可能也支持符合 \cenum{EMBEDDED_PROFILE} 的 \cnglo{device}。
-所有 \cnglo{device} 都得有可用的編譯器，即 \cenum{CL_DEVICE_COMPILER_AVAILABLE} 必須是 \cenum{CL_TRUE}。
-而如果返回的是 \cenum{EMBEDDED_PROFILE}，僅支持符合 \cenum{EMBEDDED_PROFILE} 的\cnglo{device}。
+如果返回的是 \cenum{FULL_PROFILE}，
+則 OpenCL \cnglo{framework}支持符合 \cenum{FULL_PROFILE} 的\cnglo{device}，
+可能也支持符合 \cenum{EMBEDDED_PROFILE} 的 \cnglo{device}。
+所有 \cnglo{device} 都得有可用的編譯器，
+即 \cenum{CL_DEVICE_COMPILER_AVAILABLE} 必須是 \cenum{CL_TRUE}。
+而如果返回的是 \cenum{EMBEDDED_PROFILE}，
+則僅支持符合 \cenum{EMBEDDED_PROFILE} 的\cnglo{device}。
 }
 
 \clETD{CL_DEVICE_VERSION}{char[]}{
@@ -388,14 +395,18 @@ OpenCL 版本字串。返回\cnglo{device}所支持的 OpenCL 版本。
 
 \clETD{CL_DEVICE_OPENCL_C_VERSION}{char[]}{
 OpenCL C 版本字串。
-對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的 \cnglo{device}，返回編譯器在其上所支持的 OpenCL C 的最高版本。
+對於類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM} 的 \cnglo{device}，
+返回編譯器在其上所支持的 OpenCL C 的最高版本。
 格式如下：
 
 \cfmt{OpenCL<space>C<space><major_version.minor_version><space><vendor-specific information>}
 
-如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL \scver, 則 \cfmt{major_version.minor_version} 必須是 \scver。
-如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.1, 則 \cfmt{major_version.minor_version} 必須是 1.1。
-如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.0, 則 \cfmt{major_version.minor_version} 可以是 1.0 或 1.1。
+如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL \scver，
+則 \cfmt{major_version.minor_version} 必須是 \scver。
+如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.1，
+則 \cfmt{major_version.minor_version} 必須是 1.1。
+如果 \cenum{CL_DEVICE_VERSION} 是 OpenCL 1.0，
+則 \cfmt{major_version.minor_version} 可以是 1.0 或 1.1。
 }
 
 \clETD{CL_DEVICE_EXTENSIONS}{char[]}{
@@ -412,7 +423,8 @@ OpenCL C 版本字串。
 \item \clext{cl_khr_d3d11_sharing}
 \stopigBase
 
-對於支持 OpenCL C \scver 的\cnglo{device}，所返回的清單中必須包含下列已獲 Khronos 批准的擴展名：
+對於支持 OpenCL C \scver 的\cnglo{device}，
+所返回的清單中必須包含下列已獲 Khronos 批准的擴展名：
 \startigBase
 \item \clext{cl_khr_global_int32_base_atomics}
 \item \clext{cl_khr_global_int32_extended_atomics}
@@ -420,10 +432,9 @@ OpenCL C 版本字串。
 \item \clext{cl_khr_local_int32_extended_atomics}
 \item \clext{cl_khr_byte_addressable_store}
 \item \clext{cl_khr_fp64}（如果支持雙精度浮點，為向後兼容必須支持此擴展）
-
 \stopigBase
 
-詳情請參考 OpenCL \scver 擴展規範。
+詳情請參考《OpenCL \scver 擴展規範》。
 }
 
 \clETD{}{}{}
@@ -436,7 +447,7 @@ OpenCL C 版本字串。
 \clETD{}{}{}
 
 \clETD{CL_DEVICE_PREFERRED_INTEROP_USER_SYNC}{cl_bool}{
-在 OpenCL 和其他 API （如 DirectX ）間共享\cnglo{memobj}時，
+OpenCL 和其他 API （如 DirectX ）間共享\cnglo{memobj}時，
 如果\cnglo{device}的偏好是讓用戶自己負責同步，則其值為 \cenum{CL_TRUE}；
 而如果\cnglo{device}或實作已經具備有效的方式來進行同步，則其值為 \cenum{CL_FALSE}。
 }
@@ -447,7 +458,7 @@ OpenCL C 版本字串。
 }
 
 \clETD{CL_DEVICE_PARTITION_MAX_SUB_DEVICES}{cl_uint}{
-當劃分\cnglo{device}時，所能創建的\cnglo{subdev}的最大數目。
+劃分\cnglo{device}時，所能創建的\cnglo{subdev}的最大數目。
 
 所返回的值不能超過 \cenum{CL_DEVICE_MAX_COMPUTE_UNITS}。
 }
@@ -465,7 +476,8 @@ OpenCL C 版本字串。
 }
 
 \clETD{CL_DEVICE_PARTITION_AFFINITY_DOMAIN}{cl_device_affinity_domain}{
-用 \cenum{CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN} 劃分 \carg{device} 時，所支持的相似域（ affinity domain )。
+用 \cenum{CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN} 劃分 \carg{device} 時，
+所支持的相似域（ affinity domain )。
 此位欄的值如下所示：
 \startigBase
 \item \cenum{CL_DEVICE_AFFINITY_DOMAIN_NUMA}
