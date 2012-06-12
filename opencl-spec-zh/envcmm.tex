@@ -400,7 +400,7 @@ bolditalic=texgyreherosbolditalic]
 \definehead[topclfunc][
   indentnext=yes,
   style=bold,%normal bold slanted boldslanted % 整体
-  incrementnumber=no,
+  incrementnumber=list,
   number=no, %yes no % 是否帶編號
   before={\blank[1ex]}, %COMMAND
   after={}, %COMMAND
@@ -508,7 +508,7 @@ bolditalic=texgyreherosbolditalic]
   %factor	number
 ]
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%par%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 首行缩进
 \setupindenting[yes, 2em]
@@ -578,12 +578,15 @@ bolditalic=texgyreherosbolditalic]
   numbering=line,	%line file no
 ]
 
+% c in table
 \definetyping[cintbl][
   option=none,
   before={\blank},
   after={\blank},
   tab=8,
 ]
+
+% note
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \defineenumeration[example][
@@ -954,7 +957,7 @@ bolditalic=texgyreherosbolditalic]
 \define\scqnan{Quiet NaN}
 \define\scfma{FMA}
 \define\scnfma{積和熔加运算}
-%%%%%%%%%%%%%%%%%%%%%%%%%%function%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% description %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% clOption
 \definedescription[clOption][
   %headstyle	normal bold slanted boldslanted type cap small... command
@@ -1031,7 +1034,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[1]\cngloemp{{\ftEmp{\cnglo{#1}}}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ref
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \if 0
 \setupreferencing[
@@ -1177,7 +1180,7 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 \setupfloatsplitting[lines=1,conversion=greek]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%formula%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% formula %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setupformulas[
   %location	left right
   %left	text
@@ -1196,7 +1199,7 @@ bolditalic=texgyreherosbolditalic]
   %separator	text
   %conversion	numbers characters Characters romannumerals Romannumerals text
 ]
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%misc%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % the textbackgournd will extends to the page boundary,
 % which include the footnote and not as expected
 % workaround is:
