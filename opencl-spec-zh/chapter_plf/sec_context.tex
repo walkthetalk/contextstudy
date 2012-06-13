@@ -55,8 +55,10 @@ OpenCL 運行時使用\cnglo{context}來管理對象
 
 如果 \carg{pfn_notify} 是 \cmacro{NULL}，則表示不註冊回調函式。
 
-注意：很多情況下，即使在\cnglo{context}外發生了錯誤，也需要發出錯誤通告。
+\startnotepar
+很多情況下，即使在\cnglo{context}外發生了錯誤，也需要發出錯誤通告。
 這種情況 \carg{pfn_notify} 就無能為力了，怎樣發出這種錯誤通告\cnglo{impdef}。
+\stopnotepar
 
 \carg{user_data} 會在調用 \carg{pfn_notify} 時作為引數 \carg{user_data} 使用。
 \carg{user_data} 可以是 \cmacro{NULL}。

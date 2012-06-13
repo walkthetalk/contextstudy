@@ -513,7 +513,7 @@ bolditalic=texgyreherosbolditalic]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 首行缩进
-\setupindenting[yes, 2em]
+\setupindenting[first,always,2em]
 % 段落间距
 \setupwhitespace[none] %none small medium big line fixed fix dimension
 % 行间距
@@ -589,6 +589,28 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 % note
+\defineframedtext[notepar][
+  bodyfont=small,	%5pt ... 12pt small big
+  style=\ftRef, %normal bold slanted boldslanted type cap small... COMMAND
+  %left=,	%COMMAND
+  %right,	%COMMAND
+  %before=,	%COMMAND
+  %after,	%COMMAND
+  %inner,	%COMMAND
+  %linecorrection=,	%on off
+  %depthcorrection=,	%on off
+  %margin=,	%standard yes no
+  %location=,	%left right middle none
+  indenting={first,always,2em},	%never none not no yes always first next small medium big normal odd even DIMENSION
+  %inherits from \setupframed
+  background=screen,
+  frame=off,
+  rightframe=on,
+  leftframe=on,
+  framecolor=darkgreen,
+  rulethickness=3pt,
+  width=fit,
+]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \defineenumeration[example][

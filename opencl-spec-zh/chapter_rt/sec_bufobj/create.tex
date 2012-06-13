@@ -134,11 +134,9 @@ cl_mem clCreateSubBuffer(
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-注意：
-
+\startnotepar
 對一個\cnglo{bufobj}及其子\cnglo{bufobj}的並發讀、寫、拷貝是\cnglo{undef}的。
 對於由同一\cnglo{bufobj}創建的互相重疊的子\cnglo{bufobj}的並發讀、寫、拷貝也是\cnglo{undef}的。
 只有讀操作是定義了的。
-
-
+\stopnotepar
 

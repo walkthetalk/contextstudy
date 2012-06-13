@@ -302,9 +302,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-%% note
-注意：
-
+\startnotepar% start notepar
 如果調用 \capi{clEnqueueReadBuffer} 時將引數 \carg{ptr} 設置為 \math{host\_ptr + offset}
 （其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的），
 為避免\cnglo{undef}的行為，必須滿足下列要求：
@@ -325,7 +323,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的，
 要滿足的要求跟 \capi{clEnqueueReadBuffer} 一樣。
 
-調用 \capi{clEnqueueWriteBuffer} 時將引數 \carg{ptr} 置為 \math{host\_ptr + offset}，
+如果調用 \capi{clEnqueueWriteBuffer} 時將引數 \carg{ptr} 置為 \math{host\_ptr + offset}，
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要寫入的\cnglo{bufobj}時指定的，
 為避免未定義的行為，必須滿足下列要求：
 \startigBase
@@ -351,6 +349,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item 在寫\cnglo{cmd}執行完之前，
 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
 \stopigBase
+\stopnotepar% stop notepar
 
 \topclfunc{clEnqueueCopyBuffer}
 
@@ -481,9 +480,11 @@ cl_int clEnqueueCopyBufferRect (
 每次拷貝的字節數等於區域寬度，然後源和宿的偏移量會增加相應的行間距（row pitch）。
 每拷貝完一個 2D 矩形，源和宿的偏移量會增加相應的面間距（slice pitch）。
 
-注意：如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，
+\startnotepar
+如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，
 \carg{src_row_pitch} 和 \carg{dst_row_pitch} 必須相同，
 \carg{src_slice_pitch} 和 \carg{dst_slice_pitch} 也必須相同。
+\stopnotepar
 
 \carg{command_queue} 就是拷貝\cnglo{cmd}要進入的隊列。
 \carg{command_queue}、 \carg{src_buffer}、 \carg{dst_buffer}

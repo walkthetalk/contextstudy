@@ -58,6 +58,10 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 
 \carg{errcode_ret} 用來返回錯誤碼。如果是 \cmacro{NULL}，則不會返回錯誤碼。
 
+\placetable[here,force][tab:clmapflags]
+{所支持的 \ctype{cl_map_flags}}
+{\input{chapter_rt/tbl/tbl_clmapflags.tex}}
+
 如果執行成功， \capi{clEnqueueMapBuffer} 會返回映射區域的指針，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
 否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
@@ -108,8 +112,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 所返回的指針僅可用於訪問所映射的區域 \math{(offset,size)}，雖然實作可能映射更大的區域。
 對於訪問此區域外的內容，其結果\cnglo{undef}。
 
-注意：
-
+\startnotepar
 如果創建\cnglo{bufobj}時在 \carg{mem_flags} 中指定了 \cenum{CL_MEM_USE_HOST_PTR}，
 則：
 \startigBase
@@ -118,11 +121,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 
 \item \capi{clEnqueueMapBuffer} 所返回的指針得自創建\cnglo{bufobj}時所用的 \carg{host_ptr}。
 \stopigBase
+\stopnotepar
 
 被映射過的\cnglo{bufobj}使用 \capi{clEnqueueUnmapMemObject} 進行解映射。
 參見\refsec{unmap}。
-
-\placetable[here,force][tab:clmapflags]
-{所支持的 \ctype{cl_map_flags}}
-{\input{chapter_rt/tbl/tbl_clmapflags.tex}}
-
