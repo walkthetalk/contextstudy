@@ -48,7 +48,7 @@ void * clEnqueueMapImage (cl_command_queue command_queue,
 如果 \carg{image} 是 2D 圖像對象 或 1D 圖像陣列對象， $region[2]$ 必須是 1。
 如果 \carg{image} 是 1D 圖像或 1D 圖像 buffer 對象， $region[1]$ 和 $region[2]$ 都必須是 0。
 
-\carg{image_row_pitch} 即所映射區域的掃描線間距，單位字節，不能是 \cmacro{NULL}。
+\carg{image_row_pitch} 即所映射區域的掃描列間距，單位字節，不能是 \cmacro{NULL}。
 
 \carg{image_slice_pitch} 對於 3D 圖像而言是 2D 平面的大小，
 對於 1D 或 2D 圖像陣列而言分別是每個 1D 或 2D 圖像的大小。
