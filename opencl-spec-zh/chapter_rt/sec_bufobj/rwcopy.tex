@@ -1,11 +1,10 @@
 \subsection{讀、寫以及拷貝緩衝對象}
 
-%% clEnqueueReadBuffer / clEnqueueWriteBuffer
-下列函式會將一個用於讀寫\cnglo{bufobj}的\cnglo{cmd}插入隊列，
-此\cnglo{cmd}可以將\cnglo{bufobj}的內容讀到\cnglo{host}內存中，
-或者由\cnglo{host}內存寫入到\cnglo{bufobj}中。
+\topclfunc{clEnqueueReadBuffer} \topclfunc{clEnqueueWriteBuffer}
+
 \startCLFUNC
-cl_int clEnqueueReadBuffer(cl_command_queue command_queue,
+cl_int clEnqueueReadBuffer(
+			cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_read,
 			size_t offset,
@@ -15,7 +14,8 @@ cl_int clEnqueueReadBuffer(cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event)
 
-cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
+cl_int clEnqueueWriteBuffer(
+			cl_command_queue command_queue,
 			cl_mem buffer,
 			cl_bool blocking_write,
 			size_t offset,
@@ -26,25 +26,35 @@ cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
 			cl_event *event)
 \stopCLFUNC
 
+這兩個函式會將一個用於讀寫\cnglo{bufobj}的\cnglo{cmd}入隊，
+此\cnglo{cmd}可以將\cnglo{bufobj}的內容讀到\cnglo{host}內存中，
+或者由\cnglo{host}內存寫入到\cnglo{bufobj}中。
+
 \carg{command_queue} 就是\cnglo{cmd}要進入的隊列。
 \carg{command_queue} 和 \carg{buffer} 必須是由同一個 OpenCL \cnglo{context}創建的。
 
 \carg{buffer} 是一個 \cnglo{bufobj}。
 
-\carg{blocking_read} 和 \carg{blocking_write} 表明讀寫操作是{\ftRef 阻塞}的還是{\ftRef 非阻塞}的。
+\carg{blocking_read} 和 \carg{blocking_write}
+表明讀寫操作是{\ftRef{阻塞}}的還是{\ftRef{非阻塞}}的。
 
 如果 \carg{blocking_read} 是 \cenum{CL_TRUE}，即讀\cnglo{cmd}是阻塞的，
-直到 \carg{buffer} 中的數據完全拷貝到 \carg{ptr} 所指內存中後， \capi{clEnqueueReadBuffer} 才會返回。
+直到 \carg{buffer} 中的數據完全拷貝到 \carg{ptr} 所指內存中後，
+\capi{clEnqueueReadBuffer} 才會返回。
 
-如果 \carg{blocking_read} 是 \cenum{CL_FALSE}，即讀\cnglo{cmd}是非阻塞的， \capi{clEnqueueReadBuffer} 將此\cnglo{cmd}入隊後就會返回。
+如果 \carg{blocking_read} 是 \cenum{CL_FALSE}，即讀\cnglo{cmd}是非阻塞的，
+\capi{clEnqueueReadBuffer} 將此\cnglo{cmd}入隊後就會返回。
 只有等到讀\cnglo{cmd}執行完畢，才能繼續使用 \carg{ptr} 所指向的內容。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢讀\cnglo{cmd}的執行情況。
 讀\cnglo{cmd}完成後，\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內容了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_TRUE}， OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將一個寫\cnglo{cmd}入隊。
-當 \capi{clEnqueueWriteBuffer} 返回後，\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內存了。
+如果 \carg{blocking_write} 是 \cenum{CL_TRUE}，
+OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將一個寫\cnglo{cmd}入隊。
+當 \capi{clEnqueueWriteBuffer} 返回後，
+\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內存了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_FALSE}， OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
+如果 \carg{blocking_write} 是 \cenum{CL_FALSE}，
+OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 既然非阻塞，實作就可以立即返回。返回後，\cnglo{app}還不能立刻就使用 \carg{ptr} 所指內存。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢寫\cnglo{cmd}的執行情況。
 寫\cnglo{cmd}完成後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
@@ -53,57 +63,69 @@ cl_int clEnqueueWriteBuffer(cl_command_queue command_queue,
 
 \carg{cb} 是要讀寫數據的大小，單位字節。
 
-\carg{ptr} 指向\cnglo{host}中的一塊內存，用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
+\carg{ptr} 指向\cnglo{host}中的一塊內存，
+用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
+列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，
+並且 \carg{num_events_in_wait_list} 必須是 0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，
+並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+\carg{event} 不能屬於 \carg{event_wait_list}。
 
-如果執行成功， \capi{clEnqueueReadBuffer} 和 \capi{clEnqueueWriteBuffer} 會返回 \cenum{CL_SUCCESS}。
+如果執行成功，
+\capi{clEnqueueReadBuffer} 和 \capi{clEnqueueWriteBuffer} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
 
 \item \cenum{CL_INVALID_CONTEXT}，
-  如果 \carg{command_queue} 和 \carg{buffer} 位於不同的\cnglo{context}中，
-  或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
+如果 \carg{command_queue} 和 \carg{buffer} 位於不同的\cnglo{context}中，
+或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 $(offset,size)$ 所指定的區域越限，
-  或者 \carg{ptr} 是 \cmacro{NULL}，或者 \carg{size} 是 0。
+\item \cenum{CL_INVALID_VALUE}，如果 \math{(offset,size)} 所指定的區域越限，
+或者 \carg{ptr} 是 \cmacro{NULL}，或者 \carg{size} 是 0。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+且 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有
+與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
 \item \cenum{CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST}，
-  如果讀寫操作是阻塞的，且 \carg{event_wait_list} 中任何命令的執行狀態是負整數。
+如果讀寫操作是阻塞的，且 \carg{event_wait_list} 中任一命令的執行狀態是負整數。
 
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBuffer}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBuffer}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
-\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
-\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-%% clEnqueueReadBuffer / clEnqueueWriteBuffer
-下列函式會將一個可以讀寫\cnglo{bufobj}中 2D 或 3D 矩形區域的\cnglo{cmd}插入隊列。
+\topclfunc{clEnqueueReadBuffer} \topclfunc{clEnqueueWriteBuffer}
+
 \startCLFUNC
 cl_int clEnqueueReadBufferRect (
 			cl_command_queue command_queue,
@@ -138,165 +160,200 @@ cl_int clEnqueueWriteBufferRect (
 			cl_event *event)
 \stopCLFUNC
 
+這兩個函式所入隊的命令可以讀寫\cnglo{bufobj}中 2D 或 3D 矩形區域。
+
 \carg{command_queue} 就是\cnglo{cmd}要進入的隊列。
 \carg{command_queue} 和 \carg{buffer} 必須是由同一個 OpenCL \cnglo{context}創建的。
 
 \carg{buffer} 是一個 \cnglo{bufobj}。
 
-\carg{blocking_read} 和 \carg{blocking_write} 表明讀寫操作是{\ftRef 阻塞}的還是{\ftRef 非阻塞}的。
+\carg{blocking_read} 和 \carg{blocking_write}
+表明讀寫操作是{\ftRef{阻塞}}的還是{\ftRef{非阻塞}}的。
 
 如果 \carg{blocking_read} 是 \cenum{CL_TRUE}，即讀\cnglo{cmd}是阻塞的，
-直到 \carg{buffer} 中的數據完全拷貝到 \carg{ptr} 所指內存中後， \capi{clEnqueueReadBufferRect} 才會返回。
+直到 \carg{buffer} 中的數據完全拷貝到 \carg{ptr} 所指內存中後，
+\capi{clEnqueueReadBufferRect} 才會返回。
 
 如果 \carg{blocking_read} 是 \cenum{CL_FALSE}，即讀\cnglo{cmd}是非阻塞的，
-\capi{clEnqueueReadBuffer} 將此\cnglo{cmd}入隊後就會返回。
+\capi{clEnqueueReadBufferRect} 將此\cnglo{cmd}入隊後就會返回。
 只有等到讀\cnglo{cmd}執行完畢，才能繼續使用 \carg{ptr} 所指向的內容。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢讀\cnglo{cmd}的執行情況。
 讀\cnglo{cmd}完成後，\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內容了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_TRUE}， OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將一個寫\cnglo{cmd}入隊。
-當 \capi{clEnqueueWriteBufferRect} 返回後，\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內存了。
+如果 \carg{blocking_write} 是 \cenum{CL_TRUE}，
+OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將一個寫\cnglo{cmd}入隊。
+當 \capi{clEnqueueWriteBufferRect} 返回後，
+\cnglo{app}就可以繼續使用 \carg{ptr} 所指向的內存了。
 
-如果 \carg{blocking_write} 是 \cenum{CL_FALSE}， OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
+如果 \carg{blocking_write} 是 \cenum{CL_FALSE}，
+OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 既然非阻塞，實作就可以立即返回。返回後，\cnglo{app}還不能立刻就使用 \carg{ptr} 所指內存。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢寫\cnglo{cmd}的執行情況。
 寫\cnglo{cmd}完成後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
 
-\carg{buffer_origin} 定義了要讀寫的內存區域在 \carg{buffer} 中的偏移量 $(x,y,z)$。
-對於 2D 矩形區域，$z$ 的值即 $buffer\_origin[2]$ 應該是 0。
+\carg{buffer_origin} 定義了要讀寫的內存區域在 \carg{buffer} 中的偏移量 \math{(x,y,z)}。
+對於 2D 矩形區域，\math{z} 的值即 \math{buffer\_origin[2]} 應該是 0。
 偏移量這樣計算：
-$buffer\_origin[2] * buffer\_slice\_pitch + buffer\_origin[1] * buffer\_row\_pitch + buffer\_origin[0]$ 。
 
-\carg{host_origin} 定義了要讀寫的內存區域在 \carg{ptr} 中的偏移量 $(x,y,z)$。
-對於 2D 矩形區域，$z$ 的值即 $host\_origin[2]$ 應該是 0。
+\math{buffer\_origin[2] * buffer\_slice\_pitch + buffer\_origin[1] * buffer\_row\_pitch + buffer\_origin[0]}。
+
+\carg{host_origin} 定義了要讀寫的內存區域在 \carg{ptr} 中的偏移量 \math{(x,y,z)}。
+對於 2D 矩形區域，\math{z} 的值即 \math{host\_origin[2]} 應該是 0。
 偏移量這樣計算：
-$host\_origin[2] * host\_slice\_pitch + host\_origin[1] * host\_row\_pitch + host\_origin[0]$ 。
 
-\carg{region} 定義了要讀寫的 2D 或 3D 區域：$(width,height,depth)$，其單位分別是 byte、 row、 slice。
-對於 2D 區域，$depth$ 的值，即 $region[2]$ 應該是 1。
+\math{host\_origin[2] * host\_slice\_pitch + host\_origin[1] * host\_row\_pitch + host\_origin[0]}。
+
+\carg{region} 定義了要讀寫的 2D 或 3D 區域：\math{(width,height,depth)}，
+其單位分別是 byte、 row、 slice。
+對於 2D 區域， \math{depth} 的值，即 \math{region[2]} 應該是 1。
 
 \carg{buffer_row_pitch} 是 \carg{buffer} 中每一行數據的字節數。
-如果 \carg{buffer_row_pitch} 是 0，則在計算偏移量時用 $region[0]$ 替代。
+如果 \carg{buffer_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
-\carg{buffer_slice_pitch} 是 \carg{buffer} 中每個 2D 平面（ slice ）的字節數。
-如果 \carg{buffer_slice_pitch} 是 0，則在計算偏移量時用 $region[1] * buffer\_row\_pitch$ 替代。
+\carg{buffer_slice_pitch} 是 \carg{buffer} 中每個 2D 平面（slice）的字節數。
+如果 \carg{buffer_slice_pitch} 是 0，
+則在計算偏移量時用 \math{region[1] * buffer\_row\_pitch} 替代。
 
 \carg{host_row_pitch} 是 \carg{ptr} 中每一行數據的字節數。
-如果 \carg{host_row_pitch} 是 0，則在計算偏移量時用 $region[0]$ 替代。
+如果 \carg{host_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
-\carg{host_slice_pitch} 是 \carg{ptr} 中每個 2D 平面（ slice ）的字節數。
-如果 \carg{host_slice_pitch} 是 0，則在計算偏移量時用 $region[1] * host\_row\_pitch$ 替代。
+\carg{host_slice_pitch} 是 \carg{ptr} 中每個 2D 平面（slice）的字節數。
+如果 \carg{host_slice_pitch} 是 0，
+則在計算偏移量時用 \math{region[1] * host\_row\_pitch} 替代。
 
-\carg{ptr} 指向\cnglo{host}中的一塊內存，用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
+\carg{ptr} 指向\cnglo{host}中的一塊內存，
+用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list}
+中列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是 0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
+則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+\carg{event} 不能屬於 \carg{event_wait_list}。
 
-如果執行成功， \capi{clEnqueueReadBufferRect} 和 \capi{clEnqueueWriteBufferRect} 會返回 \cenum{CL_SUCCESS}。
+如果執行成功， \capi{clEnqueueReadBufferRect} 和 \capi{clEnqueueWriteBufferRect}
+會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
 
 \item \cenum{CL_INVALID_CONTEXT}，
-  如果 \carg{command_queue} 和 \carg{buffer} 位於不同的\cnglo{context}中，
-  或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
+如果 \carg{command_queue} 和 \carg{buffer} 位於不同的\cnglo{context}中，
+或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-  如果 $(buffer\_origin, region, buffer\_row\_pitch, buffer\_slice\_pitch)$ 所指定的區域越限。
+如果 \math{(buffer\_origin, region, buffer\_row\_pitch, buffer\_slice\_pitch)} 所指定的區域越限。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{ptr} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{region} 中的任何元素是 0。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{buffer_row_pitch} 不是 0 且小於 $region[0]$。
+\item \cenum{CL_INVALID_VALUE}，
+如果 \carg{buffer_row_pitch} 不是 0 且小於 \math{region[0]}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{host_row_pitch} 不是 0 且小於 $region[0]$。
+\item \cenum{CL_INVALID_VALUE}，
+如果 \carg{host_row_pitch} 不是 0 且小於 \math{region[0]}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{buffer_slice_pitch} 不是 0、
-  小於 $region[1] * buffer\_row\_pitch$、
-  且不是 \carg{buffer_row_pitch} 的整數倍。
+小於 \math{region[1] * buffer\_row\_pitch}、
+且不是 \carg{buffer_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{host_slice_pitch} 不是 0、
-  小於 $region[1] * host\_row\_pitch$、
-  且不是 \carg{host_row_pitch} 的整數倍。
+小於 \math{region[1] * host\_row\_pitch}、
+且不是 \carg{host_row_pitch} 的整數倍。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-  且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+且 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有與 \carg{command_queue} 所關聯\cnglo{device}
+的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
 \item \cenum{CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST}，
-  如果讀寫操作是阻塞的，且 \carg{event_wait_list} 中任何命令的執行狀態是負整數。
+如果讀寫操作是阻塞的，且 \carg{event_wait_list} 中任何命令的執行狀態是負整數。
 
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBufferRect}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了
+\cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBufferRect}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了
+\cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
-\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
-\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
 %% note
 注意：
 
-如果調用 \capi{clEnqueueReadBuffer} 時將參數 \carg{ptr} 設置為 $host\_ptr + offset$
+如果調用 \capi{clEnqueueReadBuffer} 時將引數 \carg{ptr} 設置為 \math{host\_ptr + offset}
 （其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的），
-為避免未定義的行為，必須滿足下列需求：
+為避免\cnglo{undef}的行為，必須滿足下列要求：
 \startigBase
-\item 在讀\cnglo{cmd}開始執行前，所有使用此\cnglo{bufobj}或由此\cnglo{bufobj}創建的\cnglo{memobj}（\cnglo{bufobj}或者\cnglo{imgobj}）
-  的\cnglo{cmd}都已經執行完畢。
+\item 在讀\cnglo{cmd}開始執行前，
+所有使用此\cnglo{bufobj}
+（或由此\cnglo{bufobj}創建的\cnglo{memobj}，包括\cnglo{bufobj}和\cnglo{imgobj}）
+的\cnglo{cmd}都已經執行完畢。
 
 \item 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被映射。
 
-\item 在讀\cnglo{cmd}執行完之前，所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
+\item 在讀\cnglo{cmd}執行完之前，
+所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
 \stopigBase
 
-如果調用 \capi{clEnqueueReadBufferRect} 時將參數 \carg{ptr} 設置為 \carg{host_ptr}，
+如果調用 \capi{clEnqueueReadBufferRect} 時將引數 \carg{ptr} 設置為 \carg{host_ptr}，
 並且 \carg{host_origin} 和 \carg{buffer_origin} 相同，
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的，
-要滿足的需求跟 \capi{clEnqueueReadBuffer} 一樣。
+要滿足的要求跟 \capi{clEnqueueReadBuffer} 一樣。
 
-調用 \capi{clEnqueueWriteBuffer} 時將參數 \carg{ptr} 置為 $host\_ptr + offset$，
+調用 \capi{clEnqueueWriteBuffer} 時將引數 \carg{ptr} 置為 \math{host\_ptr + offset}，
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要寫入的\cnglo{bufobj}時指定的，
-為避免未定義的行為，必須滿足下列需求：
+為避免未定義的行為，必須滿足下列要求：
 \startigBase
-\item 在入隊的寫\cnglo{cmd}開始執行前，$(host\_ptr + offset, cb)$ 所劃定的\cnglo{host}內存區域必須含有最新的數據。
+\item 在寫\cnglo{cmd}開始執行前，
+\math{(host\_ptr + offset, cb)} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
 
 \item 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被映射。
 
-\item 在寫\cnglo{cmd}執行完之前，所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
+\item 在寫\cnglo{cmd}執行完之前，
+所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
 \stopigBase
 
-如果調用 \capi{clEnqueueWriteBufferRect} 時將參數 \carg{ptr} 設置為 \carg{host_ptr}，
+如果調用 \capi{clEnqueueWriteBufferRect} 時將引數 \carg{ptr} 設置為 \carg{host_ptr}，
 並且 \carg{host_origin} 和 \carg{buffer_origin} 相同，
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的，
-為避免未定義的行為，必須滿足下列需求：
+為避免\cnglo{undef}的行為，必須滿足下列要求：
 \startigBase
-\item 在入隊的寫\cnglo{cmd}開始執行前，$(buffer\_origin, region)$ 所劃定的\cnglo{host}內存區域必須含有最新的數據。
+\item 在寫\cnglo{cmd}開始執行前，
+\math{(buffer\_origin, region)} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
 
 \item 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被映射。
 
-\item 在寫\cnglo{cmd}執行完之前，所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
+\item 在寫\cnglo{cmd}執行完之前，
+所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被任何\cnglo{cmdq}使用。
 \stopigBase
 
-%% clEnqueueCopyBuffer
-函式
+\topclfunc{clEnqueueCopyBuffer}
+
 \startCLFUNC
 cl_int clEnqueueCopyBuffer (
 			cl_command_queue command_queue,
@@ -309,10 +366,13 @@ cl_int clEnqueueCopyBuffer (
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-會將一個拷貝\cnglo{cmd}插入隊列，此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的內容拷貝到 \carg{dst_buffer} 中。
 
-\carg{command_queue} 即拷貝\cnglo{cmd}要插入的\cnglo{cmdq}。
-\carg{command_queue}、 \carg{src_buffer} 和 \carg{dst_buffer} 必須位於統一 OpenCL \cnglo{context}中。
+此函式會將一個拷貝\cnglo{cmd}入隊，
+此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的內容拷貝到 \carg{dst_buffer} 中。
+
+\carg{command_queue} 即拷貝\cnglo{cmd}所要插入的\cnglo{cmdq}。
+\carg{command_queue}、 \carg{src_buffer} 和 \carg{dst_buffer}
+必須位於同一 OpenCL \cnglo{context}中。
 
 \carg{src_offset} 即在 \carg{src_buffer} 中的什麼位置開始讀取數據。
 
@@ -320,16 +380,22 @@ cl_int clEnqueueCopyBuffer (
 
 \carg{size} 即所要拷貝數據的字節數。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
+列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是 0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
+則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 不過可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+則 \carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueCopyBuffer} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -337,47 +403,60 @@ cl_int clEnqueueCopyBuffer (
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
 
 \item \cenum{CL_INVALID_CONTEXT}，
-  如果 \carg{command_queue}、 \carg{src_buffer} 以及 \carg{dst_buffer} 位於不同的\cnglo{context}中，
-  或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
+如果 \carg{command_queue}、 \carg{src_buffer} 以及 \carg{dst_buffer}
+位於不同的\cnglo{context}中，
+或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件
+位於不同的\cnglo{context}中。
 
-\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
+\item \cenum{CL_INVALID_MEM_OBJECT}，
+如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-  如果 $src\_offset$、 $dst\_offset$、 $size$、 $src\_offset + size$ 或 $dst\_offset + size$ 越限。
+如果 \math{src\_offset}、 \math{dst\_offset}、 \math{size}、
+\math{src\_offset + size} 或 \math{dst\_offset + size} 越限。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{size} 是 0。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{src_buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{src_buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有與 \carg{command_queue} 所關聯\cnglo{device}
+的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{dst_buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{dst_buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有與 \carg{command_queue} 所關聯\cnglo{device}
+的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
 \item \cenum{CL_MEM_COPY_OVERLAP}，
-  如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，且源和目的區域重疊。
-  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且他們重疊。
-  當 $src\_offset <= dst\_offset <= src\_offset + size - 1$ 或
-  $dst\_offset <= src\_offset <= dst\_offset + size - 1$ 時就認為重疊了。
+如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，
+且源和目的區域重疊。
+或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，
+且他們重疊。
+當 \math{src\_offset \leq dst\_offset \leq src\_offset + size - 1} 或
+\math{dst\_offset \leq src\_offset \leq dst\_offset + size - 1} 時就認為重疊了。
 
-\item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{src_buffer} 或 \carg{dst_buffer} 分配內存失敗。
+\item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
+如果為 \carg{src_buffer} 或 \carg{dst_buffer} 分配內存失敗。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueReadBufferRect}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_WRITE_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
 \item \cenum{CL_INVALID_OPERATION}，如果調用的是 \capi{clEnqueueWriteBufferRect}，
-  但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
+但創建 \carg{buffer} 時指定了 \cenum{CL_MEM_HOST_READ_ONLY} 或 \cenum{CL_MEM_HOST_NO_ACCESS}。
 
-\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
-\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-%% clEnqueueCopyBufferRect
-函式
+\topclfunc{clEnqueueCopyBufferRect}
+
 \startCLFUNC
 cl_int clEnqueueCopyBufferRect (
 			cl_command_queue command_queue,
@@ -394,53 +473,66 @@ cl_int clEnqueueCopyBufferRect (
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-會將一個拷貝\cnglo{cmd}插入隊列，此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的一個 2D 或 3D 矩形區域拷貝到 \carg{dst_buffer} 中。
-拷貝時源和宿的偏移量的計算方式在下面 \carg{src_origin} 和 \carg{dst_origin} 的描述中會涉及。
-每次拷貝的字節數等於區域寬度，然後源和宿的偏移量會增加相應的行間距（ row pitch ）。
-每拷貝完一個 2D 矩形，源和宿的偏移量會增加相應的面間距（ slice pitch ）。
+
+此函式會將一個拷貝\cnglo{cmd}入隊，
+此\cnglo{cmd}會將\cnglo{bufobj} \carg{src_buffer} 的一個 2D 或 3D 矩形區域
+拷貝到 \carg{dst_buffer} 中。
+拷貝時源和宿的偏移量的計算方式在後面 \carg{src_origin} 和 \carg{dst_origin} 的描述中會涉及。
+每次拷貝的字節數等於區域寬度，然後源和宿的偏移量會增加相應的行間距（row pitch）。
+每拷貝完一個 2D 矩形，源和宿的偏移量會增加相應的面間距（slice pitch）。
 
 注意：如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，
- \carg{src_row_pitch} 和 \carg{dst_row_pitch} 必須相同，
- \carg{src_slice_pitch} 和 \carg{dst_slice_pitch} 必須相同。
+\carg{src_row_pitch} 和 \carg{dst_row_pitch} 必須相同，
+\carg{src_slice_pitch} 和 \carg{dst_slice_pitch} 也必須相同。
 
 \carg{command_queue} 就是拷貝\cnglo{cmd}要進入的隊列。
-\carg{command_queue}、 \carg{src_buffer}、 \carg{dst_buffer} 必須位於同一 OpenCL \cnglo{context}中。
+\carg{command_queue}、 \carg{src_buffer}、 \carg{dst_buffer}
+必須位於同一 OpenCL \cnglo{context}中。
 
-\carg{src_origin} 定義了 \carg{src_buffer} 中內存區域的偏移量 $(x,y,z)$。
-對於 2D 矩形區域，$z$ 的值即 $src\_origin[2]$ 應該是 0。
+\carg{src_origin} 定義了 \carg{src_buffer} 中內存區域的偏移量 \math{(x,y,z)}。
+對於 2D 矩形區域， \math{z} 的值即 \math{src\_origin[2]} 應該是 0。
 偏移量這樣計算：
-$src\_origin[2] * src\_slice\_pitch + src\_origin[1] * src\_row\_pitch + src\_origin[0]$ 。
+\math{src\_origin[2] * src\_slice\_pitch + src\_origin[1] * src\_row\_pitch + src\_origin[0]}。
 
-\carg{dst_origin} 定義了 \carg{dst_buffer} 中內存區域的偏移量 $(x,y,z)$。
-對於 2D 矩形區域，$z$ 的值即 $dst\_origin[2]$ 應該是 0。
+\carg{dst_origin} 定義了 \carg{dst_buffer} 中內存區域的偏移量 \math{(x,y,z)}。
+對於 2D 矩形區域， \math{z} 的值即 \math{dst\_origin[2]} 應該是 0。
 偏移量這樣計算：
-$dst\_origin[2] * dst\_slice\_pitch + dst\_origin[1] * dst\_row\_pitch + dst\_origin[0]$ 。
+\math{dst\_origin[2] * dst\_slice\_pitch + dst\_origin[1] * dst\_row\_pitch + dst\_origin[0]}。
 
-\carg{region} 定義了要拷貝的 2D 或 3D 區域：$(width,height,depth)$，其單位分別是 byte、 row、 slice。
-對於 2D 區域，$depth$ 的值，即 $region[2]$ 應該是 1。
+\carg{region} 定義了要拷貝的 2D 或 3D 區域： \math{(width,height,depth)}，
+其單位分別是 byte、 row、 slice。
+對於 2D 區域， \math{depth} 的值，即 \math{region[2]} 應該是 1。
 
 \carg{src_row_pitch} 是 \carg{src_buffer} 中每一行數據的字節數。
-如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 $region[0]$ 替代。
+如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
 \carg{src_slice_pitch} 是 \carg{src_buffer} 中每個 2D 平面（ slice ）的字節數。
-如果 \carg{src_slice_pitch} 是 0，則在計算偏移量時用 $region[1] * src\_row\_pitch$ 替代。
+如果 \carg{src_slice_pitch} 是 0，
+則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
 
 \carg{dst_row_pitch} 是 \carg{dst_buffer} 中每一行數據的字節數。
-如果 \carg{dst_row_pitch} 是 0，則在計算偏移量時用 $region[0]$ 替代。
+如果 \carg{dst_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
 \carg{dst_slice_pitch} 是 \carg{dst_buffer} 中每個 2D 平面（ slice ）的字節數。
-如果 \carg{dst_slice_pitch} 是 0，則在計算偏移量時用 $region[1] * src\_row\_pitch$ 替代。
+如果 \carg{dst_slice_pitch} 是 0，
+則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list}
+中列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
+則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 這時可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+\carg{event} 不能屬於 \carg{event_wait_list}。
 
 如果執行成功， \capi{clEnqueueCopyBufferRect} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -448,51 +540,64 @@ $dst\_origin[2] * dst\_slice\_pitch + dst\_origin[1] * dst\_row\_pitch + dst\_or
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
 
 \item \cenum{CL_INVALID_CONTEXT}，
-  如果 \carg{command_queue}、 \carg{src_buffer} 和 \carg{dst_buffer} 位於不同的\cnglo{context}中，
-  或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件位於不同的\cnglo{context}中。
+如果 \carg{command_queue}、 \carg{src_buffer} 和 \carg{dst_buffer}
+位於不同的\cnglo{context}中，
+或者 \carg{command_queue} 和 \carg{event_wait_list} 中的事件
+位於不同的\cnglo{context}中。
 
-\item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
+\item \cenum{CL_INVALID_MEM_OBJECT}，
+如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-  如果 $(src\_origin, region, src\_row\_pitch, src\_slice\_pitch)$
-  或 $(dst\_origin, region, dst\_row\_pitch, dst\_slice\_pitch)$ 所指定的區域越限。
+如果 \math{(src\_origin, region, src\_row\_pitch, src\_slice\_pitch)}
+或 \math{(dst\_origin, region, dst\_row\_pitch, dst\_slice\_pitch)} 所指定的區域越限。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{region} 中的任何元素是 0。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_row_pitch} 不是 0 且小於 $region[0]$。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_row_pitch} 不是 0 且小於 \math{region[0]}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_row_pitch} 不是 0 且小於 $region[0]$。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_row_pitch} 不是 0 且小於 \math{region[0]}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{src_slice_pitch} 不是 0、
-  且小於 $region[1] * src\_row\_pitch$；
-  或者 \carg{src_slice_pitch} 不是 0、且不是 \carg{src_row_pitch} 的整數倍。
+且小於 \math{region[1] * src\_row\_pitch}；
+或者 \carg{src_slice_pitch} 不是 0、且不是 \carg{src_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_slice_pitch} 不是 0、
-  且小於 $region[1] * dst\_row\_pitch$；
-  或者 \carg{dst_slice_pitch} 不是 0、且不是 \carg{dst_row_pitch} 的整數倍。
+且小於 \math{region[1] * dst\_row\_pitch}；
+或者 \carg{dst_slice_pitch} 不是 0、且不是 \carg{dst_row_pitch} 的整數倍。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，
-  且 \carg{src_slice_pitch} 不等於 \carg{dst_slice_pitch}
-  或者 \carg{src_row_pitch} 不等於 \carg{dst_row_pitch}。
+\item \cenum{CL_INVALID_VALUE}，
+如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，
+且 \carg{src_slice_pitch} 不等於 \carg{dst_slice_pitch}
+或者 \carg{src_row_pitch} 不等於 \carg{dst_row_pitch}。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-  且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_MEM_COPY_OVERLAP}，
-  如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，且源和目的區域重疊。
-  或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，且他們重疊。
-  對於怎樣確定源和目的區域重疊，請參考\todo{appendix E}。
+如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，
+且源和目的區域重疊。
+或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，
+且他們重疊。
+對於怎樣確定源和目的區域重疊，請參考\todo{附錄 E}。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{src_buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{src_buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有與 \carg{command_queue} 所關聯\cnglo{device}
+的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
-\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，如果 \carg{dst_buffer} 是子\cnglo{bufobj}，
-  且創建此對象時所指定的 \carg{offset} 沒有與 \carg{queue} 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
+\item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
+如果 \carg{dst_buffer} 是子\cnglo{bufobj}，
+且創建此對象時所指定的 \carg{offset} 沒有與 \carg{command_queue} 所關聯\cnglo{device}
+的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 對齊。
 
-\item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，如果為 \carg{src_buffer} 或 \carg{dst_bufer} 分配內存失敗。
+\item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
+如果為 \carg{src_buffer} 或 \carg{dst_bufer} 分配內存失敗。
 
-\item \cenum{CL_OUT_OF_RESOURCES}——如果\scdevfailres。
-\item \cenum{CL_OUT_OF_HOST_MEMORY}——如果\schostfailres。
+\item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
+\item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase

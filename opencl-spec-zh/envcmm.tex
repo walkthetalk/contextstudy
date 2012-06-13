@@ -395,22 +395,6 @@ bolditalic=texgyreherosbolditalic]
   after={\blank[1em]}, %COMMAND
   alternative=inmargin, %normal inmargin middle TEXT
 ]
-
-%\setupheadertexts[hello]
-\definehead[topclfunc][
-  indentnext=yes,
-  style=bold,%normal bold slanted boldslanted % 整体
-  incrementnumber=list,
-  number=no, %yes no % 是否帶編號
-  before={\blank[1ex]}, %COMMAND
-  after={}, %COMMAND
-  alternative=normal, %normal inmargin middle TEXT
-  deeptextcommand={\framed[
-    frame=on, corner=0, frameoffset=.5ex,
-    framecolor=black,background=color,
-    backgroundcolor=gray, backgroundoffset=.5ex,
-    foreground=color,foregroundcolor=black]},
-]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setuplist[chapter][
   %state	start stop
@@ -475,10 +459,28 @@ bolditalic=texgyreherosbolditalic]
   distance=0.5em,	%dimension
 ]
 
-\setuplist[topclfunc][
-  criterium=all,
-  alternative=c,
-  interaction=all,
+
+
+\definesorting[sClFunc][sClFuncs]
+
+\define[1]\topclfunc{%
+\sClFunc{#1}%
+\reference[sClFunc:#1]{#1}%
+\framed{#1}%
+}
+
+\define[1]\listtopclfunc{%
+#1 \at[sClFunc:#1]\par%
+}
+
+\setupsorting[sClFunc][%
+  criterium=all,	% all used
+  %before=,	%COMMAND
+  %after=,	%COMMAND
+  command={\listtopclfunc},	%\...#1
+  %state=,	%start stopallmodes
+  %style=,	%normal bold slanted boldslanted type cap small... COMMAND
+  %expansion=,	%yes no command
 ]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%footnote%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
