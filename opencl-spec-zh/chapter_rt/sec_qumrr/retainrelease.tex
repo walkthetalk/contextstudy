@@ -101,14 +101,14 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 \item \capi{clWaitForEvents}
 
 \item 對 \capi{clEnqueueReadBuffer}、 \capi{clEnqueueReadBufferRect}、
-\capi{clEnqueueWriteBuffer}、 \capi{clEnqueueWriteBufferRect} 的阻塞式調用
+\capi{clEnqueueWriteBuffer} 或 \capi{clEnqueueWriteBufferRect} 的阻塞式調用
 
-\item 對 \capi{clEnqueueReadImage}、 \capi{clEnqueueWriteImage} 的阻塞式調用
+\item 對 \capi{clEnqueueReadImage} 或 \capi{clEnqueueWriteImage} 的阻塞式調用
 
-\item 對 \capi{clEnqueueMapBuffer}、 \capi{clEnqueueMapImage} 的阻塞式調用
+\item 對 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 的阻塞式調用
 
-\item 對 \capi{clBuildProgram}、 \capi{clCompileProgram}、
-\capi{clLinkProgram} 的阻塞式調用
+\item 對 \capi{clBuildProgram}、 \capi{clCompileProgram}
+或 \capi{clLinkProgram} 的阻塞式調用
 \stopigBase
 
 如果\cnglo{app}需要在回調函式中等待上面某一例程執行完畢，
