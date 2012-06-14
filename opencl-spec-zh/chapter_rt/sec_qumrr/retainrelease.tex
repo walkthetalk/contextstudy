@@ -97,18 +97,22 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 如果在回調函式中調用了下列 OpenCL API，其行為是\cnglo{undef}的：
 \startigBase
 \item \capi{clFinish}
-
 \item \capi{clWaitForEvents}
+\stopigBase
 
-\item 對 \capi{clEnqueueReadBuffer}、 \capi{clEnqueueReadBufferRect}、
-\capi{clEnqueueWriteBuffer} 或 \capi{clEnqueueWriteBufferRect} 的阻塞式調用
-
-\item 對 \capi{clEnqueueReadImage} 或 \capi{clEnqueueWriteImage} 的阻塞式調用
-
-\item 對 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 的阻塞式調用
-
-\item 對 \capi{clBuildProgram}、 \capi{clCompileProgram}
-或 \capi{clLinkProgram} 的阻塞式調用
+如果在回調函式中有對下列 OpenCL API 的阻塞式調用，其行為也是\cnglo{undef}的：
+\startigBase
+\item \capi{clEnqueueReadBuffer}
+\item \capi{clEnqueueReadBufferRect}
+\item \capi{clEnqueueWriteBuffer}
+\item \capi{clEnqueueWriteBufferRect}
+\item \capi{clEnqueueReadImage}
+\item \capi{clEnqueueWriteImage}
+\item \capi{clEnqueueMapBuffer}
+\item \capi{clEnqueueMapImage}
+\item \capi{clBuildProgram}
+\item \capi{clCompileProgram}
+\item \capi{clLinkProgram}
 \stopigBase
 
 如果\cnglo{app}需要在回調函式中等待上面某一例程執行完畢，

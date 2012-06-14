@@ -641,9 +641,9 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 % no number
-\defineitemgroup[igBase][levels=1]
+\defineitemgroup[igBase][levels=2]
 \setupitemgroup[igBase]
-[each]
+[1]
 [packed,joinedup,]
 %standard broad serried packed unpacked stopper joinedup atmargin inmargin autointro loose repeat section paragraph intext random columns
 %standard: default setup
@@ -679,7 +679,15 @@ bolditalic=texgyreherosbolditalic]
 %align	left right normal
 %indentnext	yes no
 ]
+\setupitemgroup[igBase][2]
+[packed,joinedup,][
+  leftmargin=4em,	%no standard dimension
+  before=,	%command
+  inbetween=,	%command
+  after=,	%command
+]
 \setupitemgroup[igBase][1][1] % 枚举的标识必须单独定义，否则无效，可选的
+\setupitemgroup[igBase][2][2]
 %m	A numbered list, with lowercase (“medieval”, aka “oldstyle”) numbers.
 %1 … 8	Different kinds of bullets. All items get the same symbol.
 %a	Items are numbered a., b., c., …

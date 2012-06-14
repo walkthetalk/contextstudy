@@ -1,9 +1,10 @@
 \section{執行內核}
 
-% clEnqueueNDRangeKernel
-函式
+\topclfunc{clEnqueueNDRangeKernel}
+
 \startCLFUNC
-cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
+cl_int clEnqueueNDRangeKernel (
+			cl_command_queue command_queue,
 			cl_kernel kernel,
 			cl_uint work_dim,
 			const size_t *global_work_offset,
@@ -13,13 +14,14 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
+
+此函式所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
 
 \carg{command_queue} 是一個\cnglo{cmdq}。
 排隊的\cnglo{kernel}會在 \carg{command_queue} 所關聯的\cnglo{device}上執行。
 
 \carg{kernel} 是一個\cnglo{kernelobj}。
- \carg{kernel} 和 \carg{command_queue} 必須位於同一 OpenCL \cnglo{context}中。
+\carg{kernel} 和 \carg{command_queue} 必須位於同一 OpenCL \cnglo{context}中。
 
 \carg{work_dim} 用來指定全局\cnglo{workitem}以及\cnglo{workgrp}中\cnglo{workitem}的維數。
 其值必須大於零並且小於等於 \cenum{CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS}。
@@ -40,17 +42,17 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]}。
 這個總數必須小於或等於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}，
 而且 \math{\text{\carg{local_work_size}}[i]} 必須小於或等於相應的
- \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}，
+\math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}，
 其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
 顯式指定的 \carg{local_work_size} 可用來確定
 怎樣將 \carg{global_work_size} 所指定的全局\cnglo{workitem}劃分成多個\cnglo{workgrp}實體。
 如果指定了 \carg{local_work_size}，
- \math{\text{\carg{global_work_size}}[i]} 必須能被相應的
- \math{\text{\cenum{local_work_size}}[i]} 整除，
+\math{\text{\carg{global_work_size}}[i]} 必須能被相應的
+\math{\text{\cenum{local_work_size}}[i]} 整除，
 其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
 
 也可以在\cnglo{program}源碼中通過限定符
- \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} （參見\todo{6.7.2}）
+\ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} （參見\refsec{optAttrQlf}）
 為 \carg{kernel} 指定\cnglo{workgrp}的大小。
 這種情況下， \carg{local_work_size} 的值必須與此特性限定符所指定的值相匹配。
 
@@ -68,18 +70,25 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 可以通過對 \carg{local_work_size} 的運算得到這個\cnglo{locid}。
 \cnglo{locid}始終起自 \math{(0, 0, ... 0)}。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
+列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
+則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 不過可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+\carg{event} 不能屬於 \carg{event_wait_list}。
 
-如果\cnglo{kernel}成功排隊， \capi{clEnqueueNDRangeKernel} 會返回 \cenum{CL_SUCCESS}。
+如果\cnglo{kernel}成功排隊，
+\capi{clEnqueueNDRangeKernel} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_PROGRAM_EXECUTABLE}，
@@ -101,11 +110,11 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 \item \cenum{CL_INVALID_GLOBAL_WORK_SIZE}，
 如果 \carg{global_work_size} 是 \cmacro{NULL}；
 或者 \carg{global_work_size} 中的任意一個是 0
- 或超過了用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
+或超過了用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
 
 \item \cenum{CL_INVALID_GLOBAL_OFFSET}，
 如果 \math{\text{\carg{global_work_size}}[i] + \text{\carg{global_work_offset}}[i]}
- （其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）中的任意一個超過了
+（其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）中的任意一個超過了
 用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
 
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
@@ -122,7 +131,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
 如果 \carg{local_work_size} 是 \cmacro{NULL}，
 並且 \cnglo{program}源碼用限定符 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))}
- 聲明了\cnglo{workgrp}的大小。
+聲明了\cnglo{workgrp}的大小。
 
 \item \cenum{CL_INVALID_WORK_ITEM_SIZE}，
 如果 \math{\text{\carg{local_work_size}}[i]}
@@ -132,7 +141,7 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
 並且創建此子\cnglo{bufobj}時所指定的 \carg{offset} 沒有按 \carg{command_queue}
- 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
+所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，
 如果參數是\cnglo{imgobj}，但是圖像的大小
@@ -159,17 +168,17 @@ cl_int clEnqueueNDRangeKernel (cl_command_queue command_queue,
 如果為 \carg{kernel} 參數中的\cnglo{imgobj}或\cnglo{bufobj}分配內存時失敗。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-% clEnqueueTask
-函式
+\topclfunc{clEnqueueTask}
+
 \startCLFUNC
 cl_int
 clEnqueueTask (cl_command_queue command_queue,
@@ -178,30 +187,37 @@ clEnqueueTask (cl_command_queue command_queue,
 		const cl_event *event_wait_list,
 		cl_event *event)
 \stopCLFUNC
-所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
+
+此函式所入隊的\cnglo{cmd}可以在\cnglo{device}上執行\cnglo{kernel}。
 執行\cnglo{kernel}時使用單個\cnglo{workitem}。
 
 \carg{command_queue} 是一個\cnglo{cmdq}。
 所排隊的\cnglo{kernel}會在 \carg{command_queue} 所關聯的\cnglo{device}上執行。
 
 \carg{kernel} 是一個\cnglo{kernelobj}。
- \carg{kernel} 和 \carg{command_queue} 必須位於同一個 OpenCL \cnglo{context}中。
+\carg{kernel} 和 \carg{command_queue} 必須位於同一個 OpenCL \cnglo{context}中。
 
-\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中列出了執行此\cnglo{cmd}前要等待的事件。
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
-如果 \carg{event_wait_list} 不是 \cmacro{NULL}，則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
-\carg{event_wait_list} 中的事件充當同步點，並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，可以回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+\carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
+列出了執行此\cnglo{cmd}前要等待的事件。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+則無須等待任何事件，並且 \carg{num_events_in_wait_list} 必須是0。
+如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
+則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
+\carg{event_wait_list} 中的事件充當同步點，
+並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
+此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
 
-\carg{event} 會返回一個\cnglo{evtobj}，用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+\carg{event} 會返回一個\cnglo{evtobj}，
+用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 不過可以用 \capi{clEnqueueBarrierWithWaitList} 來代替。
-如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}， \carg{event} 不能屬於 \carg{event_wait_list}。
+如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
+\carg{event} 不能屬於 \carg{event_wait_list}。
 
 \capi{clEnqueueTask} 相當於在調用 \capi{clEnqueueNDRangeKernel} 時，
 參數 \carg{work_dim} 為 1， \carg{global_work_offset} 為 \cmacro{NULL}，
- \math{\text{\carg{global_work_size}}[0]} 為 1，
- \math{\text{\carg{local_work_size}}[0]} 為 1。
+\math{\text{\carg{global_work_size}}[0]} 為 1，
+\math{\text{\carg{local_work_size}}[0]} 為 1。
 
 如果\cnglo{kernel}成功排隊， \capi{clEnqueueTask} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -221,12 +237,12 @@ clEnqueueTask (cl_command_queue command_queue,
 
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
 如果通過限定符 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} 為 \carg{kernel}
- 指定的\cnglo{workgrp}大小不是 \math{(1, 1, 1)}。
+指定的\cnglo{workgrp}大小不是 \math{(1, 1, 1)}。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
 並且創建此子\cnglo{bufobj}時所指定的 \carg{offset} 沒有按 \carg{command_queue}
- 所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
+所關聯\cnglo{device}的 \cenum{CL_DEVICE_MEM_BASE_ADDR_ALIGN} 進行對齊。
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，
 如果參數是\cnglo{imgobj}，但是圖像的大小
@@ -245,19 +261,20 @@ clEnqueueTask (cl_command_queue command_queue,
 如果為 \carg{kernel} 參數中的\cnglo{imgobj}或\cnglo{bufobj}分配內存時失敗。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-% clEnqueueNativeKernel
-函式
+\topclfunc{clEnqueueNativeKernel}
+
 \startCLFUNC
-cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
+cl_int clEnqueueNativeKernel (
+			cl_command_queue command_queue,
 			void (CL_CALLBACK *user_func)(void *)
 			void *args,
 			size_t cb_args,
@@ -268,10 +285,11 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-所入隊的\cnglo{cmd}將執行一個原生的 C/C++ 函式（所謂原生的即不是用 OpenCL 編譯器編譯的）。
+
+此函式所入隊的\cnglo{cmd}將執行一個原生的 C/C++ 函式（所謂原生的即不是用 OpenCL 編譯器編譯的）。
 
 \carg{command_queue} 是一個\cnglo{cmdq}。
-原生的用戶函式要想在此其中執行，
+原生的用戶函式要想在其中執行，
 此隊列所在\cnglo{device}必須具有 \cenum{CL_EXEC_NATIVE_KERNEL} 的能力
 （參見\reftab{cldevquery}中的 \cenum{CL_DEVICE_EXECUTION_CAPABILITIES}）。
 
@@ -298,7 +316,7 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 在執行用戶函式之前，會用執行\cnglo{glbmem}的指針取代這些句柄。
 
 \carg{event_wait_list}、 \carg{num_events_in_wait_list} 和 \carg{event} 與
- \capi{clEnqueueNDRangeKernel} 中描述的一樣。
+\capi{clEnqueueNDRangeKernel} 中描述的一樣。
 
 如果用戶函式的執行實體成功排隊， \capi{clEnqueueNativeKernel} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -339,19 +357,21 @@ cl_int clEnqueueNativeKernel (cl_command_queue command_queue,
 如果為\cnglo{kernel}參數中的\cnglo{bufobj}分配內存時失敗。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-  如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-  或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-  或者 \carg{event_wait_list} 中的事件無效。
+如果 \carg{event_wait_list} 是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} > 0；
+或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
+但 \carg{num_events_in_wait_list} 是 0；
+或者 \carg{event_wait_list} 中的事件無效。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-注意：
-
+\startnotepar
 \cnglo{kernel}參數中只讀圖像的數目不能超過 \cenum{CL_DEVICE_MAX_READ_IMAGE_ARGS}。
 \cnglo{kernel}參數中帶有限定符 \cqlf{read_only} 的 2D 圖像陣列記為一個圖像。
 
 \cnglo{kernel}參數中只寫圖像的數目不能超過 \cenum{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}。
 \cnglo{kernel}參數中帶有限定符 \cqlf{write_only} 的 2D 圖像陣列記為一個圖像。
+\stopnotepar
