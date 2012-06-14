@@ -19,8 +19,8 @@
 \stopigBase
 以及
 \startigBase[indentnext=no]
-\capi{clEnqueueMarkerWithWaitList}
-\capi{clEnqueueBarrierWithWaitList}
+\item \capi{clEnqueueMarkerWithWaitList}
+\item \capi{clEnqueueBarrierWithWaitList}
 \stopigBase
 還有用戶事件。
 
@@ -205,7 +205,7 @@ cl_int clGetEventInfo (cl_event event,
 \carg{param_value_size_ret} 返回查詢結果的實際大小。
 如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則忽略。
 
-\placetable[here,force,split][tab:clGetEventInfo]
+\placetable[here,split][tab:clGetEventInfo]
 {\capi{clGetEventInfo} 所支持的 \carg{param_names}}
 {\input{chapter_rt/tbl/tbl_clgeteventinfo.tex}}
 
