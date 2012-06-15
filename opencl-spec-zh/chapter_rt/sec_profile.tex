@@ -3,9 +3,9 @@
 一些 OpenCL 函式可以作為\cnglo{cmd}插入到\cnglo{cmdq}中，
 所入隊的\cnglo{cmd}是通過唯一的\cnglo{evtobj}來標識的。
 本節將描述對這些函式的評測（profiling）。
-這些函式
-\footnote{OpenCL 1.2 擴展規範的節 9.6.6 中定義的 \capi{clEnqueueAcquireGLObjects}
- 和 \capi{clEnqueueReleaseGLObjects} 也包含在內。}
+這些函式\footnote{%
+《OpenCL 1.2 擴展規範》的{\ftRef{節 9.6.6}} 中定義的
+\capi{clEnqueueAcquireGLObjects} 和 \capi{clEnqueueReleaseGLObjects} 也包含在內。}%
 是：
 \startigBase
 \item \capi{clEnqueue{Read|Write|Map}Buffer}
@@ -22,8 +22,8 @@
 \item \capi{clEnqueueNativeKernel}。
 \stopigBase
 
-% clGetEventProfilingInfo
-如果使能了評測，則函式
+\topclfunc{clGetEventProfilingInfo}
+
 \startCLFUNC
 cl_int clGetEventProfilingInfo (cl_event event,
 			cl_profiling_info param_name,
@@ -31,7 +31,8 @@ cl_int clGetEventProfilingInfo (cl_event event,
 			void *param_value,
 			size_t *param_value_size_ret)
 \stopCLFUNC
-會返回 \carg{event} 所指代\cnglo{cmd}的評測資訊。
+
+如果使能了評測，則此函式會返回 \carg{event} 所指代\cnglo{cmd}的評測資訊。
 
 \carg{event} 即\cnglo{evtobj}。
 
@@ -78,5 +79,3 @@ cl_int clGetEventProfilingInfo (cl_event event,
 
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
-
-

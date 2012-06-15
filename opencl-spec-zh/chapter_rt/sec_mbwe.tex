@@ -1,7 +1,7 @@
-\section{記號、屏障以及對事件的等待}
+\section{標註、屏障以及對事件的等待}
 
-% clEnqueueMarkerWithWaitList
-函式
+\topclfunc{clEnqueueMarkerWithWaitList}s
+
 \startCLFUNC
 cl_int clEnqueueMarkerWithWaitList(
 			cl_command_queue command_queue,
@@ -9,7 +9,8 @@ cl_int clEnqueueMarkerWithWaitList(
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-會將一個\cnglo{marker}\cnglo{cmd}入隊，
+
+此函式會將一個\cnglo{marker}\cnglo{cmd}入隊，
 此\cnglo{cmd}會等待 \carg{event_wait_list} 中的事件完成，
 如果 \carg{event_wait_list} 為空，
 則等待 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。
@@ -23,12 +24,12 @@ cl_int clEnqueueMarkerWithWaitList(
  即執行這個\cnglo{cmd}前需要完成的事件。
 
 如果 \carg{event_wait_list} 是 \cmacro{NULL}，
- \carg{num_events_in_wait_list} 必須是 0。
+\carg{num_events_in_wait_list} 必須是 0。
 如果 \carg{event_wait_list} 不是 \cmacro{NULL}，
- \carg{event_wait_list} 中的事件必須有效，
+\carg{event_wait_list} 中的事件必須有效，
 並且 \carg{num_events_in_wait_list} 必須大於 0。
- \carg{event_wait_list} 中的事件充當同步點。
- \carg{event_wait_list} 中的事件與 \carg{command_queue} 必須位於同一\cnglo{context}中。
+\carg{event_wait_list} 中的事件充當同步點。
+\carg{event_wait_list} 中的事件與 \carg{command_queue} 必須位於同一\cnglo{context}中。
 當此函式返回後，就可以重新使用或者釋放 \carg{event_wait_list} 所關聯的內存了。
 
 如果 \carg{event_wait_list} 是 \cmacro{NULL}，
@@ -57,8 +58,8 @@ cl_int clEnqueueMarkerWithWaitList(
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-% clEnqueueBarrierWithWaitList
-函式
+\topclfunc{clEnqueueBarrierWithWaitList}
+
 \startCLFUNC
 cl_int clEnqueueBarrierWithWaitList(
 			cl_command_queue command_queue,
@@ -66,7 +67,8 @@ cl_int clEnqueueBarrierWithWaitList(
 			const cl_event *event_wait_list,
 			cl_event *event)
 \stopCLFUNC
-會將一個\cnglo{barrier}\cnglo{cmd}入隊，
+
+此函式會將一個\cnglo{barrier}\cnglo{cmd}入隊，
 此\cnglo{cmd}會等待 \carg{event_wait_list} 中的事件完成，
 如果 \carg{event_wait_list} 為空，
 則等待 \carg{command_queue} 中之前入隊的\cnglo{cmd}完成。
