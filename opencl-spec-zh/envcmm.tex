@@ -281,186 +281,7 @@ bolditalic=texgyreherosbolditalic]
 []
 []
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%    title   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%两个quad空格	a \qquad b
-%quad空格	a \quad b
-%大空格		a\ b
-%中等空格	a\;b
-%小空格		a\,b
-%没有空格	ab
-%紧贴		a\!b
-\define[1]\PartNbr{第#1卷}
-\define[1]\ChapterNbr{第#1章}
-\define[1]\SectionNbr{节#1}
-\define[1]\SubsectionNbr{节#1}
-\define[1]\SubsubsectionNbr{节#1}
-
-\define\fontPart{\rm\bf\switchtobodyfont[big]\switchtobodyfont[big]\switchtobodyfont[big]}
-\setuplabeltext[cn][part={第\;,\;卷}]
-\setuphead[part][
-  conversion=chinesecapnumeralscn,
-  textstyle={\fontChapter}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\fontChapter}, %normal bold slanted boldslanted % 編號
-%  numbercommand=\PartNbr,
-  header=high, %none empty high nomarking %章節首頁無頁眉
-  footer=high, %none empty high nomarking
-  before={\blank[2em]}, %COMMAND
-  after={\blank[1em]}, %COMMAND
-  alternative=middle, %normal inmargin middle TEXT
-  placehead=yes,
-]
-
-
-
-\define\fontChapter{\rm\bf\switchtobodyfont[big]\switchtobodyfont[big]}
-\setuplabeltext[cn][chapter={第\;,\;章}]
-\setuphead[chapter][
-  conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
-  sectionsegments=2:100,
-  indentnext=yes,
-%  style=bold,%normal bold slanted boldslanted % 整体
-  textstyle={\fontChapter}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\fontChapter}, %normal bold slanted boldslanted % 編號
-%  numbercommand=\ChapterNbr, %\...#1
-%  color=red, %IDENTIFIER % 整體顏色
-%  textcolor=blue, %IDENTIFIER % 內容顏色
-%  numbercolor=green, %IDENTIFIER % 編號顏色
-  number=yes, %yes no % 是否帶編號
-  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
-  page=right, %left right yes % 是否固定於左頁或右頁
-  continue=no, %yes no % 第一個是否緊接上一層，優先於*page*
-  header=high, %none empty high nomarking %章節首頁無頁眉
-%  text=nomarking, %none empty high nomarking
-  footer=high, %none empty high nomarking
-  before={\blank[2em]}, %COMMAND
-%  inbetween=, %COMMAND
-  after={\blank[1em]}, %COMMAND
-  alternative=middle, %normal inmargin middle TEXT
-%  hang=none, %none broad fit line NUMBER
-%  command=, %\...#1#2
-%  textcommand=, %\...#1
-%  deepnumbercommand=, %\...#1
-%  deeptextcommand=, %\...#1
-%  prefix=, %+ - TEXT
-%  placehead=yes, %yes no empty
-%  incrementnumber=yes, %yes no LIST FILE
-%  resetnumber=no, %yes no
-%  file=, %IDENTIFIER
-%  expansion=, %yes no command
-%  margintext=no, %yes no
-  %inherits from \setupheads
-  sectionnumber=no,
-%  alternative=,
-%  separator={haha},
-%  stopper=,
-%  align=,
-%  aligntitle=,
-%  tolerance=,
-%  indentnext=,
-%  command=,
-%  margin=,
-]
-
-
-\define\fontSection{\rm\bf\switchtobodyfont[big]}
-%\setuplabeltext[cn][section={第,節}]
-\setuplabeltext[cn][section={节\;,}]
-\setuphead[section][
-  conversion=numbers, %chinesecapnumeralscn chineseallnumeralscn
-  sectionsegments=2:100,
-  indentnext=yes,
-%  style=bold,%normal bold slanted boldslanted % 整体
-  textstyle={\fontSection}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\fontSection}, %normal bold slanted boldslanted % 編號
-%  numbercommand=\SectionNbr,
-  number=yes, %yes no % 是否帶編號
-  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
-  before={\blank[1.5em]}, %COMMAND
-  after={\blank[1em]}, %COMMAND
-  alternative=inmargin, %normal inmargin middle TEXT
-]
-
-\define\fontSubsection{\rm\bf}
-%\setuplabeltext[cn][subsection={,節}]
-\setuphead[subsection][
-  conversion=numbers,
-  indentnext=yes,
-%  style=bold,%normal bold slanted boldslanted % 整体
-  textstyle={\fontSubsection}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\fontSubsection}, %normal bold slanted boldslanted % 編號
-%  numbercommand=\SubsectionNbr,
-  number=yes, %yes no % 是否帶編號
-  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
-  before={\blank[1em]}, %COMMAND
-  after={\blank[1em]}, %COMMAND
-  alternative=inmargin, %normal inmargin middle TEXT
-]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setuplist[chapter][
-  %state	start stop
-  alternative=c,	%a 空格
-			%b 右对齐
-			%c ...page
-			%d 大空格　紧接下一个list
-			%e 编号加方框，标题向左缩
-			%f
-			%g 标题居中... none command
-  %coupling	on off
-  %criterium	section local previous current all
-  %pageboundaries	list
-  %style	normal bold slanted boldslanted type cap small... command
-  %numberstyle	normal bold slanted boldslanted type cap small... command
-  %textstyle	normal bold slanted boldslanted type cap small... command
-  %pagestyle	normal bold slanted boldslanted type cap small... command
-  %color	name
-  %command	threearguments
-  numbercommand=\ChapterNbr,	%oneargument
-  %textcommand={},  %oneargument
-  %pagecommand	oneargument
-  interaction=all, %sectionnumber text pagenumber all
-  %before=\right,	%command
-  %after	command
-  %inbetween	command
-  %left={haha},	%text
-  %right	text
-  %label	yes no
-  %prefix	yes no none
-  %pagenumber	yes no
-  %headnumber	yes no
-  %sectionnumber	yes no
-  %aligntitle	yes no
-  margin=0em,	%dimension % 左侧缩进
-  width=0em,	%dimension fit	% 编号宽度
-  %height=2em,	%dimension fit broad
-  %depth=10em,	%dimension fit broad
-  distance=1.0em,	%dimension 标题与编号的距离
-  %separator={\dot},	%text
-  %stopper	text
-  %symbol	none 1 2 3 ...
-  %expansion=yes,	%yes no command
-  %maxwidth	dimension
-  %[...,...=...,...]	see \framed
-]
-
-\setuplist[section][
-  alternative=c,	%a 空格
-  interaction=all,
-  %numbercommand=\SectionNbr,	%oneargument
-  margin=2em,	%dimension % 左侧缩进
-  width=0em,	%dimension fit	% 编号宽度
-  distance=1.0em,	%dimension
-]
-
-\setuplist[subsection][
-  alternative=c,	%a 空格
-  %numbercommand=\SubsectionNbr,	%oneargument
-  margin=4em,	%dimension % 左侧缩进
-  width=0em,	%dimension fit	% 编号宽度
-  distance=0.5em,	%dimension
-]
-
-
-
 \definesorting[sClFunc][sClFuncs]
 
 \define[1]\topclfunc{%
@@ -1109,7 +930,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[1]\reffig{%
-\in{图}{}[fig:#1]%
+\in{圖}{}[fig:#1]%
 }
 \define[1]\reftab{%
 \in{表}{}[tab:#1]%
@@ -1176,6 +997,7 @@ bolditalic=texgyreherosbolditalic]
 
 \setupcaptions[align={middle}]
 
+\setuplabeltext[cn][figure={圖\;,}]
 \setupcaption[figure][
   %location	top bottom none high low middle
   %width=max,	%fit broad max dimension
@@ -1193,6 +1015,8 @@ bolditalic=texgyreherosbolditalic]
   %distance	dimension
   prefixsegments=chapter,	%chapter:section
 ]
+
+\setuplabeltext[cn][table={表\;,}]
 \setupcaption[table][
   location=top,	%top bottom none high low middle
   %width=max,	%fit broad max dimension
@@ -1231,6 +1055,116 @@ bolditalic=texgyreherosbolditalic]
   %separator	text
   %conversion	numbers characters Characters romannumerals Romannumerals text
 ]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% matter independent %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%两个quad空格	a \qquad b
+%quad空格	a \quad b
+%大空格		a\ b
+%中等空格	a\;b
+%小空格		a\,b
+%没有空格	ab
+%紧贴		a\!b
+
+\setuplabeltext[cn][part={第\;,\;卷}]
+\setuphead[part][
+  conversion=chinesecapnumeralscn,
+  textstyle={\rm\bfa}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfa}, %normal bold slanted boldslanted % 編號
+%  numbercommand=\PartNbr,
+  header=high, %none empty high nomarking %章節首頁無頁眉
+  footer=high, %none empty high nomarking
+  before={\blank[2em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=middle, %normal inmargin middle TEXT
+  placehead=yes,
+]
+
+\setuplabeltext[cn][chapter={第\;,\;章}]
+\setuplabeltext[cn][appendix={附錄\;,}]
+\setuphead[chapter][
+  conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
+  sectionsegments=2:*,
+  indentnext=yes,
+  textstyle={\rm\bfb}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfb}, %normal bold slanted boldslanted % 編號
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  page=right, %left right yes % 是否固定於左頁或右頁
+  continue=no, %yes no % 第一個是否緊接上一層，優先於*page*
+  header=high, %none empty high nomarking %章節首頁無頁眉
+%  text=nomarking, %none empty high nomarking
+  footer=high, %none empty high nomarking
+  before={\blank[2em]}, %COMMAND
+%  inbetween=, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=middle, %normal inmargin middle TEXT
+  sectionnumber=no,
+]
+
+\setuplabeltext[cn][section={节\;,}]
+\setuphead[section][
+  conversion=numbers, %chinesecapnumeralscn chineseallnumeralscn
+  sectionsegments=2:*,
+  indentnext=yes,
+  textstyle={\rm\bfa}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfa}, %normal bold slanted boldslanted % 編號
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  before={\blank[1.5em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=inmargin, %normal inmargin middle TEXT
+]
+
+\setuphead[subsection][
+  conversion=numbers,
+  indentnext=yes,
+  textstyle={\rm\bf}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bf}, %normal bold slanted boldslanted % 編號
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  before={\blank[1em]}, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=inmargin, %normal inmargin middle TEXT
+]
+
+\setuplist[
+  alternative=c,	%a 空格
+			%b 右对齐
+			%c ...page
+			%d 大空格　紧接下一个list
+			%e 编号加方框，标题向左缩
+			%f
+			%g 标题居中... none command
+  label=yes,
+  interaction=all,
+%  aligntitle=yes,
+%  align=flushleft,
+]
+\setuplist[chapter][
+  margin=0em,	%dimension % 左侧缩进
+]
+
+\setuplist[section][
+  margin=2em,	%dimension % 左侧缩进
+]
+
+\setuplist[subsection][
+  margin=4em,	%dimension % 左侧缩进
+]
+
+
+\startsectionblockenvironment[frontpart]
+\stopsectionblockenvironment
+\startsectionblockenvironment[bodypart]
+\stopsectionblockenvironment
+\startsectionblockenvironment[appendix]
+\setuphead[chapter][
+  conversion=Characters,
+]
+\stopsectionblockenvironment
+\startsectionblockenvironment[backpart]
+\stopsectionblockenvironment
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % the textbackgournd will extends to the page boundary,
 % which include the footnote and not as expected

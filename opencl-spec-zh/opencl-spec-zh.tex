@@ -5,8 +5,25 @@
 \environment envcmm
 \startproduct opencl-spec-zh
 %\showframe
-%\starttext
 
+\if 0
+\startfrontmatter
+\component cpn-front
+\stopfrontmatter
+\startbodymatter
+\component cpnintro
+\stopbodymatter
+\startappendices
+\component cpn-somht
+\stopappendices
+
+\else
+
+\startfrontmatter
+\component cpn-front
+\stopfrontmatter
+
+\startbodymatter
 \component cpnintro
 \component cpnglo
 \component cpnarch
@@ -18,8 +35,15 @@
 \component cpnoptext
 \component cpnembprofile
 \component cpnfunclist
+\stopbodymatter
 
-%\stoptext
+\startappendices
+\component cpn-somht
+\stopappendices
+\fi
+
+%\startbackmatter
+%\stopbackmatter
 
 \stopproduct
 

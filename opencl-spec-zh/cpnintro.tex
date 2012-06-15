@@ -5,15 +5,7 @@
 \startcomponent cpnintro
 \product opencl-spec-zh
 
-\title{目录}
-\placelist[chapter,section]
-\title{圖}
-\placelist[figure]
-\title{表}
-\placelist[table]
-%\startfrontmatter
-\setuppagenumber[number=1]
-
+\if 0
 \part{測試part標題}
 %\showbodyfont
 %\showbodyfontenvironment
@@ -23,6 +15,7 @@
 {\ss\tf 測試章hello標題 \it 測試章hello標題 \bf 測試章hello標題 \bi 測試章hello標題}
 
 {\tt\tf 測試章hello標題 \it 測試章hello標題 \bf 測試章hello標題 \bi 測試章hello標題}
+\fi
 
 \chapter{簡介}
 在現代處理器架構中，將並行視為提高性能的重要途徑之一。
@@ -73,4 +66,3 @@ OpenCL 由一系列 API 和 一個跨平台的編程語言組成；
 三是一些可選擴展，這些擴展可能會在後續修訂 OpenCL 規範時被納入核心規格。
 
 \stopcomponent
-
