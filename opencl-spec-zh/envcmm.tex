@@ -312,7 +312,7 @@ bolditalic=texgyreherosbolditalic]
   %background=color,
   %backgroundcolor=red,
   %rule	on off
-  %before	command
+  %before=,	%command
   %after	command
   %width	dimension
   %height	dimension
@@ -323,7 +323,7 @@ bolditalic=texgyreherosbolditalic]
   %margindistance	dimension
   %n=3,		%number
   %numbercommand=\high,	%oneargument 脚注编号的位置
-  %textcommand	oneargument
+  %textcommand=,	%oneargument
   %split	tolerant strict verystrict number
   %textstyle	normal bold slanted boldslanted type cap small... command
   %textcolor=red,	%name
@@ -1080,7 +1080,7 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 \setuplabeltext[cn][chapter={第\;,\;章}]
-\setuplabeltext[cn][appendix={附錄\;,}]
+\setuplabeltext[cn][appendix={附錄\;,}] % sectionblock中的設置無效，可能是bug
 \setuphead[chapter][
   conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
   sectionsegments=2:*,
@@ -1141,15 +1141,23 @@ bolditalic=texgyreherosbolditalic]
 %  align=flushleft,
 ]
 \setuplist[chapter][
+  width=4em,	% setuplist中的設置無效，可能是bug
   margin=0em,	%dimension % 左侧缩进
 ]
 
 \setuplist[section][
+  width=4em,
   margin=2em,	%dimension % 左侧缩进
 ]
 
-\setuplist[subsection][
-  margin=4em,	%dimension % 左侧缩进
+\setuplist[figure][
+  label=figure, % label=yes 無效，這可能是bug
+  margin=2em,	%dimension % 左侧缩进
+]
+
+\setuplist[table][
+  label=table, % label=yes 無效，這可能是bug
+  margin=2em,	%dimension % 左侧缩进
 ]
 
 

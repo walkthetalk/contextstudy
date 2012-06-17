@@ -51,7 +51,7 @@ OpenCL \cnglo{memobj}、\cnglo{programobj}或\cnglo{kernelobj}都可以由多個
 相對於試圖在多個主機線程間共享 \ctype{cl_kernel} 對象，
 強烈建議應用為每個主機線程都創建一個獨立的 \ctype{cl_kernel} 對象。}。
 需要注意的是，如果是在 OpenCL 回調函式中調用 OpenCL API，還有其他限制，
-請參考\refsec{evtobj}。
+請參考\refsec{evtObj}。
 
 如果是在中斷或信號處理函式中調用 OpenCL API，則其行為\cnglo{undef}。
 

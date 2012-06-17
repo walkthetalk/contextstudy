@@ -1,88 +1,133 @@
-\environment env-cv
+\usemodule[zhfonts][style=rm, size=10.5pt]
+%\setupzhfonts[feature][onum=yes, pnum=yes]
 
-\starttext
+%% use `mtxrun --script font --list --all` to list all fonts
+% set base fonts
+\setupzhfonts
+[serif]
+[regular=adobesongstd,
+bold=adobeheitistd,
+italic=adobekaitistd,
+bolditalic=adobeheitistd]
 
-%\setresumevalue{image}     {\blackrule[width=25mm,height=25mm]}
-\setresumevalue{image}{\externalfigure[photo.jpg][width=25mm]}
-\setresumevalue{firstname} {倪}
-\setresumevalue{familyname}{庆亮 Y\'i Q\`ing Li\`ang}
-%\setresumevalue{title}     {Resum\'e title (optional)}
-\setresumevalue{quote}     {Some quote (optional)}
-\setresumevalue{street}    {男，汉族\par生于1982年，已婚}
-\setresumevalue{town}      {祖居河北省阜城县\par现居杭州市}
-\setresumevalue{mobile}    {+8613588371863}
-%\setresumevalue{phone}     {phone (optional)}
-%\setresumevalue{fax}       {fax (optional)}
-\setresumevalue{email}     {niqingliang2003@tom.com}
-\setresumevalue{info}      {http://niqingliang2003.wordpress.com}
+\setupzhfonts
+[sans]
+[regular=adobefangsongstd,
+bold=adobeheitistd,
+italic=adobefangsongstd,
+bolditalic=adobeheitistd]
 
-\startresume
+\setupzhfonts
+[mono]
+[regular=adobekaitistd,
+bold=adobeheitistd,
+italic=adobekaitistd,
+bolditalic=adobeheitistd]
 
-\section{自我评价}
-6年+工作经验（主要是嵌入式软件）、扎实的技术功底、刻苦的钻研精神；处事稳重，工作踏实、认真，责任心强，思维缜密，逻辑严谨，善于独立思考，具有较强的分析解决问题的能力。
+% set latin fonts
+\setupzhfonts
+[latin, serif]
+[regular=texgyrepagellaregular,
+bold=texgyrepagellabold,
+italic=texgyrepagellaitalic,
+bolditalic=texgyrepagellabolditalic]
 
-\section{教育背景}
+\setupzhfonts
+[latin, mono]
+[regular=texgyrecursorregular,
+bold=texgyrecursorbold,
+italic=texgyrecursoritalic,
+bolditalic=texgyrecursorbolditalic]
 
-\cventry{2004 ～ 2007}{硕士}{西安电子科技大学}{西安市}{计算机科学与技术}{}
-\cventry{2000 ～ 2004}{学士}{西安电子科技大学}{西安市}{计算机科学与技术}{}
+\setupzhfonts
+[latin, sans]
+[regular=texgyreherosregular,
+bold=texgyreherosbold,
+italic=texgyreherositalic,
+bolditalic=texgyreherosbolditalic]
 
-%\section{Master thesis}
+% 启用中文断行
+\setscript[hanzi]
+\mainlanguage[cn]
 
-%\cvline{title}{\em Title}
-%\cvline{supervisors}{Supervisors}
-%\cvline{description}{\tx Short thesis abstract}
+﻿\setuppapersize[A4]
 
-\section{工作经历}
+\input moderncv
 
-%\subsection{Vocational}
+\def\entryspace{0.5em}
+\def\cvname{倪庆亮}
+\def\cvalias{Y\'i Q\`ing Li\`ang}
+\def\cvaddress{浙江省杭州市文三西路}
+\def\cvpersonalinfo{男，汉族，群众}
+\def\cvbirthday{1982 年 10 月}
+\def\email{niqingliang2003@tom.com}
+\def\tel{+8613588371863}
 
-\cventry{2010 ～ 今}{浙大网新}{物联网事业部}{杭州}{}{
-负责软件部基础设施的预研及建设，参与软件平台的整体设计，负责底层软件平台的设计开发，开源软件/项目的研究及使用，另外还负责SA735项目软件相关工作。}
-\cventry{2009 ～ 2010}{诺基亚西门子}{NGMGW}{杭州}{}{
-带领 TDM 团队进行 TDM linecard 相关的需求分析、相关文档的撰写以及软件设计开发，其中包括 SDH、
-PDH 的配置管理（包括告警、性能、APS 等），时钟管理，及相应 redundancy 的处理。}
-\cventry{2007 ～ 2009}{UT 斯达康}{ONS}{杭州}{}{
-主要是低阶交叉芯片的研究及驱动开发，低阶交叉板、混合光板的开发，热备份 / SSF / MAPS 等新功能的设计
-开发，另外还有配置管理、业务、算法等模块的开发和维护等。}
-\cventry{2006 ～ 2007}{霓虹灯设计与演示系统}{西安}{}{}{
-负责网格编辑模块的设计实现。包括动作管理器、存档序列化/反序列化、undo / redo 、各种移动/花样效果、调色盘、UI 设计。
+\define[6]\cvworkexp{
+\cventry{#1}{#2 \hskip 1em #3 \hskip 1em #4 \hskip 1em #5\par\parindent2em #6}
 }
-\cventry{2005 ～ 2006}{港湾网络}{研发部交换产品线接入服务组}{北京}{}{
-负责 Qos、Acl、Dhcp 模块的开发和维护、新芯片的功能测试及相应的软件设计开发工作。}
+% ==================== Main text ====================>
+\starttext
+\placehead
 
+% self profile
+\subject{自我评价}
+7 年工作经验（主要是嵌入式软件），具有扎实的技术功底、刻苦的钻研精神；处事稳重，工作踏实、认真，责任心强，思维缜密，逻辑严谨，善于独立思考，具有较强的分析解决问题的能力。
 
-% \subsection{Miscellaneous}
-% \cventry{year--year}{Job title}{Employer}{City}{}{Description line 1\crlf Description line 2}
+% work experience
+\subject{工作经历}
 
-\section{语言}
+\cvworkexp{2010 ～ 今}{浙大网新}{物联网事业部}{杭州}{}{
+负责软件部基础设施的预研及建设，参与软件平台的整体设计，负责底层软件平台的设计开发，开源软件/项目的研究及使用，相关配套工具的设计开发，部分招聘和技术培训工作，另外作为 SA735 产品的软件开发代表负责其软件开发和版本发布管理等工作。
 
-\cvlanguage{英语}{六级}{}
-%\cvlanguage{language 2}{Skill level}{Comment}
-%\cvlanguage{language 3}{Skill level}{Comment}
+其中开发工作包括但不限于：
+嵌入式 OS 构建系统 optimus（基于 yocto）。
+GUI 编译工具：太极图（与 optimus 配套使用，用 wxpython 實現）。
+嵌入式设备双系统冗馀备份方案的設計開發（包括配套的升级工具）。
+软件平台中的进程执行模型、
+驱动框架（主要用于实现驱动在用户态和内核态的无缝切换）、
+进程及设备管理模块、
+用于加载 FPGA 和 CPLD 的软件模块等。
+以及 Linux下使用的 mm/md（对 uboot 中相应命令功能进行了扩展，以bash脚本实现）等。
+用于生成 UBIFS image 的工具（bash脚本，自动构建时使用）。
+p2020 和 mpc8315 相关 bsp 的调试开发。
+}
 
-%\section{Computer skills}
+\cvworkexp{2009 ～ 2010}{诺基亚西门子}{NGMGW}{杭州}{}{
+带领 TDM 团队进行 TDM linecard 相关的需求分析、相关文档的撰写以及软件设计开发，其中包括 SDH、
+PDH 的配置管理（包括告警、性能、APS 等），时钟管理，及相应 redundancy 的处理。
+}
 
-%\cvcomputer{category 1}{XXX, YYY, ZZZ}{category 4}{XXX, YYY, ZZZ}
-%\cvcomputer{category 2}{XXX, YYY, ZZZ}{category 5}{XXX, YYY, ZZZ}
-%\cvcomputer{category 3}{XXX, YYY, ZZZ}{category 6}{XXX, YYY, ZZZ}
+\cvworkexp{2007 ～ 2009}{UT 斯达康}{ONS}{杭州}{}{
+主要是低阶交叉芯片的研究及驱动开发，低阶交叉板、混合光板的开发，热备份 / SSF / MAPS 等新功能的设计
+开发，另外还有配置管理、业务、算法等模块的开发和维护等。
+}
 
-\section{兴趣爱好}
-打羽毛球、看书、玩游戏。
-%\cvline{hobby 1}{\small Description}
-%\cvline{hobby 2}{\small Description}
-%\cvline{hobby 3}{\small Description}
+\cvworkexp{2006 ～ 2007}{霓虹灯设计与演示系统}{西安}{}{}{
+负责网格编辑模块的设计实现。
 
-%\section{Extra 1}
-%\cvlistitem{Item 1}
-%\cvlistitem{Item 2}
-%\cvlistitem[+]{Item 3}
+包括动作管理器、存档序列化/反序列化、undo / redo 、各种移动/花样效果、调色盘、UI 设计等。
+}
 
-%\section{Extra 2}
-%\cvlistdoubleitem[$\circ$]{Item 1}{Item 4}
-%\cvlistdoubleitem[$\circ$]{Item 2}{Item 5}
-%\cvlistdoubleitem[$\circ$]{Item 3}{}
+\cvworkexp{2005 ～ 2006}{港湾网络}{研发部交换产品线接入服务组}{北京}{}{
+负责 Qos、Acl、Dhcp 模块的开发和维护、新芯片的功能测试及相应的软件设计开发工作。
+}
 
-\stopresume
+% education
+\subject{教育背景}
+
+\cventry{2004 ～ 2007}{
+{\bf 硕士} \hskip 1em {西安电子科技大学} \hskip 1em {西安市} \hskip 1em {计算机科学与技术}
+}
+
+\cventry{2000 ～ 2004}{
+{\bf 学士} \hskip 1em {西安电子科技大学} \hskip 1em {西安市} \hskip 1em {计算机科学与技术}
+}
+
+% language
+\subject{语言}
+
+\cventry{英语}{六级}
 
 \stoptext
 

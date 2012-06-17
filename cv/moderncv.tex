@@ -1,0 +1,108 @@
+﻿% Author: Corsair <echo joypz_jvyzhpy-@thps_jvt | tr h-z\-_@ a-s@.g>
+
+% Font required: MarVoSym
+% http://www.marvosym.com/
+
+\definefont[Dings][name:MarVoSym]
+
+\setuplayout
+  [backspace=.3\paperwidth,
+    leftmargin=0.2\paperwidth,
+    rightmargin=0cm,
+    width=0.59\paperwidth,
+    topspace=0.05\paperheight,
+  ]
+
+% Colors
+\definecolor[lightgray][s=0.75]
+\definecolor[gray][s=0.5]
+\definecolor[darkgray][s=0.25]
+\setupcolors[rgb=no,cmyk=yes,spot=yes,state=start]
+
+% Algrithm
+\setupalign[hanging]
+\setuptolerance[horizontal, stretch]
+
+% Setups
+\define[2]\MySecion
+       {\hskip \dimexpr-\leftmarginwidth-\leftmargindistance\relax
+         \hbox to \leftmarginwidth{\hfill
+           \blackrule[width=\leftmarginwidth, height=2mm, color=lightgray]}\hskip\leftmargindistance #1 #2
+       }
+\setuphead
+  [subject]
+  [color=gray,
+    style=\ssb,
+    command=\MySecion,
+    after=\vskip1em
+  ]
+
+\setuphead
+  [subsubject]
+  [color=gray,
+    style=\ssa,
+    before=\vskip -0em,
+    after=\vskip 0.5em
+  ]
+
+\indenting[no]
+% \setupwhitespace[0.3em]
+
+\setupinmargin[style=\ss\tfx]
+
+\setupinterlinespace[line=1.25em]
+
+\setupitemize[1][packed, inmargin]
+\setupindenting[medium]
+\setuppagenumbering
+  [alternative=singlesided,
+    style=,
+    location={footer},
+  ]
+
+% -------------------- Macros -------------------->
+% Variables
+\def\entryspace{0.5em}
+\def\cvname{Job Looser}
+\def\cvalias{Alias}
+\def\cvaddress{Jedi Academy}
+\def\cvpersonalinfo{Outter rim, Galaxy}
+\def\cvbirthday{1999.99}
+\def\email{foobar@example.org}
+
+% Procs
+\def\cvinmargin#1
+  {\hskip \dimexpr-\leftmarginwidth-\leftmargindistance\relax
+    \hbox to \leftmarginwidth{\hfill
+      #1} % \hskip\leftmargindistance
+}
+
+\def\entryend{\par\vskip \entryspace}
+
+\define[2]\cventry
+{{\margintext{#1} #2 \entryend}}
+
+\define[2]\cvementry
+{\margintext{#1} {\it #2} \entryend}
+
+\define[2]\cvcompactentry
+{{\margintext{#1} #2 \par}}
+
+\define[3]\cventrywithtitle
+{{\margintext{#1} {\it #2} \crlf #3 \entryend}}
+
+\def\placehead
+  {\hbox to \hsize
+    {\vbox{\hbox{\switchtobodyfont[28pt]\cvname}
+        \vskip4mm
+        \hbox{\ssb \color[gray]{\cvalias}}}
+      \hfill
+      \vbox{{\color[darkgray]{\itx
+            \hbox{\cvaddress}
+            \hbox{\cvpersonalinfo}
+            \hbox{\cvbirthday}
+            \hbox{{\Dings B} \email}
+            \hbox{{\Dings T} \tel}
+    }}}}
+    \vskip1.2cm
+  }
