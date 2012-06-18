@@ -70,6 +70,8 @@ bolditalic=texgyreherosbolditalic]
 \def\cvaddress{浙江省杭州市文三西路}
 \def\cvpersonalinfo{男，汉族，群众}
 \def\cvbirthday{1982 年 10 月}
+\def\cvgithub{https://github.com/walkthetalk}
+\def\cvhomepage{https://niqingliang2003.wordpress.com/}
 \def\email{niqingliang2003@tom.com}
 \def\tel{+8613588371863}
 
@@ -88,22 +90,22 @@ bolditalic=texgyreherosbolditalic]
 
 \subject{技能}
 
-\cventry{编程语言}{从开始工作至今使用的编程语言主要是 C / C++，对 Java / C\sharp 曾有过接触，
-底层汇编语言由于调试的需要也会用到。
+\cventry{编程语言}{
+从开始工作至今使用的编程语言主要是 C / C++，对 Java / C\sharp 曾有过接触，
+底层汇编语言相關调试工作也比較熟悉。
 对于 bash / python / lua 等动态语言或脚本语言也有一定的使用经验。
 另外对于面向对象、设计模式等相关技术也有较深的理解。
 }
 
-\cventry{操作系统}{最近几年日常使用的操作系统主要是 ArchLinux，
-对于 Ubuntu / Suse / RHEL 等由于工作需要也接触过。
+\cventry{操作系统}{日常使用的是 ArchLinux。
 最近三年的开发工作主要集中在 Linux 上面，从 bootloader、驱动到上层应用都有所涉及。
 另外 ftp / tftp / http / git 等类型的服务器也有一定的配置经验。}
 
 \cventry{开发工具}{主要使用的开发工具为 gcc / gdb / makefile。
 软件版本管理工具主要使用 git 和 hg。}
 
-\cventry{应用软件}{虚拟机软件主要使用的是 virtualbox，一般用来虚拟 windows。
-文档编辑目前主要使用 Con\TeX t，偶尔用用 LibreOffice。}
+\cventry{应用软件}{虚拟机软件主要使用的是 virtualbox。
+文档编辑目前主要使用 Con\TeX t，偶尔使用 LibreOffice。}
 
 % work experience
 \subject{工作经历}
@@ -112,13 +114,15 @@ bolditalic=texgyreherosbolditalic]
 负责软件部基础设施的预研及建设，参与软件平台的整体设计，负责底层软件平台的设计开发，
 开源软件/项目的研究及使用，相关配套工具的设计开发，
 部分招聘和技术培训工作，另外作为 SA735 产品的开发代表负责其软件开发和版本发布管理等工作。
+还参与了 SN6500 产品的软件设计开发和数据中心的前期调研工作。
 
 开发环境主要是 Linux 和 C/C++，其中开发工作包括但不限于：
 \startigBase
 \item 嵌入式 OS 构建系统 optimus（基于 yocto），
 主要是为了解决产品分化的问题，将多个产品统一到同一个平台上，
 最开始曾经试图用 LTIB 搭建，但由于 LTIB 自身固有问题效果不大理想，后来改用 yocto。
-\item GUI 编译工具：太极图（与 optimus 配套使用，用 wxpython 实现），主要是以图形化的方式显式软件包之间的依赖关系，并完成自动推导递归编译。
+\item GUI 编译工具：太极图（与 optimus 配套使用，用 wxpython 实现），
+主要是以图形化的方式显式软件包之间的依赖关系，并完成自动推导递归编译。
 \item 嵌入式设备双系统冗余备份方案的设计开发（包括配套的升级工具）。
 \item 软件平台中的进程执行模型、
 驱动框架（主要用于实现驱动在用户态和内核态的无缝切换）、
@@ -126,7 +130,7 @@ bolditalic=texgyreherosbolditalic]
 用于加载 FPGA 和 CPLD 的软件模块等。
 \item 以及 Linux下使用的 mm/md（对 uboot 中相应命令功能进行了扩展，以bash脚本实现）等。
 \item 用于生成 UBIFS image 的工具（bash脚本，自动构建时使用）。
-\item p2020 和 mpc8315 相关 bsp 的调试开发。
+\item p2020 和 mpc8315 （freescale / powerpc）相关 bsp 的调试开发。
 \item \dots
 \stopigBase
 }
@@ -135,12 +139,11 @@ bolditalic=texgyreherosbolditalic]
 带领 TDM 团队进行 TDM 相关业务的需求分析、相关文档的撰写以及软件设计开发，其中包括 SDH、
 PDH 的配置管理（包括告警、性能、APS 等），时钟管理，及相应 redundancy 的处理。
 
-开发环境主要是 Linux，编程语言为 C/C++ 与 TNSDL，由于部分软件是移植自老产品，因此有部分移植工作，
-另外开发工作还涉及 C/C++ 与 TNSDL 之间的适配。
+开发环境主要是 Linux，编程语言为 C/C++ 与 TNSDL。
 }
 
 \cvworkexp{2007 ～ 2009}{UT 斯达康}{ONS}{杭州}{}{
-主要是低阶交叉芯片的研究及驱动开发，低阶交叉板、溷合光板的开发，
+主要是低阶交叉芯片的研究及驱动开发，低阶交叉板、混合光板的开发，
 热备份 / SSF / MAPS 等新功能的设计开发，
 另外还有配置管理、业务、算法等模块的开发和维护等。
 
@@ -161,7 +164,8 @@ PDH 的配置管理（包括告警、性能、APS 等），时钟管理，及相
 负责QoS、Acl模块的相关工作。
 包括：代码维护，包括上层软件和芯片Qos驱动；
 新需求的开发，如NP板对MassACL的支持，QoS、Acl对IPv6的支持等；
-新芯片功能测试，并为使QoS、Acl模块支持新芯片进行了详细设计。
+新芯片（broadcom / firebolt easyridar）功能测试，
+并为使QoS、Acl模块支持新芯片进行了详细设计。
 另外还负责DHCP模块的维护优化。
 
 开发环境主要是 windows/vxworks + C/C++。
