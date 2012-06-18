@@ -89,5 +89,49 @@ pos.s[6] = 2; // Sets the 7th vector component of bar
 
 \subsection{命名矢量組件符號}
 
+可以使用 \ccmm{.sN}、 \ccmm{.sn} 或 \ccmm{.xyzw} 來訪問矢量數據型別的組件，
+跟 OpenCL 語言中所用類似。
+\ccmm{.xyzw} 僅可訪問前四個組件。
+可以通過預處理器記號 \cmacro{CL_HAS_NAMED_VECTOR_FIELDS} 來識別是否支持這些符號。
+例如：
+\startclc
+#ifdef CL_HAS_NAMED_VECTOR_FIELDS
+	cl_float4 foo;
+	cl_int16 bar;
+	foo.x = 1.0f;	// Set first component
+	foo.s0 = 1.0f;	// Same as above
+	bar.z = 3;	// Set third component
+	bar.se = 11;	// Same as bar.s[0xe]
+	bar.sD = 12;	// Same as bar.s[0xd]
+#endif
+\stopclc
+
+與 OpenCL 語言不同的是，一次只能訪問一個組件。
+這個局限使得不能像 OpenCL 語言型別那樣對組件進行重排或複製。
+如果訪問時組件編號越界會導致失敗。
+
+\startclc
+foo.xy		// illegal - illegal field name combination
+bar.s1234	// illegal - illegal field name combination
+foo.s7		// illegal - no component s7
+\stopclc
+
+\subsection{High/Low 矢量組件符號}
+
+可以使用 \ccmm{.hi} 和 \ccmm{.lo} 來訪問矢量數據型別的組件，
+跟所支持的語言型別類似。
+可以通過預處理器記號 \cmacro{CL_HAS_HI_LO_VECTOR_FIELDS} 來識別是否支持這些符號。
+例如：
+\startclc
+#ifdef CL_HAS_HI_LO_VECTOR_FIELDS
+	cl_float4 foo;
+	cl_float2 new_hi = 2.0f, new_lo = 4.0f;
+	foo.hi = new_hi;
+	foo.lo = new_lo;
+#endif
+\stopclc
+
+\subsection{原生矢量型別符號}
+
 \stopcomponent
 
