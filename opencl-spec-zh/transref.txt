@@ -44,3 +44,11 @@ specifier 說明符
 modifier 修飾符
 enable 使能
 disable 去能
+flag　 标志
+tag　 标签
+token　 标记
+identity　 标识
+label　　标号
+notation　符号
+mark 標註
+symbol 記號
