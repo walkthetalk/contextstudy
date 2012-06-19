@@ -256,30 +256,10 @@ bolditalic=texgyreherosbolditalic]
 % NOTE: it is confilict with \show frame
 %\setupcolors[state=start]
 \setupbackgrounds[page][background=color,backgroundcolor=lightgray]
-\setupbackgrounds[top, bottom][background=color,backgroundcolor=lightgray]
+\setupbackgrounds[top, bottom][background=color,backgroundcolor=gray]
 \setupbackgrounds[header][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[footer][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=white]
-
-%\setupheader[state=none]
-\setupheadertexts[margin]
-[\leftaligned{\getmarking[chapter]}]
-[\rightaligned{odd right}]
-[\vtop{even \vskip5pt left}]
-[even right{\currentdate[month,year]}]
-
-\setupheadertexts[text]
-[\rlap{abcdabcd} \hfill {\getmarking[chapter]}\hfill \llap{the \pagenumber page}]
-%[\centerline{hello} \llap{???right}]
-[]
-[]
-[]
-
-\setupfootertexts[text]
-[\vbox{\centerline{\pagenumber }\vskip12pt }]
-[]
-[]
-[]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definesorting[sClFunc][sClFuncs]
@@ -342,6 +322,11 @@ bolditalic=texgyreherosbolditalic]
 \setupinterlinespace[medium]
 %\setupinterlinespace[big, on][line=3ex]
 %\setuprelativeinterlinespace[1.2]
+%\setupalign[left]
+%width left right middle inner outer wide broad height bottom line reset hanging
+%nothanging hyphenated nothyphenated lesshyphenation morehyphenation new old normal yes
+%no flushleft flushright flushouter flushinner center hz nohz spacing nospacing tolerant
+%verytolerant stretch
 
 % code
 %\installprettytype[C][C]
@@ -1177,15 +1162,30 @@ bolditalic=texgyreherosbolditalic]
 \startsectionblockenvironment[frontpart]
 \resetpagenumber
 \stopsectionblockenvironment
+
 \startsectionblockenvironment[bodypart]
 \resetpagenumber
+%\setupheader[state=none]
+\setupheadertexts[text]
+[]
+[\rlap{} \hfill {第\;\headnumber[chapter]\;章\;\;\getmarking[chapter]}\hfill \llap{}]
+[]
+[\rlap{} \hfill {節\;\headnumber[section]\;\;\getmarking[section]}\hfill \llap{}]
+
+\setupfootertexts[text]
+[]
+[\centerline{第\;\pagenumber\;頁}]
+[]
+[\centerline{第\;\pagenumber\;頁}]
 \stopsectionblockenvironment
+
 \startsectionblockenvironment[appendix]
 \setuphead[chapter][
   conversion=Characters,
 ]
 \resetpagenumber
 \stopsectionblockenvironment
+
 \startsectionblockenvironment[backpart]
 \resetpagenumber
 \stopsectionblockenvironment
