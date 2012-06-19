@@ -37,7 +37,9 @@ NDRange 由一個長度為 N 的整數陣列來定義，
 有兩種途徑來標識一個\cnglo{workitem}：
 根據全局索引，或根據\cnglo{workgrp}索引加一個局部索引。
 
-接下來請看\reffig{indexspace}中的二維索引空間。
+接下來請看\reffig{indexspace}中的二維索引空間，
+其中包括\cnglo{workitem}、其\cnglo{glbid}以及相應的 ID 元組：
+\cnglo{workgrp} ID 和\cnglo{locid}。
 \cnglo{workitem}的索引空間為 \math{(G_x, G_y)}，
 每個\cnglo{workgrp}的大小是 \math{(S_x, S_y)}，
 \cnglo{glbid}的偏移量是 \math{(F_x, F_y)}。
@@ -66,13 +68,9 @@ NDRange 由一個長度為 N 的整數陣列來定義，
 (w_x, w_y) = ((g_x - s_x - F_x) / S_x, (g_y - s_y - F_y) / S_y)
 \stopformula
 
-\startbuffer[buffigindexspacecaption]
-NDRange 索引空间的示例，包括\cnglo{workitem}、其\cnglo{glbid}以及相應的 ID 元組：
-\cnglo{workgrp} ID 和\cnglo{locid}。
-\stopbuffer
 \placefigure
 [here,force][fig:indexspace]
-{\getbuffer[buffigindexspacecaption]}
+{NDRange 索引空间示例}
 {\useMPgraphic{box}}
 
 很多編程模型都可以映射到這個執行模型上。

@@ -7,15 +7,9 @@ OpenCL 平台模型的定義可以查看\reffig{plfmodel}。
 每個\cnglo{computeunit}又可劃分成一個或多個\cnglo{prcele}（PE）。
 \cnglo{device}上的計算是在\cnglo{prcele}中進行的。
 
-\startbuffer[buffigplfmodelcaption]
-\cnglo{platform}模型 …… 一個\cnglo{host}加上一個或多個計算\cnglo{device}，
-每個\cnglo{device}具有一個或多個\cnglo{computeunit}，
-每個\cnglo{computeunit}具有一個或多個\cnglo{prcele}。
-\stopbuffer
-
 \placefigure
 [here,force][fig:plfmodel]
-{\getbuffer[buffigplfmodelcaption]}
+{\cnglo{platform}模型}
 {\useMPgraphic{box}}
 
 OpenCL \cnglo{app}會按照\cnglo{host}\cnglo{platform}的原生模型

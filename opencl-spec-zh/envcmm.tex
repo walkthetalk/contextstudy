@@ -13,7 +13,7 @@
 %\mainlanguage[cn]
 
 %%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usemodule[zhfonts][style=rm, size=10.5pt]
+\usemodule[zhfonts][style=rm, size=9pt]
 %\setupzhfonts[feature][onum=yes, pnum=yes]
 
 %% use `mtxrun --script font --list --all` to list all fonts
@@ -101,7 +101,7 @@ bolditalic=texgyreherosbolditalic]
   verystrict, %stretch space verystrict strict tolerant verytolerant
 ]
 \setuptolerance[vertical,
-  verystrict, %stretch space verystrict strict tolerant verytolerant
+  strict, %stretch space verystrict strict tolerant verytolerant
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%font%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\ftEmp{\bf} % emphasize
@@ -109,14 +109,14 @@ bolditalic=texgyreherosbolditalic]
 \definetype[capi][ % api
   %space	on off
   %option	slanted normal none
-  style=\rm\bf,	%normal bold slanted boldslanted type cap small ... command
+  style=\tt\bf,	%normal bold slanted boldslanted type cap small ... command
   %color	name
 ]
 \definetype[capiemp][
-  style=\rm\bf,
+  style=\tt\bf,
 ]
 \definetype[carg][ % argument
-  style=\rm\it,
+  style=\tt\it,
 ]
 \definetype[ctype][ % type
   style=\tt\tf,
@@ -125,7 +125,7 @@ bolditalic=texgyreherosbolditalic]
   style=\tt\bf,
 ]
 \definetype[cenum][ % enumeration
-  style=\rm\tf,
+  style=\tt\tf,
 ]
 \definetype[cqlf][ % qualifier
   style=\tt\it,
@@ -290,15 +290,16 @@ bolditalic=texgyreherosbolditalic]
 \framed{#1}%
 }
 
-\define[1]\listtopclfunc{%
-#1 \at[sClFunc:#1]\par%
+% number~name~name
+\define[3]\listtopclfunc{%
+#2，\at[sClFunc:#3]\par%
 }
 
 \setupsorting[sClFunc][%
   criterium=all,	% all used
   %before=,	%COMMAND
   %after=,	%COMMAND
-  command={\listtopclfunc},	%\...#1
+  command=\listtopclfunc,	%\...#1#2#3
   %state=,	%start stopallmodes
   %style=,	%normal bold slanted boldslanted type cap small... COMMAND
   %expansion=,	%yes no command
@@ -336,7 +337,7 @@ bolditalic=texgyreherosbolditalic]
 % 首行缩进
 \setupindenting[first,always,2em]
 % 段落间距
-\setupwhitespace[none] %none small medium big line fixed fix dimension
+\setupwhitespace[small] %none small medium big line fixed fix dimension
 % 行间距
 \setupinterlinespace[medium]
 %\setupinterlinespace[big, on][line=3ex]
@@ -486,7 +487,7 @@ bolditalic=texgyreherosbolditalic]
 %start	number
   before=,	%command
   inbetween=,	%command
-  after=,	%command
+  after={\blank[.5ex]},	%command
 %left	text
 %right	text
 %beforehead	command
@@ -528,7 +529,7 @@ bolditalic=texgyreherosbolditalic]
   leftmargin=2em,	%no standard dimension
   before=,	%command
   inbetween=,	%command
-  after=,	%command
+  after={\blank[.5ex]},	%command
 ]
 \setupitemgroup[igNum][1][n]
 
@@ -540,7 +541,7 @@ bolditalic=texgyreherosbolditalic]
   leftmargin=0em,
   before=,
   inbetween=,
-  after=,
+  after={\blank[.5ex]},
   width=2em,
 ]
 \setupitemgroup[igBig][1][a]
@@ -578,7 +579,7 @@ bolditalic=texgyreherosbolditalic]
     %spaceinbetween=,
     %maxwidth=8em,
     %textwidth=\hsize,
-    split=repeat,
+    split=yes,	% repeat
     %splitoffset=0pt,
     %distance=\zeropoint,           % individual column
     %columndistance=\zeropoint,     % each column (whole table)
@@ -1154,26 +1155,39 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 \setuplist[figure][
+  width=4em,
   label=figure, % label=yes 無效，這可能是bug
-  margin=2em,	%dimension % 左侧缩进
+  margin=0em,	%dimension % 左侧缩进
 ]
 
 \setuplist[table][
+  width=4em,
   label=table, % label=yes 無效，這可能是bug
+  margin=0em,	%dimension % 左侧缩进
   margin=2em,	%dimension % 左侧缩进
 ]
 
+% page number
+\definestructureconversionset[frontpart:pagenumber][][romannumerals]
+\definestructureconversionset [bodypart:pagenumber][][numbers]
+\definestructureconversionset [appendix:pagenumber][][numbers]
+\definestructureconversionset [backpart:pagenumber][][numbers]
+\setuppagenumber[numberconverionset=pagenumber]
 
 \startsectionblockenvironment[frontpart]
+\resetpagenumber
 \stopsectionblockenvironment
 \startsectionblockenvironment[bodypart]
+\resetpagenumber
 \stopsectionblockenvironment
 \startsectionblockenvironment[appendix]
 \setuphead[chapter][
   conversion=Characters,
 ]
+\resetpagenumber
 \stopsectionblockenvironment
 \startsectionblockenvironment[backpart]
+\resetpagenumber
 \stopsectionblockenvironment
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
