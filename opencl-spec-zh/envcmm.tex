@@ -267,7 +267,14 @@ bolditalic=texgyreherosbolditalic]
 \define[1]\topclfunc{%
 \sClFunc{#1}%
 \reference[sClFunc:#1]{#1}%
-\framed{#1}%
+{\hskip-2em\framed[%
+  width=\textwidth,
+  frame=off,
+  bottomframe=on,
+  align=flushleft,
+  before={\blank[0.5ex]},
+  after={},
+]{#1}}%
 }
 
 % number~name~name
@@ -1177,6 +1184,34 @@ bolditalic=texgyreherosbolditalic]
 [\centerline{第\;\pagenumber\;頁}]
 []
 [\centerline{第\;\pagenumber\;頁}]
+
+\define\BodyEdgeLeftFooter{\rotate[%
+  rotation=-90,
+  width=fit,
+  height=fit,
+  frame=off,
+  offset=2pt,
+  background=color,
+  backgroundcolor=darkgray,
+  foregroundcolor=white,
+  corner=round,
+]{OpenCL 1.2 規範}}
+\define\BodyEdgeRightFooter{\rotate[%
+  rotation=90,
+  width=fit,
+  height=fit,
+  frame=off,
+  offset=2pt,
+  background=color,
+  backgroundcolor=darkgray,
+  foregroundcolor=white,
+  corner=round,
+]{OpenCL 1.2 規範}}
+\setupfootertexts[edge]
+[]
+[\BodyEdgeLeftFooter]
+[\BodyEdgeRightFooter]
+[]
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[appendix]
