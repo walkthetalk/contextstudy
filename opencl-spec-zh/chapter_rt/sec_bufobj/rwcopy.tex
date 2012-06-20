@@ -1,6 +1,8 @@
 \subsection{讀、寫以及拷貝緩衝對象}
 
-\topclfunc{clEnqueueReadBuffer} \topclfunc{clEnqueueWriteBuffer}
+\topclfunc{clEnqueueReadBuffer}
+
+\topclfunc{clEnqueueWriteBuffer}
 
 \startCLFUNC
 cl_int clEnqueueReadBuffer(
@@ -124,7 +126,9 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-\topclfunc{clEnqueueReadBuffer} \topclfunc{clEnqueueWriteBuffer}
+\topclfunc{clEnqueueReadBufferRect}
+
+\topclfunc{clEnqueueWriteBufferRect}
 
 \startCLFUNC
 cl_int clEnqueueReadBufferRect (
