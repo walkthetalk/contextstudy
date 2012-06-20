@@ -42,12 +42,12 @@ or
 __constant sampler_t	<sampler_name> = <value>
 \stopclc
 
-注意：
-
+\startnotepar
 在計算每個\cnglo{device}中指向常數位址空間的引數數目或常數位址空間的大小時，
 不考慮帶有限定符 \cqlf{constant} 的\cnglo{sampler}（參見\reftab{cldevquery}中的
  \cenum{CL_DEVICE_MAX_CONSTANT_ARGS} 和
  \cenum{CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE}）。
+\stopnotepar
 
 \placetable[here,force,split][tab:samplerDesc]
 {採樣器描述符}

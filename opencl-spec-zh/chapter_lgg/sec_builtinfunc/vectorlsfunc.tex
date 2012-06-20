@@ -14,16 +14,16 @@
 函式名中也有後綴 \ccmmsuffix{n} （即 \clapiv{vload}、 \clapiv{vstore} 等），
 其中 \ccmmsuffix{n} 為 2、 3、 4、 8 或 16。
 
+\startnotepar
+\capi{vload3}、 \capi{vload_half3}、 \capi{vstore3} 和 \capi{vstore_half3}
+所用位址為 \math{(p+(offset\times 3))}；
+而 \capi{vloada_half3} 和 \capi{vstorea_half3}
+所用位址為 \math{(p+(offset\times 4))}。
+\stopnotepar
+
 \placetable[here,force,split][tab:vectorLsFunc]
 {矢量數據裝載、存儲函式表}
 {\input{chapter_lgg/tbl/tbl_vectorlsfunc.tex}}
-
-注意：
-
-\capi{vload3}、 \capi{vload_half3}、 \capi{vstore3} 和 \capi{vstore_half3}
- 所用位址為 \math{(p+(offset\times 3))}；
-而 \capi{vloada_half3} 和 \capi{vstorea_half3}
- 所用位址為 \math{(p+(offset\times 4))}。
 
 使用這些函式裝載、存儲矢量數據時，
 如果所讀寫的位址沒有按\reftab{vectorLsFunc}中所描述的方式對齊，

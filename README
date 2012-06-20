@@ -19,4 +19,5 @@ http://getfo.org/context_xml/contents.html
 2. 自定義的buffer無法使用標籤
 3. footnote無法斷行
 4. \labeltext{chapter} 只能得到 \setuplabeltext 的左半部
+5. caption 中的中文間有多餘空格
 

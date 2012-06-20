@@ -141,12 +141,12 @@ cl_int clGetCommandQueueInfo(
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-注意：
-
+\startnotepar
 如果創建了\cnglo{context}和\cnglo{cmdq}並且已經有\cnglo{cmd}入隊了，
 而這時他們所使用的\cnglo{device}可能變的不可用了。
 這種情況下，對於使用這個\cnglo{context}（和\cnglo{cmdq}）的 OpenCL API 而言，
 其行為\cnglo{impdef}。
 在\cnglo{device}變的不可用時，如果創建\cnglo{context}時用戶指定了回調函式，
 則可以在傳遞給他的引數 \carg{errinfo}、\carg{private_info} 中記錄相應的資訊。
+\stopnotepar
 

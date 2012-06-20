@@ -101,13 +101,13 @@ a = *p;		<- not allowed. must use vload_half function
 {其他內建數據型別}
 {\input{chapter_lgg/tbl/tbl_obidt.tex}}
 
-注意：
-
+\startnotepar
 只有當\cnglo{device}支持圖像時
 （即 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，參見\reftab{cldevquery}），
 才會定義型別 \cldt{image2d_t}、 \cldt{image3d_t}、 \cldt{image2d_array_t}、
  \cldt{image1d_t}、 \cldt{image1d_buffer_t}、 \cldt{image1d_array_t}、
  \cldt{sampler_t}。
+\stopnotepar
 
 C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也在支持之列，
 不過必須是由\refsec{bisdt}、\refsec{bivdt}

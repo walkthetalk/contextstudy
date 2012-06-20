@@ -76,10 +76,10 @@ OpenCL 1.2 嵌入式規格有如下局限：
 包括\refsec{addReqBeyondC99}中所描述的邊界條件下的行為，
 但是精確度則以\reftab{EP_ulpMathFunc}為准。
 
-注意：
-
-如果減法和乘法缺省為向零捨入的模式，則對於向零捨入，
-\capi{fract}、 \capi{fma} 和 \capi{fdim} 應當產生的結果應當正確捨入了。
+\startnotepar
+如果減法和乘法缺省為向零捨入，
+\capi{fract}、 \capi{fma} 和 \capi{fdim} 所產生的結果應當已經按此模式正確捨入了。
+\stopnotepar
 
 對於基本的浮點運算，上述內容實際是放寬了 IEEE 754 中的要求，儘管極度不情願，
 但是這樣可以為那些硬件預算有嚴格限制的嵌入式設備提供更大的靈活性。

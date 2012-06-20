@@ -118,11 +118,11 @@ __kernel void my_func(...)
 }
 \stopclc
 
-注意：
-
+\startnotepar
 如果\cnglo{kernel}函式內聲明了 \cqlfemp{__local} 變量，
 則會為執行此\cnglo{kernel}的每個\cnglo{workgrp}都分配一個，
 並且只在\cnglo{workgrp}的生命周期內才存在。
+\stopnotepar
 
 % __constant or constant
 \subsection{__constant （或 constant）}
@@ -133,11 +133,11 @@ __kernel void my_func(...)
 
 所有常值字串都存儲在 \cqlf{__constant} 位址空間中。
 
-注意：
-
+\startnotepar
 在給\cnglo{kernel}的常數引數進行計數時，
 每個指向 \cqlf{__constant} 位址空間的指針引數都會使計數增一。
 參見\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_CONSTANT_ARGS}。
+\stopnotepar
 
 如果變量的作用域是整個\cnglo{program}或\cnglo{kernel}函式的最外層，
 則可以在 \cqlf{__constant} 位址空間中聲明他。

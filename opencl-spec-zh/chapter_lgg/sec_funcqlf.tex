@@ -12,8 +12,7 @@
 \item 當被另一個\cnglo{kernel}函式調用時， \cqlf{__kernel} 函式僅僅是一個常規函式。
 \stopigBase
 
-注意：
-
+\startnotepar
 如果\cnglo{kernel}函式中聲明的變量帶有限定符 \cqlf{__local} 或 \cqlf{local}，
 則\cnglo{host}可以使用恰當的 API
  像 \capi{clEnqueueNDRangeKernel} 和 \capi{clEnqueueTask} 來調用他。
@@ -23,6 +22,7 @@
 
 保留關鍵字 \cqlfemp{__kernel} 和 \cqlfemp{kernel} 只能用作函式的限定符，
 不能挪作他用。
+\stopnotepar
 
 % optional attribute qualifiers
 \subsection[sec:optAttrQlf]{可選特性限定符}

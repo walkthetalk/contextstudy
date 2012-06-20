@@ -4,6 +4,9 @@
 %
 \startenvironment envcmm
 
+% colors
+%\setupcolors[state=start]
+\setupcolor[dem]
 %%%%%%%%%%%%%%%%%%% simplefonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% use `mtxrun --script font --list --all` to list all fonts
 % only MKII need specify encoding,
@@ -254,12 +257,13 @@ bolditalic=texgyreherosbolditalic]
 
 % set the background clors
 % NOTE: it is confilict with \show frame
-%\setupcolors[state=start]
+\if 0
 \setupbackgrounds[page][background=color,backgroundcolor=lightgray]
-\setupbackgrounds[top, bottom][background=color,backgroundcolor=gray]
+\setupbackgrounds[top, bottom][background=color,backgroundcolor=lightgray]
 \setupbackgrounds[header][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[footer][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=white]
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%setup list%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definesorting[sClFunc][sClFuncs]
@@ -267,14 +271,16 @@ bolditalic=texgyreherosbolditalic]
 \define[1]\topclfunc{%
 \sClFunc{#1}%
 \reference[sClFunc:#1]{#1}%
-{\hskip-2em\framed[%
+\hskip-2em\framed[%
   width=\textwidth,
   frame=off,
   bottomframe=on,
   align=flushleft,
   before={\blank[0.5ex]},
   after={},
-]{#1}}%
+  framecolor=darkgray,
+  rulethickness=2pt,
+]{#1}\par%
 }
 
 % number~name~name
@@ -306,7 +312,7 @@ bolditalic=texgyreherosbolditalic]
   %height	dimension
   %bodyfont	5pt ... 12pt small big
   %style=bold,	%normal bold slanted boldslanted type cap small... command
-  %distance	dimension
+  distance=2ex,	%dimension
   %columndistance	dimension
   %margindistance	dimension
   %n=3,		%number
@@ -319,6 +325,21 @@ bolditalic=texgyreherosbolditalic]
   %factor	number
 ]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% inmargin %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setupinmargin[%
+  %location %flushleft flushright both
+  style={\rm\itx},	%normal bold slanted boldslanted type cap small... command
+  %before	%command
+  %after	%command
+  align=left,	%inner outer left right middle normal no yes
+  %line	number
+  %distance	dimension
+  %separator	text
+  %width	dimension
+  %distance	dimension
+  %stack	yes no
+  %see \setupframed
+]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% paragraph %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % 首行缩进
@@ -347,15 +368,15 @@ bolditalic=texgyreherosbolditalic]
 % prefix	text
 % referencing	on off
 ]
-\definetextbackground
-[verb][
-  frame=on,
+\definetextbackground[verb][
+  frame=off,
   location=paragraph,
   leftoffset=0.5em,
   rightoffset=0.5em,
   topoffset=0.25em,bottomoffset=0.25em,
   rulethickness=0.75pt,
   strut=no,
+  backgroundcolor={gray:1},
 ]
 
 \usemodule[t-pretty-clfunc]
@@ -423,7 +444,7 @@ bolditalic=texgyreherosbolditalic]
   leftframe=on,
   framecolor=darkgreen,
   rulethickness=3pt,
-  width=fit,
+  width=\textwidth,
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -585,7 +606,7 @@ bolditalic=texgyreherosbolditalic]
 \setupTABLE[header][
     style={\rmx\bf},
     background=color,
-    backgroundcolor=gray,
+    backgroundcolor=lightgray,
 ]
 
 %%%%%%%%%%%%%%%%%%% ETD: enum / type / desc
@@ -595,7 +616,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH \ctype{#1} \eTH
         \bTH #2 \eTH
     \eTR
@@ -609,7 +630,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[3]\clETD{
-\bTR[background=color,backgroundcolor=gray]
+\bTR[background=color,backgroundcolor=lightgray]
   \bTC \cenum{#1} \eTC
   \bTC \ctype{#2} \eTC
 \eTR
@@ -627,7 +648,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH #1 \eTH
     \eTR
   \eTABLEhead
@@ -640,7 +661,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[2]\clED{
-\bTR[background=color,backgroundcolor=gray]
+\bTR[background=color,backgroundcolor=lightgray]
   \bTC \cenum{#1} \eTC
 \eTR
 \bTR
@@ -657,7 +678,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
@@ -689,7 +710,7 @@ bolditalic=texgyreherosbolditalic]
   \bTABLE
   \setupTABLE[c][each][align={middle,lohi}]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
@@ -736,7 +757,7 @@ bolditalic=texgyreherosbolditalic]
   \setuptyping[option=CLFUNC]
 
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH 函式 \eTH
         \bTH 描述 \eTH
     \eTR
@@ -763,7 +784,7 @@ bolditalic=texgyreherosbolditalic]
   \setupTABLE[c][odd][align={flushright,lohi}]
   \setupTABLE[c][even][align={flushleft,lohi}]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=gray]
+    \bTR[background=color,backgroundcolor=lightgray]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
@@ -1076,7 +1097,8 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 \setuplabeltext[cn][chapter={第\;,\;章}]
-\setuplabeltext[cn][appendix={附錄\;,}] % sectionblock中的設置無效，可能是bug
+% sectionblock中的設置無效，可能是bug, workaround is:
+\setuplabeltext[cn][appendix={附錄\;,}]
 \setuphead[chapter][
   conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
   sectionsegments=2:*,
@@ -1156,7 +1178,6 @@ bolditalic=texgyreherosbolditalic]
   width=4em,
   label=table, % label=yes 無效，這可能是bug
   margin=0em,	%dimension % 左侧缩进
-  margin=2em,	%dimension % 左侧缩进
 ]
 
 % page number
@@ -1173,11 +1194,12 @@ bolditalic=texgyreherosbolditalic]
 \startsectionblockenvironment[bodypart]
 \resetpagenumber
 %\setupheader[state=none]
+% 由於可能某頁中沒有任何 section，所以不打印節編號，只打印節名。 no workaround
 \setupheadertexts[text]
 []
 [\rlap{} \hfill {第\;\headnumber[chapter]\;章\;\;\getmarking[chapter]}\hfill \llap{}]
 []
-[\rlap{} \hfill {節\;\headnumber[section]\;\;\getmarking[section]}\hfill \llap{}]
+[\rlap{} \hfill {\getmarking[section][first]}\hfill \llap{}]
 
 \setupfootertexts[text]
 []
@@ -1233,8 +1255,10 @@ bolditalic=texgyreherosbolditalic]
 
 % the footnote can't process linebreak correctly
 % workaround is:
-\setupfootnotes[before={\setscript[hanzi]}]
-
+\let\stdfootnote\footnote
+\def\footnote#1{%
+\stdfootnote{\setscript[hanzi]#1}%
+}
 % \postponenotes\footnote{...}
 
 \define[1]\todo{#1}

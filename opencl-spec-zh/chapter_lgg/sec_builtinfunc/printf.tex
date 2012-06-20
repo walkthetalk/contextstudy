@@ -173,12 +173,12 @@ value1 C value2 C ... C valuen
 僅當\cnglo{device}支持 64 位整數或雙精度浮點數時才支持修飾符 \cemp{l}。
 \stopclSpecifier
 
-注意：
-
+\startnotepar
 如果沒有長度說明符，只有矢量說明符，則其行為未定義。
 矢量說明符以及長度修飾符所描述的矢量數據型別必須與引數的型別一致；否則其行為未定義。
 
 如果長度修飾符不是與上述轉換說明符一起出現的，則其行為未定義。
+\stopnotepar
 
 % conversion specifier
 轉換說明符及其意義如下：
@@ -270,13 +270,13 @@ value1 C value2 C ... C valuen
 如果引數為無窮或 NaN，則轉換結果與轉換說明符 \cemp{f} 或 \cemp{F} 一樣。
 \stopclSpecifier
 
-注意：
-
+\startnotepar
 僅當支持數據型別 \ctype{double} 時，
 轉換說明符 \cemp{e}、 \cemp{E}、 \cemp{g}、 \cemp{G}、 \cemp{a}、 \cemp{A} 才會
 將 \ctype{float} 或 \ctype{half} 型別的引數轉換成 \ctype{double}。
 如果不支持 \ctype{double}，則用 \ctypeemp{float} 取代 \ctypeemp{double} 作為引數，
 同時會將 \ctype{half} 轉換為 \ctype{float}。
+\stopnotepar
 
 \startclSpecifier{\cemp{c}}
 會將 \ctypeemp{int} 引數轉換為 \ctypeemp{unsigned char}，並輸出字符。
