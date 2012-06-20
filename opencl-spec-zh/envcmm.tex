@@ -258,8 +258,8 @@ bolditalic=texgyreherosbolditalic]
 % set the background clors
 % NOTE: it is confilict with \show frame
 \if 0
-\setupbackgrounds[page][background=color,backgroundcolor=lightgray]
-\setupbackgrounds[top, bottom][background=color,backgroundcolor=lightgray]
+\setupbackgrounds[page][background=color,backgroundcolor=gray:1]
+\setupbackgrounds[top, bottom][background=color,backgroundcolor=gray:1]
 \setupbackgrounds[header][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[footer][background=color,backgroundcolor=darkyellow]
 \setupbackgrounds[text][leftedge,leftmargin,text,rightmargin,rightedge][background=color,backgroundcolor=white]
@@ -606,7 +606,7 @@ bolditalic=texgyreherosbolditalic]
 \setupTABLE[header][
     style={\rmx\bf},
     background=color,
-    backgroundcolor=lightgray,
+    backgroundcolor=gray:1,
 ]
 
 %%%%%%%%%%%%%%%%%%% ETD: enum / type / desc
@@ -616,7 +616,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH \ctype{#1} \eTH
         \bTH #2 \eTH
     \eTR
@@ -630,7 +630,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[3]\clETD{
-\bTR[background=color,backgroundcolor=lightgray]
+\bTR[background=color,backgroundcolor=gray:1]
   \bTC \cenum{#1} \eTC
   \bTC \ctype{#2} \eTC
 \eTR
@@ -648,7 +648,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH #1 \eTH
     \eTR
   \eTABLEhead
@@ -661,7 +661,7 @@ bolditalic=texgyreherosbolditalic]
 }
 
 \define[2]\clED{
-\bTR[background=color,backgroundcolor=lightgray]
+\bTR[background=color,backgroundcolor=gray:1]
   \bTC \cenum{#1} \eTC
 \eTR
 \bTR
@@ -678,7 +678,7 @@ bolditalic=texgyreherosbolditalic]
   \startlocalfootnotes
   \bTABLE[option=stretch]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
@@ -710,7 +710,7 @@ bolditalic=texgyreherosbolditalic]
   \bTABLE
   \setupTABLE[c][each][align={middle,lohi}]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
@@ -757,7 +757,7 @@ bolditalic=texgyreherosbolditalic]
   \setuptyping[option=CLFUNC]
 
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH 函式 \eTH
         \bTH 描述 \eTH
     \eTR
@@ -784,7 +784,7 @@ bolditalic=texgyreherosbolditalic]
   \setupTABLE[c][odd][align={flushright,lohi}]
   \setupTABLE[c][even][align={flushleft,lohi}]
   \bTABLEhead
-    \bTR[background=color,backgroundcolor=lightgray]
+    \bTR[background=color,backgroundcolor=gray:1]
         \bTH #1 \eTH
         \bTH #2 \eTH
     \eTR
