@@ -2,14 +2,16 @@
 
 要想執行\cnglo{kernel}，必須設置\cnglo{kernel}引數。
 
-函式
+\topclfunc{clSetKernelArg}
+
 \startCLFUNC
 cl_int clSetKernelArg (cl_kernel kernel,
 			cl_uint arg_index,
 			size_t arg_size,
 			const void *arg_value)
 \stopCLFUNC
-可用來設置\cnglo{kernel}的某個引數。
+
+此函式可用來設置\cnglo{kernel}的某個引數。
 
 \carg{kernel} 是一個\cnglo{kernelobj}。
 
