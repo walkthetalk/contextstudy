@@ -49,7 +49,7 @@ cl_mem clCreateImage (cl_context context,
 每個掃描列都是相鄰圖像元素的線性序列。
 
 對於 2D 圖像，
-\carg{host_ptr} 所指圖像數據按相鄰掃描列（ scanline ）的線性序列進行存儲。
+\carg{host_ptr} 所指圖像數據按相鄰掃描列的線性序列進行存儲。
 每個掃描列都是相鄰圖像元素的線性序列。
 
 對於 1D 圖像陣列， \carg{host_ptr} 所指圖像數據按相鄰 1D 圖像的線性序列進行存儲。
@@ -81,16 +81,16 @@ cl_mem clCreateImage (cl_context context,
 
 \item \cenum{CL_INVALID_HOST_PTR}，
 如果 \carg{image_desc} 中 \carg{host_ptr} 是 \cmacro{NULL}，
-但 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR} 或 {CL_MEM_COPY_HOST_PTR}；
+但 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR} 或 \cenum{CL_MEM_COPY_HOST_PTR}；
 或者 \carg{host_ptr} 不是 \cmacro{NULL}，
-但 \carg{flags} 中設置了 \cenum{CL_MEM_COPY_HOST_PTR} 或 {CL_MEM_USE_HOST_PTR}。
+但 \carg{flags} 中設置了 \cenum{CL_MEM_COPY_HOST_PTR} 或 \cenum{CL_MEM_USE_HOST_PTR}。
 
 \item \cenum{CL_INVALID_VALUE}，如果要創建的是 1D 圖像緩衝，
 為其指定 \cenum{CL_MEM_WRITE_ONLY} 的同時
-\carg{flags} 中設置了 \cenum{CL_MEM_READ_WRITE} 或 {CL_MEM_READ_ONLY}；
+\carg{flags} 中設置了 \cenum{CL_MEM_READ_WRITE} 或 \cenum{CL_MEM_READ_ONLY}；
 或者為其指定 \cenum{CL_MEM_READ_ONLY} 的同時
-\carg{flags} 中設置了 \cenum{CL_MEM_READ_WRITE} 或 {CL_MEM_WRITE_ONLY}；
-或者 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR}、 {CL_MEM_ALLOC_HOST_PTR}、
+\carg{flags} 中設置了 \cenum{CL_MEM_READ_WRITE} 或 \cenum{CL_MEM_WRITE_ONLY}；
+或者 \carg{flags} 中設置了 \cenum{CL_MEM_USE_HOST_PTR}、 \cenum{CL_MEM_ALLOC_HOST_PTR}、
 或 \cenum{CL_MEM_COPY_HOST_PTR}。
 
 \item \cenum{CL_INVALID_VALUE}，如果要創建的是 1D 圖像緩衝，

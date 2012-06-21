@@ -96,7 +96,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \math{(offset,size)} 所指定的區域越限，
+\item \cenum{CL_INVALID_VALUE}，如果 \math{(offset, size)} 所指定的區域越限，
 或者 \carg{ptr} 是 \cmacro{NULL}，或者 \carg{size} 是 0。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
@@ -511,14 +511,14 @@ cl_int clEnqueueCopyBufferRect (
 \carg{src_row_pitch} 是 \carg{src_buffer} 中每一行數據的字節數。
 如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
-\carg{src_slice_pitch} 是 \carg{src_buffer} 中每個 2D 平面（ slice ）的字節數。
+\carg{src_slice_pitch} 是 \carg{src_buffer} 中每個 2D 平面（slice）的字節數。
 如果 \carg{src_slice_pitch} 是 0，
 則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
 
 \carg{dst_row_pitch} 是 \carg{dst_buffer} 中每一行數據的字節數。
 如果 \carg{dst_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
 
-\carg{dst_slice_pitch} 是 \carg{dst_buffer} 中每個 2D 平面（ slice ）的字節數。
+\carg{dst_slice_pitch} 是 \carg{dst_buffer} 中每個 2D 平面的字節數。
 如果 \carg{dst_slice_pitch} 是 0，
 則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
 
@@ -553,9 +553,13 @@ cl_int clEnqueueCopyBufferRect (
 \item \cenum{CL_INVALID_MEM_OBJECT}，
 如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，
-如果 \math{(src\_origin, region, src\_row\_pitch, src\_slice\_pitch)}
-或 \math{(dst\_origin, region, dst\_row\_pitch, dst\_slice\_pitch)} 所指定的區域越限。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果下列兩個區域中任意一個越限：
+\startigBase
+\item \math{(src\_origin, region, src\_row\_pitch, src\_slice\_pitch)}
+\item \math{(dst\_origin, region, dst\_row\_pitch, dst\_slice\_pitch)}
+\stopigBase
+\stopitem
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{region} 中的任何元素是 0。
 

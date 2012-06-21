@@ -13,9 +13,12 @@
 
 在 OpenCL API（以及頭檔）中，大多數內建標量型別都被聲明為其他型別，
 以更好的為\cnglo{app}所用。
-下表列出了 OpenCL C 編程語言中的內建標量數據型別與\cnglo{app}所用型別間的對應關係。
+\reftab{builtInScalarDataTypes}中
+列出了 OpenCL C 編程語言中的內建標量數據型別與\cnglo{app}所用型別間的對應關係。
 
-\input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}
+\placetable[here,force,split][tab:builtInScalarDataTypes]
+{內建標量數據型別與應用所用型別的對應關係}
+{\input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}}
 
 \subsubsection[sec:dataTypeHalf]{數據型別 \cldt{half}}
 
@@ -82,7 +85,7 @@ a = *p;		<- not allowed. must use vload_half function
 
 \reftab{builtInVectorDataTypes}中列出了內建的矢量數據型別。
 
-\placetable[here,force][tab:builtInVectorDataTypes]
+\placetable[here][tab:builtInVectorDataTypes]
 {內建矢量數據型別}
 {\input{chapter_lgg/tbl/tbl_bivdt.tex}}
 
@@ -97,7 +100,7 @@ a = *p;		<- not allowed. must use vload_half function
 
 \reftab{otherBuiltInDataTypes}中列出了 OpenCL 所支持的其他內建數據型別。
 
-\placetable[here,force][tab:otherBuiltInDataTypes]
+\placetable[here][tab:otherBuiltInDataTypes]
 {其他內建數據型別}
 {\input{chapter_lgg/tbl/tbl_obidt.tex}}
 
@@ -122,7 +125,7 @@ C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也�
 對於\reftab{builtInVectorDataTypes} 中所列的矢量數據型別名而言，
 當 \math{n} 是除 2、 3、 4、 8 和 16 之外的其他值時，也是保留的。
 
-\placetable[here,force,split][tab:reservedDataTypes]
+\placetable[here,split][tab:reservedDataTypes]
 {保留的數據型別}
 {\input{chapter_lgg/tbl/tbl_reserveddatatypes.tex}}
 
@@ -259,9 +262,9 @@ x = (float16)(a.xxxxxxx, b.xyz, c.xyz, d.xyz);
 \stopclc
 
 也可以用數值索引來訪問矢量數據型別的元素。
-下表給出了可以使用的數值索引：
+\reftab{ni4bivdt}給出了可以使用的數值索引：
 
-\placetable[here,force][tab:ni4bivdt]
+\placetable[here][tab:ni4bivdt]
 {內建矢量數據型別的數值索引}
 {\input{chapter_lgg/tbl/tbl_ni4bivdt.tex}}
 

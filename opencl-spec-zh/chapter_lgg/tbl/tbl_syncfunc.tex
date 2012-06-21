@@ -12,8 +12,8 @@ void barrier (cl_mem_fence_flags flags)
 只要有一個\cnglo{workitem}會進入此條件語句具有並執行 \capi{barrier}，
 那麼所有\cnglo{workitem}都必須進入此條件語句。
 
-如果 \capi{barrier} 在循環語句內，
-那麼在此循環的每一次迭代中，
+如果 \capi{barrier} 在迴圈語句內，
+那麼在每一次迭代過程中，
 任一\cnglo{workitem}要想越過 \capi{barrier} 繼續執行，
 所有\cnglo{workitem}都得先執行此函式。
 

@@ -34,12 +34,18 @@ cl_int clEnqueueNDRangeKernel (
 \carg{global_work_size} 也是一個陣列，有 \carg{work_dim} 個元素，且元素均為無符號值；
 對於將要執行 \carg{kernel} 的全局\cnglo{workitem}而言，
 他在某個維度上的數目由陣列中的相應元素表示，
-總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{global_work_size}}[i]}。
+總數為：
+\startformula
+\math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{global_work_size}}[i]}。
+\stopformula
 
 \carg{local_work_size} 也是一個陣列，有 \carg{work_dim} 個元素，且元素均為無符號值；
 對於將要執行 \carg{kernel} 的\cnglo{workgrp}而言，
 其中\cnglo{workitem}的數目由陣列中的相應元素表示，
-總數為 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]}。
+總數為：
+\startformula
+\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]
+\stopformula
 這個總數必須小於或等於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}，
 而且 \math{\text{\carg{local_work_size}}[i]} 必須小於或等於相應的
 \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}，

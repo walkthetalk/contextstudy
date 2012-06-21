@@ -52,3 +52,4 @@ label　　标号
 notation　符号
 mark 標註
 symbol 記號
+loop 迴圈

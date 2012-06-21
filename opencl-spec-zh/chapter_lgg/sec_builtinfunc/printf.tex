@@ -343,8 +343,9 @@ kernel void my_kernel( ... )
 \startclc
 kernel void my_kernel(global char *s, ... )
 {
-printf(“%s\n”, s);
+	printf(“%s\n”, s);
 }
+
 constant char *p = “this is a test string\n”;
 printf(“%s\n”, p);
 printf(“%s\n”, &p[3]);

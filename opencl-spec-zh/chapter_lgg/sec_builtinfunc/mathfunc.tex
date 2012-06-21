@@ -107,9 +107,11 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 #define FLT_EPSILON	0x1.0p-23f
 \stopclc
 
-下表給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
+\reftab{tblFltMacroAndApp}中給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
 
-\input{chapter_lgg/tbl/tbl_mmfloat.tex}
+\placetable[here][tab:tblFltMacroAndApp]
+{單精度浮點巨集與應用所用巨集的對應關係}
+{\input{chapter_lgg/tbl/tbl_mmfloat.tex}}
 
 下列兩個巨集將會展開成整數常量算式。
 如果 \carg{x} 是 0 或 NaN，則 \math{\text{\capi{ilogb}}(x)} 會分別返回這兩個值。
@@ -146,9 +148,11 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 #define DBL_EPSILON	0x1.0p-52
 \stopclc
 
-下表給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
+\reftab{tblDblMacroAndApp}中給出了上面所列巨集與\cnglo{app}所用的巨集名字之間的對應關係。
 
-\input{chapter_lgg/tbl/tbl_mmdouble.tex}
+\placetable[here][tab:tblDblMacroAndApp]
+{雙精度浮點巨集與應用所用巨集的對應關係}
+{\input{chapter_lgg/tbl/tbl_mmdouble.tex}}
 
 除此之外，還有下列常量可用。
 他們的型別都是 \ctype{double}，在 \ctype{double} 型別的精度內是精確的。

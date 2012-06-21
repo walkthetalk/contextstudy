@@ -16,8 +16,11 @@ http://getfo.org/context_xml/contents.html
 
 問題：
 1. 自定義的prettyprinting尾部的空行無法通過設置after去除，而before可以。
+   從而使用frame時會導致frame中底部有空白行。
 2. 自定義的buffer無法使用標籤
-3. footnote無法斷行
+3. footnote無法斷行（通過重新定義footnote，添加了setscript[hanzi]，已解決）
 4. \labeltext{chapter} 只能得到 \setuplabeltext 的左半部
 5. caption 中的中文間有多餘空格
+6. setupalign 必須位於 setupbodyfont之前，broad可使長單詞另起一行，從而避免越界
+7. front/body/appendix 的支持還很不完善，尤其是對於章節標題而言。
 

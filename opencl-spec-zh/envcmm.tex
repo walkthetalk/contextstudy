@@ -704,7 +704,7 @@ bolditalic=texgyreherosbolditalic]
 \clOD{\cmacro{#1}}{#2}
 }
 %%%%%%%%%%%%%%%%%%% OO: object / object
-\def\startCLOO{\dostartCLOO}
+\def\startCLOO{\dodoubleargument\dostartCLOO}
 
 \long\def\dostartCLOO[#1][#2]#3\stopCLOO{%
   \midaligned{

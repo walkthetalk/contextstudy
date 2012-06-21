@@ -187,13 +187,15 @@ local function need_insert_EnInZh_linebreak (n)
 		return false
 	end
 	if is_basic_latin_node(n) and is_basic_latin_node(n.next) then
-		if not is_upper_letter_node (n) and is_upper_letter_node (n.next) then
+		-- for api like clGetProgramInfo
+		if is_lower_letter_node (n) and is_upper_letter_node (n.next) then
 			return true
 		end
-		if is_underline_node (n) and not is_underline_node (n.next) then
+		-- for enumeration like xx_yy_zz
+		if is_underline_node (n) and is_letter_node (n.next) then
 			return true
 		end
-		if not is_underline_node (n) and is_underline_node (n.next) then
+		if not is_letter_node (n) and is_underline_node (n.next) then
 			return true
 		end
 	end
