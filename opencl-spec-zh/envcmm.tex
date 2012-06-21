@@ -350,7 +350,8 @@ bolditalic=texgyreherosbolditalic]
 \setupinterlinespace[medium]
 %\setupinterlinespace[big, on][line=3ex]
 %\setuprelativeinterlinespace[1.2]
-%\setupalign[left]
+% setupalign 必須位於setupbodyfont之前，因此修改了zhfonts模塊
+%\setupalign[flushleft,nothyphenated,broad]
 %width left right middle inner outer wide broad height bottom line reset hanging
 %nothanging hyphenated nothyphenated lesshyphenation morehyphenation new old normal yes
 %no flushleft flushright flushouter flushinner center hz nohz spacing nospacing tolerant
