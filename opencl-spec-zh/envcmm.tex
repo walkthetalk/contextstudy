@@ -220,8 +220,8 @@ bolditalic=texgyreherosbolditalic]
   way=bytext,
   alternative=doublesided,
   location=,%header,
-  left="the",
-  right=ok,
+  %left=the,
+  %right=ok,
 ]
 % don't use TAB, and no space between *reg=val*, and no null line,
 % or it will be ommitted
@@ -1190,17 +1190,53 @@ bolditalic=texgyreherosbolditalic]
 
 \startsectionblockenvironment[frontpart]
 \resetpagenumber
+
+\setupfootertexts[text]
+[]
+[pagenumber]
+[pagenumber]
+[]
+
+\setuphead[title][
+  sectionsegments=2:*,
+  indentnext=yes,
+  textstyle={\rm\bfb}, %normal bold slanted boldslanted % 標題內容
+  page=yes, %left right yes % 是否固定於左頁或右頁
+  continue=no, %yes no % 第一個是否緊接上一層，優先於*page*
+  header=high, %none empty high nomarking %章節首頁無頁眉
+%  text=nomarking, %none empty high nomarking
+  footer=normal, %none empty high nomarking
+  before={\blank[2em]}, %COMMAND
+%  inbetween=, %COMMAND
+  after={\blank[1em]}, %COMMAND
+  alternative=middle, %normal inmargin middle TEXT
+  sectionnumber=no,
+]
+
 \stopsectionblockenvironment
 
 \startsectionblockenvironment[bodypart]
 \resetpagenumber
 %\setupheader[state=none]
+\define\BodyTextRightHeader{%
+\framedtext[frame=off,bottomframe=on,width=broad,offset=none,frameoffset=2pt,]{%
+\rlap{} \hfill {第\;\headnumber[chapter]\;章\;\;\getmarking[chapter]}\hfill \llap{}%
+}%
+}
 % 由於可能某頁中沒有任何 section，所以不打印節編號，只打印節名。 no workaround
+\define\BodyTextLeftHeader{%
+\framedtext[frame=off,bottomframe=on,width=broad,offset=none,frameoffset=2pt,]{%
+\rlap{} \hfill {\getmarking[section][first]}\hfill \llap{}%
+}%
+}
+
+\setupheader[text][before={\vskip-4pt},]
+
 \setupheadertexts[text]
 []
-[\rlap{} \hfill {第\;\headnumber[chapter]\;章\;\;\getmarking[chapter]}\hfill \llap{}]
+[\BodyTextRightHeader]
 []
-[\rlap{} \hfill {\getmarking[section][first]}\hfill \llap{}]
+[\BodyTextLeftHeader]
 
 \setupfootertexts[text]
 []
