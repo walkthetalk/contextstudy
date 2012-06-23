@@ -1284,6 +1284,30 @@ bolditalic=texgyreherosbolditalic]
 \resetpagenumber
 \stopsectionblockenvironment
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% pdf %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\placebookmarks[
+  chapter,section,subsection,subsubsection% put these in the pdf index
+][
+  all% open all by default
+]
+
+\setupinteraction[
+  title={OpenCL 1.2 規範中文版},
+  author={倪慶亮},
+  subtitle={Khronos OpenCL Working Group},
+  keyword={OpenCL 1.2}
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% english %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 在 definestartstop 中使用 setupindenting 等會修改全局設定，因此改用 \def
+\def\startEnglish{\dostartEnglish}
+
+\long\def\dostartEnglish#1\stopEnglish{%
+{\setupalign[reset]%
+\setupindenting[no]%
+\setupwhitespace[line]%
+\setupinterlinespace[medium]%
+#1}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % the textbackgournd will extends to the page boundary,
 % which include the footnote and not as expected
