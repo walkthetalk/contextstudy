@@ -322,7 +322,7 @@ OpenCL 對象的生命周期由其\refglo{refcnt}決定，
 而對\refglo{release} API
  如 \capi{clReleaseContext}、 \capi{clReleaseCommandQueue}）
 的調用會使其\refglo{refcnt}減一。
-當\refglo{refcnt}降為0後， OpenCL 會回收此對象所佔用的資源。
+當\refglo{refcnt}降為 0 後， OpenCL 會回收此對象所佔用的資源。
 \stopclglo
 
 \startclglo[relaxconsist][放寬的一致性][Relaxed Consistency]

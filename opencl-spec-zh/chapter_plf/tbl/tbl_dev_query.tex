@@ -17,7 +17,7 @@ OpenCL \cnglo{device}類型，當前支持：
 }
 
 \clETD{CL_DEVICE_MAX_COMPUTE_UNITS}{cl_uint}{
-OpenCL \cnglo{device}上的並行\cnglo{computeunit}的數目。最小值是1。
+OpenCL \cnglo{device}上的並行\cnglo{computeunit}的數目。最小值是 1。
 }
 
 \clETD{CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS}{cl_uint}{
@@ -40,7 +40,7 @@ OpenCL \cnglo{device}上的並行\cnglo{computeunit}的數目。最小值是1。
 用\cnglo{dppm}執行\cnglo{kernel}時，
 \cnglo{workgrp}中所能容納\cnglo{workitem}的最大數目
 （参见 \capi{clEnqueueNDRangeKernel}）。
-最小值是1。
+最小值是 1。
 }
 
 \clETD{%
@@ -103,54 +103,54 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 
 \clETD{CL_DEVICE_MAX_READ_IMAGE_ARGS}{cl_uint}{
 \cnglo{kernel}可以同時讀取多少\cnglo{imgobj}。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是128。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 128。
 }
 
 \clETD{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}{cl_uint}{
 \cnglo{kernel}可以同時寫入多少\cnglo{imgobj}。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是8。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 8。
 }
 
 \clETD{CL_DEVICE_IMAGE2D_MAX_WIDTH}{size_t}{
 2D 图像或非\cnglo{bufobj}所創建的 1D 圖像的最大寬度，單位：像素。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是8192。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 8192。
 }
 
 \clETD{CL_DEVICE_IMAGE2D_MAX_HEIGHT}{size_t}{
 2D 圖像的最大高度，單位：像素。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是8192。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 8192。
 }
 
 \clETD{CL_DEVICE_IMAGE3D_MAX_WIDTH}{size_t}{
 3D 圖像的最大寬度，單位：像素。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是2048。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 2048。
 }
 
 \clETD{CL_DEVICE_IMAGE3D_MAX_HEIGHT}{size_t}{
 3D 圖像的最大高度，單位：像素。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是2048。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 2048。
 }
 
 \clETD{CL_DEVICE_IMAGE3D_MAX_DEPTH}{size_t}{
 3D 圖像的最大深度，單位：像素。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是2048。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 2048。
 }
 
 \clETD{CL_DEVICE_IMAGE_MAX_BUFFER_SIZE}{size_t}{
 由\cnglo{bufobj}所創建的 1D 圖像的最大像素數。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是65536。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 65536。
 }
 
 \clETD{CL_DEVICE_IMAGE_MAX_ARRAY_SIZE}{size_t}{
 1D 或 2D 圖像陣列中圖像的最大數目。
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是2048。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 2048。
 }
 
 \clETD{CL_DEVICE_MAX_SAMPLERS}{cl_uint}{
 一個\cnglo{kernel}內最多可以使用多少個\cnglo{sampler}。
 關於\cnglo{sampler}的細節請參考\refsec{imgRwFunc}。
 
-如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是16。
+如果 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，則此值至少是 16。
 }
 
 \clETD{}{}{}
@@ -158,7 +158,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 \clETD{CL_DEVICE_MAX_PARAMETER_SIZE}{size_t}{
 \cnglo{kernel}引數的最大字節數。
 
-如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，則此值至少要是1024。
+如果設備類型不是 \cenum{CL_DEVICE_TYPE_CUSTOM}，則此值至少要是 1024。
 如果是1024，則\cnglo{kernel}參數最多是128個。
 }
 
@@ -199,7 +199,7 @@ CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF
 \item \cenum{CL_FP_SOFT_FLOAT}——軟件中實現了基本的浮點運算（加、減、乘）。
 \stopigBase
 
-由於雙精度浮點是一個可選特性，所以最小的雙精度浮點能力可以是0。
+由於雙精度浮點是一個可選特性，所以最小的雙精度浮點能力可以是 0。
 
 而如果\cnglo{device}支持雙精度浮點，則其能力至少要是：
 
