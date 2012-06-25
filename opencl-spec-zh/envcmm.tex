@@ -667,6 +667,19 @@ bolditalic=texgyreherosbolditalic]
   \stoplocalfootnotes
 }
 
+\define[3]\clETDMulti{
+\bTR[background=color,backgroundcolor=gray:1]
+  \bTC #1 \eTC
+  \bTC \ctype{#2} \eTC
+\eTR
+\bTR
+  \bTC[nc=2]
+    \parindent2em
+    #3
+  \eTC
+\eTR
+}
+
 \define[3]\clETD{
 \bTR[background=color,backgroundcolor=gray:1]
   \bTC \cenum{#1} \eTC
