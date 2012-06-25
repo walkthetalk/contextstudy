@@ -195,7 +195,7 @@ local function need_insert_EnInZh_linebreak (n)
 		if is_underline_node (n) and is_letter_node (n.next) then
 			return true
 		end
-		if not is_letter_node (n) and is_underline_node (n.next) then
+		if is_letter_node (n) and is_underline_node (n.next) then
 			return true
 		end
 	end

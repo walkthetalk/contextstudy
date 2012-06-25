@@ -257,7 +257,10 @@ value1 C value2 C ... C valuen
 
 \startclSpecifier{\cemp{a}、 \cemp{A}}
 \cldtemp{double}、 \cldtemp[n]{half}、 \cldtemp[n]{float}
- 或 \cldtemp[n]{double} 型別的浮點引數轉換後的樣式為 \math{[-]0xh.hhhh p{\pm}d}，
+ 或 \cldtemp[n]{double} 型別的浮點引數轉換後的樣式為：
+\starttyping
+		/BTEX\ftRef{[-]}/ETEX/BTEX\ftEmp{0xh}/ETEX/BTEX\ftRef{.hhhh}/ETEX /BTEX\ftEmp{p}/ETEX±d
+\stoptyping
 其中小數點前有一位十六進制數字（如果引數為規格化浮點數，則此數字非零，否則未規定\footnote{
 實作可以自行選擇小數點左邊的數字，以使後續數字按半字節（4 位）邊界對齊。}），
 小數點後十六進制數字的位數與精度相同；

@@ -198,14 +198,20 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \carg{buffer_origin} 定義了要讀寫的內存區域在 \carg{buffer} 中的偏移量 \math{(x,y,z)}。
 對於 2D 矩形區域，\math{z} 的值即 \math{\marg{buffer_origin}[2]} 應該是 0。
 偏移量這樣計算：
-
-\math{\marg{buffer_origin}[2] * \marg{buffer_slice_pitch} + \marg{buffer_origin}[1] * \marg{buffer_row_pitch} + \marg{buffer_origin}[0]}。
+\startformula \startalign
+ \NC  \NC \marg{buffer_origin}[2] * \marg{buffer_slice_pitch} \NR
+ \NC + \NC \marg{buffer_origin}[1] * \marg{buffer_row_pitch} \NR
+ \NC + \NC \marg{buffer_origin}[0] \NR
+\stopalign \stopformula
 
 \carg{host_origin} 定義了要讀寫的內存區域在 \carg{ptr} 中的偏移量 \math{(x,y,z)}。
 對於 2D 矩形區域，\math{z} 的值即 \math{\marg{host_origin}[2]} 應該是 0。
 偏移量這樣計算：
-
-\math{\marg{host_origin}[2] * \marg{host_slice_pitch} + \marg{host_origin}[1] * \marg{host_row_pitch} + \marg{host_origin}[0]}。
+\startformula \startalign
+ \NC  \NC \marg{host_origin}[2] * \marg{host_slice_pitch} \NR
+ \NC + \NC \marg{host_origin}[1] * \marg{host_row_pitch} \NR
+ \NC + \NC \marg{host_origin}[0] \NR
+\stopalign \stopformula
 
 \carg{region} 定義了要讀寫的 2D 或 3D 區域：\math{(width, height, depth)}，
 其單位分別是 byte、 row、 slice。
@@ -257,7 +263,10 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \math{(\marg{buffer_origin}, \marg{region}, \marg{buffer_row_pitch}, \marg{buffer_slice_pitch})} 所指定的區域越限。
+如果下列區域越限：
+\startformula
+(\marg{buffer_origin}, \marg{region}, \marg{buffer_row_pitch}, \marg{buffer_slice_pitch})
+\stopformula
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{ptr} 是 \cmacro{NULL}。
 
@@ -269,13 +278,23 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{host_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{buffer_slice_pitch} 不是 0、
-小於 \math{\marg{region}[1] * \marg{buffer_row_pitch}}、
-且不是 \carg{buffer_row_pitch} 的整數倍。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果 \carg{buffer_slice_pitch} 滿足下列所有條件：
+\startigBase
+\item 不是 0、
+\item 小於 \math{\marg{region}[1] * \marg{buffer_row_pitch}}、
+\item 且不是 \carg{buffer_row_pitch} 的整數倍。
+\stopigBase
+\stopitem
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{host_slice_pitch} 不是 0、
-小於 \math{\marg{region}[1] * \marg{host_row_pitch}}、
-且不是 \carg{host_row_pitch} 的整數倍。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果 \carg{host_slice_pitch} 滿足下列條件：
+\startigBase
+\item 不是 0、
+\item 小於 \math{\marg{region}[1] * \marg{host_row_pitch}}、
+\item 且不是 \carg{host_row_pitch} 的整數倍。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
 如果 \carg{event_wait_list} 是 \cmacro{NULL}，
@@ -567,13 +586,21 @@ cl_int clEnqueueCopyBufferRect (
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_slice_pitch} 不是 0、
-且小於 \math{\marg{region}[1] * \marg{src_row_pitch}}；
-或者 \carg{src_slice_pitch} 不是 0、且不是 \carg{src_row_pitch} 的整數倍。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果 \carg{src_slice_pitch} 不是 0，並且滿足下列條件之一：
+\startigBase
+\item 小於 \math{\marg{region}[1] * \marg{src_row_pitch}}；
+\item 或者不是 \carg{src_row_pitch} 的整數倍。
+\stopigBase
+\stopitem
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_slice_pitch} 不是 0、
-且小於 \math{\marg{region}[1] * \marg{dst_row_pitch}}；
-或者 \carg{dst_slice_pitch} 不是 0、且不是 \carg{dst_row_pitch} 的整數倍。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果 \carg{dst_slice_pitch} 不是 0，並且滿足下列條件之一：
+\startigBase
+\item 小於 \math{\marg{region}[1] * \marg{dst_row_pitch}}；
+\item 或者不是 \carg{dst_row_pitch} 的整數倍。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}，

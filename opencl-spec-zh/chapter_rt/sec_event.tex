@@ -341,8 +341,13 @@ cl_int clSetEventCallback (
 \startigBase
 \item \cenum{CL_INVALID_EVENT}，如果 \carg{event} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{pfn_event_notify} 是 \cmacro{NULL}
-或者 \carg{command_exec_callback_type} 不是 \cenum{CL_COMPLETE}。
+\startitem
+\cenum{CL_INVALID_VALUE}，如果滿足下列任一條件：
+\startigBase
+\item \carg{pfn_event_notify} 是 \cmacro{NULL}；
+\item 或者 \carg{command_exec_callback_type} 不是 \cenum{CL_COMPLETE}。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 

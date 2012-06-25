@@ -321,8 +321,12 @@ cl_int clEnqueueNativeKernel (
 \carg{args_mem_loc} 指向 \carg{args} 中存儲\cnglo{memobj}句柄（即 \ccmm{cl_mem}）的位置。
 在執行用戶函式之前，會用執行\cnglo{glbmem}的指針取代這些句柄。
 
-\carg{event_wait_list}、 \carg{num_events_in_wait_list} 和 \carg{event} 與
-\capi{clEnqueueNDRangeKernel} 中描述的一樣。
+下列三個參數與 \capi{clEnqueueNDRangeKernel} 中描述的一樣：
+\startigBase
+\item \carg{event_wait_list}，
+\item \carg{num_events_in_wait_list}，和
+\item \carg{event}。
+\stopigBase
 
 如果用戶函式的執行實體成功排隊， \capi{clEnqueueNativeKernel} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：

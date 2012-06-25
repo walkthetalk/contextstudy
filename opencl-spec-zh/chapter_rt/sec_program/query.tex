@@ -39,10 +39,15 @@ cl_int clGetProgramInfo (cl_program program,
 
 \item \cenum{CL_INVALID_PROGRAM}，如果 \carg{program} 無效。
 
-\item \cenum{CL_INVALID_PROGRAM_EXECUTABLE}，
-如果 \carg{param_name} 是 \cenum{CL_PROGRAM_NUM_KERNELS} 或 \cenum{CL_PROGRAM_KERNEL_NAMES},
-且在 \carg{program} 所關聯的\cnglo{device}中至少有一個\cnglo{device}
+\startitem \cenum{CL_INVALID_PROGRAM_EXECUTABLE}，
+如果 \carg{param_name} 是：
+\startigBase[indentnext=no]
+\item \cenum{CL_PROGRAM_NUM_KERNELS}
+\item 或 \cenum{CL_PROGRAM_KERNEL_NAMES},
+\stopigBase
+並且在 \carg{program} 所關聯的\cnglo{device}中至少有一個\cnglo{device}
 所對應的\cnglo{program}執行體沒有成功構建。
+\stopitem
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
