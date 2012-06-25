@@ -35,7 +35,7 @@
 只有函式參數的型別才能是圖像（image2d_t, image3d_t, image2d_array_t, image1d_t,
 image1d_buffer_t or image1d_array_t）。
 不能修改這種參數。
-並且只能用內建函式來訪問其元素（參見\todo{節 6.12.14}）。
+並且只能用內建函式來訪問其元素（參見\refsec{imgRwFunc}）。
 
 圖像型別不能用來聲明變量、結構體或聯合體的欄位，
 也不能聲明圖像陣列或圖像指針，
@@ -60,12 +60,12 @@ image1d_buffer_t or image1d_array_t）。
 \stopitem
 
 % bit-field
-\startitem
+\startitem[item:bfMemInStructure]
 不支持結構體中的位欄（bit-field）成員。
 \stopitem
 
 % variable length array
-\startitem
+\startitem[item:vaFaStructure]
 不支持變長陣列和帶有彈性（沒有指明大小的）陣列的結構體。
 \stopitem
 

@@ -214,11 +214,11 @@ float4 f = convert_float4_rtp( i );
 在 OpenCL 中，經常有需要將某一種數據型別重釋為另一種數據型別。
 在需要直接訪問浮點型別中的位元時就需要這樣做，
 例如，屏蔽掉（mask off）浮點數據的符號位，
-或者使用浮點矢量關係算子的結果（參加\todo{6.3.d}）
+或者使用浮點矢量關係算子的結果（參加\refsec{operator}中的\refitem{relationalOperator}）
 \footnote{另外，對於一些設計用來支持特定矢量 ISA
 （如 AltiVec\high{TM}、 CELL Broadband Engine\high{TM} 架構）的 C 語言擴展，
 會將這樣的轉換與重排算子（swizzle oprator）一起使用對型別進行還原（unconversion）。
-為支持這種遺留代碼， \clapiv{as_type}() 允許在大小相同但元素數目不同的矢量間進行轉換，
+為支持這種遺留代碼， \clapi[n]{as_type}() 允許在大小相同但元素數目不同的矢量間進行轉換，
 即使這種轉換的行為不能移植到其他硬件架構的 OpenCL 實作上。
  AltiVec\high{TM} 是 Motorola Inc. 的商標。
  Cell Broadband Engine 是 Sony Computer Entertainment Inc. 的商標。}。
@@ -253,24 +253,24 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 \stopexample
 
 % Reinterpreting Types Using as_type() and as_typen()
-\subsubsection{使用 \clapis{as_type}() 和 \clapiv{as_type}() 重釋型別}
+\subsubsection{使用 \clapi{as_type}() 和 \clapi[n]{as_type}() 重釋型別}
 
 \reftab{builtInScalarDataTypes}、\reftab{builtInVectorDataTypes}中所描述的所有型別
 （\ctype{bool}、 \ctype{half}
 \footnote{除非支持擴展 \clext{cl_khr_fp16}。} 和 \ctype{void} 除外）
-都可以重釋為另一種大小相同的數據型別，如果是標量型別則使用 \clapis{as_type}，
-如果是矢量型別則使用 \clapiv{as_type}\footnote{
+都可以重釋為另一種大小相同的數據型別，如果是標量型別則使用 \clapi{as_type}，
+如果是矢量型別則使用 \clapi[n]{as_type}\footnote{
 聯合體用來反應數據在內存中是怎麼組織的，
-而 \clapis{as_type} 和 \clapiv{as_type} 則是用來反應數據在寄存器中是怎麼組織的。
+而 \clapi{as_type} 和 \clapi[n]{as_type} 則是用來反應數據在寄存器中是怎麼組織的。
 如果在設備上算元和結果共享同一個寄存器檔（register file），
-則 \clapis{as_type} 和 \clapiv{as_type} 在編譯和應該不會產生任何指令。
+則 \clapi{as_type} 和 \clapi[n]{as_type} 在編譯和應該不會產生任何指令。
 注意，內存中數據組織方式的不同大部分都是由於端序（endianness）的不同所導致，
 因此基於寄存器的表示方式也可能會由於寄存器中元素大小的原因而不同。
 （例如，在某種架構上，可能將 \ccmm{char} 裝載進 32 位寄存器中，
 或者將 \ccmm{char} 矢量裝載進元素大小固定為 32 位的 SIMD 矢量寄存器。）
 如果元素數目不同，則實作可以根據直觀感受選擇恰當的數據表示方式，
 如同在包含源型別數據的寄存器上應用相應的型別算子一樣。
-如果元素數目一樣，則 \clapiv{as_type} 的行為必須與用內存拷貝或聯合體重釋類似的數據型別相一致。
+如果元素數目一樣，則 \clapi[n]{as_type} 的行為必須與用內存拷貝或聯合體重釋類似的數據型別相一致。
 所以，例如，如果某種實作中所有單精度數據在寄存器中都是以雙精度存儲的，
 那麼他所實現的 as_int(float) 就應該先將雙精度數據轉換成單精度，
 然後（如果有必要）再將單精度數據的位元轉移到合適的寄存器中以參與整形數據運算。
@@ -290,7 +290,7 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 符合 OpenCL 的實作需要將其行為顯式的定義清楚，但兩種實作的行為不必相同。
 實作所定義的結果中可能包含所有或部分原始位元，也可能完全沒有原始位元，
 而且位元的順序也可由實作自由選擇。
-不能使用算子 \clapis{as_type} 和 \clapiv{as_type} 將數據重釋為另一種字節數不同的型別。
+不能使用算子 \clapi{as_type} 和 \clapi[n]{as_type} 將數據重釋為另一種字節數不同的型別。
 
 \startexample
 \startclc

@@ -16,7 +16,8 @@
 %\mainlanguage[cn]
 
 %%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usemodule[zhfonts][style=rm, size=9pt]
+% 本來應該是 9pt，但是由於目前context有bug，math模式內的text的字體設定有問題，此處暫時用 9.1pt
+\usemodule[zhfonts][style=rm, size=9.1pt]
 %\setupzhfonts[feature][onum=yes, pnum=yes]
 
 %% use `mtxrun --script font --list --all` to list all fonts
@@ -239,15 +240,7 @@ bolditalic=texgyreherosbolditalic]
 
 \def\cldt{\clcmm}
 \def\cldtemp{\clemp}
-
-% opencl api scalar / vector
-\definetype[clapis][
-  style=\tt\bf,
-]
-\definetype[clapivfix][% don't use it directly
-  style=\tt\bi,
-]
-\define[1]\clapiv{\clapis{#1}\clapivfix{n}}
+\def\clapi{\clemp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \definepapersize[CD][width=20cm,height=20cm]
@@ -323,7 +316,7 @@ bolditalic=texgyreherosbolditalic]
 
 % number~name~name
 \define[3]\listtopclfunc{%
-#2，\at[sClFunc:#3]\par%
+\clapi{#2}，\at[sClFunc:#3]\par%
 }
 
 \setupsorting[sClFunc][%
@@ -977,6 +970,10 @@ bolditalic=texgyreherosbolditalic]
 \in{第}{章}[chapter:#1]%
 }
 
+\define[1]\refappendix{%
+\in{附錄}{}[appendix:#1]%
+}
+
 \define[1]\refsec{%
 \in{節}{}[sec:#1]%
 }
@@ -1192,7 +1189,7 @@ bolditalic=texgyreherosbolditalic]
 			%e 编号加方框，标题向左缩
 			%f
 			%g 标题居中... none command
-  label=yes,
+  %label=yes,		% bug： 如果設置此項，則編譯參考文獻時會失敗
   interaction=all,
 %  aligntitle=yes,
 %  align=flushleft,
@@ -1200,23 +1197,27 @@ bolditalic=texgyreherosbolditalic]
 \setuplist[chapter][
   width=4em,	% setuplist中的設置無效，可能是bug
   margin=0em,	%dimension % 左侧缩进
+  label=yes,
 ]
 
 \setuplist[section][
   width=4em,
   margin=2em,	%dimension % 左侧缩进
+  label=yes,
 ]
 
 \setuplist[figure][
   width=4em,
   label=figure, % label=yes 無效，這可能是bug
   margin=0em,	%dimension % 左侧缩进
+  label=yes,
 ]
 
 \setuplist[table][
   width=4em,
   label=table, % label=yes 無效，這可能是bug
   margin=0em,	%dimension % 左侧缩进
+  label=yes,
 ]
 
 % page number
@@ -1340,6 +1341,51 @@ bolditalic=texgyreherosbolditalic]
   author={倪慶亮},
   subtitle={Khronos OpenCL Working Group},
   keyword={OpenCL 1.2}
+]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliographies %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setupbibtex[
+  database={ref},
+  sort=author,	% title author short no FILE
+]
+
+\define[1]\WithBrackets{[#1]~}
+\setuppublications[
+  alternative=apa,	% ams apa apa-de apa-fr aps num num-fr ssa
+  numbering=yes,
+  numbercommand=\WithBrackets,
+  autohang=yes
+]
+\setupheadtext[cn][pubs={參考文獻}]
+\setuppublicationlist[
+  artauthor=\normalauthor,
+  editor=\normalauthor,
+  author=\normalauthor,
+  namesep={，},
+  lastnamesep={ and },
+  finalnamesep={ and },
+  firstnamesep={ },
+  juniorsep={ },
+  vonsep={ },
+  surnamesep={ }
+]
+\setuppublicationlayout[article]{%
+   \insertartauthors{}{\unskip．}{}%
+   \insertarttitle{\bgroup }{\egroup．}{}%
+   \insertjournal{\bgroup }{\egroup}{}%
+   \insertpubyear{，}{}{}%
+   \insertvolume{，}{}{}%
+   \insertissue{（}{）}{}%
+   \insertpages{：}{．}{}%
+}
+\setupcite[num][
+  andtext={, },
+  otherstext={等．},
+  pubsep={, },
+  lastpubsep={, },
+  compress=no,
+  inbetween={ },
+  left={[},
+  right={]}
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% english %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 在 definestartstop 中使用 setupindenting 等會修改全局設定，因此改用 \def

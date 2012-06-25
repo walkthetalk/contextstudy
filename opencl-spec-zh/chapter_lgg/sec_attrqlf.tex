@@ -69,7 +69,8 @@ typedef int more_aligned_int __attribute__ ((aligned (8)));
 {\ftEmp{至少}}按 8 字節邊界進行對齊。
 
 需要注意的是， ISO C 標準要求任一給定的 \ckey{struct} 或 \ckey{union} 型別的齊位
-都至少要是其所有成員齊位（alignment）的最小公倍數的整數倍\todo{考慮中}，同時必須是二的冪。
+都至少要是其所有成員齊位（alignment）的最小公倍數的整數倍\inmargin{%
+譯者注：是已經作此要求，還是正在考慮作此要求？}，同時必須是二的冪。
 這意味着對於 \ckey{struct} 或 \ckey{union} 型別，
 你{\ftEmp{可以}}通過給其任一成員附加特性 \ccmm{aligned}
  來有效的調整整個 \ckey{struct} 或 \ckey{union} 的齊位。

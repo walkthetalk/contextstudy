@@ -48,12 +48,12 @@
 而後置式遞增或後置式遞減算子也會對所操作算式的內容加 1 或減 1，但整個算式的值是修改前的值。
 
 % relational operator
-\startitem
+\startitem[item:relationalOperator]
 關係算子\footnote{
 對於矢量關係運算，結果也是矢量，
 要想知道其中的元素是否有 \ccmm{true} 或者是否所有元素都是 \ccmm{true}，
 例如，在 \ccmm{if ()} 語句的上下文中使用，
-請查閱\todo{6.11.6}中的內建函式 \capi{any} 和 \capi{all}。}
+請查閱\refsec{relationFunc}中的內建函式 \capi{any} 和 \capi{all}。}
 大於（\ccmm{>}）、小於（\ccmm{<}）、大於等於（\ccmm{>=}）、
 小於等於（\ccmm{<=}）可在標量或矢量型別上進行運算。
 所有關係算子的結果都是整數型別。在對算元進行型別轉換後，有如下情況：
@@ -87,7 +87,7 @@
 對於矢量關係運算，結果也是矢量，
 要想知道其中的元素是否有 \ccmm{true} 或者是否所有元素都是 \ccmm{true}，
 例如，在 \ccmm{if ()} 語句的上下文中使用，
-請查閱\todo{6.11.6}中的內建函式 \capi{any} 和 \capi{all}。}
+請查閱\refsec{relationFunc}中的內建函式 \capi{any} 和 \capi{all}。}
 相等（\ccmm{==}）、不等（\ccmm{!=}）可對所有內建標量和矢量型別進行運算。
 所有等號算子的結果均為整數型別。
 在對算元進行型別轉換後，有如下情況：
@@ -178,7 +178,7 @@
 此算子會先對 \ccmm{exp1} 進行求值，結果可能是標量或矢量，但不會是浮點數。
 如果結果是標量，且不等於 0，那麼接着對第二個算式進行求值，否則對第三個算式求值。
 如果結果是矢量，則等同於調用 \capi{select}\ccmm{(exp3, exp2, exp1)}。
-函式 \capi{select} 在\todo{表 6.14}中有所描述。
+函式 \capi{select} 在\reftab{svRelationalFunc}中有所描述。
 第二個和第三個算式的結果可以是任意型別，只要型別匹配即可；
 如果不匹配，則會進行隱式轉換（參見\refsec{implicityConversion}）使其匹配；
 而如果一個是矢量，另一個是標量，則會對標量進行算術轉換，使其型別與矢量算元的元素型別相同，
@@ -218,7 +218,7 @@
 算元可能是算式，也可能是帶小括號的型別。
 這個大小是由算元的型別所決定的。
 結果的型別為 \ctype{size_t}。
-如果算元的型別為變長陣列\footnote{OpenCL 1.1 不支持變長陣列，參見\todo{節 6.9.d}。}，
+如果算元的型別為變長陣列\footnote{OpenCL 1.1 不支持變長陣列，參見\refsec{restrictions}中的\refitem{vaFaStructure}。}，
 則會對算元進行求值；
 否則，不求值，並且結果是整形常數。
 
@@ -231,7 +231,7 @@
 如果算元是陣列，則結果為整個陣列的大小；
 如果算元的型別為結構體或聯合體，結果就是這樣一個物件的大小，包括內部或尾部的填補字節。
 算元不能是函式型別或不完整的型別的算式，也不能是帶小括號的這種型別的名字，
-位欄結構體成員也不行\footnote{OpenCL 1.1 不支持位欄結構體成員，參見\todo{節 6.9.c}。}。
+位欄結構體成員也不行\footnote{OpenCL 1.1 不支持位欄結構體成員，參見\refsec{restrictions}中的\refitem{bfMemInStructure}。}。
 
 如果算元的型別為 \ctype{bool}、 \ctype{image2d_t}、 \ctype{image3d_t}、
  \ctype{image2d_array_t}、 \ctype{image1d_t}、 \ctype{image1d_buffer_t}、
