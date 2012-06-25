@@ -91,12 +91,14 @@ $src\_origin[1]$ 和 $region[2]$ 必須是 1。
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{src_origin} 和 \carg{region} 沒有遵守上面所描述的相應規則。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{dst_buffer} 是一個子\cnglo{bufobj}，
@@ -214,12 +216,14 @@ $dst\_origin[1]$ 和 $region[2]$ 必須是 1。
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{dst_origin} 和 \carg{region} 沒有遵守參數說明中描述的相應規則。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{src_buffer} 是一個子\cnglo{bufobj}，

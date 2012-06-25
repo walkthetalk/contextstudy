@@ -19,17 +19,18 @@ OpenCL 1.2 嵌入式規格有如下局限：
 \stopitem
 
 \startitem
-對 3D 圖像的支持是可選的。
+對 3D 圖像的支持是可選的。是否支持 3D 圖像主要取決於下列值：
+\startigBase
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_WIDTH}、
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_HEIGHT} 和
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH}。
+\stopigBase
 
-如果 \cenum{CL_DEVICE_IMAGE3D_MAX_WIDTH}、 \cenum{CL_DEVICE_IMAGE3D_MAX_HEIGHT}
-和 \cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH} 是零，
-則嵌入式規格中調用 \capi{clCreateImage} 創建 3D 圖像將失敗。
-\capi{clCreateImage} 的引數 \carg{errcode_ret} 將返回 \cenum{CL_INVALID_OPERATION}。
-\cnglo{kernel}中聲明型別為 \ctype{image3d_t} 的引數將會導致編譯錯誤。
+如果這些值為零，則嵌入式規格中調用 \capi{clCreateImage} 創建 3D 圖像將失敗，
+並在引數 \carg{errcode_ret} 中返回 \cenum{CL_INVALID_OPERATION}；
+而且在\cnglo{kernel}中聲明型別為 \ctype{image3d_t} 的引數將會導致編譯錯誤。
 
-如果 \cenum{CL_DEVICE_IMAGE3D_MAX_WIDTH}、 \cenum{CL_DEVICE_IMAGE3D_MAX_HEIGHT}
-和 \cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH} 大於零，
-則表明嵌入式規格的實作是支持 3D 圖像的。
+如果這些值 大於零，則表明嵌入式規格的實作是支持 3D 圖像的。
 \capi{clCreateImage} 會和完整規格中定義的那樣正常工作。
 \cnglo{kernel}中可以使用數據型別 \ctype{image3d_t}。
 \stopitem
@@ -68,7 +69,9 @@ OpenCL 1.2 嵌入式規格有如下局限：
 但是某個算元或加、減、乘、除的結果引發了上溢或無效異常（參見 IEEE 754 規範），
 則結果的值\cnglo{impdef}。
 同樣，如果某個算元是 NaN，
-則單精度比較算子（<、 >、 <=、 >=、 =、 !=）所返回的值也\cnglo{impdef}。
+則單精度比較算子
+（\ccmm{<}、 \ccmm{>}、 \ccmm{<=}、 \ccmm{>=}、 \ccmm{==}、 \ccmm{!=}）
+所返回的值也\cnglo{impdef}。
 
 所有情況下，轉換（\refsec{conversionCast}和\refsec{vectorLsFunc}）
 都要像 \cenum{FULL_PROFILE} 一樣正確捨入，包括那些會小號或產生 INF 或 NaN 的轉換。
@@ -157,12 +160,17 @@ OpenCL 1.0 和 OpenCL 1.1 規範中所定義的下列擴展（{\ftRef{第 9 章}
 \input{chapter_emb_profile/tbl/tbl_ep_dev_query.tex}
 
 如果\reftab{cldevquery}中的 \cenum{CL_DEVICE_IMAGE_SUPPORT} 是 \cenum{CL_TRUE}，
-則實作指派給
-\cenum{CL_DEVICE_MAX_READ_IMAGE_ARGS}、 \cenum{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}、
-\cenum{CL_DEVICE_IMAGE2D_MAX_WIDTH}、 \cenum{CL_DEVICE_IMAGE2D_MAX_HEIGHT}、
-\cenum{CL_DEVICE_IMAGE3D_MAX_WIDTH}、 \cenum{CL_DEVICE_IMAGE3D_MAX_HEIGHT}、
-\cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH}、 \cenum{CL_DEVICE_MAX_SAMPLERS}
-的值必須大於或等於上表中給出的最小值。
+則實作指派給下列項的值必須大於或等於上表中給出的最小值：
+\startigBase[indentnext=no]
+\item \cenum{CL_DEVICE_MAX_READ_IMAGE_ARGS}、
+\item \cenum{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}、
+\item \cenum{CL_DEVICE_IMAGE2D_MAX_WIDTH}、
+\item \cenum{CL_DEVICE_IMAGE2D_MAX_HEIGHT}、
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_WIDTH}、
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_HEIGHT}、
+\item \cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH}、
+\item \cenum{CL_DEVICE_MAX_SAMPLERS}。
+\stopigBase
 另外， OpenCL 嵌入式規格的實作必須支持下列圖像格式。
 
 對於 2D 和可選的 3D 圖像，至少要支持下列圖像格式（讀寫都要支持）：

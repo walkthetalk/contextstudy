@@ -316,7 +316,7 @@ bolditalic=texgyreherosbolditalic]
 
 % number~name~name
 \define[3]\listtopclfunc{%
-\clapi{#2}，\at[sClFunc:#3]\par%
+\clapi{#2} \at[sClFunc:#3]\par%
 }
 
 \setupsorting[sClFunc][%
@@ -482,7 +482,7 @@ bolditalic=texgyreherosbolditalic]
   leftframe=on,
   framecolor=darkgreen,
   rulethickness=3pt,
-  width=\textwidth,
+  width=local,
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%enum%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1216,14 +1216,12 @@ bolditalic=texgyreherosbolditalic]
   width=4em,
   label=figure, % label=yes 無效，這可能是bug
   margin=0em,	%dimension % 左侧缩进
-  label=yes,
 ]
 
 \setuplist[table][
   width=4em,
   label=table, % label=yes 無效，這可能是bug
   margin=0em,	%dimension % 左侧缩进
-  label=yes,
 ]
 
 % page number
@@ -1368,9 +1366,21 @@ bolditalic=texgyreherosbolditalic]
 \def\startEnglish{\dostartEnglish}
 
 \long\def\dostartEnglish#1\stopEnglish{%
-{\setupalign[reset]%
+{\setscript[no]
+\mainlanguage[en]
 \setupindenting[no]%
 \setupwhitespace[line]%
+\setupinterlinespace[medium]%
+#1}
+}
+
+\def\startEnglishWithoutWhiteSpace{\dostartEnglishWithoutWhiteSpace}
+
+\long\def\dostartEnglishWithoutWhiteSpace#1\stopEnglishWithoutWhiteSpace{%
+{\setscript[no]
+\mainlanguage[en]
+\setupindenting[no]%
+\setupwhitespace[medium]%
 \setupinterlinespace[medium]%
 #1}
 }

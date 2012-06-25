@@ -118,10 +118,14 @@ cl_int clEnqueueNDRangeKernel (
 或者 \carg{global_work_size} 中的任意一個是 0
 或超過了用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
 
-\item \cenum{CL_INVALID_GLOBAL_OFFSET}，
-如果 \math{\marg{global_work_size}[i] + \marg{global_work_offset}[i]}
-（其中 \math{0 \leq i \leq \marg{work_dim} - 1}）中的任意一個超過了
-用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
+\startitem
+\cenum{CL_INVALID_GLOBAL_OFFSET}，
+如果 \math{i} 的有效值中有任意一個使得下列公式的值超過了
+用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍：
+\startformula
+\marg{global_work_size}[i] + \marg{global_work_offset}[i], \text{其中 \math{0 \leq i \leq \marg{work_dim} - 1}}
+\stopformula
+\stopitem
 
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
 如果指定了 \carg{local_work_size}，
@@ -139,10 +143,13 @@ cl_int clEnqueueNDRangeKernel (
 並且 \cnglo{program}源碼用限定符 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))}
 聲明了\cnglo{workgrp}的大小。
 
-\item \cenum{CL_INVALID_WORK_ITEM_SIZE}，
-如果 \math{\marg{local_work_size}[i]}
-（其中 \math{0 \leq i \leq \marg{work_dim} - 1}）
-中的任意一個超過了對應的 \math{\menum{CL_DEVICE_MAX_WORK_ITEM_SIZES}[i]}。
+\startitem
+\cenum{CL_INVALID_WORK_ITEM_SIZE}，
+如果 \math{i} 的有效值中有任意一個使得下列公式的值超過了對應的 \math{\menum{CL_DEVICE_MAX_WORK_ITEM_SIZES}[i]}：
+\startformula
+\marg{local_work_size}[i], \text{其中 \math{0 \leq i \leq \marg{work_dim} - 1}}
+\stopformula
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
@@ -173,10 +180,14 @@ cl_int clEnqueueNDRangeKernel (
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
 如果為 \carg{kernel} 參數中的\cnglo{imgobj}或\cnglo{bufobj}分配內存時失敗。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
@@ -266,10 +277,14 @@ cl_int clEnqueueTask (
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
 如果為 \carg{kernel} 參數中的\cnglo{imgobj}或\cnglo{bufobj}分配內存時失敗。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，且 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
@@ -366,12 +381,14 @@ cl_int clEnqueueNativeKernel (
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
 如果為\cnglo{kernel}參數中的\cnglo{bufobj}分配內存時失敗。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 
@@ -385,3 +402,4 @@ cl_int clEnqueueNativeKernel (
 \cnglo{kernel}參數中只寫圖像的數目不能超過 \cenum{CL_DEVICE_MAX_WRITE_IMAGE_ARGS}。
 \cnglo{kernel}參數中帶有限定符 \cqlf{write_only} 的 2D 圖像陣列記為一個圖像。
 \stopnotepar
+

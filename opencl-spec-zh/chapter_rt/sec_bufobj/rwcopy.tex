@@ -99,12 +99,14 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_INVALID_VALUE}，如果 \math{(\marg{offset}, \marg{size})} 所指定的區域越限，
 或者 \carg{ptr} 是 \cmacro{NULL}，或者 \carg{size} 是 0。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-且 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{buffer} 是子\cnglo{bufobj}，
@@ -296,12 +298,14 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \stopigBase
 \stopitem
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-且 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{buffer} 是子\cnglo{bufobj}，
@@ -439,12 +443,14 @@ cl_int clEnqueueCopyBuffer (
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{size} 是 0。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{src_buffer} 是子\cnglo{bufobj}，
@@ -607,12 +613,14 @@ cl_int clEnqueueCopyBufferRect (
 且 \carg{src_slice_pitch} 不等於 \carg{dst_slice_pitch}
 或者 \carg{src_row_pitch} 不等於 \carg{dst_row_pitch}。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MEM_COPY_OVERLAP}，
 如果 \carg{src_buffer} 和 \carg{dst_buffer} 是同一個\cnglo{bufobj}或子\cnglo{bufobj}，

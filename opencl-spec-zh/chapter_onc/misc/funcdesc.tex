@@ -1,13 +1,12 @@
-
 acospi ( 1 ) = +0.\par
 acospi ( x ) returns a NaN for | x | > 1.\par
-
+\blank
 asinpi ( ±0 ) = ±0.\par
 asinpi ( x ) returns a NaN for | x | > 1.\par
-
+\blank
 atanpi ( ±0 ) = ±0.\par
 atanpi ( ±∞ ) = ±0.5.\par
-
+\blank
 atan2pi ( ±0, -0 ) = ±1.\par
 atan2pi ( ±0, +0 ) = ± 0.\par
 atan2pi ( ±0, x ) returns ± 1 for x < 0.\par
@@ -19,45 +18,45 @@ atan2pi ( ±y, +∞ ) returns ± 0 for finite y > 0.\par
 atan2pi ( ±∞, x ) returns ± 0.5 for finite x.\par
 atan2pi ( ±∞, -∞ ) returns ±0.75.\par
 atan2pi ( ±∞, +∞ ) returns ±0.25.\par
-
+\blank
 ceil ( -1 < x < 0 ) returns -0.\par
-
+\blank
 cospi ( ±0 ) returns 1\par
 cospi ( n + 0.5 ) is +0 for any integer n where n + 0.5 is representable.\par
 cospi ( ±∞ ) returns a NaN.\par
-
+\blank
 exp10 ( ±0 ) returns 1.\par
 exp10 ( -∞ ) returns +0.\par
 exp10 ( +∞ ) returns +∞.\par
-
+\blank
 distance (x, y) calculates the distance from x to y without overflow or extraordinary
 precision loss due to underflow.\par
-
+\blank
 fdim ( any, NaN ) returns NaN.\par
 fdim ( NaN, any ) returns NaN.\par
-
+\blank
 fmod ( ±0, NaN ) returns NaN.\par
-
+\blank
 frexp ( ±∞, exp ) returns ±∞ and stores 0 in exp.\par
 frexp ( NaN, exp ) returns the NaN and stores 0 in exp.\par
-
+\blank
 fract ( x, iptr) shall not return a value greater than or equal to 1.0,
 and shall not return a value less than 0.\par
-
+\blank
 fract ( +0, iptr ) returns +0 and +0 in iptr.\par
 fract ( -0, iptr ) returns -0 and -0 in iptr.\par
 fract ( +inf, iptr ) returns +0 and +inf in iptr.\par
 fract ( -inf, iptr ) returns -0 and -inf in iptr.\par
 fract ( NaN, iptr ) returns the NaN and NaN in iptr.\par
-
+\blank
 length calculates the length of a vector without overflow or extraordinary precision loss
 due to underflow.\par
-
+\blank
 lgamma_r (x, signp) returns 0 in signp if x is zero or a negative integer.\par
-
+\blank
 nextafter ( -0, y > 0 ) returns smallest positive denormal value.\par
 nextafter ( +0, y < 0 ) returns smallest negative denormal value.\par
-
+\blank
 normalize shall reduce the vector to unit length, pointing in the same direction without
 overflow or extraordinary precision loss due to underflow.\par
 normalize ( v ) returns v if all elements of v are zero.\par
@@ -68,15 +67,15 @@ were replaced as follows:\par
 for( i = 0; i < sizeof(v) / sizeof(v[0] ); i++ )
 	v[i] = isinf(v[i] ) ? copysign(1.0, v[i]) : 0.0 * v [i];
 \stopclc
-
+\blank
 pow ( ±0, -∞ ) returns +∞\par
-
+\blank
 pown ( x, 0 ) is 1 for any x, even zero, NaN or infinity.\par
 pown ( ±0, n ) is ±∞ for odd n < 0.\par
 pown ( ±0, n ) is +∞ for even n < 0.\par
 pown ( ±0, n ) is +0 for even n > 0.\par
 pown ( ±0, n ) is ±0 for odd n > 0.\par
-
+\blank
 powr ( x, ±0 ) is 1 for finite x > 0.\par
 powr ( ±0, y ) is +∞ for finite y < 0.\par
 powr ( ±0, -∞) is +∞.\par
@@ -88,32 +87,32 @@ powr ( +∞, ±0 ) returns NaN.\par
 powr ( +1, ±∞ ) returns NaN.\par
 powr ( x, NaN ) returns the NaN for x >= 0.\par
 powr ( NaN, y ) returns the NaN.\par
-
+\blank
 rint ( -0.5 <= x < 0 ) returns -0.\par
-
+\blank
 remquo (x, y, &quo) returns a NaN and 0 in quo if x is ±∞,
 or if y is 0 and the other argument is non-NaN or if either argument is a NaN.\par
-
+\blank
 rootn ( ±0, n ) is ±∞ for odd n < 0.\par
 rootn ( ±0, n ) is +∞ for even n < 0.\par
 rootn ( ±0, n ) is +0 for even n > 0.\par
 rootn ( ±0, n ) is ±0 for odd n > 0.\par
 rootn ( x, n ) returns a NaN for x < 0 and n is even.\par
 rootn ( x, 0 ) returns a NaN.\par
-
+\blank
 round ( -0.5 < x < 0 ) returns -0.\par
-
+\blank
 sinpi ( ±0 ) returns ±0.\par
 sinpi ( +n) returns +0 for positive integers n.\par
 sinpi ( -n ) returns -0 for negative integers n.\par
 sinpi ( ±∞ ) returns a NaN.\par
-
+\blank
 tanpi ( ±0 ) returns ±0.\par
 tanpi ( ±∞ ) returns a NaN.\par
 tanpi ( n ) is copysign( 0.0, n) for even integers n.\par
 tanpi ( n ) is copysign( 0.0, - n) for odd integers n.\par
 tanpi ( n + 0.5 ) for even integer n is +∞ where n + 0.5 is representable.\par
 tanpi ( n + 0.5 ) for odd integer n is -∞ where n + 0.5 is representable.\par
-
+\blank
 trunc ( -1 < x < 0 ) returns -0.\par
 

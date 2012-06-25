@@ -88,12 +88,14 @@ cl_int clEnqueueMigrateMemObjects(
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{flags} 的值無效。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
 如果為 \carg{mem_objects} 中的\cnglo{memobj}分配內存失敗。

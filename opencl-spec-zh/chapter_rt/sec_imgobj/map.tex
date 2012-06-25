@@ -101,12 +101,14 @@ $region[1]$ 和 $region[2]$ 都必須是 0。
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{image} 是 3D 圖像、 1D 或 2D 圖像陣列對象，
 而 \carg{image_slice_pitch} 是 \cmacro{NULL}。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_INVALID_IMAGE_SIZE}，
 如果 \carg{image} 的大小（圖像寬度、高度、指定的或自動計算的行間距或面間距）

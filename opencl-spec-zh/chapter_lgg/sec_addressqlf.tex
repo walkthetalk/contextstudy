@@ -100,8 +100,8 @@ __kernel void my_func(...)
 
 	if (...)
 	{
-		// example of variable in __local address space but not
-		// declared at __kernel function scope.
+		// example of variable in __local address space
+		// but not declared at __kernel function scope.
 		__local float	c;	<- not allowed.
 	}
 }

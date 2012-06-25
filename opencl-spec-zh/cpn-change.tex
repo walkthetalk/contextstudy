@@ -10,7 +10,13 @@ OpenCL 1.1 的平台層和運行時（{\ftRef{第 4 章}}和{\ftRef{第 5 章}}�
 \startitem
 \reftab{cldevquery} 中加入了如下查詢：
 \startigBase
-\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_{CHAR | SHORT | INT | LONG | FLOAT | DOUBLE | HALF}}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_INT}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE}
+\item \cenum{CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF}
 \item \cenum{CL_DEVICE_HOST_UNIFIED_MEMORY}
 \item \cenum{CL_DEVICE_OPENCL_C_VERSION}
 \stopigBase
@@ -23,8 +29,14 @@ OpenCL 1.1 的平台層和運行時（{\ftRef{第 4 章}}和{\ftRef{第 5 章}}�
 \item 對子\cnglo{bufobj}的支持，
 可以用 \capi{clCreateSubBuffer} 創建一個\cnglo{bufobj}來指代另一\cnglo{bufobj}的某個特定區域。
 
-\item \capi{clEnqueueReadBufferRect}、 \capi{clEnqueueWriteBufferRect} 和
-\capi{clEnqueueCopyBufferRect} 可以分別讀、寫、拷貝\cnglo{bufobj}的某個矩形區域。
+\startitem
+下列函式分別可以讀、寫、拷貝\cnglo{bufobj}的某個矩形區域：
+\startigBase
+\item \capi{clEnqueueReadBufferRect}、
+\item \capi{clEnqueueWriteBufferRect} 和
+\item \capi{clEnqueueCopyBufferRect}。
+\stopigBase
+\stopitem
 
 \item \capi{clSetMemObjectDestructorCallback} 允許用戶註冊一個回調函式，
 當\cnglo{memobj}被刪除、其資源被釋放時會調用此函式。
@@ -73,9 +85,15 @@ OpenCL 1.1 中的 OpenCL C 編程語言（{\ftRef{第 6 章}}）加入了如下�
 
 \item 擴展 \clext{cl_khr_byte_addressable_store} 移入了核心規範。
 
-\item \clext{cl_khr_global_int32_base_atomics}、 \clext{cl_khr_global_int32_extended_atomics}、
-\clext{cl_khr_local_int32_base_atomics} 和 \clext{cl_khr_local_int32_extended_atomics} 都移入了核心規範。
-內建原子函式的名字前綴由 \capi{atom_} 變成了 \capi{atomic_}。
+\startitem
+下列擴展都移入了核心規範，內建原子函式的名字前綴由 \capi{atom_} 變成了 \capi{atomic_}。
+\startigBase
+\item \clext{cl_khr_global_int32_base_atomics}、
+\item \clext{cl_khr_global_int32_extended_atomics}、
+\item \clext{cl_khr_local_int32_base_atomics} 和
+\item \clext{cl_khr_local_int32_extended_atomics} 。
+\stopigBase
+\stopitem
 
 \item 巨集 \cmacro{CL_VERSION_1_0} 和 \cmacro{CL_VERSION_1_1}。
 \stopigBase

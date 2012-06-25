@@ -78,12 +78,14 @@ OpenCL \cnglo{device}所支持的最大的整數或浮點數矢量數據型別�
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{offset} 和 \carg{size} 不是 \carg{pattern_size} 的整數倍。
 
-\item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
-如果 \carg{event_wait_list} 是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} > 0；
-或者 \carg{event_wait_list} 不是 \cmacro{NULL}，
-但 \carg{num_events_in_wait_list} 是 0；
-或者 \carg{event_wait_list} 中的事件無效。
+\startitem
+\cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
+\startigBase
+\item \carg{event_wait_list} 是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} > 0；
+\item 或者 \carg{event_wait_list} 不是 \cmacro{NULL}，但 \carg{num_events_in_wait_list} 是 0；
+\item 或者 \carg{event_wait_list} 中有無效的事件。
+\stopigBase
+\stopitem
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果 \carg{buffer} 是子\cnglo{bufobj}，
