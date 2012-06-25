@@ -65,33 +65,33 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \carg{origin} 定義了所要讀寫區域的起始位置 \math{(x, y, z)}，單位像素；
 對於 2D 圖像陣列是偏移量 \math{(x, y)} 以及圖像索引；
 對於 1D 圖像陣列是偏移量 \math{(x)} 以及圖像索引。
-如果 \carg{image} 是 2D \cnglo{imgobj}， \math{origin[2]} 必須是 0。
+如果 \carg{image} 是 2D \cnglo{imgobj}， \math{\marg{origin}[2]} 必須是 0。
 如果 \carg{image} 是 1D \cnglo{imgobj}或 1D 圖像緩衝對象，
-\math{origin[1]} 和 \math{origin[2]} 都必須是 0。
+\math{\marg{origin}[1]} 和 \math{\marg{origin}[2]} 都必須是 0。
 如果 \carg{image} 是 1D 圖像陣列對象，
-\math{origin[2]} 必須是 0， \math{origin[1]} 是圖像在陣列中的索引。
-如果 \carg{image} 是 2D 圖像陣列對象，則 \math{origin[2]} 是圖像在陣列中的索引。
+\math{\marg{origin}[2]} 必須是 0， \math{\marg{origin}[1]} 是圖像在陣列中的索引。
+如果 \carg{image} 是 2D 圖像陣列對象，則 \math{\marg{origin}[2]} 是圖像在陣列中的索引。
 
 \carg{region} 定義了要讀寫區域的大小 \math{(width, height, depth)}，單位像素。
 對於 2D 圖像陣列對象， 即 \math{(width, height)} 以及圖像個數。
 對於 1D 圖像陣列對象， 即 \math{(width)} 以及圖像個數。
-如果 \carg{image} 是 2D \cnglo{imgobj}或 1D 圖像陣列對象， \math{region[2]} 必須是 1。
+如果 \carg{image} 是 2D \cnglo{imgobj}或 1D 圖像陣列對象， \math{\marg{region}[2]} 必須是 1。
 如果 \carg{image} 是 1D \cnglo{imgobj}或 1D 圖像緩衝對象，
-\math{region[1]} 和 \math{region[2]} 都必須是 0。
+\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 0。
 
 \capi{clEnqueueReadImage} 中的 \carg{row_pitch}
 和 \capi{clEnqueueWriteImage} 中的 \carg{input_row_pitch} 即每行的長度，單位字節。
-其值必須大於或等於 \math{\text{元素大小} * width}。
+其值必須大於或等於 \math{\mvar{元素大小} * width}。
 如果 \carg{row_pitch} 或 \carg{input_row_pitch} 是 0，
-則會根據 \math{\text{元素大小} * width} 自動計算行間距。
+則會根據 \math{\mvar{元素大小} * width} 自動計算行間距。
 
 \capi{clEnqueueReadImage} 中的 \carg{slice_pitch}
 和 \capi{clEnqueueWriteImage} 中的 \carg{input_slice_pitch}
 即 3D 圖像的 3D 區域中 2D 平面大小，或者 1D、 2D 圖像陣列中每個圖像的大小，單位字節。
 如果 \carg{image} 是 1D 或 2D 圖像，其值必須是 0，
-否則必須大於或等於 \math{row\_pitch * height}。
+否則必須大於或等於 \math{\marg{row_pitch} * height}。
 如果 \carg{slice_pitch} 或 \carg{input_slice_pitch} 是 0，
-則會根據 \math{row\_pitch * height} 自動計算面間距。
+則會根據 \math{\marg{row_pitch} * height} 自動計算面間距。
 
 \carg{ptr} 指向\cnglo{host}中的一塊內存，
 用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
@@ -124,7 +124,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{image} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \math{(origin, region)} 所指定的區域越限，
+\item \cenum{CL_INVALID_VALUE}，如果 \math{(\marg{origin}, \marg{region})} 所指定的區域越限，
 或者 \carg{ptr} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
@@ -166,7 +166,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 
 \startnotepar% start note
 如果調用 \capi{clEnqueueReadImage} 時，參數 \carg{ptr} 的值為
-\math{host\_ptr + (origin[2] * image\_slice\_pitch + origin[1] * image\_row\_pitch + origin[0] * bytes per pixel}，
+\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * bytes per pixel}，
 其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建 \carg{image} 時指定的，
 為避免\cnglo{undef}行為必須滿足下列要求：
 \startigBase
@@ -181,7 +181,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \stopigBase
 
 如果調用 \capi{clEnqueueWriteImage} 時，參數 \carg{ptr} 的值為
-\math{host\_ptr + (origin[2] * image\_slice\_pitch + origin[1] * image\_row\_pitch + origin[0] * bytes per pixel}，
+\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * bytes per pixel}，
 其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建 \carg{image} 時指定的，
 為避免\cnglo{undef}行為必須滿足下列要求：
 \startigBase
@@ -234,11 +234,11 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 對於 1D、 2D 或 3D 圖像，即 \math{(x, y, z)}，單位像素；
 對於 2D 圖像陣列，即 \math{(x, y)} 以及圖像索引；
 對於 1D 圖像陣列，即 \math{(x)} 以及圖像索引。
-如果 \carg{src_image} 是 2D \cnglo{imgobj}， \math{src\_origin[2]} 必須是 0。
+如果 \carg{src_image} 是 2D \cnglo{imgobj}， \math{\marg{src_origin}[2]} 必須是 0。
 如果 \carg{src_image} 是 1D \cnglo{imgobj}，
-\math{src\_origin[1]} 和 \math{src\_origin[2]} 都必須是 0。
-如果 \carg{src_image} 是 1D 圖像陣列對象， \math{src\_origin[1]} 即圖像索引。
-如果 \carg{src_image} 是 2D 圖像陣列對象， \math{src\_origin[2]} 即圖像索引。
+\math{\marg{src_origin}[1]} 和 \math{\marg{src_origin}[2]} 都必須是 0。
+如果 \carg{src_image} 是 1D 圖像陣列對象， \math{\marg{src_origin}[1]} 即圖像索引。
+如果 \carg{src_image} 是 2D 圖像陣列對象， \math{\marg{src_origin}[2]} 即圖像索引。
 
 \carg{dst_origin} 除了對應的是 \carg{dst_image}，其他都跟 \carg{src_origin} 一樣。
 
@@ -246,9 +246,9 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 對於 2D 圖像陣列，即 2D 區域 \math{(width, height)} 以及圖像索引；
 對於 1D 圖像陣列，即 1D 區域 \math{(width)} 以及圖像索引。
 如果 \carg{src_image} 或 \carg{dst_image} 是 2D \cnglo{imgobj} 或 1D 圖像陣列對象，
-\math{region[2]} 必須是 1。
+\math{\marg{region}[2]} 必須是 1。
 如果 \carg{src_image} 或 \carg{dst_image} 是 1D 圖像或 1D 圖像緩衝對象，
-\math{src\_origin[1]} 和 \math{region[2]} 必須是 1。
+\math{\marg{src_origin}[1]} 和 \math{\marg{region}[2]} 必須是 1。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
 列出了執行此\cnglo{cmd}前要等待的事件。
@@ -285,8 +285,8 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 如果 \carg{src_image} 和 \carg{dst_image} 所使用的圖像格式不同。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \math{(src\_origin, region)} 所指定的區域在 \carg{src_image} 中越限，
-或者 \math{(dst\_origin, region)} 所指定的區域在 \carg{dst_image} 中越限。
+如果 \math{(\marg{src_origin}, \marg{region})} 所指定的區域在 \carg{src_image} 中越限，
+或者 \math{(\marg{dst_origin}, \marg{region})} 所指定的區域在 \carg{dst_image} 中越限。
 
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{src_origin}、 \carg{dst_origin} 和 \carg{region} 沒有遵守上面所描述的相應規則。

@@ -23,7 +23,7 @@ int vec_step(type)
 
 對於 3 組件矢量，返回值為 4。
 
-引數也可以是純型別，如 \math{\text{\capi{vec_step}}(\text{\ctype{float2}})}。
+引數也可以是純型別，如 \math{\mapiemp{vec_step}(\mtype{float2})}。
 \stopbuffer
 
 % shuffle
@@ -42,13 +42,13 @@ gentypen shuffle2 (
 掩碼中每個元素的大小必須與結果中元素大小相同。
 
 對於 \capi{shuffle}，
-只考慮 \carg{mask} 中每個元素的 \math{\text{\capi{ilogb}}(2m-1)} 個最低有效位。
+只考慮 \carg{mask} 中每個元素的 \math{\mapiemp{ilogb}(2m-1)} 個最低有效位。
 而對於 \capi{shuffle2}，
-則會考慮 \carg{mask} 中每個元素的 \math{\text{\capi{ilogb}}(2m-1)+1} 個最低有效位。
+則會考慮 \carg{mask} 中每個元素的 \math{\mapiemp{ilogb}(2m-1)+1} 個最低有效位。
 忽略 \carg{mask} 中的其他位。
 
 因為要對輸入矢量中的元素從左到右進行編號（第二個輸入矢量的編號續接第一個的），
-因此需要用 \math{\text{\capi{vec_step}}(\text{\cldt[m]{gentype}})} 得到矢量元素數目。
+因此需要用 \math{\mapiemp{vec_step}(\text{\cldt[m]{gentype}})} 得到矢量元素數目。
 引數 \carg{mask} 用來確定結果中的相應元素選自輸入矢量中的哪個元素。
 
 例：

@@ -92,8 +92,8 @@ void prefetch (
 	size_t num_gentypes)
 \stopbuffer
 \startbuffer[funcdesc:prefetch]
-預取 \math{\text{\carg{num_gentypes}}
- \times \text{\capi{sizeof}}(\text{\ctype{gentype}})} 字節到全局緩存中。
+預取 \math{\marg{num_gentypes}
+ \times \mapiemp{sizeof}(\mtype{gentype})} 字節到全局緩存中。
 預取指令會作用到\cnglo{workgrp}中的\cnglo{workitem}上，
 不會影響\cnglo{kernel}的功能性行為。
 \stopbuffer

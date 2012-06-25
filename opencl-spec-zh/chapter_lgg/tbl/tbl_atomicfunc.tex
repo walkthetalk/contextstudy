@@ -16,7 +16,7 @@ unsigned int atomic_add (
 \stopbuffer
 \startbuffer[funcdesc:atomic_add]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{(old+val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{(old + \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -38,7 +38,7 @@ unsigned int atomic_sub (
 \stopbuffer
 \startbuffer[funcdesc:atomic_sub]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{(old-val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{(old - \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -144,7 +144,7 @@ unsigned int atomic_min (
 \stopbuffer
 \startbuffer[funcdesc:atomic_min]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{\text{\capi{min}}(old,val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{\mapiemp{min}(old, \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -166,7 +166,7 @@ unsigned int atomic_max (
 \stopbuffer
 \startbuffer[funcdesc:atomic_max]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{\text{\capi{max}}(old,val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{\mapiemp{max}(old, \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -188,7 +188,7 @@ unsigned int atomic_and (
 \stopbuffer
 \startbuffer[funcdesc:atomic_and]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{(old \text{\ccmm{&}} val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{(old \mcmm{&} \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -210,7 +210,7 @@ unsigned int atomic_or (
 \stopbuffer
 \startbuffer[funcdesc:atomic_or]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{(old \text{\ccmm{|}} val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{(old \mcmm{|} \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 
@@ -232,7 +232,7 @@ unsigned int atomic_xor (
 \stopbuffer
 \startbuffer[funcdesc:atomic_xor]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
-計算 \math{(old \text{\ccmm{^}} val)} 並將結果存儲到 \carg{p} 所指位置中。
+計算 \math{(old \mcmm{^} \marg{val})} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
 \stopbuffer
 

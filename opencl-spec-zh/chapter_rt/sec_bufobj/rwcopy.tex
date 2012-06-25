@@ -96,7 +96,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \math{(offset, size)} 所指定的區域越限，
+\item \cenum{CL_INVALID_VALUE}，如果 \math{(\marg{offset}, \marg{size})} 所指定的區域越限，
 或者 \carg{ptr} 是 \cmacro{NULL}，或者 \carg{size} 是 0。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
@@ -196,34 +196,34 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 寫\cnglo{cmd}完成後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
 
 \carg{buffer_origin} 定義了要讀寫的內存區域在 \carg{buffer} 中的偏移量 \math{(x,y,z)}。
-對於 2D 矩形區域，\math{z} 的值即 \math{buffer\_origin[2]} 應該是 0。
+對於 2D 矩形區域，\math{z} 的值即 \math{\marg{buffer_origin}[2]} 應該是 0。
 偏移量這樣計算：
 
-\math{buffer\_origin[2] * buffer\_slice\_pitch + buffer\_origin[1] * buffer\_row\_pitch + buffer\_origin[0]}。
+\math{\marg{buffer_origin}[2] * \marg{buffer_slice_pitch} + \marg{buffer_origin}[1] * \marg{buffer_row_pitch} + \marg{buffer_origin}[0]}。
 
 \carg{host_origin} 定義了要讀寫的內存區域在 \carg{ptr} 中的偏移量 \math{(x,y,z)}。
-對於 2D 矩形區域，\math{z} 的值即 \math{host\_origin[2]} 應該是 0。
+對於 2D 矩形區域，\math{z} 的值即 \math{\marg{host_origin}[2]} 應該是 0。
 偏移量這樣計算：
 
-\math{host\_origin[2] * host\_slice\_pitch + host\_origin[1] * host\_row\_pitch + host\_origin[0]}。
+\math{\marg{host_origin}[2] * \marg{host_slice_pitch} + \marg{host_origin}[1] * \marg{host_row_pitch} + \marg{host_origin}[0]}。
 
-\carg{region} 定義了要讀寫的 2D 或 3D 區域：\math{(width,height,depth)}，
+\carg{region} 定義了要讀寫的 2D 或 3D 區域：\math{(width, height, depth)}，
 其單位分別是 byte、 row、 slice。
-對於 2D 區域， \math{depth} 的值，即 \math{region[2]} 應該是 1。
+對於 2D 區域， \math{depth} 的值，即 \math{\marg{region}[2]} 應該是 1。
 
 \carg{buffer_row_pitch} 是 \carg{buffer} 中每一行數據的字節數。
-如果 \carg{buffer_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
+如果 \carg{buffer_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。
 
 \carg{buffer_slice_pitch} 是 \carg{buffer} 中每個 2D 平面（slice）的字節數。
 如果 \carg{buffer_slice_pitch} 是 0，
-則在計算偏移量時用 \math{region[1] * buffer\_row\_pitch} 替代。
+則在計算偏移量時用 \math{\marg{region}[1] * \marg{buffer_row_pitch}} 替代。
 
 \carg{host_row_pitch} 是 \carg{ptr} 中每一行數據的字節數。
-如果 \carg{host_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
+如果 \carg{host_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。
 
 \carg{host_slice_pitch} 是 \carg{ptr} 中每個 2D 平面（slice）的字節數。
 如果 \carg{host_slice_pitch} 是 0，
-則在計算偏移量時用 \math{region[1] * host\_row\_pitch} 替代。
+則在計算偏移量時用 \math{\marg{region}[1] * \marg{host_row_pitch}} 替代。
 
 \carg{ptr} 指向\cnglo{host}中的一塊內存，
 用作讀\cnglo{cmd}的數據源以及寫\cnglo{cmd}的目的地。
@@ -257,24 +257,24 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \math{(buffer\_origin, region, buffer\_row\_pitch, buffer\_slice\_pitch)} 所指定的區域越限。
+如果 \math{(\marg{buffer_origin}, \marg{region}, \marg{buffer_row_pitch}, \marg{buffer_slice_pitch})} 所指定的區域越限。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{ptr} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{region} 中的任何元素是 0。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{buffer_row_pitch} 不是 0 且小於 \math{region[0]}。
+如果 \carg{buffer_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \carg{host_row_pitch} 不是 0 且小於 \math{region[0]}。
+如果 \carg{host_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{buffer_slice_pitch} 不是 0、
-小於 \math{region[1] * buffer\_row\_pitch}、
+小於 \math{\marg{region}[1] * \marg{buffer_row_pitch}}、
 且不是 \carg{buffer_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{host_slice_pitch} 不是 0、
-小於 \math{region[1] * host\_row\_pitch}、
+小於 \math{\marg{region}[1] * \marg{host_row_pitch}}、
 且不是 \carg{host_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_EVENT_WAIT_LIST}，
@@ -307,7 +307,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \stopigBase
 
 \startnotepar% start notepar
-如果調用 \capi{clEnqueueReadBuffer} 時將引數 \carg{ptr} 設置為 \math{host\_ptr + offset}
+如果調用 \capi{clEnqueueReadBuffer} 時將引數 \carg{ptr} 設置為 \math{\marg{host_ptr} + \marg{offset}}
 （其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的），
 為避免\cnglo{undef}的行為，必須滿足下列要求：
 \startigBase
@@ -327,12 +327,12 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要讀取的\cnglo{bufobj}時指定的，
 要滿足的要求跟 \capi{clEnqueueReadBuffer} 一樣。
 
-如果調用 \capi{clEnqueueWriteBuffer} 時將引數 \carg{ptr} 置為 \math{host\_ptr + offset}，
+如果調用 \capi{clEnqueueWriteBuffer} 時將引數 \carg{ptr} 置為 \math{\marg{host_ptr} + \marg{offset}}，
 其中 \carg{host_ptr} 就是用 \cenum{CL_MEM_USE_HOST_PTR} 創建所要寫入的\cnglo{bufobj}時指定的，
 為避免未定義的行為，必須滿足下列要求：
 \startigBase
 \item 在寫\cnglo{cmd}開始執行前，
-\math{(host\_ptr + offset, cb)} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
+\math{(\marg{host_ptr} + \marg{offset}, \marg{cb})} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
 
 \item 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被映射。
 
@@ -346,7 +346,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 為避免\cnglo{undef}的行為，必須滿足下列要求：
 \startigBase
 \item 在寫\cnglo{cmd}開始執行前，
-\math{(buffer\_origin, region)} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
+\math{(\marg{buffer_origin}, \marg{region})} 所劃定的\cnglo{host}\cnglo{memregion}必須含有最新的數據。
 
 \item 所有用此\cnglo{bufobj}創建的\cnglo{bufobj}或\cnglo{imgobj}都沒有被映射。
 
@@ -415,8 +415,8 @@ cl_int clEnqueueCopyBuffer (
 如果 \carg{src_buffer} 或 \carg{dst_buffer} 無效。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \math{src\_offset}、 \math{dst\_offset}、 \math{size}、
-\math{src\_offset + size} 或 \math{dst\_offset + size} 越限。
+如果 \carg{src_offset}、 \carg{dst_offset}、 \carg{size}、
+\math{\marg{src_offset} + \marg{size}} 或 \math{\marg{dst_offset} + \marg{size}} 越限。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{size} 是 0。
 
@@ -442,8 +442,8 @@ cl_int clEnqueueCopyBuffer (
 且源和目的區域重疊。
 或者 \carg{src_buffer} 和 \carg{dst_buffer} 是同一\cnglo{bufobj}的不同子\cnglo{bufobj}，
 且他們重疊。
-當 \math{src\_offset \leq dst\_offset \leq src\_offset + size - 1} 或
-\math{dst\_offset \leq src\_offset \leq dst\_offset + size - 1} 時就認為重疊了。
+當 \math{\marg{src_offset} \leq \marg{dst_offset} \leq \marg{src_offset} + \marg{size} - 1} 或
+\math{\marg{dst_offset} \leq \marg{src_offset} \leq \marg{dst_offset} + \marg{size} - 1} 時就認為重疊了。
 
 \item \cenum{CL_MEM_OBJECT_ALLOCATION_FAILURE}，
 如果為 \carg{src_buffer} 或 \carg{dst_buffer} 分配內存失敗。
@@ -495,32 +495,32 @@ cl_int clEnqueueCopyBufferRect (
 必須位於同一 OpenCL \cnglo{context}中。
 
 \carg{src_origin} 定義了 \carg{src_buffer} 中內存區域的偏移量 \math{(x,y,z)}。
-對於 2D 矩形區域， \math{z} 的值即 \math{src\_origin[2]} 應該是 0。
+對於 2D 矩形區域， \math{z} 的值即 \math{\marg{src_origin}[2]} 應該是 0。
 偏移量這樣計算：
-\math{src\_origin[2] * src\_slice\_pitch + src\_origin[1] * src\_row\_pitch + src\_origin[0]}。
+\math{\marg{src_origin}[2] * \marg{src_slice_pitch} + \marg{src_origin}[1] * \marg{src_row_pitch} + \marg{src_origin}[0]}。
 
 \carg{dst_origin} 定義了 \carg{dst_buffer} 中內存區域的偏移量 \math{(x,y,z)}。
-對於 2D 矩形區域， \math{z} 的值即 \math{dst\_origin[2]} 應該是 0。
+對於 2D 矩形區域， \math{z} 的值即 \math{\marg{dst_origin}[2]} 應該是 0。
 偏移量這樣計算：
-\math{dst\_origin[2] * dst\_slice\_pitch + dst\_origin[1] * dst\_row\_pitch + dst\_origin[0]}。
+\math{\marg{dst_origin}[2] * \marg{dst_slice_pitch} + \marg{dst_origin}[1] * \marg{dst_row_pitch} + \marg{dst_origin}[0]}。
 
 \carg{region} 定義了要拷貝的 2D 或 3D 區域： \math{(width,height,depth)}，
 其單位分別是 byte、 row、 slice。
-對於 2D 區域， \math{depth} 的值，即 \math{region[2]} 應該是 1。
+對於 2D 區域， \math{depth} 的值，即 \math{\marg{region}[2]} 應該是 1。
 
 \carg{src_row_pitch} 是 \carg{src_buffer} 中每一行數據的字節數。
-如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
+如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。
 
 \carg{src_slice_pitch} 是 \carg{src_buffer} 中每個 2D 平面（slice）的字節數。
 如果 \carg{src_slice_pitch} 是 0，
-則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
+則在計算偏移量時用 \math{\marg{region}[1] * \marg{src_row_pitch}} 替代。
 
 \carg{dst_row_pitch} 是 \carg{dst_buffer} 中每一行數據的字節數。
-如果 \carg{dst_row_pitch} 是 0，則在計算偏移量時用 \math{region[0]} 替代。
+如果 \carg{dst_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。
 
 \carg{dst_slice_pitch} 是 \carg{dst_buffer} 中每個 2D 平面的字節數。
 如果 \carg{dst_slice_pitch} 是 0，
-則在計算偏移量時用 \math{region[1] * src\_row\_pitch} 替代。
+則在計算偏移量時用 \math{\marg{region}[1] * \marg{src_row_pitch}} 替代。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list}
 中列出了執行此\cnglo{cmd}前要等待的事件。
@@ -556,23 +556,23 @@ cl_int clEnqueueCopyBufferRect (
 \startitem
 \cenum{CL_INVALID_VALUE}，如果下列兩個區域中任意一個越限：
 \startigBase
-\item \math{(src\_origin, region, src\_row\_pitch, src\_slice\_pitch)}
-\item \math{(dst\_origin, region, dst\_row\_pitch, dst\_slice\_pitch)}
+\item \math{(\marg{src_origin}, \marg{region}, \marg{src_row_pitch}, \marg{src_slice_pitch})}
+\item \math{(\marg{dst_origin}, \marg{region}, \marg{dst_row_pitch}, \marg{dst_slice_pitch})}
 \stopigBase
 \stopitem
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{region} 中的任何元素是 0。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_row_pitch} 不是 0 且小於 \math{region[0]}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{src_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_row_pitch} 不是 0 且小於 \math{region[0]}。
+\item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_row_pitch} 不是 0 且小於 \math{\marg{region}[0]}。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{src_slice_pitch} 不是 0、
-且小於 \math{region[1] * src\_row\_pitch}；
+且小於 \math{\marg{region}[1] * \marg{src_row_pitch}}；
 或者 \carg{src_slice_pitch} 不是 0、且不是 \carg{src_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{dst_slice_pitch} 不是 0、
-且小於 \math{region[1] * dst\_row\_pitch}；
+且小於 \math{\marg{region}[1] * \marg{dst_row_pitch}}；
 或者 \carg{dst_slice_pitch} 不是 0、且不是 \carg{dst_row_pitch} 的整數倍。
 
 \item \cenum{CL_INVALID_VALUE}，

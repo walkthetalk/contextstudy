@@ -36,7 +36,7 @@ cl_int clEnqueueNDRangeKernel (
 他在某個維度上的數目由陣列中的相應元素表示，
 總數為：
 \startformula
-\math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{global_work_size}}[i]}。
+\math{\prod_{i=0}^{\marg{work_dim} - 1}\marg{global_work_size}[i]}。
 \stopformula
 
 \carg{local_work_size} 也是一個陣列，有 \carg{work_dim} 個元素，且元素均為無符號值；
@@ -44,18 +44,18 @@ cl_int clEnqueueNDRangeKernel (
 其中\cnglo{workitem}的數目由陣列中的相應元素表示，
 總數為：
 \startformula
-\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]
+\prod_{i=0}^{\marg{work_dim} - 1}\marg{local_work_size}[i]
 \stopformula
 這個總數必須小於或等於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}，
-而且 \math{\text{\carg{local_work_size}}[i]} 必須小於或等於相應的
-\math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}，
-其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
+而且 \math{\marg{local_work_size}[i]} 必須小於或等於相應的
+\math{\menum{CL_DEVICE_MAX_WORK_ITEM_SIZES}[i]}，
+其中 \math{0\leq i \leq \marg{work_dim} -1}。
 顯式指定的 \carg{local_work_size} 可用來確定
 怎樣將 \carg{global_work_size} 所指定的全局\cnglo{workitem}劃分成多個\cnglo{workgrp}實體。
 如果指定了 \carg{local_work_size}，
-\math{\text{\carg{global_work_size}}[i]} 必須能被相應的
-\math{\text{\cenum{local_work_size}}[i]} 整除，
-其中 \math{0\leq i \leq \text{\carg{work_dim}} -1}。
+\math{\marg{global_work_size}[i]} 必須能被相應的
+\math{\menum{local_work_size}[i]} 整除，
+其中 \math{0\leq i \leq \marg{work_dim} -1}。
 
 也可以在\cnglo{program}源碼中通過限定符
 \ccmm{__attribute__((reqd_work_group_size(X, Y, Z)))} （參見\refsec{optAttrQlf}）
@@ -119,8 +119,8 @@ cl_int clEnqueueNDRangeKernel (
 或超過了用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
 
 \item \cenum{CL_INVALID_GLOBAL_OFFSET}，
-如果 \math{\text{\carg{global_work_size}}[i] + \text{\carg{global_work_offset}}[i]}
-（其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）中的任意一個超過了
+如果 \math{\marg{global_work_size}[i] + \marg{global_work_offset}[i]}
+（其中 \math{0 \leq i \leq \marg{work_dim} - 1}）中的任意一個超過了
 用來執行\cnglo{kernel}的\cnglo{device}的 \ccmm{sizeof(size_t)} 所給定的範圍。
 
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
@@ -131,7 +131,7 @@ cl_int clEnqueueNDRangeKernel (
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
 如果指定了 \carg{local_work_size}，
 並且\cnglo{workgrp}中\cnglo{workitem}的總數
-（即 \math{\prod_{i=0}^{\text{\carg{work_dim}} - 1}\text{\carg{local_work_size}}[i]}）
+（即 \math{\prod_{i=0}^{\marg{work_dim} - 1}\marg{local_work_size}[i]}）
 大於\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_WORK_GROUP_SIZE}。
 
 \item \cenum{CL_INVALID_WORK_GROUP_SIZE}，
@@ -140,9 +140,9 @@ cl_int clEnqueueNDRangeKernel (
 聲明了\cnglo{workgrp}的大小。
 
 \item \cenum{CL_INVALID_WORK_ITEM_SIZE}，
-如果 \math{\text{\carg{local_work_size}}[i]}
-（其中 \math{0 \leq i \leq \text{\carg{work_dim}} - 1}）
-中的任意一個超過了對應的 \math{\text{\cenum{CL_DEVICE_MAX_WORK_ITEM_SIZES}}[i]}。
+如果 \math{\marg{local_work_size}[i]}
+（其中 \math{0 \leq i \leq \marg{work_dim} - 1}）
+中的任意一個超過了對應的 \math{\menum{CL_DEVICE_MAX_WORK_ITEM_SIZES}[i]}。
 
 \item \cenum{CL_MISALIGNED_SUB_BUFFER_OFFSET}，
 如果給型別為\cnglo{bufobj}的參數指定了一個子\cnglo{bufobj}作為其值，
@@ -222,8 +222,8 @@ cl_int clEnqueueTask (
 
 \capi{clEnqueueTask} 相當於在調用 \capi{clEnqueueNDRangeKernel} 時，
 參數 \carg{work_dim} 為 1， \carg{global_work_offset} 為 \cmacro{NULL}，
-\math{\text{\carg{global_work_size}}[0]} 為 1，
-\math{\text{\carg{local_work_size}}[0]} 為 1。
+\math{\marg{global_work_size}[0]} 為 1，
+\math{\marg{local_work_size}[0]} 為 1。
 
 如果\cnglo{kernel}成功排隊， \capi{clEnqueueTask} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：

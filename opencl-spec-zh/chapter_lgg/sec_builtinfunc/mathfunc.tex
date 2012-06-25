@@ -114,7 +114,7 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 {\input{chapter_lgg/tbl/tbl_mmfloat.tex}}
 
 下列兩個巨集將會展開成整數常量算式。
-如果 \carg{x} 是 0 或 NaN，則 \math{\text{\capi{ilogb}}(x)} 會分別返回這兩個值。
+如果 \carg{x} 是 0 或 NaN，則 \math{\mapiemp{ilogb}(x)} 會分別返回這兩個值。
 \startigBase
 \item \cmacroemp{FP_ILOGB0} 為 \ccmm{{INT_MIN}} 或 \ccmm{-{INT_MAX}}。
 \item \cmacroemp{FP_ILOGBNAN} 為 \ccmm{{INT_MAX}} 或 \ccmm{{INT_MIN}}。

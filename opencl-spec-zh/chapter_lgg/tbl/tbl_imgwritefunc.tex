@@ -18,8 +18,8 @@ void write_imageui (
 由坐標 \math{(coord.x, coord.y)} 所指定的位置上。
 寫之前會進行適當的格式轉換。
 \math{coord.x} 和 \math{coord.y} 會被當成非歸一化坐標，
-其值必須分別在區間 \math{0 \cdots image width-1}
-和 \math{0 \cdots image height-1} 內。
+其值必須分別在區間 \math{0 \cdots \mvar{image width}-1}
+和 \math{0 \cdots \mvar{image height}-1} 內。
 
 對於 \capi{write_imagef}，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是預定義壓縮過的格式
@@ -43,7 +43,7 @@ void write_imageui (
 \stopigBase
 
 如果創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 不再上述所列範圍內，
-或者坐標 \math{(x, y)} 不在 \math{(0 \cdots image width-1, 0 \cdots image height-1)}
+或者坐標 \math{(x, y)} 不在 \math{(0 \cdots \mvar{image width}-1, 0 \cdots \mvar{image height}-1)}
 範圍內，
 則 \capi{write_imagef}、 \capi{write_imagei} 和 \capi{write_imageui} 的行為未定義。
 \stopbuffer
@@ -69,8 +69,8 @@ void write_imageui (
 由坐標 \math{(coord.x, coord.y)} 所指定的位置上。
 寫之前會進行適當的格式轉換。
 \math{coord.x}、 \math{coord.y} 以及 \math{coord.z} 會被當成非歸一化坐標，
-其值必須分別在區間 \math{0 \cdots image width-1}、
-\math{0 \cdots image height-1} 和 \math{0 \cdots image number-1} 內。
+其值必須分別在區間 \math{0 \cdots \mvar{image width}-1}、
+\math{0 \cdots \mvar{image height}-1} 和 \math{0 \cdots \mvar{image number}-1} 內。
 
 對於 \capi{write_imagef}，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是預定義壓縮過的格式
@@ -94,7 +94,7 @@ void write_imageui (
 \stopigBase
 
 如果創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 不再上述所列範圍內，
-或者坐標 \math{(x, y, z)} 不在 \math{(0 \cdots image width-1, 0 \cdots image height-1, 0 \cdots image number-1)}
+或者坐標 \math{(x, y, z)} 不在 \math{(0 \cdots \mvar{image width}-1, 0 \cdots \mvar{image height}-1, 0 \cdots \mvar{image number}-1)}
 範圍內，
 則 \capi{write_imagef}、 \capi{write_imagei} 和 \capi{write_imageui} 的行為未定義。
 \stopbuffer
@@ -131,7 +131,7 @@ void write_imageui (
 由坐標 \math{coord} 所指定的位置上。
 寫之前會進行適當的格式轉換。
 \math{coord} 會被當成非歸一化坐標，
-其值必須在區間 \math{0 \cdots image width-1} 內。
+其值必須在區間 \math{0 \cdots \mvar{image width}-1} 內。
 
 對於 \capi{write_imagef}，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是預定義壓縮過的格式
@@ -155,7 +155,7 @@ void write_imageui (
 \stopigBase
 
 如果創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 不再上述所列範圍內，
-或者坐標不在 \math{0 \cdots image width-1} 範圍內，
+或者坐標不在 \math{0 \cdots \mvar{image width}-1} 範圍內，
 則 \capi{write_imagef}、 \capi{write_imagei} 和 \capi{write_imageui} 的行為未定義。
 \stopbuffer
 
@@ -180,7 +180,7 @@ void write_imageui (
 由坐標 \math{coord.x} 所指定的位置上。
 寫之前會進行適當的格式轉換。
 \math{coord.x} 和 \math{coord.y} 會被當成非歸一化坐標，
-其值必須分別在區間 \math{0 \cdots image width-1} 和 \math{0 \cdots image number-1} 之間。
+其值必須分別在區間 \math{0 \cdots \mvar{image width}-1} 和 \math{0 \cdots \mvar{image number}-1} 之間。
 
 對於 \capi{write_imagef}，
 創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 必須是預定義壓縮過的格式
@@ -204,7 +204,7 @@ void write_imageui (
 \stopigBase
 
 如果創建\cnglo{imgobj}時所用的 \carg{image_channel_data_type} 不再上述所列範圍內，
-或者坐標 \math{(x, y)} 不在 \math{(0 \cdots image width-1, 0 \cdots image number-1)}
+或者坐標 \math{(x, y)} 不在 \math{(0 \cdots \mvar{image width}-1, 0 \cdots \mvar{image number}-1)}
 範圍內，
 則 \capi{write_imagef}、 \capi{write_imagei} 和 \capi{write_imageui} 的行為未定義。
 \stopbuffer

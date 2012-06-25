@@ -27,8 +27,8 @@ double distance (doublen p0,
 		doublen p1)
 \stopbuffer
 \startbuffer[funcdesc:distance]
-返回 \math{p0} 和 \math{p1} 的距離。
-即 \math{\text{\capi{length}}(p0 - p1)}。
+返回 \carg{p0} 和 \carg{p1} 的距離。
+即 \math{\mapiemp{length}(\marg{p0} - \marg{p1})}。
 \stopbuffer
 
 % length
@@ -37,7 +37,7 @@ float length (floatn p)
 double length (gentype p)
 \stopbuffer
 \startbuffer[funcdesc:length]
-返回矢量 \math{p} 的長度，即 \math{\sqrt{p.x^2+p.y^2+\cdots}}。
+返回矢量 \carg{p} 的長度，即 \math{\sqrt{p.x^2+p.y^2+\cdots}}。
 \stopbuffer
 
 % normalize
@@ -46,7 +46,7 @@ floatn normalize (floatn p)
 doublen normalize (doublen p)
 \stopbuffer
 \startbuffer[funcdesc:normalize]
-返回的矢量方向與 \math{p} 相同，長度為 \math{1}。
+返回的矢量方向與 \carg{p} 相同，長度為 \math{1}。
 \stopbuffer
 
 % fast_distance
@@ -55,7 +55,7 @@ float fast_distance (floatn p0,
 		floatn p1)
 \stopbuffer
 \startbuffer[funcdesc:fast_distance]
-返回 \math{\text{\capi{fast_length}}(p0 - p1)}。
+返回 \math{\mapiemp{fast_length}(\marg{p0} - \marg{p1})}。
 \stopbuffer
 
 % fast_length
@@ -63,7 +63,7 @@ float fast_distance (floatn p0,
 float fast_length (floatn p)
 \stopbuffer
 \startbuffer[funcdesc:fast_length]
-返回 \math{\text{\capi{half_sqrt}}(p.x^2 + p.y^2 + \cdots)}。
+返回 \math{\mapiemp{half_sqrt}(p.x^2 + p.y^2 + \cdots)}。
 \stopbuffer
 
 % fast_normalize
@@ -74,14 +74,14 @@ floatn fast_normalize (floatn p)
 返回的矢量方向與 \math{p} 相同，長度為 \math{1}。
 \capi{fast_normalize} 是這樣計算的：
 
-\math{p * \text{\capi{half_rsqrt}}(p.x^2 + p.y^2 + \cdots)}
+\math{p * \mapiemp{half_rsqrt}(p.x^2 + p.y^2 + \cdots)}
 
 返回值與下面語句結果（具有無窮精度）的誤差在 8192 ulp 內：
 \startcintbl[escape=yes,indentnext=no]
 if (/BTEX\capi{all}/ETEX(/BTEX\math{p == 0.0f}/ETEX))
 	/BTEX\math{result = p}/ETEX;
 else
-	/BTEX\math{result = p / \text{\capi{sqrt}}(p.x^2 + p.y^2 + \cdots )}/ETEX;
+	/BTEX\math{result = p / \mapiemp{sqrt}(p.x^2 + p.y^2 + \cdots )}/ETEX;
 \stopcintbl
 但是下列情況例外：
 \startigNum
@@ -91,7 +91,7 @@ else
 
 \item 如果\cnglo{device}處於“將去規格化數刷成零”的模式，
 則在計算前會將算元中
-量級小於 \math{\text{\capi{sqrt}}(\text{\cmacro{FLT_MIN}})} 的元素刷成零。
+量級小於 \math{\mapiemp{sqrt}(\mmacro{FLT_MIN})} 的元素刷成零。
 \stopigNum
 \stopbuffer
 

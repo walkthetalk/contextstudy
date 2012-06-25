@@ -64,6 +64,8 @@ bold=texgyreherosbold,
 italic=texgyreherositalic,
 bolditalic=texgyreherosbolditalic]
 
+\setupzhfonts[math][roman=]
+
 % 启用中文断行
 \setscript[hanzi]
 \mainlanguage[cn]
@@ -115,21 +117,42 @@ bolditalic=texgyreherosbolditalic]
   style=\tt\bf,	%normal bold slanted boldslanted type cap small ... command
   %color	name
 ]
+\define[1]\mapi{%
+\text{\capi{#1}}%
+}
+
 \definetype[capiemp][
   style=\tt\bf,
 ]
+\define[1]\mapiemp{%
+\text{\capiemp{#1}}%
+}
+
 \definetype[carg][ % argument
   style=\tt\it,
 ]
+\define[1]\marg{%
+\text{\carg{#1}}%
+}
+
 \definetype[ctype][ % type
   style=\tt\tf,
 ]
+\define[1]\mtype{%
+\text{\ctype{#1}}%
+}
+
 \definetype[ctypeemp][ % type
   style=\tt\bf,
 ]
+
 \definetype[cenum][ % enumeration
   style=\tt\tf,
 ]
+\define[1]\menum{%
+\text{\cenum{#1}}%
+}
+
 \definetype[cqlf][ % qualifier
   style=\tt\it,
 ]
@@ -142,24 +165,39 @@ bolditalic=texgyreherosbolditalic]
 \definetype[cdrtemp][
   style=\tt\bf,
 ]
+
 \definetype[cmacro][
   style=\tt\tf,
 ]
+\define[1]\mmacro{%
+\text{\cmacro{#1}}%
+}
+
 \definetype[cmacroemp][
   style=\tt\bf,
 ]
 \definetype[cpragmaemp][
   style=\tt\bf,
 ]
+
 \definetype[cvar][ % variable
   style=\tt\tf,
 ]
+\define[1]\mvar{%
+\text{\cvar{#1}}%
+}
+
 \definetype[ckey][
   style=\tt\tf,
 ]
+
 \definetype[ccmm][ % common
   style=\tt\tf,
 ]
+\define[1]\mcmm{%
+\text{\ccmm{#1}}%
+}
+
 \definetype[ccmmsuffix][
   style=\tt\it,
 ]

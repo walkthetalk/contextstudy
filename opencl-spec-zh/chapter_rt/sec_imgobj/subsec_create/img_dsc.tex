@@ -36,7 +36,7 @@ typedef struct _cl_image_desc {
 只有圖像為 3D 圖像時才有效，其值必須 >= 1 且 <= \cenum{CL_DEVICE_IMAGE3D_MAX_DEPTH}。
 
 \cvar{image_array_size}\footnote{%
-對於\cnglo{kernel}而言，以 \math{image\_array\_size = 1} 讀寫 2D 圖像陣列時，
+對於\cnglo{kernel}而言，以 \math{\marg{image_array_size} = 1} 讀寫 2D 圖像陣列時，
 其性能可能會比直接讀寫 2D 圖像要低。%
 } 即圖像陣列中圖像個數。
 只有圖像為 1D 或 2D 圖像陣列時才有效。

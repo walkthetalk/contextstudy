@@ -18,9 +18,9 @@ gentypen vloadn (size_t offset,
 	const __private gentype *p)
 \stopbuffer
 \startbuffer[funcdesc:vloadn]
-由位址 \math{(p + (offset \times n))} 讀取
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{gentype}})} 字節的數據並將其返回。
-對於位址 \math{(p + (offset \times n))} 而言，
+由位址 \math{(\marg{p} + (\marg{offset} \times n))} 讀取
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{gentype}})} 字節的數據並將其返回。
+對於位址 \math{(\marg{p} + (\marg{offset} \times n))} 而言，
 如果 \cldt{gentype} 為 \cldt{char}、 \cldt{uchar}，則他必須按 8 位對齊；
 如果 \cldt{gentype} 為 \cldt{short}、 \cldt{ushort}，則他必須按 16 位對齊;
 如果 \cldt{gentype} 為 \cldt{int}、 \cldt{uint}、 \cldt{float}，
@@ -42,9 +42,9 @@ void vstoren (gentypen data,
 \stopbuffer
 \startbuffer[funcdesc:vstoren]
 將 \carg{data} 中
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{gentype}})} 字節的數據寫入
-位址 \math{(p + (offset \times n))} 中。
-對於位址 \math{(p + (offset \times n))} 而言，
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{gentype}})} 字節的數據寫入
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 中。
+對於位址 \math{(\marg{p} + (\marg{offset} \times n))} 而言，
 如果 \cldt{gentype} 為 \cldt{char}、 \cldt{uchar}，則他必須按 8 位對齊；
 如果 \cldt{gentype} 為 \cldt{short}、 \cldt{ushort}，則他必須按 16 位對齊;
 如果 \cldt{gentype} 為 \cldt{int}、 \cldt{uint}、 \cldt{float}，
@@ -64,10 +64,10 @@ float vload_half (size_t offset,
 	const __private half *p)
 \stopbuffer
 \startbuffer[funcdesc:vload_half]
-由位址 \math{(p + offset)} 讀取
- \math{\text{\capi{sizeof}}(\text{\cldt{half}})} 字節的數據。
+由位址 \math{(\marg{p} + \marg{offset})} 讀取
+ \math{\mapiemp{sizeof}(\mtype{half})} 字節的數據。
 將讀到的數據按 \cldt{half} 值解釋，將其轉換為 \cldt{float} 後返回。
-位址 \math{(p + offset)} 必須按 16 位對齊。
+位址 \math{(\marg{p} + \marg{offset})} 必須按 16 位對齊。
 \stopbuffer
 
 % vload_halfn
@@ -82,10 +82,10 @@ floatn vload_halfn (size_t offset,
 	const __private half *p)
 \stopbuffer
 \startbuffer[funcdesc:vload_halfn]
-由位址 \math{(p + (offset \times n))} 讀取
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{half}})} 字節的數據。
+由位址 \math{(\marg{p} + (\marg{offset} \times n))} 讀取
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節的數據。
 將讀到的數據按 \cldt[n]{half} 值解釋，將其轉換為 \cldt[n]{float} 後返回。
-位址 \math{(p + (offset \times n))} 必須按 16 位對齊。
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按 16 位對齊。
 \stopbuffer
 
 % vstore_half_float
@@ -140,8 +140,8 @@ void vstore_half_rtn (float data,
 \stopbuffer
 \startbuffer[funcdesc:vstore_half_float]
 先按某種捨入模式將 \carg{data} 中的 \cldt{float} 值轉換為 \cldt{half} 值。
-然後將其寫入位址 \math{p + offset} 中。
-位址 \math{p + offset} 必須按 16 位對齊。
+然後將其寫入位址 \math{\marg{p} + \marg{offset}} 中。
+位址 \math{\marg{p} + \marg{offset}} 必須按 16 位對齊。
 
 \clapis{vstore_half} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。
@@ -199,8 +199,8 @@ void vstore_halfn_rtn (floatn data,
 \stopbuffer
 \startbuffer[funcdesc:vstore_halfn_float]
 先按某種捨入模式將 \carg{data} 中的 \cldt[n]{float} 值轉換為 \cldt[n]{half} 值。
-然後將其寫入位址 \math{(p + (offset \times n))} 中。
-位址 \math{(p + (offset \times n))} 必須按 16 位對齊。
+然後將其寫入位址 \math{(\marg{p} + (\marg{offset} \times n))} 中。
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按 16 位對齊。
 
 \clapiv{vstore_half} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。
@@ -258,8 +258,8 @@ void vstore_half_rtn (double data,
 \stopbuffer
 \startbuffer[funcdesc:vstore_half_double]
 先按某種捨入模式將 \carg{data} 中的 \cldt{double} 值轉換為 \cldt{half} 值。
-然後將其寫入位址 \math{p + offset} 中。
-位址 \math{p + offset} 必須按 16 位對齊。
+然後將其寫入位址 \math{\marg{p} + \marg{offset}} 中。
+位址 \math{\marg{p} + \marg{offset}} 必須按 16 位對齊。
 
 \clapis{vstore_half} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。
@@ -317,8 +317,8 @@ void vstore_halfn_rtn (doublen data,
 \stopbuffer
 \startbuffer[funcdesc:vstore_halfn_double]
 先按某種捨入模式將 \carg{data} 中的 \cldt[n]{double} 值轉換為 \cldt[n]{half} 值。
-然後將其寫入位址 \math{(p + (offset \times n))} 中。
-位址 \math{(p + (offset \times n))} 必須按 16 位對齊。
+然後將其寫入位址 \math{(\marg{p} + (\marg{offset} \times n))} 中。
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按 16 位對齊。
 
 \clapiv{vstore_half} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。
@@ -337,17 +337,17 @@ floatn vloada_halfn (size_t offset,
 \stopbuffer
 \startbuffer[funcdesc:vloada_halfn]
 對於 n 為 1、 2、 4、 8 和 16，
-由位址 \math{(p + (offset \times n))} 讀取
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{half}})} 字節的數據。
+由位址 \math{(\marg{p} + (\marg{offset} \times n))} 讀取
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節的數據。
 讀到的數據解釋為 \cldt[n]{half} 值，將其轉換為 \cldt[n]{float} 值後返回。
 
-位址 \math{(p + (offset \times n))} 必須按
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{half}})} 字節對齊。
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節對齊。
 
-如果 n = 3，則由位址 \math{(p + (offset \times 4))} 讀取
+如果 n = 3，則由位址 \math{(\marg{p} + (\marg{offset} \times 4))} 讀取
  \ctype{half3} 並返回 \ctype{float3}。
-位址 \math{(p + (offset \times 4))} 按
- \math{\text{\capi{sizeof}}(\text{\cldt{half}}) \times 4} 字節對齊。
+位址 \math{(\marg{p} + (\marg{offset} \times 4))} 按
+ \math{\mapiemp{sizeof}(\text{\cldt{half}}) \times 4} 字節對齊。
 \stopbuffer
 
 % vstorea_halfn_float
@@ -404,14 +404,14 @@ void vstorea_halfn_rtn (floatn data,
 按某種捨入模式將 \carg{data} 中的 \cldt[n]{float} 轉換為 \cldt[n]{half}。
 
 如果 n 為 1、 2、 4、 8 和 16，
-則將 \cldt[n]{half} 值寫入位址 \math{(p + (offset \times n))}
-位址 \math{(p + (offset \times n))} 必須按
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{half}})} 字節對齊。
+則將 \cldt[n]{half} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times n))}
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節對齊。
 
 如果 n = 3，
-則將 \ctype{half3} 值寫入位址 \math{(p + (offset \times 4))}
-位址 \math{(p + (offset \times 4))} 按
- \math{\text{\capi{sizeof}}(\text{\cldt{half}}) \times 4} 字節對齊。
+則將 \ctype{half3} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times 4))}
+位址 \math{(\marg{p} + (\marg{offset} \times 4))} 按
+ \math{\mapiemp{sizeof}(\text{\cldt{half}}) \times 4} 字節對齊。
 
 \capi{vstorea_halfn} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。
@@ -471,14 +471,14 @@ void vstorea_halfn_rtn (doublen data,
 按某種捨入模式將 \carg{data} 中的 \cldt[n]{double} 轉換為 \cldt[n]{half}。
 
 如果 n 為 1、 2、 4、 8 和 16，
-則將 \cldt[n]{half} 值寫入位址 \math{(p + (offset \times n))}
-位址 \math{(p + (offset \times n))} 必須按
- \math{\text{\capi{sizeof}}(\text{\cldt[n]{half}})} 字節對齊。
+則將 \cldt[n]{half} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times n))}
+位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按
+ \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節對齊。
 
 如果 n = 3，
-則將 \ctype{half3} 值寫入位址 \math{(p + (offset \times 4))}
-位址 \math{(p + (offset \times 4))} 按
- \math{\text{\capi{sizeof}}(\text{\cldt{half}}) \times 4} 字節對齊。
+則將 \ctype{half3} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times 4))}
+位址 \math{(\marg{p} + (\marg{offset} \times 4))} 按
+ \math{\mapiemp{sizeof}(\text{\cldt{half}}) \times 4} 字節對齊。
 
 \capi{vstorea_halfn} 使用缺省的捨入模式。
 缺省的捨入模式為捨入為最近偶數。

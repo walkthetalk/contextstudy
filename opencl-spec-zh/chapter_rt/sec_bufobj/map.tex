@@ -74,7 +74,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 
 \item \cenum{CL_INVALID_MEM_OBJECT}，如果 \carg{buffer} 無效。
 
-\item \cenum{CL_INVALID_VALUE}，如果 \math{(offset,size)} 所指定的區域越限，
+\item \cenum{CL_INVALID_VALUE}，如果 \math{(\marg{offset}, \marg{size})} 所指定的區域越限，
 或者 \carg{size} 是 0，
 或者 \carg{map_flags} 的值無效。
 
@@ -109,7 +109,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-所返回的指針僅可用於訪問所映射的區域 \math{(offset,size)}，雖然實作可能映射更大的區域。
+所返回的指針僅可用於訪問所映射的區域 \math{(\marg{offset}, \marg{size})}，雖然實作可能映射更大的區域。
 對於訪問此區域外的內容，其結果\cnglo{undef}。
 
 \startnotepar

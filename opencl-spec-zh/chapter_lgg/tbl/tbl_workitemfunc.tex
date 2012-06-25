@@ -17,7 +17,7 @@ size_t get_global_size(uint dimindx)
 \startbuffer[funcdesc:get_global_size]
 返回在 \carg{dimindx} 所標識的維度上指定的全局\cnglo{workitem}的數目。
 即 \capi{clEnqueueNDRangeKernel} 的引數 \carg{global_work_size}。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}()-1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}()-1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_global_size} 返回 1。
 
 如果用的是 \capi{clEnqueueTask}，則返回 1。
@@ -31,7 +31,7 @@ size_t get_global_id(uint dimindx)
 \startbuffer[funcdesc:get_global_id]
 返回\cnglo{workitem}在 \carg{dimindx} 所標識的維度上的唯一\cnglo{glbid}。
 此 ID 基於用來執行此\cnglo{kernel}的全局\cnglo{workitem}的數目。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}() - 1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}() - 1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_global_id} 返回 0。
 
 如果用的是 \capi{clEnqueueTask}，則返回 0。
@@ -47,7 +47,7 @@ size_t get_local_size(uint dimindx)
 如果 \capi{clEnqueueNDRangeKernel} 的引數 \carg{local_work_size} 不是 \cmacro{NULL}，
 則返回的就是此引數的值；
 否則 OpenCL 實作會選擇一個恰當的 \carg{local_work_size} 並將其返回。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}()-1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}()-1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_local_size} 返回 1。
 
 如果用的是 \capi{clEnqueueTask}，則返回 1。
@@ -60,7 +60,7 @@ size_t get_local_id(uint dimindx)
 
 \startbuffer[funcdesc:get_local_id]
 返回\cnglo{workitem}在\cnglo{workgrp}內 \carg{dimindx} 所標識的維度上的唯一\cnglo{locid}。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}() - 1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}() - 1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_local_id} 返回 0。
 
 如果用的是 \capi{clEnqueueTask}，則返回 0。
@@ -73,7 +73,7 @@ size_t get_num_groups(uint dimindx)
 
 \startbuffer[funcdesc:get_num_groups]
 返回執行此\cnglo{kernel}的\cnglo{workgrp}在 \carg{dimindx} 所標識的維度上的數目。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}() - 1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}() - 1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_num_groups} 返回 1。
 
 如果用的是 \capi{clEnqueueTask}，則返回 1。
@@ -86,8 +86,8 @@ size_t get_group_id(uint dimindx)
 
 \startbuffer[funcdesc:get_group_id]
 所返回的\cnglo{workgrp} ID 取值範圍為
- \math{0 ... \text{\capi{get_work_dim}(\carg{dimindx})} - 1}。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}() - 1}。
+ \math{0 ... \mapiemp{get_work_dim}(\marg{dimindx}) - 1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}() - 1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_group_id} 返回 0。
 
 如果用的是 \capi{clEnqueueTask}，則返回 0。
@@ -101,7 +101,7 @@ size_t get_global_offset (uint dimindx)
 \startbuffer[funcdesc:get_global_offset]
 返回的是
 為 \capi{clEnqueueNDRangeKernel} 的引數 \carg{global_work_offset} 所指定的偏移值。
-\carg{dimindx} 的有效範圍為 0 到 \math{\text{\capi{get_work_dim}}() - 1}。
+\carg{dimindx} 的有效範圍為 0 到 \math{\mapiemp{get_work_dim}() - 1}。
 如果 \carg{dimindx} 是其他值，則 \capi{get_group_id} 返回 0。
 
 如果用的是 \capi{clEnqueueTask}，則返回 0。

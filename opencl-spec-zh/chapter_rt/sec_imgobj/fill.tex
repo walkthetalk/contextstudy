@@ -33,19 +33,19 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 \carg{origin} 定義了所要填充區域的起始位置 \math{(x, y, z)}，單位像素；
 對於 2D 圖像陣列是 \math{(x, y)} 以及圖像索引；
 對於 1D 圖像陣列是 \math{(x)} 以及圖像索引。
-如果 \carg{image} 是 2D \cnglo{imgobj}， \math{origin[2]} 必須是 0。
+如果 \carg{image} 是 2D \cnglo{imgobj}， \math{\marg{origin}[2]} 必須是 0。
 如果 \carg{image} 是 1D \cnglo{imgobj} 或 1D 圖像緩衝對象，
-\math{origin[1]} 和 \math{origin[2]} 都必須是 0。
+\math{\marg{origin}[1]} 和 \math{\marg{origin}[2]} 都必須是 0。
 如果 \carg{image} 是 1D 圖像陣列對象，
-則 \math{origin[2]} 必須是 0， \math{origin[1]} 是圖像在陣列中的索引。
-如果 \carg{image} 是 2D 圖像陣列對象，則 \math{origin[2]} 是圖像在陣列中的索引。
+則 \math{\marg{origin}[2]} 必須是 0， \math{\marg{origin}[1]} 是圖像在陣列中的索引。
+如果 \carg{image} 是 2D 圖像陣列對象，則 \math{\marg{origin}[2]} 是圖像在陣列中的索引。
 
 \carg{region} 定義了要填充區域的大小 \math{(width, height, depth)}，單位像素。
 對於 2D 圖像陣列對象， 即 \math{(width, height)} 以及圖像個數。
 對於 1D 圖像陣列對象， 即 \math{(width)} 以及圖像個數。
-如果 \carg{image} 是 2D 圖像對象 或 1D 圖像陣列對象， \math{region[2]} 必須是 1。
+如果 \carg{image} 是 2D 圖像對象 或 1D 圖像陣列對象， \math{\marg{region}[2]} 必須是 1。
 如果 \carg{image} 是 1D 圖像或 1D 圖像緩衝對象，
-\math{region[1]} 和 \math{region[2]} 都必須是 0。
+\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 0。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
 列出了執行此\cnglo{cmd}前要等待的事件。
@@ -78,7 +78,7 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 \item \cenum{CL_INVALID_VALUE}，如果 \carg{fill_color} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
-如果 \math{(origin, region)} 所指定的區域越限或者 \carg{ptr} 是 \cmacro{NULL}。
+如果 \math{(\marg{origin}, \marg{region})} 所指定的區域越限或者 \carg{ptr} 是 \cmacro{NULL}。
 
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{origin} 和 \carg{region} 沒有遵守前面參數描述中所列規則。

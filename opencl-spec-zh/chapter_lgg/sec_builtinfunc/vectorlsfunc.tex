@@ -2,7 +2,7 @@
 
 \startbuffer
 僅在擴展 \clext{cl_khr_fp16} 中才定義有 \cldt[n]{half}%
-（參見 OpenCL 1.2 擴展規範的節 9.5）。
+（參見《OpenCL 1.2 擴展規範》的{\ftRef{節 9.5}}）。
 \stopbuffer
 \reftab{vectorLsFunc}中列出了用來讀寫矢量型別數據的內建函式。
 泛型 \cldt{gentype} 表示內建數據型別
@@ -16,9 +16,9 @@
 
 \startnotepar
 \capi{vload3}、 \capi{vload_half3}、 \capi{vstore3} 和 \capi{vstore_half3}
-所用位址為 \math{(p+(offset\times 3))}；
+所用位址為 \math{(\marg{p} + (\marg{offset}\times 3))}；
 而 \capi{vloada_half3} 和 \capi{vstorea_half3}
-所用位址為 \math{(p+(offset\times 4))}。
+所用位址為 \math{(\marg{p} + (\marg{offset}\times 4))}。
 \stopnotepar
 
 \placetable[here,force,split][tab:vectorLsFunc]
