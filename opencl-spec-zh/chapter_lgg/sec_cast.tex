@@ -120,7 +120,7 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 算元和結果的型別中所含元素的數目必須相同。
 算元和結果的型別可能相同，這種情況下不會進行轉換，算式的型別和值都不變。
 
-整數之間的轉換遵循 C99 規範的節 6.3.1.1 和節 6.3.1.3 中的轉換規則，
+整數之間的轉換遵循 C99 規範的{\ftRef{節 6.3.1.1}} 和{\ftRef{節 6.3.1.3}} 中的轉換規則，
 不過\refsec{oorbasc}中所描述的溢出行為和飽和轉換例外。
 
 % Rounding Modes
@@ -145,7 +145,7 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 \subsubsection[sec:oorbasc]{溢出行為和飽和轉換}
 
 轉換時，如果算元大於目標型別所能表示的最大值，或者小於目標型別所能表示的最小值，就認為是溢出。
-其結果由 C99 規範的節 6.3 中的轉換規則來確定。
+其結果由 C99 規範的{\ftRef{節 6.3}} 中的轉換規則來確定。
 如果要將浮點型別轉換成整形，則其行為\cnglo{impdef}。
 
 轉換成整形時可以使用飽和模式（在轉換函式的名字後面加上修飾符 \ccmm{_sat}）。

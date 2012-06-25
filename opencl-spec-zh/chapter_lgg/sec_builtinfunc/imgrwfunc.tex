@@ -124,11 +124,14 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 分別對應於\reftab{imgChannelDataType}和\reftab{imgChannelOrder}中帶有前綴 \cenum{CL_} 的值。
 例如， \cenum{CL_UNORM_INT8} 和 \cenum{CLK_UNORM_INT8} 都是指通道數據類型為非歸一化的 8 位整數。
 
-下表列出了圖像元素的各通道的顏色值與 \ctype{float4}、 \ctype{int4} 或 \ctype{uint4} 中組件的映射關係，
+\reftab{ecComponentAndImgChannel}中列出了圖像元素的各通道的顏色值
+與 \ctype{float4}、 \ctype{int4} 或 \ctype{uint4} 中組件的映射關係，
 這些矢量由 \capi{read_image{f|i|ui}} 返回或作為 \capi{write_image{f|i|ui}} 的參數 \carg{color}。
 對於未映射的組件，如果是紅、綠、藍幾個通道，則將其值置為 \ccmm{0.0}，
 而如果是 alpha 通道，則將其值置為 \math{1.0}。
 
+\placetable[here,split][tab:ecComponentAndImgChannel]
+{矢量組件與圖像通道的對應關係}{
 \startCLOO[通道順序][矢量組件中的通道數據]
 \clOO{\cenum{CL_R}、 \cenum{CL_Rx}}{\ccmm{(r, 0.0, 0.0, 1.0)}}
 \clOO{\cenum{CL_A}}{\ccmm{(0.0, 0.0, 0.0, a)}}
@@ -142,6 +145,7 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 \clOO{\cenum{CL_INTENSITY}}{\ccmm{(I, I, I, I)}}
 \clOO{\cenum{CL_LUMINANCE}}{\ccmm{(L, L, L, 1.0)}}
 \stopCLOO
+}
 
 如果\cnglo{kernel}對多個圖像使用同一個尋址模式為 \cenum{CL_ADDRESS_CLAMP} 的\cnglo{sampler}，
 則可能導致實作內部使用額外的\cnglo{sampler}。
