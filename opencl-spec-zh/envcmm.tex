@@ -1350,43 +1350,13 @@ bolditalic=texgyreherosbolditalic]
 
 \define[1]\WithBrackets{[#1]~}
 \setuppublications[
-  alternative=apa,	% ams apa apa-de apa-fr aps num num-fr ssa
+  alternative=cn,	% ams apa apa-de apa-fr aps num num-fr ssa
   numbering=yes,
   numbercommand=\WithBrackets,
   autohang=yes
 ]
 \setupheadtext[cn][pubs={參考文獻}]
-\setuppublicationlist[
-  artauthor=\normalauthor,
-  editor=\normalauthor,
-  author=\normalauthor,
-  namesep={，},
-  lastnamesep={ and },
-  finalnamesep={ and },
-  firstnamesep={ },
-  juniorsep={ },
-  vonsep={ },
-  surnamesep={ }
-]
-\setuppublicationlayout[article]{%
-   \insertartauthors{}{\unskip．}{}%
-   \insertarttitle{\bgroup }{\egroup．}{}%
-   \insertjournal{\bgroup }{\egroup}{}%
-   \insertpubyear{，}{}{}%
-   \insertvolume{，}{}{}%
-   \insertissue{（}{）}{}%
-   \insertpages{：}{．}{}%
-}
-\setupcite[num][
-  andtext={, },
-  otherstext={等．},
-  pubsep={, },
-  lastpubsep={, },
-  compress=no,
-  inbetween={ },
-  left={[},
-  right={]}
-]
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% english %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 在 definestartstop 中使用 setupindenting 等會修改全局設定，因此改用 \def
 \def\startEnglish{\dostartEnglish}
