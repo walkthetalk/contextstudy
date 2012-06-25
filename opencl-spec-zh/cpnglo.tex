@@ -8,7 +8,7 @@
 \chapter[chapter:glossary]{術語}
 
 \startclglo[app][應用][Application]
-運行在\refglo{host}和 OpenCL \refglo{device}上的程序。
+運行在\refglo{host}和 OpenCL \refglo{device}上的程式。
 \stopclglo
 
 \startclglo[beac][阻塞的入隊 API 調用][Blocking Enqueue API calls]
@@ -94,7 +94,7 @@ OpenCL API 提供有函式可以將其入隊。
 
 \startclglo[concurrency][並發][Concurrency]
 系統的一個屬性，這樣的系統中，多個任務可以同時保持活躍並取得進展。
-運行\refglo{program}時要想並發執行，程序員必須找出問題中可以並發的部分，
+運行\refglo{program}時要想並發執行，程式員必須找出問題中可以並發的部分，
 並在源碼中標示出來，用一個支持並發的符號進行開發。
 \stopclglo
 
@@ -293,19 +293,19 @@ OpenCL 中一個確切的位址空間。
 一種虛擬的標量處理器。一個\refglo{workitem}可以在一個或多個\refglo{prcele}上執行。
 \stopclglo
 
-\startclglo[program][程序][Program]
+\startclglo[program][程式][Program]
 由一組\refglo{kernel}組成，
 可能還包含一些輔助函式（由 \cqlf{__kernel} 函式調用）和常量数据。
 \stopclglo
 
-\startclglo[programobj][程序對象][Program Object]
+\startclglo[programobj][程式對象][Program Object]
 \refglo{programobj}封裝有以下資訊：
 \startigBase
 \item 對所屬\refglo{context}的引用。
 
 \item \refglo{program}源碼或二元碼。
 
-\item 最近成功構建的程序執行體，用來運行此\refglo{program}的\refglo{device}清單，
+\item 最近成功構建的程式執行體，用來運行此\refglo{program}的\refglo{device}清單，
 所用的構建選項以及構建日誌。
 
 \item 當前附着其上的\refglo{kernelobj}的數目。
@@ -336,7 +336,7 @@ OpenCL 所定義的一類\refglo{obj}。
 \refglo{res}的實體就是\refglo{obj}。
 最常用的\refglo{res}是\refglo{context}、\refglo{cmdq}、\refglo{programobj}、
 \refglo{kernelobj}以及\refglo{memobj}。
-計算用資源主要指那些參與推進程序計數器動作的硬件元件。
+計算用資源主要指那些參與推進程式計數器動作的硬件元件。
 例如\refglo{host}、\refglo{device}、\refglo{computeunit}以及\refglo{prcele}。
 \stopclglo
 
@@ -365,13 +365,13 @@ OpenCL 所定義的一類\refglo{obj}。
 
 \startclglo[simd][單指令多數據][SIMD]
 一種編程模型，一個\refglo{kernel}在多個\refglo{prcele}上並發執行，
-每個\refglo{prcele}上都有自己的數據，並共享一個程序計數器。
+每個\refglo{prcele}上都有自己的數據，並共享一個程式計數器。
 所有\refglo{prcele}所執行的指令嚴格一致。
 \stopclglo
 
-\startclglo[spmd][單程序多數據][SPMD]
+\startclglo[spmd][單程式多數據][SPMD]
 一種编程模型，一個\refglo{kernel}在多個\refglo{prcele}上並發執行，
-每個\refglo{prcele}上都有自己的數據和自己的程序計數器。
+每個\refglo{prcele}上都有自己的數據和自己的程式計數器。
 因此，運行同一個\refglo{kernel}的所有計算資源都會維護自己的指令計數器；
 同時由於\refglo{kernel}中分支的存在，這些\refglo{prcele}中的實際指令序列可能會有很大不同。
 \stopclglo

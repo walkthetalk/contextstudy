@@ -166,7 +166,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 
 \startnotepar% start note
 如果調用 \capi{clEnqueueReadImage} 時，參數 \carg{ptr} 的值為
-\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * bytes per pixel}，
+\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * \mvar{單像素字節數}}，
 其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建 \carg{image} 時指定的，
 為避免\cnglo{undef}行為必須滿足下列要求：
 \startigBase
@@ -181,7 +181,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \stopigBase
 
 如果調用 \capi{clEnqueueWriteImage} 時，參數 \carg{ptr} 的值為
-\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * bytes per pixel}，
+\math{\marg{host_ptr} + (\marg{origin}[2] * \marg{image_slice_pitch} + \marg{origin}[1] * \marg{image_row_pitch} + \marg{origin}[0] * \mvar{單像素字節數}}，
 其中 \carg{host_ptr} 是用 \cenum{CL_MEM_USE_HOST_PTR} 創建 \carg{image} 時指定的，
 為避免\cnglo{undef}行為必須滿足下列要求：
 \startigBase
