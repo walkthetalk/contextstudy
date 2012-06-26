@@ -6,7 +6,7 @@ tex_deps+=$(shell find . -type f -name \*.bib)
 tex_deps+=$(shell find . -type f -name \*.lua)
 tex_deps+=$(shell find . -type f -name \*.mkiv)
 
-all: $(fig_name)-1.pdf $(tex_name).pdf
+all: $(tex_name).pdf
 
 clean:
 	@rm -f $(fig_name).log $(fig_name).1 $(fig_name)-1.pdf
@@ -16,6 +16,6 @@ clean:
 $(fig_name)-1.pdf: $(fig_name).mp
 	mptopdf $(fig_name).mp
 
-$(tex_name).pdf: $(tex_deps)
+$(tex_name).pdf: $(tex_deps) $(fig_name)-1.pdf
 	context $(tex_name).tex
 
