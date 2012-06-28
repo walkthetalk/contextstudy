@@ -68,10 +68,11 @@ NDRange 由一個長度為 N 的整數陣列來定義，
 (w_x, w_y) = ((g_x - s_x - F_x) / S_x, (g_y - s_y - F_y) / S_y)
 \stopformula
 
+\input{fig/NDRange.tex}
 \placefigure
 [here,force][fig:indexspace]
 {NDRange 索引空间示例}
-{\useMPgraphic{box}}
+{\reuseMPgraphic{NDRange}}
 
 很多編程模型都可以映射到這個執行模型上。
 OpenCL 明確支持的有兩種：\cngloemp{dppm}和\cngloemp{tppm}。
