@@ -7,10 +7,11 @@ OpenCL 平台模型的定義可以查看\reffig{plfmodel}。
 每個\cnglo{computeunit}又可劃分成一個或多個\cnglo{prcele}（PE）。
 \cnglo{device}上的計算是在\cnglo{prcele}中進行的。
 
+\input{fig/PlfMode.tex}
 \placefigure
 [here,force][fig:plfmodel]
 {平台模型}
-{\useMPgraphic{box}}
+{\reuseMPgraphic{plfMode}}
 
 OpenCL \cnglo{app}會按照\cnglo{host}\cnglo{platform}的原生模型
 在這個\cnglo{host}上運行。
