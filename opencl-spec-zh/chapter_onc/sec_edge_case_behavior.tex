@@ -62,7 +62,7 @@ gentype modf(gentype value, gentype *iptr)
 
 在上述任一情況中，如果某個算元或結果被刷成了零，零的正負號未定義。
 
-如果次規格化數被刷成了零，則\cnglo{device}可能選擇使用下列方式來處理 \capi{nextafter}
+如果次規格化數被刷成了零，則\cnglo{device}可能採用下列方式來處理 \capi{nextafter}
 的邊界情況，以取代\refsec{addReqBeyondC99}中的那些：
 
 nextafter ( +smallest normal, y < +smallest normal ) = +0.\par
