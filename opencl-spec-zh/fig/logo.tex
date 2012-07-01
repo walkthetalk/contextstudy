@@ -1,0 +1,51 @@
+\environment envcmm
+ 
+\starttext
+\startMPinclusions
+u=2.5mm;
+v=2.5mm;
+pi := 3.141592653689793238462643;
+\stopMPinclusions
+
+\startreusableMPgraphic{plfMode}
+numeric minA, maxA, intA, nA;
+path intHC, extHC, lineFO;
+numeric sA, wA, aA;
+
+intHC := (subpath(0,4) of fullcircle) scaled 8u;
+
+extHC := (subpath(0,4) of fullcircle) scaled 12u shifted (1u,0);
+
+lineFO := (0,0)--(10u,0);
+
+%draw intHC;
+%draw extHC;
+%draw lineFO;
+
+def angleB(expr aS, aE) =
+buildcycle(lineFO rotated aS, extHC, lineFO rotated aE, intHC)
+enddef;
+
+minA := 2;
+maxA := 5;
+intA := 1;
+nA := 9;
+aA := 180 / ((minA + maxA) * nA / 2 + intA * (nA - 1));
+sA := 0;
+wA := maxA;
+
+%fill angleB(0, wA * aA);
+
+for i=(nA - 1) step -1 until 0:
+	draw angleB(sA * aA, (sA + wA) * aA) withpen pencircle;
+	fill angleB(sA * aA, (sA + wA) * aA);
+	sA := sA + wA + intA;
+	wA := wA - ((maxA - minA) / (nA - 1));
+endfor;
+
+\stopreusableMPgraphic
+
+\reuseMPgraphic{plfMode}
+
+\stoptext
+
