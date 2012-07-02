@@ -1,47 +1,132 @@
 \environment envcmm
- 
+
 \starttext
 \startMPinclusions
-u=2.5mm;
-v=2.5mm;
-pi := 3.141592653689793238462643;
+u=2.5mm * 4;
+v=2.5mm * 4;
 \stopMPinclusions
 
 \startreusableMPgraphic{plfMode}
-numeric minA, maxA, intA, nA;
-path intHC, extHC, lineFO;
-numeric sA, wA, aA;
-
-intHC := (subpath(0,4) of fullcircle) scaled 8u;
-
-extHC := (subpath(0,4) of fullcircle) scaled 12u shifted (1u,0);
-
-lineFO := (0,0)--(10u,0);
 
 %draw intHC;
 %draw extHC;
 %draw lineFO;
 
-def angleB(expr aS, aE) =
-buildcycle(lineFO rotated aS, extHC, lineFO rotated aE, intHC)
+def pathBlock(expr aS, aE) =
+begingroup
+path intHC, extHC, lineFO;
+path pathA, pathB, pathC, pathD;
+path pathAA, pathBB, pathCC, pathDD;
+pair isA, isB, isC, isD;
+numeric rcFactor; %rounded corner factor
+
+intHC := (subpath(4,0) of fullcircle) scaled 8u;
+extHC := (subpath(0,4) of fullcircle) scaled 12u shifted (1u,0);
+lineFO := (0,0)--(10u,0);
+
+rcFactor := 0.01;
+
+pathA := lineFO rotated aS;
+pathB := extHC;
+pathC := subpath(1,0) of lineFO rotated aE;
+pathD := intHC;
+isA := pathA intersectiontimes pathB;
+isB := pathB intersectiontimes pathC;
+isC := pathC intersectiontimes pathD;
+isD := pathD intersectiontimes pathA;
+
+pathBB := subpath(ypart isA + rcFactor, xpart isB - rcFactor) of pathB;
+pathCC := subpath(ypart isB + rcFactor, xpart isC - rcFactor) of pathC;
+pathDD := subpath(ypart isC + rcFactor, xpart isD - rcFactor) of pathD;
+pathAA := subpath(ypart isD + rcFactor, xpart isA - rcFactor) of pathA;
+%buildcycle(lineFO rotated aS, extHC, lineFO rotated aE, intHC)
+pathAA..pathBB..pathCC..pathDD..cycle
+endgroup
 enddef;
 
-minA := 2;
-maxA := 5;
-intA := 1;
-nA := 9;
-aA := 180 / ((minA + maxA) * nA / 2 + intA * (nA - 1));
-sA := 0;
-wA := maxA;
+def drawBlock =
+begingroup
+color cS, cE;
+numeric minA, maxA, intA, nA;
+numeric sA, wA, aA;
 
-%fill angleB(0, wA * aA);
+cS := (1,0,0);
+cE := (0,0.65,0.31);
+
+minA := 2; % minimum A's units
+maxA := 5; % maximum A's units
+intA := 1; % interval units
+nA := 9; % the number of As
+aA := 180 / ((minA + maxA) * nA / 2 + intA * (nA - 1)); % the degrees of single A
+sA := 0; % the start of the current A
+wA := maxA; % the width of the current A
+
+%fill pathBlock(0, wA * aA);
 
 for i=(nA - 1) step -1 until 0:
-	draw angleB(sA * aA, (sA + wA) * aA) withpen pencircle;
-	fill angleB(sA * aA, (sA + wA) * aA);
+	numeric bStart, bEnd;
+	bStart := sA * aA;
+	bEnd := (sA + wA) * aA;
+
+	draw pathBlock(bStart, bEnd) shifted(0,0.1u) withpen pencircle;
+	sh := define_linear_shade(
+			(4u,0) rotated bStart,
+			(4u,0) rotated bEnd,
+			(bStart / 180)[cS/2, cE/2],
+			(bEnd / 180)[cS/2, cE/2]);
+	fill pathBlock(bStart, bEnd) shifted(0,0.1u) withshade sh;
+
+	draw pathBlock(bStart, bEnd) withpen pencircle;
+	sh := define_linear_shade(
+			(4u,0) rotated bStart,
+			(4u,0) rotated bEnd,
+			(bStart / 180)[cS, cE],
+			(bEnd / 180)[cS, cE]);
+	fill pathBlock(bStart, bEnd) withshade sh;
 	sA := sA + wA + intA;
 	wA := wA - ((maxA - minA) / (nA - 1));
 endfor;
+endgroup
+enddef;
+
+% pointer
+numeric nL;
+nL := 12; % the length of the pointer, unit: point radius;
+
+def pathPointer =
+begingroup
+numeric tT, tB;
+tT := xpart (fullcircle intersectiontimes ((.5 / nL,0) -- (.5 / nL, 10)));
+tB := xpart (fullcircle intersectiontimes ((.5 / nL,0) -- (.5 / nL, -10)));
+((subpath(tT, tB) of fullcircle scaled u)--(nL/2 * u,0)--cycle)
+endgroup
+enddef;
+
+def drawPointer =
+begingroup
+
+%sh := define_linear_shade((0,-u),(0,u),white,.1black) ;
+shB := define_circular_shade(
+		(0,0),
+		(0,0),
+		0,
+		nL/2 * u,
+		0.3,
+		0.3);
+fill pathPointer shifted (0,-0.1u) rotated 32 withshade shB;
+shP := define_circular_shade(
+		(0,0),
+		(0,0),
+		0,
+		nL/2 * u,
+		0.8,
+		0.64) ;
+fill pathPointer rotated 32 withshade shP;
+endgroup
+enddef;
+
+drawBlock;
+drawPointer;
 
 \stopreusableMPgraphic
 
