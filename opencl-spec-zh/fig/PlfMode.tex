@@ -1,11 +1,9 @@
-\startMPinclusions
-u=2.5mm;
+\startreusableMPgraphic{plfMode}
+u := 2.5mm;
 
 ahangle := 30;
 ahlength := u;
-\stopMPinclusions
 
-\startreusableMPgraphic{plfMode}
 def picPE =
 image(
 fill unitsquare shifted (-0.5, -0.5) xscaled u yscaled 4u withcolor (153,153,0);

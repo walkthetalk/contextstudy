@@ -1,10 +1,6 @@
-
-\startMPinclusions
-u=2.5mm * 3.8;
-\stopMPinclusions
-
 \startreusableMPgraphic{openclLogo}
 numeric intRadius, extRadius;
+u=2.5mm * 3.8;
 intRadius := 8u;
 extRadius := 12.5u;
 
@@ -157,14 +153,10 @@ def drawPointer =
 begingroup
 
 %sh := define_linear_shade((0,-u),(0,u),white,.1black) ;
-shB := define_circular_shade(
-		(0,0),
-		(0,0),
-		0,
-		nL/2 * u,
-		0.3,
-		0.3);
-fill pathPointer shifted (0,-0.1u) rotated 37 withshade shB;
+for i=0 step 0.025 until 1:
+	fill pathPointer scaled i shifted (-0.05*i*u,-0.15*i*u) rotated 37 withcolor transparent(1, 0.1, 0.1);
+endfor;
+
 shP := define_circular_shade(
 		(0,0),
 		(0,0),
