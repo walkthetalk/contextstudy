@@ -120,10 +120,12 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 \item \cmacroemp{FP_ILOGBNAN} 為 \ccmm{{INT_MAX}} 或 \ccmm{{INT_MIN}}。
 \stopigBase
 
-除此之外，還有下列常量可用。
+除此之外，還有一些常量可用，如\reftab{tblFltMacroConst}所示。
 他們的型別都是 \ctype{float}，在 \ctype{float} 型別的精度內是精確的。
 
-\input{chapter_lgg/tbl/tbl_constfloat.tex}
+\placetable[here][tab:tblFltMacroConst]
+{單精度浮點常量}
+{\input{chapter_lgg/tbl/tbl_constfloat.tex}}
 
 % double - double precision
 如果\cnglo{device}支持雙精度浮點數，還有下列巨集和常量可用：
@@ -154,8 +156,10 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 {雙精度浮點巨集與應用所用巨集的對應關係}
 {\input{chapter_lgg/tbl/tbl_mmdouble.tex}}
 
-除此之外，還有下列常量可用。
+除此之外，還有一些常量可用，如\reftab{tblDblMacroConst}所示。
 他們的型別都是 \ctype{double}，在 \ctype{double} 型別的精度內是精確的。
 
-\input{chapter_lgg/tbl/tbl_constdouble.tex}
+\placetable[here][tab:tblDblMacroConst]
+{雙精度浮點常量}
+{\input{chapter_lgg/tbl/tbl_constdouble.tex}}
 

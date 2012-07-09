@@ -1141,8 +1141,8 @@ bolditalic=texgyreherosbolditalic]
 \setuplabeltext[cn][part={第\;,\;卷}]
 \setuphead[part][
   conversion=chinesecapnumeralscn,
-  textstyle={\rm\bfa}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\rm\bfa}, %normal bold slanted boldslanted % 編號
+  textstyle={\rm\bfd}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfd}, %normal bold slanted boldslanted % 編號
 %  numbercommand=\PartNbr,
   header=high, %none empty high nomarking %章節首頁無頁眉
   footer=high, %none empty high nomarking
@@ -1159,8 +1159,8 @@ bolditalic=texgyreherosbolditalic]
   conversion=numbers, %chinesenumerals, chinesecapnumeralscn chineseallnumeralscn
   sectionsegments=2:*,
   indentnext=yes,
-  textstyle={\rm\bfb}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\rm\bfb}, %normal bold slanted boldslanted % 編號
+  textstyle={\rm\bfc}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfc}, %normal bold slanted boldslanted % 編號
   number=yes, %yes no % 是否帶編號
   ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
   page=right, %left right yes % 是否固定於左頁或右頁
@@ -1175,13 +1175,13 @@ bolditalic=texgyreherosbolditalic]
   sectionnumber=no,
 ]
 
-\setuplabeltext[cn][section={節\;,}]
+%\setuplabeltext[cn][section={節\;,}]
 \setuphead[section][
   conversion=numbers, %chinesecapnumeralscn chineseallnumeralscn
   sectionsegments=2:*,
   indentnext=yes,
-  textstyle={\rm\bfa}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\rm\bfa}, %normal bold slanted boldslanted % 編號
+  textstyle={\rm\bfb}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfb}, %normal bold slanted boldslanted % 編號
   number=yes, %yes no % 是否帶編號
   ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
   before={\blank[1.5em]}, %COMMAND
@@ -1192,8 +1192,8 @@ bolditalic=texgyreherosbolditalic]
 \setuphead[subsection][
   conversion=numbers,
   indentnext=yes,
-  textstyle={\rm\bf}, %normal bold slanted boldslanted % 標題內容
-  numberstyle={\rm\bf}, %normal bold slanted boldslanted % 編號
+  textstyle={\rm\bfa}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\bfa}, %normal bold slanted boldslanted % 編號
   number=yes, %yes no % 是否帶編號
   ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
   before={\blank[1em]}, %COMMAND
@@ -1332,6 +1332,15 @@ bolditalic=texgyreherosbolditalic]
 
 \startsectionblockenvironment[appendix]
 \setuphead[chapter][
+  conversion=Characters,
+]
+
+
+%\setuplabeltext[cn][section={附錄\;,}]
+\setuphead[section][
+  conversion=Characters,
+]
+\setuphead[subsection][
   conversion=Characters,
 ]
 \resetpagenumber
