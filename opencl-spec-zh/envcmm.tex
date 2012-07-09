@@ -1175,7 +1175,7 @@ bolditalic=texgyreherosbolditalic]
   sectionnumber=no,
 ]
 
-\setuplabeltext[cn][section={节\;,}]
+\setuplabeltext[cn][section={節\;,}]
 \setuphead[section][
   conversion=numbers, %chinesecapnumeralscn chineseallnumeralscn
   sectionsegments=2:*,
@@ -1457,6 +1457,42 @@ bolditalic=texgyreherosbolditalic]
 #1}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% chinese date
+\startluacode
+local function tochineseYear(n)
+	local cap = {
+		["0"] = "零",
+		["1"] = "壹",
+		["2"] = "贰",
+		["3"] = "叁",
+		["4"] = "肆",
+		["5"] = "伍",
+		["6"] = "陆",
+		["7"] = "柒",
+		["8"] = "捌",
+		["9"] = "玖",
+	}
+
+	s, p = string.gsub(string.format("%d",n), "(.)", function(s) return cap[s] end)
+	return s
+end
+
+function commands.chinese_date() -- wrong namespace
+	local temp = os.date("*t")
+
+	tex.sprint(tex.ctxcatcodes,tochineseYear(temp.year))
+	tex.sprint(tex.ctxcatcodes,"年")
+	commands.chinesecapnumerals(temp.month)
+	tex.sprint(tex.ctxcatcodes,"月")
+	commands.chinesecapnumerals(temp.day)
+	tex.sprint(tex.ctxcatcodes,"日")
+end
+\stopluacode
+
+\define\COMPILEDATE{%
+\ctxlua{commands.chinese_date()}%
+}
+%\setuplanguage[cn][date={year,年,month,月,day,日}]
 
 % the textbackgournd will extends to the page boundary,
 % which include the footnote and not as expected
