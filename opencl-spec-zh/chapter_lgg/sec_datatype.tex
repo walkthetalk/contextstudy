@@ -13,10 +13,10 @@
 
 在 OpenCL API（以及頭檔）中，大多數內建標量型別都被聲明為其他型別，
 以更好的為\cnglo{app}所用。
-\reftab{builtInScalarDataTypes}中
+\reftab{BisdtAndApp}中
 列出了 OpenCL C 編程語言中的內建標量數據型別與\cnglo{app}所用型別間的對應關係。
 
-\placetable[here,force,split][tab:builtInScalarDataTypes]
+\placetable[here][tab:BisdtAndApp]
 {內建標量數據型別與應用所用型別的對應關係}
 {\input{chapter_lgg/tbl/tbl_bisdt2appdt.tex}}
 
@@ -26,15 +26,15 @@
 型別為 \cldt{half} 的數含有 1 個符號位， 5 個指數位以及 10 個尾數位。
 符號、指數、尾數的含義與 IEEE 754 浮點數類似。
 指數偏置值為 15。
-數據型別 \cldt{half} 必須能夠表示有限規格化數，去規格化數，無限以及 NaN。
+數據型別 \cldt{half} 必須能夠表示有限規格化數，去規格化數，無窮以及 NaN。
 不能將 \cldt{half} 型別的去規格化數
-（可能是用 vstore_half 將 \cldt{float} 轉換成 \cldt{half} 時生成的，
-也可能是用 vload_half 將 \cldt{half} 轉換成 \cldt{float} 時生成的）刷成 0。
+（可能是用 \clapi{vstore_half} 將 \cldt{float} 轉換成 \cldt{half} 時生成的，
+也可能是用 \clapi{vload_half} 將 \cldt{half} 轉換成 \cldt{float} 時生成的）刷成 0。
 從 \cldt{float} 到 \cldt{half} 的轉換會將尾數捨入成 11 位精度。
 從  \cldt{half} 到 \cldt{float} 的轉換是無損的；
 所有 \cldt{half} 數都可精確地表示成 \cldt{float} 值。
 
-數據型別 \cldt{half} 只能用來聲明指向含有 \cldt{half} 值的緩衝區的指針。
+數據型別 \cldt{half} 只能用於聲明指針，指向含有 \cldt{half} 值的緩衝區。
 下面是幾個例子。
 \startclc
 void bar (__global half *p)
@@ -60,28 +60,34 @@ half *p;
 a = *p;		<- not allowed. must use vload_half function
 \stopclc
 
-函式 \capi{vload_half}、 \capi{vload_halfn}、 \capi{vloada_halfn}
- 和 \capi{vstore_half}、 \capi{vstore_halfn}、 \capi{vstorea_halfn}
- 可分別裝載和存儲 \cldt{half} 指針，參見\refsec{vectorLsFunc}。
+函式 \capi{vload_half}、 \capi[n]{vload_half}、 \capi[n]{vloada_half}
+和 \capi{vstore_half}、 \capi[n]{vstore_half}、 \capi[n]{vstorea_half}
+可分別裝載和存儲 \cldt{half} 指針，參見\refsec{vectorLsFunc}。
 裝載函式可從內存中讀取標量或矢量 \cldt{half} 值 並將其轉換成 \cldt{float} 值。
 而存儲函式則將標量或矢量 \cldt{float} 值作為輸入，並（以恰當的捨入模式）
-將其轉換成 \cldt{half} 標量或矢量值後寫入內存中。
+將其轉換成標量或矢量 \cldt{half} 值後寫入內存中。
 
 
 % Built-in Vector Data Types
 \subsection[sec:bivdt]{內建矢量數據型別\footnote{%
 對於這些內建的矢量數據型別，即使下層的計算設備不支持， OpenCL 實作也要支持。
-設備編譯器需要將這些型別翻譯成恰當的指令，以計算設備原生支持的內建型別。
-\refappendix{port} 描述了矢量型別所含組件在內存中的順序。}}
+設備編譯器需要將這些型別翻譯成恰當的指令，用計算設備原生支持的內建型別來取代他。
+\refappendix{port}中描述了矢量型別所含組件在內存中的順序。}}
 
-支持的矢量數據型別有： \cldt{char}、 \cldt{unsigned char}、 \cldt{short}、
- \cldt{unsigned short}、 \cldt{integer}、 \cldt{unsigned integer}、
- \cldt{long}、 \cldt{unsigned long}、 \cldt{float}。
-矢量數據型別是通過在型別名（即 \cldt{char}、 \cldt{uchar}、 \cldt{short}、
- \cldt{ushort}、 \cldt{int}、 \cldt{uint}、 \cldt{float}、 \cldt{long}、
- \cldt{ulong}）後面跟一個常值 \math{n} 來定義的
-（其中 \math{n} 表示矢量元素的數目）。
-對於所有矢量數據型別而言，這個 \math{n} 可以是 2、 3、 4、 8 和 16。
+所支持的矢量數據型別有：
+\cldt{char}、 \cldt{unsigned char}、
+\cldt{short}、 \cldt{unsigned short}、
+\cldt{integer}、 \cldt{unsigned integer}、
+\cldt{long}、 \cldt{unsigned long}、
+\cldt{float}。
+矢量數據型別是通過在型別名（即
+\cldt{char}、 \cldt{uchar}、
+\cldt{short}、 \cldt{ushort}、
+\cldt{int}、 \cldt{uint}、
+\cldt{long}、 \cldt{ulong}、
+\cldt{float}）
+後面跟一個常值 \ccmmsuffix{n} 來定義的（其中 \ccmmsuffix{n} 表示矢量元素的數目）。
+對於所有矢量數據型別而言，這個 \ccmmsuffix{n} 可以是 2、 3、 4、 8 和 16。
 
 \reftab{builtInVectorDataTypes}中列出了內建的矢量數據型別。
 
@@ -100,7 +106,7 @@ a = *p;		<- not allowed. must use vload_half function
 
 \reftab{otherBuiltInDataTypes}中列出了 OpenCL 所支持的其他內建數據型別。
 
-\placetable[here][tab:otherBuiltInDataTypes]
+\placetable[here,force][tab:otherBuiltInDataTypes]
 {其他內建數據型別}
 {\input{chapter_lgg/tbl/tbl_obidt.tex}}
 
@@ -123,7 +129,7 @@ C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也�
 \reftab{reservedDataTypes} 中所列的數據型別名都是保留的，
 \cnglo{app}不能將其作為型別名使用。
 對於\reftab{builtInVectorDataTypes} 中所列的矢量數據型別名而言，
-當 \math{n} 是除 2、 3、 4、 8 和 16 之外的其他值時，也是保留的。
+當 \ccmmsuffix{n} 是除 2、 3、 4、 8 和 16 之外的其他值時，也是保留的。
 
 \placetable[here,split][tab:reservedDataTypes]
 {保留的數據型別}
@@ -132,13 +138,13 @@ C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也�
 % Alignment of Types
 \subsection[sec:alignmentOfTypes]{型別齊位}
 
-內存中所聲明的數據項會按起型別的字節數進行對齊。
+內存中所聲明的數據項會按其型別的字節數進行對齊。
 例如，型別為 \cldt{float4} 的變量會對齊到 16 字節邊界；
 而 \cldt{char2} 則會對齊到 2 字節邊界。
 
 對於具備 3 個組件的矢量數據型別，其大小為 \math{4 \times sizeof(component)}。
 這意味着此型別會按 \math{4 \times sizeof(component)} 進行對齊。
-內建函式 \capi{vload3} 和 \capi{vstore3} 可用來讀寫這種數據。
+內建函式 \clapi{vload3} 和 \clapi{vstore3} 可用來讀寫這種數據。
 
 如果內建數據型別的大小不是二的冪，則按相鄰較大的二的冪進行對齊。
 此規則僅對內建型別有效，不會作用於結構體或聯合體上。
@@ -179,10 +185,10 @@ OpenCL 編譯器負責數據項的對齊。
 除了按照函式求值的標準規則對算元進行求值，還會對標量型別進行隱式拓寬。
 算元的求值順序是未定義的。
 會按照內存中的順序將算元賦值給最終矢量的相應元素。
-即，將第一個算元的第一個元素賦值給 result.x，
+即，將第一個算元的第一個元素賦值給 \ccmm{result.x}，
 將第一個算元的第二個元素（如果第一個算元是標量，則此處為第二個算元的第一個元素）
-賦值給 result.y，等等。
-如果只有單個標量算元，則會將其複製並賦值給最終矢量的所有元素。
+賦值給 \ccmm{result.y}，等等。
+如果只有一個算元，且是標量，則會將其複製並賦值給最終矢量的所有元素。
 例如：
 \startclc
 float4	f = (float4)(1.0f, 2.0f, 3.0f, 4.0f);
@@ -211,7 +217,7 @@ float4	f = (float4)(1.0f, 2.0f);	<- error
  \ctype{int4}、 \ctype{uint4}、 \ctype{long4}、 \ctype{ulong4} 和 \ctype{float4}
  可以訪問元素 \ccmm{.xyzw}。
 
-如果所訪問的組件在矢量型別中並不具備，則視為錯誤，例如：
+如果矢量型別中並不具備所要訪問的組件，則視為錯誤，例如：
 \startclc
 float2 pos;	// is legal
 pos.x = 1.0f;	// is illegal
@@ -221,7 +227,7 @@ pos.z = 1.0f;
 pos.w = 1.0f;	// is illegal
 \stopclc
 
-在組件選擇文法中，可以將多個組件的名字附到句點（.）後面從而選擇多個組件。
+在組件選擇文法中，可以將多個組件的名字附到句點（.）後面以選擇多個組件：
 \startclc
 float4 c;
 
@@ -231,7 +237,7 @@ c.xy = (float2)(3.0f, 4.0f);
 c.xyz = (float3)(3.0f, 4.0f, 5.0f);
 \stopclc
 
-在組件選擇文法中，也可以將組件的順序打亂或重複。
+在組件選擇文法中，也可以將組件的順序打亂或重複選擇某個組件：
 \startclc
 float4 pos = (float4)(1.0f, 2.0f, 3.0f, 4.0f);
 float4 swiz= pos.wzyx; // swiz = (4.0f, 3.0f, 2.0f, 1.0f)
@@ -239,7 +245,7 @@ float4 dup = pos.xxyy; // dup = (1.0f, 1.0f, 2.0f, 2.0f)
 \stopclc
 
 組件組符號可以出現在算式的左手邊。
-要形當左值用，必須對矢量組件進行重排（swizzling），並且不能重複，
+要想當左值用，必須對矢量組件進行重排（swizzling），並且不能重複，
 最終形成的左值是標量還是矢量取決於組件的數目。
 每個組件都必須是 OpenCL 所支持的標量或矢量型別。
 \startclc
@@ -271,14 +277,14 @@ x = (float16)(a.xxxxxxx, b.xyz, c.xyz, d.xyz);
 數值索引前面必須加上字符 \ccmm{s} 或 \ccmm{S}。
 
 下面例子中
-\startclc
+\startclc[indentnext=no]
 float8	f;
 \stopclc
 \ccmm{f.s0} 指代 \ctype{float8} 變量 \cvar{f} 的第一個元素，
 而 \ccmm{f.s7} 則指代 \ctype{float8} 變量 \cvar{f} 的第八個元素。
 
 下面例子中
-\startclc
+\startclc[indentnext=no]
 float16	x;
 \stopclc
 \ccmm{x.sa} （或 \ccmm{x.sA}）指代 \ctype{float16} 變量 \cvar{f} 的第十一個元素，
@@ -375,7 +381,7 @@ float2	*low = &vf.odd.lo;	// is illegal
 \subsection{別名規則}
 
 OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
-（在 C99 規範的節 6.5 的第 7 項中定義）。
+（在 C99 規範的{\ftRef{節 6.5}} 的{\ftRef{第 7 項}}中定義）。
 為了應用這些別名規則， OpenCL C 內建矢量數據型別會被當成聚合（aggregate）型別
 \footnote{也就是說，出於使用基於型別的別名規則的目的，
 認為內建矢量數據型別等同於對應的陣列型別。}。
@@ -390,14 +396,25 @@ OpenCL C \cnglo{program} 符合 C99 中基於型別的別名規則
 \item \reftab{builtInVectorDataTypes}、\reftab{otherBuiltInDataTypes}
 和\reftab{reservedDataTypes}中定義的 OpenCL C 數據型別。
 
-\item 位址空間限定符：
- \cqlf{__global}、 \cqlf{global}、 \cqlf{__local}、 \cqlf{local}、
- \cqlf{__constant}、 \cqlf{constant}、 \cqlf{__private} 和 \cqlf{private}。
+\startitem
+下列位址空間限定符：
+\startigBase
+\item \cqlf{__global}、 \cqlf{global}、
+\item \cqlf{__local}、 \cqlf{local}、
+\item \cqlf{__constant}、 \cqlf{constant}、
+\item \cqlf{__private}、 \cqlf{private}。
+\stopigBase
+\stopitem
 
 \item 函式限定符： \cqlf{__kernel} 和 \cqlf{kernel}。
 
-\item 訪問限定符：
- \cqlf{__read_only}、 \cqlf{read_only}、 \cqlf{__write_only}、 \cqlf{write_only}、
- \cqlf{__read_write} 和 \cqlf{read_write}。
+\startitem
+下列訪問限定符：
+\startigBase
+\item \cqlf{__read_only}、 \cqlf{read_only}、
+\item \cqlf{__write_only}、 \cqlf{write_only}、
+\item \cqlf{__read_write}、 \cqlf{read_write}。
+\stopigBase
+\stopitem
 \stopigBase
 
