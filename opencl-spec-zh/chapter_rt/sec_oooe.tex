@@ -1,6 +1,6 @@
 \section[sec:oooe]{內核和內存對象命令的亂序執行}
 
-提交給\cnglo{cmdq}的 OpenCL 函式按被調用的順序入隊，
+提交給\cnglo{cmdq}的 OpenCL 函式按調用順序入隊，
 但執行順序卻是可配置的，既可以\cnglo{inordexec}，也可以\cnglo{outordexec}。
 \capi{clCreateCommandQueue} 的參數 \carg{properties} 可用來指定執行順序。
 

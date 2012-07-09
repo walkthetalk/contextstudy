@@ -84,7 +84,7 @@ cl_int clEnqueueNDRangeKernel (
 則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，
 並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+此函式返回後，即可回收並重用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，
 用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
@@ -222,7 +222,7 @@ cl_int clEnqueueTask (
 則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，
 並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，即可回收並重新使用 \carg{event_wait_list} 所關聯的內存。
+此函式返回後，即可回收並重用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，
 用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
@@ -325,7 +325,7 @@ cl_int clEnqueueNativeKernel (
 之所以要拷貝，是因為 \carg{args} 可能包含有\cnglo{memobj}（\ccmm{cl_mem}），
 而且需要通過一個指向\cnglo{glbmem}的指針對其進行修改和取代。
 一旦 \capi{clEnqueueNativeKernel} 返回，
-\cnglo{app}就可以重新使用 \carg{args} 所指向的內存區域了。
+\cnglo{app}就可以重用 \carg{args} 所指向的內存區域了。
 
 \carg{num_mem_objects} 即 \carg{args} 中\cnglo{bufobj}的數目。
 

@@ -36,7 +36,7 @@ image_filter (int n, int m,
 
 \carg{arg_value} 所指數據用作索引為 \carg{arg_index} 的引數的值。
 \capi{clSetKernelArg} 返回後， \carg{arg_value} 所指數據已經被複製，
-其內存可以由\cnglo{app}重新使用。
+\cnglo{app}可以重用其內存。
 所有會將 \carg{kernel} 入隊的 API 調用
 （ \capi{clEnqueueNDRangeKernel} 和 \capi{clEnqueueTask}）都會使用這個引數值，
 直到再次調用 \capi{clSetKernelArg} 將其改變。

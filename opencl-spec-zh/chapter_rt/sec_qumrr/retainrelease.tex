@@ -58,7 +58,7 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 對於一個\cnglo{memobj}而言，這些回調函式是在其資源被釋放以及將其刪除之前調用的。
 這樣就提供了一種機制，
 當 \carg{host_ptr} (創建 \carg{memobj} 時指定）所引用的內存
-（用來存儲\cnglo{memobj}的內容）可以重新使用或是被釋放時，
+（用來存儲\cnglo{memobj}的內容）可以重用或是被釋放時，
 正在使用 \carg{memobj} 的\cnglo{app}（以及庫）可以收到通知。
 
 \carg{memobj} 是一個\cnglo{memobj}。
@@ -92,7 +92,7 @@ cl_int clSetMemObjectDestructorCallback (cl_mem memobj,
 當 OpenCL 實作調用回調函式時，
 \carg{host_ptr} （如果是用 \cenum{CL_MEM_USE_HOST_PTR} 創建的\cnglo{memobj}）
 所指向的內容是\cnglo{undef}的。
-此回調函式的一種典型應用就是用來釋放或重新使用 \carg{host_ptr} 所指向的內存。
+此回調函式的一種典型應用就是用來釋放或重用 \carg{host_ptr} 所指向的內存。
 
 如果在回調函式中調用了下列 OpenCL API，其行為是\cnglo{undef}的：
 \startigBase

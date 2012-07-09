@@ -54,13 +54,13 @@ cl_int clEnqueueWriteImage (cl_command_queue command_queue,
 如果 \carg{blocking_write} 是 \cenum{CL_TRUE}，
 OpenCL 實作會拷貝 \carg{ptr} 所指向的數據，並將寫\cnglo{cmd}入隊。
 \capi{clEnqueueWriteBuffer} 返回後，
-\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
+\cnglo{app}就可以重用 \carg{ptr} 所指向的內存了。
 
 如果 \carg{blocking_write} 是 \cenum{CL_FALSE}，
 OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 既然非阻塞，實作就可以立即返回。返回後，\cnglo{app}還不能立刻就使用 \carg{ptr} 所指內存。
 參數 \carg{event} 所返回的\cnglo{evtobj}可用來查詢寫\cnglo{cmd}的執行情況。
-寫\cnglo{cmd}完成後，\cnglo{app}就可以重新使用 \carg{ptr} 所指向的內存了。
+寫\cnglo{cmd}完成後，\cnglo{app}就可以重用 \carg{ptr} 所指向的內存了。
 
 \carg{origin} 定義了所要讀寫區域的起始位置 \math{(x, y, z)}，單位像素；
 對於 2D 圖像陣列是偏移量 \math{(x, y)} 以及圖像索引；
@@ -104,7 +104,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，
 並且必須與 \carg{command_queue} 位於同一\cnglo{context}中。
-此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
+此函式返回後，就可以回收並重用 \carg{event_wait_list} 所關聯的內存了。
 
 \carg{event} 會返回一個\cnglo{evtobj}，
 用來標識此讀、寫\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
@@ -260,7 +260,7 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 則其中所有事件都必須是有效的，並且 \carg{num_events_in_wait_list} 必須大於 0。
 \carg{event_wait_list} 中的事件充當同步點，
 並且必須與 \carg{command_queue} 位於同一個\cnglo{context}中。
-此函式返回後，就可以回收並重新使用 \carg{event_wait_list} 所關聯的內存了。
+此函式返回後，就可以回收並重用 \carg{event_wait_list} 所關聯的內存了。
 
 \carg{event} 會返回一個\cnglo{evtobj}，
 用來標識此拷貝\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}結束。

@@ -15,8 +15,7 @@ cl_int clGetKernelInfo (cl_kernel kernel,
 \carg{kernel} 即所要查詢的\cnglo{kernel}。
 
 \carg{param_name} 指定要查詢什麼資訊。
-對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，
-請參見\reftab{clGetKernelInfo}。
+\reftab{clGetKernelInfo}中列出了所支持的資訊類型以及 \carg{param_value} 中返回的資訊。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
 如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
@@ -65,8 +64,7 @@ cl_int clGetKernelWorkGroupInfo (cl_kernel kernel,
 如果 \carg{kernel} 所關聯的\cnglo{device}只有一個，則 \carg{device} 可以是 \cmacro{NULL}。
 
 \carg{param_name} 指定要查詢什麼資訊。
-對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，
-請參見\reftab{clGetKernelWorkGroupInfo}。
+\reftab{clGetKernelWorkGroupInfo}中列出了所支持的資訊類型以及 \carg{param_value} 中返回的資訊。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
 如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
@@ -130,7 +128,7 @@ cl_int clGetKernelArgInfo (cl_kernel kernel,
 其中\math{n}是\cnglo{kernel}引數的總數。
 
 \carg{param_name} 指定要查詢什麼資訊。
-對於所支持的資訊類型以及 \carg{param_value} 中返回的資訊，請參見\reftab{clGetKernelArgInfo}。
+\reftab{clGetKernelArgInfo}中列出了所支持的資訊類型以及 \carg{param_value} 中返回的資訊。
 
 \carg{param_value} 指向的內存用來存儲查詢結果。
 如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。

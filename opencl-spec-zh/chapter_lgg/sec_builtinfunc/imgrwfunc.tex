@@ -31,14 +31,12 @@
 \item 濾波模式
 \item 歸一化坐標
 \stopigBase
-這些數學控制着 \capi{read_image{f|i|ui}} 如何讀取圖像中的元素。
+這些屬性控制着 \capi{read_image{f|i|ui}} 如何讀取圖像中的元素。
 
-也可在\cnglo{program}源碼中用如下幾種語法將\cnglo{sampler}聲明為全局常量：
+也可在\cnglo{program}源碼中將\cnglo{sampler}聲明為全局常量，下列三種語法均有效：
 \startclc
 const sampler_t		<sampler name> = <value>
-or
 constant sampler_t	<sampler name> = <value>
-or
 __constant sampler_t	<sampler_name> = <value>
 \stopclc
 
