@@ -7,7 +7,7 @@
 
 \reftab{builtInScalarDataTypes}中列出了內建的標量數據型別。
 
-\placetable[here,force,split][tab:builtInScalarDataTypes]
+\placetable[here][tab:builtInScalarDataTypes]
 {內建標量數據型別}
 {\input{chapter_lgg/tbl/tbl_bisdt.tex}}
 
@@ -97,16 +97,19 @@ a = *p;		<- not allowed. must use vload_half function
 
 在 OpenCL API（以及頭檔）中，大多數內建矢量型別都被聲明為其他型別，
 以更好的為\cnglo{app}所用。
-下表列出了 OpenCL C 編程語言中的內建矢量數據型別與\cnglo{app}所用型別間的對應關係。
+\reftab{bivdt2appdt}中
+列出了 OpenCL C 編程語言中的內建矢量數據型別與\cnglo{app}所用型別間的對應關係。
 
-\input{chapter_lgg/tbl/tbl_bivdt2appdt.tex}
+\placetable[here][tab:bivdt2appdt]
+{內建矢量數據型別與應用所用型別的對應關係}
+{\input{chapter_lgg/tbl/tbl_bivdt2appdt.tex}}
 
 % Other Built-in Data Types
 \subsection[sec:obidt]{其他內建數據型別}
 
 \reftab{otherBuiltInDataTypes}中列出了 OpenCL 所支持的其他內建數據型別。
 
-\placetable[here,force][tab:otherBuiltInDataTypes]
+\placetable[here][tab:otherBuiltInDataTypes]
 {其他內建數據型別}
 {\input{chapter_lgg/tbl/tbl_obidt.tex}}
 
@@ -131,7 +134,7 @@ C99 的衍生型別（陣列、結構體、聯合體、函式以及指針）也�
 對於\reftab{builtInVectorDataTypes} 中所列的矢量數據型別名而言，
 當 \ccmmsuffix{n} 是除 2、 3、 4、 8 和 16 之外的其他值時，也是保留的。
 
-\placetable[here,split][tab:reservedDataTypes]
+\placetable[here][tab:reservedDataTypes]
 {保留的數據型別}
 {\input{chapter_lgg/tbl/tbl_reserveddatatypes.tex}}
 
@@ -276,17 +279,18 @@ x = (float16)(a.xxxxxxx, b.xyz, c.xyz, d.xyz);
 
 數值索引前面必須加上字符 \ccmm{s} 或 \ccmm{S}。
 
-下面例子中
+下面來看幾個例子：
 \startclc[indentnext=no]
 float8	f;
 \stopclc
+此例中，
 \ccmm{f.s0} 指代 \ctype{float8} 變量 \cvar{f} 的第一個元素，
 而 \ccmm{f.s7} 則指代 \ctype{float8} 變量 \cvar{f} 的第八個元素。
 
-下面例子中
 \startclc[indentnext=no]
 float16	x;
 \stopclc
+此例中，
 \ccmm{x.sa} （或 \ccmm{x.sA}）指代 \ctype{float16} 變量 \cvar{f} 的第十一個元素，
 而 \ccmm{x.sf} （或 \ccmm{x.sF}）指代 \ctype{float16} 變量 \cvar{f} 的第十六個元素。
 

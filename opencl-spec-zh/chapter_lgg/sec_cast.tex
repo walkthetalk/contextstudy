@@ -4,11 +4,9 @@
 % Implicit Conversions
 \subsection[sec:implicityConversion]{隱式轉換}
 
-OpenCL 支持\reftab{builtInScalarDataTypes}中所定義的內建標量型別間的隱式轉換
-（conversion）
-（\ctype{void} 和 \ctype{half}\footnote{如果支持擴展 \clext{cl_khr_fp16}，
-則 \ctype{half} 也在支持之列。} 除外）。
-隱式轉換不僅是對算式值的重釋（reinterpret），同時會將其轉換成另一個型別與其相等的值。
+OpenCL 支持內建標量型別（參見\reftab{builtInScalarDataTypes}）間的隱式轉換（conversion）
+（\ctype{void} 和 \ctype{half}\footnote{除非支持擴展 \clext{cl_khr_fp16}。} 除外）。
+隱式轉換不僅是對算式值的重釋（reinterpret），同時會將其轉換成另一種型別，但其值不變。
 例如，可以將整數 \ccmm{5} 轉換成浮點數 \ccmm{5.0}。
 
 對於內建矢量數據型別，不允許進行隱式轉換。
@@ -19,17 +17,19 @@ OpenCL 支持\reftab{builtInScalarDataTypes}中所定義的內建標量型別間
 \subsection{顯式轉型}
 
 對於\reftab{builtInScalarDataTypes}中所定義的內建標量型別，
-標準的轉型（type-casting）動作會實施恰當的轉換
-（\ctype{void} 和 \ctype{half}\footnote{如果支持擴展 \clext{cl_khr_fp16}，
-則 \ctype{half} 也在支持之列。} 除外）。下面例子中：
-\startclc
+標準的轉型（type-casting）動作會進行恰當的轉換
+（\ctype{void} 和 \ctype{half}\footnote{除非支持擴展 \clext{cl_khr_fp16}。} 除外）。
+
+\startclc[indentnext=no]
 float	f = 1.0f;
 int	i = (int)f;
 \stopclc
+此例中，
 \cvar{f} 存儲的是 \ccmm{0x3F800000}，而 \cvar{i} 存儲的是 \ccmm{0x1}，
 即將 \cvar{f} 中的浮點數 \ccmm{1.0f} 轉換成了整數值。
 
-對於矢量型別的顯式轉型是非法的。下面的例子會導致編譯錯誤。
+對於矢量型別的顯式轉型是非法的。
+下面的例子會導致編譯錯誤：
 \startclc
 int4	i;
 uint4	u = (uint4) i;	<- not allowed
@@ -42,7 +42,7 @@ int8	i = (int8) f;	<- not allowed
 \stopclc
 
 標量到矢量的轉換可以通過轉型來實施。
-轉型同時會實施恰當的算數轉換。
+轉型同時會進行恰當的算術轉換。
 轉換成內建整形矢量時會向零捨入。
 轉換成浮點矢量時會使用缺省的捨入模式。
 將 \ctype{bool} 轉型成整形矢量時，
@@ -127,9 +127,9 @@ destTypen convert_destTypen<_sat><_roundingMode> (sourceTypen)
 \subsubsection{捨入模式}
 
 與浮點型別有關的轉換會按照 IEEE-754 中的捨入規則進行捨入。
-轉換可以使用\reftab{roundingModes}中的修飾符指定捨入模式。
+可以使用\reftab{roundingModes}中的修飾符指定轉換所用的捨入模式。
 
-\placetable[here,force][tab:roundingModes]
+\placetable[here][tab:roundingModes]
 {捨入模式}
 {\input{chapter_lgg/tbl/tbl_roundingmodes.tex}}
 
