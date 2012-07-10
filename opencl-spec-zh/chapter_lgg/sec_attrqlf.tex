@@ -57,7 +57,7 @@ attribute-argument:
 
 % aligned
 \startclOption{\ccmm{aligned (}\carg{alignment}\ccmm{)}}
-此特性用來指定某種型別變量的最小對齊字節數。
+此特性用來指定某種型別變量的最小齊位字節數。
 \startclc
 struct S { short f[3]; } __attribute__ ((aligned (8)));
 typedef int more_aligned_int __attribute__ ((aligned (8)));
