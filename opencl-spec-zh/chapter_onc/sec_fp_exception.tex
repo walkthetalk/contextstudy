@@ -21,7 +21,11 @@
 在將控制權返還給實作時，他們要自己負責清除異常標誌以及去能所有陷阱。
 是否以及何時重用下層的\cnglo{workitem}（以及伴隨的全局浮點狀態，如果有的話）\cnglo{impdef}。
 
-本規範中，算式 \capi{math_errorhandling} 和 \cmacro{MATH_ERREXCEPT} 被保留使用，
-還未定義。
+此外， ISO / IEC 9899:TC2 中還定義了下列兩個算式：
+\startigBase
+\item \capi{math_errorhandling}、
+\item \cmacro{MATH_ERREXCEPT}。
+\stopigBase
+本規範中，這兩個算式被保留使用，但目前還未定義。
 如果實作通過擴充本規範支持了浮點異常，
-則應該遵守 ISO / IEC 9899:TC2 定義 \capi{math_errorhandling} 和 \cmacro{MATH_ERREXCEPT}。
+則應該遵守 ISO / IEC 9899:TC2 中的定義。

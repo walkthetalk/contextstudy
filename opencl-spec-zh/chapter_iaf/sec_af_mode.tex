@@ -7,13 +7,13 @@
 
 \input{chapter_iaf/sec_af_mode/mirror_repeat.tex}
 
-注意：
-
+\startnotepar
 如果在\cnglo{sampler}中指明使用的是非歸一化坐標（浮點數或整數坐標），
 濾波模式為 \cenum{CLK_FILTER_NEAREST}，
 尋址模式為 \cenum{CLK_ADDRESS_NONE}、 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}
 或 \cenum{CLK_ADDRESS_CLAMP}，
 則本節中計算圖像元素的位置 \math{(i,j,k)} 時不會損失精度。
+\stopnotepar
 
 如果\cnglo{sampler}採用的是其他組合方式（歸一化或非歸一化坐標、濾波模式、尋址模式），
 則對於尋址模式的計算以及圖像濾波的運算而言，
@@ -25,4 +25,4 @@
 尋址模式為 \cenum{CLK_ADDRESS_NONE}、 \cenum{CLK_ADDRESS_CLAMP_TO_EDGE}
 或 \cenum{CLK_ADDRESS_CLAMP} 組合而成的
 \cnglo{sampler}調用 \capi{read_image{f|i|ui}}，
-最後對從圖像中讀到的顏色進行插值來生成經過濾波的顏色值。
+最後對從圖像中讀到的顏色進行插值來生成濾波後的顏色值。

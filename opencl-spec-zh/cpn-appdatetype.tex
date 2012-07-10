@@ -60,14 +60,14 @@
 
 對於那些由\cnglo{app}所定義的、既不是緩衝也不是圖像的數據型別， OpenCL 不對其齊位作任何要求，
 但是如果包含矢量（如 \ccmm{__cl_float4}），
-必須要能用 \ccmm{cl_type} 聯合體中欄位的名字直接訪問才行（\refsec{appendixVecCom}）。
+必須要能用 \ccmm{cl_type} 聯合體中欄位的名字直接訪問才行（\refappendixsec{appendixVecCom}）。
 儘管如此，還是建議頭檔 \cemp{cl_platform.h} 將 OpenCL 所定義的\cnglo{app}數據型別
 （如 \ccmm{cl_float4}）按其型別自然地對齊。
 
 \section{常值矢量}
 
 \cnglo{app}常值矢量可用來對矢量進行組件級賦值。
-使用常值矢量時編譯器可能會對齊進行轉換。
+使用常值矢量時編譯器可能會對其進行轉換。
 \startclc
 cl_float2 foo = { .s[1] = 2.0f };
 cl_int8 bar = {{ 2, 4, 6, 8, 10, 12, 14, 16 }};

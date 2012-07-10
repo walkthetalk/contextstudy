@@ -17,22 +17,28 @@ OpenCL \cnglo{memobj}、\cnglo{programobj}或\cnglo{kernelobj}都可以由多個
 
 \cnglo{cmdq}可以將其中的\cnglo{cmd}對\cnglo{memobj}狀態的改變緩存起來。
 要想在多個\cnglo{cmdq}間同步這些變動，\cnglo{app}必須做到：
-
+\startigBase
+\startitem
 如果\cnglo{cmdq}中的\cnglo{cmd}會修改\cnglo{memobj}的狀態，
 那麼\cnglo{app}必須：
 \startigBase
 \item 得到這些\cnglo{cmd}所對應的\cnglo{evtobj}。
 \item 調用 \capi{clFlush}（或 \capi{clFinish}）以使此隊列中所有未完成的\cnglo{cmd}開始執行。
 \stopigBase
+\stopitem
 
+\startitem
 如果\cnglo{cmdq}想同步\cnglo{memobj}的最新狀態，
 \cnglo{app}所入隊的\cnglo{cmd}必須等在一些事件上，
 這些事件代表的是那些會修改共享對象狀態的\cnglo{cmd}。
 這樣可以確保在此隊列中的\cnglo{cmd}使用共享對象前，
 前一個隊列中使用此對象的\cnglo{cmd}都已執行完畢。
+\stopitem
 
+\startitem
 如果某個\cnglo{cmdq}要修改一個共享的資源，而另一個隊列正在使用此資源，
 那麼其行為\cnglo{undef}。
+\stopigBase
 
 \chapter{多個主機線程}
 

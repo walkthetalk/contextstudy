@@ -11,13 +11,17 @@ ULP 的定義如下：
 
 {\ftRef%
 如果 x 是位於兩個有限連續浮點數 a 和 b 之間的實數，
-並且與 a 和 b 都不相等，則 \math{ulp(x) = |b - a|}。
-否則 \math{ulp(x)} 是這兩個離 x 最近且互不相等的有限浮點數間的距離。
+並且與 a 和 b 都不相等，則：
+\startformula[indentnext=no]
+ulp(x) = |b - a|
+\stopformula
+。否則 \math{ulp(x)} 是這兩個離 x 最近且互不相等的有限浮點數間的距離。
 此外， \math{ulp(NaN)} 就是 NaN。}
 
+\useurl[rr5504][ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf]
 {\ftRef%
 歸因：此定義獲得了 Jean-Michel Muller 的認可，不過他對在零處的行為做了一點澄清。
-請參考 ftp://ftp.inria.fr/INRIA/publication/publi-pdf/RR/RR-5504.pdf。}
+請參考 \from[rr5504]。}
 
 \reftab{spMathUlp}\footnote{%
 內建數學函式 \capi{lgamma} 和 \capi{lgamma_r} 的 ULP 值目前還未定義。}%
@@ -25,7 +29,7 @@ ULP 的定義如下：
 計算 ULP 值時參考的是無限精確的結果。
 其中 0 ulp 表示相應函式無需捨入。
 
-\placetable[here,force,split][tab:spMathUlp]
+\placetable[here,split][tab:spMathUlp]
 {單精度內建數學函式的 ULP 值}
 {\input{chapter_onc/tbl/tbl_spmathulp.tex}}
 
@@ -33,6 +37,6 @@ ULP 的定義如下：
 計算 ULP 值時參考的是無限精確的結果。
 其中 0 ulp 表示相應函式無需捨入。
 
-\placetable[here,force,split][tab:dpMathUlp]
+\placetable[here,split][tab:dpMathUlp]
 {雙精度內建數學函式的 ULP 值}
 {\input{chapter_onc/tbl/tbl_dpmathulp.tex}}
