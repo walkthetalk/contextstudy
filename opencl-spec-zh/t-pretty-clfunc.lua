@@ -26,16 +26,6 @@ if not modules then modules = { } end modules ['t-pretty-clfunc'] = {
 local tohash = table.tohash
 local P, S, V, patterns = lpeg.P, lpeg.S, lpeg.V, lpeg.patterns
 
-
-local keyword = tohash {
-   "const",
-   "volatile",
-   "__global",
-   "__const",
-   "__local",
-   "__private",
-}
-
 local context               = context
 local makepattern           = visualizers.makepattern
 
@@ -66,7 +56,7 @@ local gqlf        = P("constant")
                   + P("const")
                   + P("volatile")
                   + P("__global")
-                  + P("__const")
+                  + P("__constant")
                   + P("__local")
                   + P("__private")
                   + P("restrict")

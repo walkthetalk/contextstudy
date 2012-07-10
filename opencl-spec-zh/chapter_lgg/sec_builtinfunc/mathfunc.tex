@@ -4,7 +4,7 @@
 \reftab{svMathFunc}中列出了內建的數學函式。
 內建的數學函式分為兩種：
 \startigBase
-\item 第一種函式有兩個版本，一個版本的引數是標量，一個版本的引數是矢量；
+\item 第一種函式有兩個版本，一個版本的引數是標量，另一個版本的引數是矢量；
 
 \item 第二種函式只有一個版本，引數為標量浮點數。
 \stopigBase
@@ -28,7 +28,7 @@
  \ctype{double8} 或 \ctype{double16}。
 如果沒有特殊說明，函式的返回值與引數的型別都相同。
 
-\placetable[here,force,split][tab:svMathFunc]
+\placetable[here,split][tab:svMathFunc]
 {引數既可為標量，也可為矢量的內建數學函式表}
 {\input{chapter_lgg/tbl/tbl_svmathfunc.tex}}
 
@@ -47,11 +47,16 @@
 \item 用於除法和倒數運算的 \ccmm{half_} 和 \ccmm{native_} 函式。
 \stopigBase
 
+\startnotepar
+對於帶前綴 \ccmm{native_} 的函式，
+參數的取值範圍以及取最大值時會產生什麼錯誤都\cnglo{impdef}。
+\stopnotepar
+
 在\reftab{hnMathFunc}中，泛型 \ctype{gentype} 表示函式引數的型別可以是
  \ctype{float}、 \ctype{float2}、 \ctype{float3}、 \ctype{float4}、
  \ctype{float8} 或 \ctype{float16}。
 
-\placetable[here,force,split][tab:hnMathFunc]
+\placetable[here][tab:hnMathFunc]
 {內建的 \ccmm{half_} 和 \ccmm{native_} 數學函式}
 {\input{chapter_lgg/tbl/tbl_hnmathfunc.tex}}
 
@@ -59,7 +64,7 @@
 如果引數是去規格化數， \capi{half_} 函式可以返回任何值，只要\refsec{ftzmECB}允許就行，
 無論 \ccmm{-cl-denorms-are-zero} （參見\refsec{MathIntrinsicsOption}）是否有效。
 
-有下列符號常量可用。這些值的型別都是 \ctype{float}，在單精度浮點數的精度內是精確的。
+有下列符號常量可用。這些值的型別都是 \ctype{float}，在單精度浮點數的精度內是準確的。
 \input{chapter_lgg/tbl/tbl_floatconstant.tex}
 
 如果\cnglo{device}支持雙精度浮點數，還有下列符號常量可用：
@@ -121,7 +126,7 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 \stopigBase
 
 除此之外，還有一些常量可用，如\reftab{tblFltMacroConst}所示。
-他們的型別都是 \ctype{float}，在 \ctype{float} 型別的精度內是精確的。
+他們的型別都是 \ctype{float}，在 \ctype{float} 型別的精度內是準確的。
 
 \placetable[here][tab:tblFltMacroConst]
 {單精度浮點常量}
@@ -157,7 +162,7 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 {\input{chapter_lgg/tbl/tbl_mmdouble.tex}}
 
 除此之外，還有一些常量可用，如\reftab{tblDblMacroConst}所示。
-他們的型別都是 \ctype{double}，在 \ctype{double} 型別的精度內是精確的。
+他們的型別都是 \ctype{double}，在 \ctype{double} 型別的精度內是準確的。
 
 \placetable[here][tab:tblDblMacroConst]
 {雙精度浮點常量}

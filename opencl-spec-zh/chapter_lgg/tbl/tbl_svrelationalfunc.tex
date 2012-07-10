@@ -6,7 +6,7 @@ int isequal (double x, double y)
 longn isequal (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isequal]
-按組件逐一比較 \math{\marg{x} == \marg{y}}。
+按組件逐一比較 \ccmm{x == y}。
 \stopbuffer
 
 % isnotequal
@@ -17,7 +17,7 @@ int isnotequal (double x, double y)
 longn isnotequal (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isnotequal]
-按組件逐一比較 \math{\marg{x} != \marg{y}}。
+按組件逐一比較 \ccmm{x != y}。
 \stopbuffer
 
 % isgreater
@@ -28,7 +28,7 @@ int isgreater (double x, double y)
 longn isgreater (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isgreater]
-按組件逐一比較 \math{\marg{x} > \marg{y}}。
+按組件逐一比較 \ccmm{x > y}。
 \stopbuffer
 
 % isgreaterequal
@@ -41,7 +41,7 @@ longn isgreaterequal (doublen x,
 		doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isgreaterequal]
-按組件逐一比較 \math{\marg{x} \geq \marg{y}}。
+按組件逐一比較 \ccmm{x >= y}。
 \stopbuffer
 
 % isless
@@ -52,7 +52,7 @@ int isless (double x, double y)
 longn isless (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isless]
-按組件逐一比較 \math{\marg{x} < \marg{y}}。
+按組件逐一比較 \ccmm{x < y}。
 \stopbuffer
 
 % islessequal
@@ -63,7 +63,7 @@ int islessequal (double x, double y)
 longn islessequal (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:islessequal]
-按組件逐一比較 \math{\marg{x} \leq \marg{y}}。
+按組件逐一比較 \ccmm{x <= y}。
 \stopbuffer
 
 % islessgreater
@@ -74,7 +74,7 @@ int islessgreater (double x, double y)
 longn islessgreater (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:islessgreater]
-按組件逐一比較 \math{(\marg{x} < \marg{y}) \mcmm{||} (\marg{x} > \marg{y})}。
+按組件逐一比較 \ccmm{(x < y) || (x > y)}。
 \stopbuffer
 
 % isfinite
@@ -130,7 +130,7 @@ longn isordered (doublen x, doublen y)
 \stopbuffer
 \startbuffer[funcdesc:isordered]
 測試引數是否規則。
-相當於 \math{\mapiemp{isequal}(\marg{x}, \marg{x}) \mcmm{&&} \mapiemp{isequal}(\marg{y}, \marg{y})}。
+相當於 \ccmm{isequal(x, x) && isequal(y, y)}。
 \stopbuffer
 
 % isunordered
@@ -197,9 +197,9 @@ gentype select (gentype a,
 \stopbuffer
 \startbuffer[funcdesc:select]
 對於矢量型別中的每個組件，
-如果 \math{\marg{c}[i]} 的最高位為 1，則結果為 \math{\marg{b}[i]}，否則為 \math{\marg{a}[i]}。
+如果 \ccmm{c[i]} 的最高位為 1，則結果為 \ccmm{b[i]}，否則為 \ccmm{a[i]}。
 
-對於標量型別，\math{result = \marg{c} ? \marg{b} : \marg{a}}。
+對於標量型別，\ccmm{result = c ? b : a}。
 
 \ctype{igentype} 和 \ctype{ugentype} 的元素數目以及元素的位數
 都必須與 \ctype{gentype} 相同。

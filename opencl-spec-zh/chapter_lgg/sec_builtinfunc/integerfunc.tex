@@ -4,16 +4,18 @@
 \reftab{svIntegerFunc}中列出了內建的整數函式，其引數即可為標量，亦可為矢量。
 矢量版本的整數函式按組件逐一運算。其中的描述針對單個組件的。
 
-泛型 \ctype{gentype} 表示函式引數的型別可以是
- \ctype{char}、 \ctype{char{2|3|4|8|16}}、
- \ctype{uchar}、 \ctype{uchar{2|3|4|8|16}}、
- \ctype{short}、 \ctype{short{2|3|4|8|16}}、
- \ctype{ushort}、 \ctype{ushort{2|3|4|8|16}}、
- \ctype{int}、 \ctype{int{2|3|4|8|16}}、
- \ctype{uint}、 \ctype{uint{2|3|4|8|16}}、
- \ctype{long}、 \ctype{long{2|3|4|8|16}}、
- \ctype{ulong} 或 \ctype{ulong{2|3|4|8|16}}。
-泛型 \ctype{ugentype} 指代無符號版本的 \ctype{gentype}。
+泛型 \ctype{gentype} 表示函式引數的型別可以是：
+\startigBase[indentnext=no]
+\item \ctype{char}、 \ctype{char{2|3|4|8|16}}、
+\item \ctype{uchar}、 \ctype{uchar{2|3|4|8|16}}、
+\item \ctype{short}、 \ctype{short{2|3|4|8|16}}、
+\item \ctype{ushort}、 \ctype{ushort{2|3|4|8|16}}、
+\item \ctype{int}、 \ctype{int{2|3|4|8|16}}、
+\item \ctype{uint}、 \ctype{uint{2|3|4|8|16}}、
+\item \ctype{long}、 \ctype{long{2|3|4|8|16}}、
+\item \ctype{ulong} 或 \ctype{ulong{2|3|4|8|16}}。
+\stopigBase
+而泛型 \ctype{ugentype} 則指代無符號版本的 \ctype{gentype}。
 例如，如果 \ctype{gentype} 為 \ctype{char4}，則 \ctype{ugentype} 為 \ctype{uchar4}。
 同時，泛型 \ctype{sgentype} 指明函式的引數可以是標量（即
  \ctype{char}、 \ctype{uchar}、 \ctype{short}、 \ctype{ushort}、
@@ -27,7 +29,7 @@
 
 對於任一函式的任一具體應用，所有引數以及返回值的型別均相同，除非明確指定了其型別。
 
-\placetable[here,force,split][tab:svIntegerFunc]
+\placetable[here][tab:svIntegerFunc]
 {引數既可為標量整數，也可為矢量整數的內建函式}
 {\input{chapter_lgg/tbl/tbl_svintegerfunc.tex}}
 
@@ -38,7 +40,7 @@
  \ctype{uint}、 \ctype{uint2}、 \ctype{uint3}、
  \ctype{uint4}、 \ctype{uint8} 或 \ctype{uint16}。
 
-\placetable[here,force,split][tab:fastIntegerFunc]
+\placetable[here][tab:fastIntegerFunc]
 {內建的快速整數函式}
 {\input{chapter_lgg/tbl/tbl_fastintegerfunc.tex}}
 
@@ -68,4 +70,3 @@ OpenCL C 編程語言定義了如下巨集，他們必須使用指定的值。
 \placetable[here][tab:integerMacroAndApp]
 {整形巨集與應用中所用巨集之間的對應關係}
 {\input{chapter_lgg/tbl/tbl_mminteger.tex}}
-

@@ -1,15 +1,7 @@
-
-
 % vloadn
 \startbuffer[funcproto:vloadn]
-\stopbuffer
-\startbuffer[funcdesc:vloadn]
-\stopbuffer
-
-% vloadn
-\startbuffer[funcproto:vloadn]
-gentypen vloadn (size_t offset, 
-	const __global gentype *p) 
+gentypen vloadn (size_t offset,
+	const __global gentype *p)
 gentypen vloadn (size_t offset,
 	const __local gentype *p)
 gentypen vloadn (size_t offset,
@@ -55,13 +47,13 @@ void vstoren (gentypen data,
 % vload_half
 \startbuffer[funcproto:vload_half]
 float vload_half (size_t offset,
-	const __global half *p)
+		const __global half *p)
 float vload_half (size_t offset,
-	const __local half *p)
+		const __local half *p)
 float vload_half (size_t offset,
-	const __constant half *p)
+		const __constant half *p)
 float vload_half (size_t offset,
-	const __private half *p)
+		const __private half *p)
 \stopbuffer
 \startbuffer[funcdesc:vload_half]
 由位址 \math{(\marg{p} + \marg{offset})} 讀取
@@ -73,13 +65,13 @@ float vload_half (size_t offset,
 % vload_halfn
 \startbuffer[funcproto:vload_halfn]
 floatn vload_halfn (size_t offset,
-	const __global half *p)
+		const __global half *p)
 floatn vload_halfn (size_t offset,
-	const __local half *p)
+		const __local half *p)
 floatn vload_halfn (size_t offset,
-	const __constant half *p)
+		const __constant half *p)
 floatn vload_halfn (size_t offset,
-	const __private half *p)
+		const __private half *p)
 \stopbuffer
 \startbuffer[funcdesc:vload_halfn]
 由位址 \math{(\marg{p} + (\marg{offset} \times n))} 讀取

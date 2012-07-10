@@ -1,8 +1,8 @@
 \subsection{printf}
 
-OpenCL C 編程語言還實現有 \capi{printf} 函式。
+OpenCL C 編程語言還實現有\reftab{printfFunc}中所列的 \capi{printf} 函式。
 
-\placetable[here,force,split][tab:printfFunc]
+\placetable[here][tab:printfFunc]
 {內建 printf 函式}
 {\input{chapter_lgg/tbl/tbl_printffunc.tex}}
 
@@ -32,7 +32,7 @@ OpenCL C 編程語言還實現有 \capi{printf} 函式。
 \item 最小{\ftRef{欄寬}}（{\ftRef{field width}}），可選。
 如果轉換後，字符數小於欄寬，則在左側以空格填補達到欄寬
 （缺省使用空格，如果有後面所描述的左側調整標誌，則會在右側填補）。
-欄寬為非負十進制整數\footnote{注意，如果欄寬以{\ftEmp{0}}開頭，則將{\ftEmp{0}}當作標誌。}。
+欄寬為非負十進制整數\footnote{注意，如果欄寬以 {\ftEmp{0}} 開頭，則將 {\ftEmp{0}} 當作標誌。}。
 
 \item {\ftRef{精度}}（{\ftRef{precision}}），可選。
 如果出現在 \cemp{d}、 \cemp{i}、 \cemp{o}、 \cemp{u}、

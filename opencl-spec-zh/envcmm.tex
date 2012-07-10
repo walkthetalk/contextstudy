@@ -1201,6 +1201,18 @@ bolditalic=texgyreherosbolditalic]
   alternative=inmargin, %normal inmargin middle TEXT
 ]
 
+\setuphead[subsubsection][
+  conversion=numbers,
+  indentnext=yes,
+  textstyle={\rm\ita}, %normal bold slanted boldslanted % 標題內容
+  numberstyle={\rm\ita}, %normal bold slanted boldslanted % 編號
+  number=yes, %yes no % 是否帶編號
+  ownnumber=no, %yes no % 是否指定編號，如果是，則第一個參數就是編號
+  before={\blank[.5em]}, %COMMAND
+  after={\blank[.5em]}, %COMMAND
+  alternative=inmargin, %normal inmargin middle TEXT
+]
+
 \setuplist[
   alternative=c,	%a 空格
 			%b 右对齐

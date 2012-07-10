@@ -60,8 +60,8 @@ half *p;
 a = *p;		<- not allowed. must use vload_half function
 \stopclc
 
-函式 \capi{vload_half}、 \capi[n]{vload_half}、 \capi[n]{vloada_half}
-和 \capi{vstore_half}、 \capi[n]{vstore_half}、 \capi[n]{vstorea_half}
+函式 \clapi{vload_half}、 \clapi[n]{vload_half}、 \clapi[n]{vloada_half}
+和 \clapi{vstore_half}、 \clapi[n]{vstore_half}、 \clapi[n]{vstorea_half}
 可分別裝載和存儲 \cldt{half} 指針，參見\refsec{vectorLsFunc}。
 裝載函式可從內存中讀取標量或矢量 \cldt{half} 值 並將其轉換成 \cldt{float} 值。
 而存儲函式則將標量或矢量 \cldt{float} 值作為輸入，並（以恰當的捨入模式）
