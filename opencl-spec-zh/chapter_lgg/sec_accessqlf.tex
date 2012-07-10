@@ -18,9 +18,8 @@ __kernel void foo (read_only image2d_t imageA,
 \cvar{imageA} 是一個只讀的 2D \cnglo{imgobj}，
 而 \cvar{imageB} 是一個只寫的 2D \cnglo{imgobj}。
 
-保留關鍵字
- \cqlf{__read_only}、 \cqlf{__write_only}、 \cqlf{__read_write}、
- \cqlf{read_only}、 \cqlf{write_only} 和 \cqlf{read_write}
- 只能用作訪問限定符，不能挪作他用。
-
-
+下列保留關鍵字僅用作訪問限定符，不作他用：
+\startigBase
+\item \cqlf{__read_only}、 \cqlf{__write_only}、 \cqlf{__read_write}、
+\item \cqlf{read_only}、 \cqlf{write_only} 和 \cqlf{read_write}。
+\stopigBase

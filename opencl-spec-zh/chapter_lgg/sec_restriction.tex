@@ -32,8 +32,9 @@
 
 % image
 \startitem
-只有函式參數的型別才能是圖像（image2d_t, image3d_t, image2d_array_t, image1d_t,
-image1d_buffer_t or image1d_array_t）。
+只有函式參數的型別才能是圖像
+（\cldt{image2d_t}、 \cldt{image3d_t}、 \cldt{image2d_array_t}、
+\cldt{image1d_t}、 \cldt{image1d_buffer_t} 或 \cldt{image1d_array_t}）。
 不能修改這種參數。
 並且只能用內建函式來訪問其元素（參見\refsec{imgRwFunc}）。
 
@@ -138,7 +139,7 @@ image1d_buffer_t or image1d_array_t）。
 
 % irreducible control flow
 \startitem
-不可規約的控制流（irreducible control flow）是否違規\cnglo{impdef}。
+不可規約的控制流（irreducible control flow）是否\cnglo{illegal}\cnglo{impdef}。
 \stopitem
 
 % built-in types less than 32 bits
@@ -187,7 +188,7 @@ do_proc (__global char *pA, short b, __global short *pB)
 
 % address space
 \startitem
-結構體或聯合體的元素必須屬於同一個位址空間中，否則違規。
+結構體或聯合體的元素必須屬於同一個位址空間中，否則\cnglo{illegal}。
 \stopitem
 
 % struct / union's elements as OpenCL object

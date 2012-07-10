@@ -18,7 +18,7 @@ OpenCL 實現了下列相互分離的位址空間：
 如果 \cqlf{__kernel} 函式的引數聲明為指針或某種型別的陣列，
 則他指向的位址空間必須是 \cqlf{global}、 \cqlf{local}、 \cqlf{constant}。
 兩個指針要想相互賦值，他們必須指向同一個位址空間。
-將指向位址空間 A 的指針轉型成為指向位址空間 B 的指針時\cnglo{illegle}的。
+將指向位址空間 A 的指針轉型成為指向位址空間 B 的指針是\cnglo{illegal}的。
 
 如果函式引數的型別為
  \cqlf{image2d_t}、 \cqlf{image3d_t}、 \cqlf{image2d_array_t}、
@@ -44,9 +44,9 @@ float x[4];
 
 例：
 \startclc
-__private int f() { ... } // should generate an error
-__local int *f() { ... } // allowed
-__local int * __private f() { ... }; // should generate an error.
+__private int f() { ... }		// should generate an error
+__local int *f() { ... }		// allowed
+__local int * __private f() { ... };	// should generate an error.
 \stopclc
 
 % __global or global
@@ -158,7 +158,8 @@ __kernel void my_func(...)
 如果所聲明的變量是指針，並且沒有指定位址空間限定符，
 則認為他指向的是 \cqlfemp{__private} 位址空間。
 
-所保留的關鍵字
- \cqlf{__global}、 \cqlf{__constant}、 \cqlf{__local}、 \cqlf{__private}、
- \cqlf{global}、 \cqlf{constant}、 \cqlf{local} 和 \cqlf{private}
- 只作為位址空間限定符使用，不作他用。
+下列保留關鍵字僅用作位址空間限定符，不作他用：
+\startigBase
+\item \cqlf{__global}、 \cqlf{__constant}、 \cqlf{__local}、 \cqlf{__private}、
+\item \cqlf{global}、 \cqlf{constant}、 \cqlf{local} 和 \cqlf{private}。
+\stopigBase

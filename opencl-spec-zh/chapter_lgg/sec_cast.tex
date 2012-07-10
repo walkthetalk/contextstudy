@@ -222,7 +222,7 @@ float4 f = convert_float4_rtp( i );
 即使這種轉換的行為不能移植到其他硬件架構的 OpenCL 實作上。
  AltiVec\high{TM} 是 Motorola Inc. 的商標。
  Cell Broadband Engine 是 Sony Computer Entertainment Inc. 的商標。}。
-對於這種（反）轉換， C 語言中經常使用的有這幾種方法：
+對於這種（反）轉換， C 語言中經常使用方法為：
 指針別名（pointer aliasing）、聯合體（union）和 內存拷貝（memcpy）。
 對於 C99，這些方法中只有內存拷貝是嚴格正確的。
 由於 OpenCL 沒有提供 \capi{memcpy}，所以需要其他手段。
@@ -260,10 +260,10 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 \footnote{除非支持擴展 \clext{cl_khr_fp16}。} 和 \ctype{void} 除外）
 都可以重釋為另一種大小相同的數據型別，如果是標量型別則使用 \clapi{as_type}，
 如果是矢量型別則使用 \clapi[n]{as_type}\footnote{
-聯合體用來反應數據在內存中是怎麼組織的，
+聯合體用來反映數據在內存中是怎麼組織的，
 而 \clapi{as_type} 和 \clapi[n]{as_type} 則是用來反應數據在寄存器中是怎麼組織的。
 如果在設備上算元和結果共享同一個寄存器檔（register file），
-則 \clapi{as_type} 和 \clapi[n]{as_type} 在編譯和應該不會產生任何指令。
+則 \clapi{as_type} 和 \clapi[n]{as_type} 在編譯後應該不會產生任何指令。
 注意，內存中數據組織方式的不同大部分都是由於端序（endianness）的不同所導致，
 因此基於寄存器的表示方式也可能會由於寄存器中元素大小的原因而不同。
 （例如，在某種架構上，可能將 \ccmm{char} 裝載進 32 位寄存器中，
@@ -281,12 +281,12 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 通常對函式參數都會實施型別晉陞（type promotion），而這裡不會。
 
 例如， \ccmm{as_float(0x3f800000)} 返回 \ccmm{1.0f}，
-而 \ccmm{1.0f} 正式將 \ccmm{0x3f800000} 看作 IEEE-754 單精度浮點數時的值。
+而 \ccmm{1.0f} 正是將 \ccmm{0x3f800000} 看作 IEEE-754 單精度浮點數時的值。
 
-如果算元和結果類型所包含元素的數目不同，則結果\cnglo{impdef}，
+如果算元和結果型別所包含元素的數目不同，則結果\cnglo{impdef}，
 但將四元矢量轉換為三元矢量則例外。
-這種情況下，會直接返回算元中的位元，不會將其修正為新類型。
-也就是說，如果算元和結果類型所包含元素的數目不同，
+這種情況下，會直接返回算元中的位元，不會將其修正為新型別。
+也就是說，如果算元和結果型別所包含元素的數目不同，
 符合 OpenCL 的實作需要將其行為顯式的定義清楚，但兩種實作的行為不必相同。
 實作所定義的結果中可能包含所有或部分原始位元，也可能完全沒有原始位元，
 而且位元的順序也可由實作自由選擇。
@@ -330,12 +330,12 @@ float3 g = /BTEX\ftEmp{as_float3}/ETEX(f);
 \subsection{指針轉型}
 
 分別指向新舊型別的指針可以相互轉換。
-將指針轉型成新的型別時會斷言位址已經正確對齊，雖然實際並沒有做檢查。
+將指針轉型成新的型別時會假定位址已經正確對齊，雖然實際並沒有做檢查。
 開發人員還是需要知道 OpenCL \cnglo{device}的端序和數據的端序，
 從而可以確定標量和矢量數據元素在內存中的存儲方式。
 
 % Usual Arithmetic Conversions
-\subsection[sec:usualArithConv]{常見的算術轉換}
+\subsection[sec:usualArithConv]{常規算術轉換}
 
 許多期望算元為算術類型的算子所引起轉換並得到結果的方式都類似。
 其目的是為算元和結果確定一種兩者通用的實型（real type，即實數）。
@@ -344,12 +344,12 @@ float3 g = /BTEX\ftEmp{as_float3}/ETEX(f);
 出於這個目的，所有的矢量型別都比標量具有更高的轉換級別（conversion rank）。
 除非顯式規定，否則上面所說的通用實型也是結果所對應的實型，
 如果與算元的實型相同，則其型域也相同，否則為複數。
-這種模式稱作常用的算術轉換（usual arithmetic conversion）。
+這種模式稱作常規算術轉換（usual arithmetic conversion）。
 如果型別為矢量的算元多於一個，則會發生錯誤。
 按照\refsec{implicityConversion}，不允許在矢量型別間進行隱式轉換。
 
 否則，如果算元中只有一個是矢量型別，其他都是標量型別，
-則會將標量型別轉換成矢量元素的型別，然後將其拓寬成一個新的矢量，
+則會先將標量型別轉換成矢量元素的型別，然後將其拓寬成一個新的矢量，
 其元素數目與矢量算元相同，且所有元素的值都與標量值相同。
 如果任一標量算元的轉換級別比矢量算元元素的級別高，那麼就會發生錯誤。
 出於此目的，轉換級別的次序定義如下：
@@ -378,6 +378,6 @@ float3 g = /BTEX\ftEmp{as_float3}/ETEX(f);
 經過審查， C99 的{\ftRef{節 6.3.1.8}} 和{\ftRef{節 6.3.1.1}} 中的標準次序都被駁回了。
 如果使用這裡所定義的整形轉換級別， \ccmm{int4 + 0U} 是合法的且所返回的型別為 \ctype{int4}。
 如果對於標量使用 C99 中標準的算術轉換規則，則會對整形矢量的元素實施標準的整數型別晉陞，
- \ccmm{short8 + char} 所返回的型別為 \ctype{int8}，或者違規。
+ \ccmm{short8 + char} 所返回的型別為 \ctype{int8}，或者\cnglo{illegal}。
 \stopnotepar
 
