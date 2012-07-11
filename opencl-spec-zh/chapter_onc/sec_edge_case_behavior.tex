@@ -30,7 +30,10 @@ sNaN 轉換後應當是 NaN，但可能被轉換成非 sNaN。
 
 % func description
 \startEnglishWithoutWhiteSpace
+\setupnarrower[left=2em,right=0em]
+\startnarrower[left,right]
 \input{chapter_onc/misc/funcdesc.tex}
+\stopnarrower
 \stopEnglishWithoutWhiteSpace
 
 % Changes to C99 TC2 Behavior
@@ -62,13 +65,19 @@ gentype modf(gentype value, gentype *iptr)
 
 在上述任一情況中，如果某個算元或結果被刷成了零，零的正負號未定義。
 
-如果次規格化數被刷成了零，則\cnglo{device}可能採用下列方式來處理 \capi{nextafter}
-的邊界情況，以取代\refsec{addReqBeyondC99}中的那些：
+如果次規格化數被刷成了零，
+則\cnglo{device}可能採用下列方式來處理 \capi{nextafter} 的邊界情況，
+以取代\refsec{addReqBeyondC99}中的那些：
 
-nextafter ( +smallest normal, y < +smallest normal ) = +0.\par
-nextafter ( -smallest normal, y > -smallest normal ) = -0.\par
-nextafter ( -0, y > 0 ) returns smallest positive normal value.\par
-nextafter ( +0, y < 0 ) returns smallest negative normal value.\par
+\startEnglishWithoutWhiteSpace
+\setupnarrower[left=2em,right=0em]
+\startnarrower[left,right]
+\clapi{nextafter} ( +smallest normal, y < +smallest normal ) = +0.\par
+\clapi{nextafter} ( -smallest normal, y > -smallest normal ) = -0.\par
+\clapi{nextafter} ( -0, y > 0 ) returns smallest positive normal value.\par
+\clapi{nextafter} ( +0, y < 0 ) returns smallest negative normal value.\par
+\stopnarrower
+\stopEnglishWithoutWhiteSpace
 
 清晰起見，將次規格化數或去規格化數定義為位於區間 \ccmm{0 < x < TYPE_MIN}
 和 \ccmm{-TYPE_MIN < x < -0} 內的一組可表示的數。
