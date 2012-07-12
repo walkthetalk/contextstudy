@@ -1,14 +1,14 @@
 \startcomponent cpn-appdatetype
 \product opencl-spec-zh
 
-\chapter{應用數據型別}
+\chapter{應用程式數據型別}
 
 本節中會列出為\cnglo{host}\cnglo{app}提供的數據結構、型別和常量定義。
 這些定義是所有\cnglo{platform}和架構所共有的。
 這些額外細節可以證實我們要維護一個可移植編程環境的承諾，
 潛在地也會阻止對所供應頭檔的修改。
 
-\section{共享的應用標量數據型別}
+\section{共享的應用程式標量數據型別}
 
 為了讓\cnglo{app}用起來更加方便，提供了下列\cnglo{app}標量型別：
 \startclc
@@ -25,7 +25,7 @@
 /BTEX\cldt{cl_double}/ETEX
 \stopclc
 
-\section{所支持的應用矢量數據型別}
+\section{所支持的應用程式矢量數據型別}
 
 \cnglo{app}矢量型別是聯合體，用來創建上一節中標量型別的矢量。
 為了讓\cnglo{app}用起來更加方便，提供了下列\cnglo{app}矢量型別：
@@ -46,12 +46,12 @@
 
 \cnglo{app}標量和矢量數據型別的定義在頭檔 \cemp{cl_platform.h} 中。
 
-\section[appendix:appDataTypeAlignment]{應用數據型別的齊位}
+\section[appendix:appDataTypeAlignment]{應用程式數據型別的齊位}
 
 用戶要負責確保傳入和傳出 OpenCL 緩衝的數據相對於緩衝的起始位址原生對齊，
 遵守\refsec{alignmentOfTypes}中的要求。
 其中隱含着，
-用 \cenum{CL_MEM_USE_HOST_PTR} 創建 OpenCL 緩衝時所提供的\cnglo{host}內存指針
+用 \cenum{CL_MEM_USE_HOST_PTR} 創建 OpenCL 緩衝時所提供的\cnglo{host}內存指位器
 必須按\cnglo{kernel}中訪問這些緩衝時所用的數據型別進行對齊。
 此外，用戶也要負責傳入和傳出 OpenCL 圖像的數據按用來表示單個像素的數據粒度進行對齊
 （如：\ccmm{image_num_channels * sizeof(image_channel_data_type)}，
@@ -174,7 +174,7 @@ foo.s7		// illegal - no component s7
 對於\cnglo{app}矢量型別 \cldt[n]{cl_type} 和原生矢量型別 \cldt[n]{__cl_type} 而言，
 標準算子和函式的行為由外部編譯器定義。
 
-\section{應用常量的定義}
+\section{應用程式常量的定義}
 
 除了以上\cnglo{app}型別的定義，還有下列常值定義。
 

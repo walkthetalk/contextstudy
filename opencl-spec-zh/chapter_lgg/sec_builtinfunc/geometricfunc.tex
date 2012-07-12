@@ -1,5 +1,4 @@
-\subsection[sec:geomtricFunc]{幾何函式\footnote{
-可以使用化簡（如 \capi{mad} 或 \capi{fma}）來實現幾何函式。}}
+\subsection[sec:geomtricFunc]{幾何函式}
 
 \reftab{svGeometricFunc}中列出了內建的幾何函式。
 這些函式都是按組件逐一運算的，其中的描述也是針對單個組件的。
@@ -9,6 +8,10 @@
  \ctype{double}、 \ctype{double2}、 \ctype{double3} 或 \ctype{double4}。
 
 內建的幾何函式實現時用的捨入模式是捨入為最近偶數。
+
+\startnotepar
+可以使用化簡（如 \capi{mad} 或 \capi{fma}）來實現幾何函式。
+\stopnotepar
 
 \placetable[here][tab:svGeometricFunc]
 {引數既可為標量，也可為矢量的內建幾何函式}

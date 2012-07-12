@@ -3,7 +3,7 @@
 \clETD{CL_PROGRAM_REFERENCE_COUNT}{cl_uint}{
 返回 \carg{program} 的\cnglo{refcnt}。\footnote{%
 在返回的那一刻，此\cnglo{refcnt}就已過時。
-應用中一般不太適用。提供此特性主要是為了檢測內存泄漏。}
+\cnglo{app}中一般不太適用。提供此特性主要是為了檢測內存泄漏。}
 }
 
 \clETD{CL_PROGRAM_CONTEXT}{cl_context}{
@@ -53,9 +53,9 @@
 所返回的可能是針對特定實作的中間表示（又叫做 IR），或針對特定設備的可執行二元碼，也可能二者兼有。
 至於二元碼中會返回哪種資訊由 OpenCL 實作來決定。
 
-\carg{param_value} 指向一個包含 \math{n} 個指針的陣列，所有指針都由調用者分配，
+\carg{param_value} 指向一個包含 \math{n} 個指位器的陣列，所有指位器都由調用者分配，
 其中 \math{n} 就是 \carg{program} 所關聯\cnglo{device}的數目。
-對於每個指針需要分配多少內存，可以通過此表中的 \cenum{CL_PROGRAM_BINARY_SIZES} 進行查詢。
+對於每個指位器需要分配多少內存，可以通過此表中的 \cenum{CL_PROGRAM_BINARY_SIZES} 進行查詢。
 
 實作可以使用陣列中的元素來存儲特定\cnglo{device}所對應的\cnglo{program}二元碼，如果有的話。
 至於陣列中的元素都對應於哪個\cnglo{device}，可以使用 \cenum{CL_PROGRAM_DEVICES} 進行查詢。

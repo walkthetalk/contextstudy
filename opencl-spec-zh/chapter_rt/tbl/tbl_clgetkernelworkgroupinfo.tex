@@ -26,10 +26,10 @@ OpenCL 實作可以用\cnglo{kernel}的資源需求（寄存器的使用情況�
 返回\cnglo{kernel}所使用的\cnglo{locmem}的大小。
 他包括實作執行\cnglo{kernel}所需的內存、
 \cnglo{kernel}中所聲明的帶有位址限定符 \cqlf{__local} 的變量、
-以及為帶有位址限定符 \cqlf{__local} 的指針引數所分配的內存
+以及為帶有位址限定符 \cqlf{__local} 的指位器引數所分配的內存
 （其大小由 \capi{clSetKernelArg} 指定）。
 
-對於任一帶有位址限定符 \cqlf{__local} 的指針引數，如果沒有為其指定內存大小，則假定為 0。
+對於任一帶有位址限定符 \cqlf{__local} 的指位器引數，如果沒有為其指定內存大小，則假定為 0。
 }
 
 \clETD{CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE}{size_t}{

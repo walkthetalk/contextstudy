@@ -12,7 +12,7 @@ cl_int clEnqueueUnmapMemObject (cl_command_queue command_queue,
 \stopCLFUNC
 
 此函式所入隊的\cnglo{cmd}可以將\cnglo{memobj}之前映射的區域解映射。
-假定使用 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 所返回的指針
+假定使用 \capi{clEnqueueMapBuffer} 或 \capi{clEnqueueMapImage} 所返回的指位器
 對 \carg{memobj} 所進行的讀寫已經完畢。
 
 \carg{command_queue} 就是解映射\cnglo{cmd}要進入的隊列。

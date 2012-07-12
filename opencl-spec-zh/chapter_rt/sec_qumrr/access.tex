@@ -36,9 +36,9 @@
 對與其相關的\cnglo{memobj}（子\cnglo{bufobj}或 1D 圖像\cnglo{bufobj}）的寫操作，
 對其父對象（如果此\cnglo{memobj}本身是子\cnglo{bufobj}或 1D 圖像\cnglo{bufobj}）的寫操作。
 
-在解映射後，如果繼續使用之前映射後的指針來訪問所映射的區域，其行為\cnglo{undef}。
+在解映射後，如果繼續使用之前映射後的指位器來訪問所映射的區域，其行為\cnglo{undef}。
 
 在遵守上面所列規則的前提下，
-可以將 \capi{clEnqueueMap{Buffer | Image}} 所返回的指針作為引數 \carg{ptr} 調用
+可以將 \capi{clEnqueueMap{Buffer | Image}} 所返回的指位器作為引數 \carg{ptr} 調用
 \capi{clEnqueue{Read | Write}Buffer}、\capi{clEnqeue{Read | Write}BufferRect}
 或 \capi{clEnqueue{Read | Write}Image}。

@@ -51,7 +51,7 @@ cl_int clGetPlatformInfo(
 
 \carg{param_name} 是一個枚舉常量，指明要查詢什麼資訊。其值如\reftab{plfquery}所示。
 
-\carg{param_value} 是一個指針，所指內存用來存儲 \carg{param_name} 所對應的資訊。
+\carg{param_value} 是一個指位器，所指內存用來存儲 \carg{param_name} 所對應的資訊。
 如果是 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存塊的大小（單位：字節）。

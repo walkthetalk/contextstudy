@@ -15,10 +15,10 @@ OpenCL 實現了下列相互分離的位址空間：
 對於\cnglo{program}中的函式引數以及函式的局部變量而言，缺省的位址空間為 \cqlf{__private}。
 所有函式引數必須位於 \cqlf{__private} 位址空間中。
 
-如果 \cqlf{__kernel} 函式的引數聲明為指針或某種型別的陣列，
+如果 \cqlf{__kernel} 函式的引數聲明為指位器或某種型別的陣列，
 則他指向的位址空間必須是 \cqlf{global}、 \cqlf{local}、 \cqlf{constant}。
-兩個指針要想相互賦值，他們必須指向同一個位址空間。
-將指向位址空間 A 的指針轉型成為指向位址空間 B 的指針是\cnglo{illegal}的。
+兩個指位器要想相互賦值，他們必須指向同一個位址空間。
+將指向位址空間 A 的指位器轉型成為指向位址空間 B 的指位器是\cnglo{illegal}的。
 
 如果函式引數的型別為
  \cqlf{image2d_t}、 \cqlf{image3d_t}、 \cqlf{image2d_array_t}、
@@ -40,7 +40,7 @@ float x[4];
 
 函式所返回的值沒有對應的位址空間。
 聲明函式時，如果在返回的型別上加了位址空間限定符，則會產生編譯錯誤；
-除非函式返回的是指針，並且限定符是用在指針指向的對象上。
+除非函式返回的是指位器，並且限定符是用在指位器指向的對象上。
 
 例：
 \startclc
@@ -55,7 +55,7 @@ __local int * __private f() { ... };	// should generate an error.
 位址空間名 \cqlfemp{__global} 或 \cqlfemp{global} 用來
 指代分配自\cnglo{glbmem}的\cnglo{memobj}（\cnglo{bufobj}或\cnglo{imgobj}）。
 
-\cnglo{bufobj} 可聲明為指針，指向標量、矢量或用戶自定義的結構體。
+\cnglo{bufobj} 可聲明為指位器，指向標量、矢量或用戶自定義的結構體。
 這樣\cnglo{kernel}就可以讀寫緩衝區中任意位置的內容。
 
 在\cnglo{host}代碼中通過調用相應 API 分配\cnglo{memobj}陣列時，他的實際大小就確定了。
@@ -85,7 +85,7 @@ __global foo_t	*my_info;	// An array of foo_t elements.
 如果要在\cnglo{locmem}中分配變量，
 並在某個\cnglo{workgrp}中的所有\cnglo{workitem}間共享，
 則可以使用位址空間名 \cqlfemp{__local} 或 \cqlfemp{local}。
-指向 \cqlfemp{__local} 位址空間的指針可以作為函式（包括\cnglo{kernel}函式）的引數。
+指向 \cqlfemp{__local} 位址空間的指位器可以作為函式（包括\cnglo{kernel}函式）的引數。
 對於在\cnglo{kernel}函式內聲明的 \cqlfemp{__local} 變量，
 其作用域僅為此\cnglo{kernel}函式。
 
@@ -135,7 +135,7 @@ __kernel void my_func(...)
 
 \startnotepar
 在給\cnglo{kernel}的常數引數進行計數時，
-每個指向 \cqlf{__constant} 位址空間的指針引數都會使計數增一。
+每個指向 \cqlf{__constant} 位址空間的指位器引數都會使計數增一。
 參見\reftab{cldevquery}中的 \cenum{CL_DEVICE_MAX_CONSTANT_ARGS}。
 \stopnotepar
 
@@ -155,7 +155,7 @@ __kernel void my_func(...)
 
 \cnglo{kernel}函式中所聲明的不帶位址空間限定符的變量，非\cnglo{kernel}函式中的所有變量，
 以及所有函式引數都位於 \cqlfemp{__private} 或 \cqlfemp{private} 位址空間中。
-如果所聲明的變量是指針，並且沒有指定位址空間限定符，
+如果所聲明的變量是指位器，並且沒有指定位址空間限定符，
 則認為他指向的是 \cqlfemp{__private} 位址空間。
 
 下列保留關鍵字僅用作位址空間限定符，不作他用：

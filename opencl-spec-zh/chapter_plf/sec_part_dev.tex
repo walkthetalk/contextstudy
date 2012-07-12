@@ -94,10 +94,10 @@ cl_int clRetainDevice (cl_device_id device)
 \stopCLFUNC
 
 如果 \carg{device} 是通過調用 \capi{clCreateSubDevices} 創建的一個\cnglo{subdev}，
-則 \capi{clRetainDevice} 會使 \carg{device} 的引用計數增一。
+則 \capi{clRetainDevice} 會使 \carg{device} 的\cnglo{refcnt}增一。
 如果 \carg{device} 是一個\cnglo{rootdev}，
 即由 \capi{clGetDeviceIDs} 所返回的一個 \ctype{cl_device_id}，
-則 \carg{device} 的引用計數保持不變。
+則 \carg{device} 的\cnglo{refcnt}保持不變。
 如果執行成功或者 \carg{device} 是一個\cnglo{rootdev}，
 \capi{clRetainDevice} 會返回 \cenum{CL_SUCCESS}，
 否則，返回下列錯誤碼之一：
@@ -114,10 +114,10 @@ cl_int clReleaseDevice (cl_device_id device)
 \stopCLFUNC
 
 如果 \carg{device} 是通過調用 \capi{clCreateSubDevices} 創建的一個\cnglo{subdev}，
-則 \capi{clReleaseDevice} 會使 \carg{device} 的引用計數減一。
+則 \capi{clReleaseDevice} 會使 \carg{device} 的\cnglo{refcnt}減一。
 如果 \carg{device} 是一個\cnglo{rootdev}，
 即 \capi{clGetDeviceIDs} 所返回的一個 \ctype{cl_device_id}，
-則 \carg{device} 的引用計數保持不變。
+則 \carg{device} 的\cnglo{refcnt}保持不變。
 如果執行成功，\capi{clReleaseDevice} 會返回 \cenum{CL_SUCCESS}，
 否則，返回下列錯誤碼之一：
 \startigBase
@@ -126,6 +126,6 @@ cl_int clReleaseDevice (cl_device_id device)
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-在 \carg{device} 的引用計數降為 0 並且所有附着其上的對象（如\cnglo{cmdq}）都被釋放後，
+在 \carg{device} 的\cnglo{refcnt}降為 0 並且所有附着其上的對象（如\cnglo{cmdq}）都被釋放後，
 就會刪除 \carg{device} 對象。
 

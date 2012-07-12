@@ -7,7 +7,7 @@
 
 \chapter[chapter:glossary]{術語}
 
-\startclglo[app][應用][Application]
+\startclglo[app][應用程式][Application]
 運行在\refglo{host}和 OpenCL \refglo{device}上的程式。
 \stopclglo
 
@@ -42,7 +42,7 @@ OpenCL API 提供有函式可以將其入隊。
 
 \startclglo[bufobj][緩衝對象][Buffer Object]
 一種\refglo{memobj}，其中存儲的是線性字節序列。
-\refglo{kernel}在\refglo{device}上運行時，可以通過指針來訪問他。
+\refglo{kernel}在\refglo{device}上運行時，可以通過指位器來訪問他。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
 \refglo{bufobj}封裝了以下資訊：
 \startigBase
@@ -179,8 +179,8 @@ OpenCL API 提供有函式可以將其入隊。
 \refglo{host}使用 OpenCL API 與\refglo{context}進行交互。
 \stopclglo
 
-\startclglo[hostptr][主機指針][Host pointer]
-一種指針，指向\refglo{host}上虛擬位址空間中的內存。
+\startclglo[hostptr][主機指位器][Host pointer]
+一種指位器，指向\refglo{host}上虛擬位址空間中的內存。
 \stopclglo
 
 \startclglo[illegal][違規][Illegal]
@@ -428,7 +428,7 @@ OpenCL 所定義的一類\refglo{obj}。
 \reffig{classdiag}使用統一建模語言\footnote{%
 統一建模語言（\from[uml]）是 Object Management Group （OMG）的商標。}
 （UML）以類圖的方式對 OpenCL 規範進行了描述。
-圖中的節點和邊分別代表類和類之間的關係。
+圖中的節點和邊分別代表類以及類之間的關係。
 簡化起見，類中沒有特性和操作。
 抽象類帶有注釋“\{abstract\}”。
 圖中顯示了類之間的關係，有聚集（aggregation，帶有實心方塊）、

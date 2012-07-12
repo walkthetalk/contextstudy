@@ -11,7 +11,7 @@ OpenCL 支持內建標量型別（參見\reftab{builtInScalarDataTypes}）間的
 
 對於內建矢量數據型別，不允許進行隱式轉換。
 
-對於指針型別的隱式轉換遵循 C99 規範中所描述的規則。
+對於指位器型別的隱式轉換遵循 C99 規範中所描述的規則。
 
 % Explicit Casts
 \subsection{顯式轉型}
@@ -223,7 +223,7 @@ float4 f = convert_float4_rtp( i );
  AltiVec\high{TM} 是 Motorola Inc. 的商標。
  Cell Broadband Engine 是 Sony Computer Entertainment Inc. 的商標。}。
 對於這種（反）轉換， C 語言中經常使用方法為：
-指針別名（pointer aliasing）、聯合體（union）和 內存拷貝（memcpy）。
+指位器別名（pointer aliasing）、聯合體（union）和 內存拷貝（memcpy）。
 對於 C99，這些方法中只有內存拷貝是嚴格正確的。
 由於 OpenCL 沒有提供 \capi{memcpy}，所以需要其他手段。
 
@@ -327,10 +327,10 @@ float3 g = /BTEX\ftEmp{as_float3}/ETEX(f);
 \stopexample
 
 % Pointer Casting
-\subsection{指針轉型}
+\subsection{指位器轉型}
 
-分別指向新舊型別的指針可以相互轉換。
-將指針轉型成新的型別時會假定位址已經正確對齊，雖然實際並沒有做檢查。
+分別指向新舊型別的指位器可以相互轉換。
+將指位器轉型成新的型別時會假定位址已經正確對齊，雖然實際並沒有做檢查。
 開發人員還是需要知道 OpenCL \cnglo{device}的端序和數據的端序，
 從而可以確定標量和矢量數據元素在內存中的存儲方式。
 

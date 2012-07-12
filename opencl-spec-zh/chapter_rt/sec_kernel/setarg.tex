@@ -51,7 +51,7 @@ image_filter (int n, int m,
 而如果引數聲明時所帶限定符為 \cqlf{__local}， \carg{arg_value} 必須是 \cmacro{NULL}。
 如果引數型別是 \ctype{sampler_t}，則 \carg{arg_value} 必須指向\cnglo{sampler}對象。
 
-如果引數是一個指針，指向的是全局或不變位址空間中的內建標量或矢量型別、或用戶自定義結構體，
+如果引數是一個指位器，指向的是全局或不變位址空間中的內建標量或矢量型別、或用戶自定義結構體，
 則作為引數值的\cnglo{memobj}必須是一個\cnglo{bufobj}（或 \cmacro{NULL}）。
 如果引數聲明時帶有限定符 \cqlf{__constant}，
 則\cnglo{memobj}的大小不能超過 \cenum{CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE}，

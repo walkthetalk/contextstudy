@@ -42,7 +42,7 @@
 \item \cenum{CL_KERNEL_ARG_TYPE_NONE}
 \stopigBase
 
-注意：如果參數是指針，且所引用的型別聲明時帶有限定符 \cqlf{volatile}，
+注意：如果參數是指位器，且所引用的型別聲明時帶有限定符 \cqlf{volatile}，
 則會返回 \cenum{CL_KERNEL_ARG_TYPE_VOLATILE}。
 例如，如果\cnglo{kernel}參數聲明為 \ccmm{global int volatile *x}，
 則會返回 \cenum{CL_KERNEL_ARG_TYPE_VOLATILE}；

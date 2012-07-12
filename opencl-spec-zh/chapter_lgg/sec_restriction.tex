@@ -1,11 +1,10 @@
-\section[sec:restrictions]{限制\footnote{
-加了刪除線的項是 OpenCL 1.0 中的限制，但在 OpenCL 1.1 中已經移除。}}
+\section[sec:restrictions]{限制}
 
 \startigBig
 
 % pointer
 \startitem
-對於指針的使用有一點限制。規定如下：
+對於指位器的使用有一點限制。規定如下：
 \startigBig
 
 \startitem
@@ -14,17 +13,17 @@
 \stopitem
 
 \startitem
-兩個指針相互賦值時，在聲明他們時其限定符必須同為
+兩個指位器相互賦值時，在聲明他們時其限定符必須同為
  \cqlf{__global}、 \cqlf{__constant} 或 \cqlf{__local}。
 \stopitem
 
 \startitem
-不允許指針指向函式。
+不允許指位器指向函式。
 \stopitem
 
 \startitem
-在\cnglo{program}中，\cnglo{kernel}函式的參數不能聲明為指針的指針。
-但是函式內部的變量或者非\cnglo{kernel}函式的參數可以是指針的指針。
+在\cnglo{program}中，\cnglo{kernel}函式的參數不能聲明為指位器的指位器。
+但是函式內部的變量或者非\cnglo{kernel}函式的參數可以是指位器的指位器。
 \stopitem
 
 \stopigBig
@@ -39,7 +38,7 @@
 並且只能用內建函式來訪問其元素（參見\refsec{imgRwFunc}）。
 
 圖像型別不能用來聲明變量、結構體或聯合體的欄位，
-也不能聲明圖像陣列或圖像指針，
+也不能聲明圖像陣列或圖像指位器，
 函式返回值的型別也不能是圖像。
 圖像型別不能與位址空間限定符
  \cqlf{__private}、 \cqlf{__local} 和 \cqlf{__constant} 一起使用。
@@ -55,7 +54,7 @@
 如果引數或變量是\cnglo{sampler}，則不能修改他。
 
 \cnglo{sampler}型別不能用來聲明結構體或聯合體的欄位，
-也不能聲明\cnglo{sampler}陣列或\cnglo{sampler}指針，
+也不能聲明\cnglo{sampler}陣列或\cnglo{sampler}指位器，
 函式返回值的型別也不能是\cnglo{sampler}。
 \cnglo{sampler}型別不能與位址空間限定符 \cqlf{__local} 或 \cqlf{__global} 一起使用。
 \stopitem
@@ -112,6 +111,9 @@
 不支持預定義標識符。
 \stopitem
 }
+\inmargin{%
+加了刪除線的項是 OpenCL 1.0 中的限制，但在 OpenCL 1.1 中已經移除。%
+}
 
 % recursion
 \startitem
@@ -131,7 +133,7 @@
 如果是結構體或聯合體，其中的欄位也不能是這些標量型別。
 這些型別的大小（除了 \ctype{half}）\cnglo{impdef}，
 而且在 OpenCL \cnglo{device} 和 \cnglo{host} 處理器上也可能不同，
-這樣如果\cnglo{kernel}參數聲明為這些型別的指針，就很難為這樣的參數分配\cnglo{bufobj}。
+這樣如果\cnglo{kernel}參數聲明為這些型別的指位器，就很難為這樣的參數分配\cnglo{bufobj}。
 這裡不支持 \ctype{half}，是因為他僅僅是一種存儲格式\footnote{
 除非支持擴展 \clext{cl_khr_fp16}。}，
 不能作為一種數據型別來參與算術運算。
@@ -152,7 +154,7 @@
 \startitem
 不能對
  \ctype{char}、 \ctype{uchar}、 \ctype{char2}、 \ctype{uchar2}、
- \ctype{short}、 \ctype{ushort} 和 \ctype{half} 的指針（或陣列）
+ \ctype{short}、 \ctype{ushort} 和 \ctype{half} 的指位器（或陣列）
 或者型別為
  \ctype{char}、 \ctype{uchar}、 \ctype{char2}、 \ctype{uchar2}、
  \ctype{short} 或 \ctype{ushort} 的結構體成員進行寫操作。
@@ -203,7 +205,7 @@ do_proc (__global char *pA, short b, __global short *pB)
 這些限定符不能與下列型別一起使用：
  \ctype{image2d_t}、 \ctype{image3d_t}、 \ctype{image2d_array_t}、
  \ctype{image1d_t}、 \ctype{image1d_buffer_t}、 \ctype{image1d_array_t}。
-非指針型別不能使用限定符 \cqlf{restrict}。
+非指位器型別不能使用限定符 \cqlf{restrict}。
 \stopitem
 
 % event_t

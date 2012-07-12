@@ -63,23 +63,23 @@
 }
 
 \clOD{\cldt{ptrdiff_t}}{
-帶符號整形，兩個指針相減的結果。
+帶符號整形，兩個指位器相減的結果。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此型別為 32 位帶符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此型別為 64 位帶符號整數。
 }
 
 \clOD{\cldt{intptr_t}}{
-帶符號整形，任意指向 \ccmm{void} 的有效指針都能轉換為此型別，
-然後還可以轉換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
+帶符號整形，任意指向 \ccmm{void} 的有效指位器都能轉換為此型別，
+然後還可以轉換回指向 \ccmm{void} 的指位器，其結果與原始指位器相同。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此型別為 32 位帶符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此型別為 64 位帶符號整數。
 }
 
 \clOD{\cldt{uintptr_t}}{
-無符號整形，任意指向 \ccmm{void} 的有效指針都能轉換為此型別，
-然後還可以轉換回指向 \ccmm{void} 的指針，其結果與原始指針相同。
+無符號整形，任意指向 \ccmm{void} 的有效指位器都能轉換為此型別，
+然後還可以轉換回指向 \ccmm{void} 的指位器，其結果與原始指位器相同。
 如果 \cenum{CL_DEVICE_ADDRESS_BITS}（參見\reftab{cldevquery}）
 是 32 位，則此型別為 32 位無符號整數；
 如果 \cenum{CL_DEVICE_ADDRESS_BITS} 是 64 位，則此型別為 64 位無符號整數。

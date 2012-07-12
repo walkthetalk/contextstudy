@@ -59,7 +59,7 @@ OpenCL \cnglo{memobj}、\cnglo{programobj}或\cnglo{kernelobj}都可以由多個
 在某個主機線程設置內核引數並將內核入隊時，在這兩個動作中間可能另一個線程改變了內核引數，
 從而導致所入隊的內核引數是錯誤的。
 相對於試圖在多個主機線程間共享 \ctype{cl_kernel} 對象，
-強烈建議應用為每個主機線程都創建一個獨立的 \ctype{cl_kernel} 對象。
+強烈建議\cnglo{app}為每個主機線程都創建一個獨立的 \ctype{cl_kernel} 對象。
 \stopnotepar
 
 如果是在中斷或信號處理函式中調用 OpenCL API，則其行為\cnglo{undef}。

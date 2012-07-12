@@ -82,7 +82,7 @@ cl_int clGetDeviceInfo(
 
 \carg{param_name} 是枚舉常量，用來指明要查詢什麼資訊，參見\reftab{cldevquery}。
 
-\carg{param_value} 是指針，所指內存用來存儲 \carg{param_name} 所對應的值
+\carg{param_value} 是指位器，所指內存用來存儲 \carg{param_name} 所對應的值
 （參見\reftab{cldevquery}）。
 如果 \carg{param_value} 是 \cmacro{NULL}，則忽略。
 

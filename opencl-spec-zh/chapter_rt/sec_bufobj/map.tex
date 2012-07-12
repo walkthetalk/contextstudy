@@ -24,13 +24,13 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 
 如果 \carg{blocking_map} 是 \cenum{CL_TRUE}，即映射\cnglo{cmd}是阻塞的，
 直到映射完成， \capi{clEnqueueMapBuffer} 才會返回，
-\cnglo{app}可以用返回的指針訪問所映射區域的內容。
+\cnglo{app}可以用返回的指位器訪問所映射區域的內容。
 
 如果 \carg{blocking_map} 是 \cenum{CL_FALSE}，即映射\cnglo{cmd}是非阻塞的，
-直到映射\cnglo{cmd}完成後，才能使用返回的指針。
+直到映射\cnglo{cmd}完成後，才能使用返回的指位器。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢映射\cnglo{cmd}的執行情況。
 映射\cnglo{cmd}完成後，
-\cnglo{app}就可以使用返回的指針訪問映射區域的內容了。
+\cnglo{app}就可以使用返回的指位器訪問映射區域的內容了。
 
 \carg{map_flags} 是位欄，參見\reftab{clmapflags}。
 
@@ -62,7 +62,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 {所支持的 \ctype{cl_map_flags}}
 {\input{chapter_rt/tbl/tbl_clmapflags.tex}}
 
-如果執行成功， \capi{clEnqueueMapBuffer} 會返回映射區域的指針，
+如果執行成功， \capi{clEnqueueMapBuffer} 會返回映射區域的指位器，
 並將 \carg{errcode_ret} 置為 \cenum{CL_SUCCESS}。
 否則，返回 \cmacro{NULL}，並將 \carg{errcode_ret} 置為下列錯誤碼之一：
 \startigBase
@@ -111,7 +111,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 \item \cenum{CL_OUT_OF_HOST_MEMORY}，如果\schostfailres。
 \stopigBase
 
-所返回的指針僅可用於訪問所映射的區域 \math{(\marg{offset}, \marg{size})}，雖然實作可能映射更大的區域。
+所返回的指位器僅可用於訪問所映射的區域 \math{(\marg{offset}, \marg{size})}，雖然實作可能映射更大的區域。
 對於訪問此區域外的內容，其結果\cnglo{undef}。
 
 \startnotepar
@@ -121,7 +121,7 @@ void * clEnqueueMapBuffer (cl_command_queue command_queue,
 \item 當 \capi{clEnqueueMapBuffer} 所入隊的\cnglo{cmd}完成後，
 保證 \capi{clCreateBuffer} 的 \carg{host_ptr} 中所映射區域的內容是最新的。
 
-\item \capi{clEnqueueMapBuffer} 所返回的指針得自創建\cnglo{bufobj}時所用的 \carg{host_ptr}。
+\item \capi{clEnqueueMapBuffer} 所返回的指位器得自創建\cnglo{bufobj}時所用的 \carg{host_ptr}。
 \stopigBase
 \stopnotepar
 
