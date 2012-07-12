@@ -1,5 +1,5 @@
 \startreusableMPgraphic{plfMode}
-u := 2.5mm;
+u := 2mm;
 
 ahangle := 30;
 ahlength := u;
@@ -38,7 +38,7 @@ def picHost =
 image(
 fill unitsquare shifted (-0.5, -0.5) scaled 5u withcolor white;
 draw unitsquare shifted (-0.5, -0.5) scaled 5u withpen pencircle scaled 2;
-label(btex Host etex, (0,0));
+label(btex \mplabel{\cnglo{host}} etex, (0,0));
 )
 enddef;
 
@@ -53,15 +53,13 @@ draw ((16u,4u)--(4u,-4u)) withpen pencircle scaled 2;
 draw ((10u,0)--(15u,0)) withpen pencircle scaled 2;
 draw picHost shifted (17.5u,0);
 
-label(btex \mplabel{Processing\\
-Element} etex, (0,0)) shifted (-20u,-4u);
+label(btex \mplabel{\cnglo{prcele}} etex, (0,0)) shifted (-19u,-3u);
 draw ((-18u,-4u)--(-12u,-6u));
 
-label(btex \mplabel{Compute Unit} etex, (0,0)) shifted (-11u,-11u);
+label(btex \mplabel{\cnglo{computeunit}} etex, (0,0)) shifted (-11u,-11u);
 draw ((-11u,-10u)--(-6u,-8u));
 
-label(btex \mplabel{Compute\\
-Device} etex, (0,0)) shifted (7u,-10u);
+label(btex \mplabel{計算設備} etex, (0,0)) shifted (7u,-10u);
 draw ((4u,-9u)--(0u,-8u));
 )
 enddef;

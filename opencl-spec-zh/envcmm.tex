@@ -1439,7 +1439,11 @@ bolditalic=texgyreherosbolditalic]
   pagestate=stop,
 ]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% fig %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\defineframed[mplabel][frame=off,align=middle]
+%\defineframed[mplabel][frame=off,align=middle]
+\define[1]\mplabel{%
+\rm\itx%
+\framed[frame=off,align=middle]{#1}%
+}
 
 \startuniqueMPgraphic{frontcoverBG}
     path p;
