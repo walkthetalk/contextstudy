@@ -26,37 +26,42 @@ typedef struct _cl_image_format {
 \cvar{image_channel_data_type} = \cenum{CL_UNORM_INT8}，
 則其內存布局為：
 
-\bTABLE[frame=off]
-\bTR[align={middle,middle}]
-\bTD[width=.2\textwidth] \eTD
+% 如果沒有 split=off，則會導致混亂
+\midaligned{
+\bTABLE[frame=off,split=off]
+\bTR[align={middle,lohi}]
+\bTD \eTD
 \bTD[frame=on,width=.1\textwidth] R \eTD
 \bTD[frame=on,width=.1\textwidth] G \eTD
 \bTD[frame=on,width=.1\textwidth] B \eTD
 \bTD[frame=on,width=.1\textwidth] A \eTD
 \bTD[frame=on,width=.3\textwidth] …………………… \eTD
 \eTR
-\bTR[align={hi}]
-\bTD[align=flushright]偏移字節數 \math{\rightarrow} \eTD \bTD 0 \eTD \bTD 1 \eTD \bTD 2 \eTD \bTD 3 \eTD \bTD \eTD
+\bTR
+\bTD 偏移字節數 \math{\rightarrow} \eTD \bTD 0 \eTD \bTD 1 \eTD \bTD 2 \eTD \bTD 3 \eTD \bTD \eTD
 \eTR
 \eTABLE
+}
 
 類似，如果 \cvar{image_channel_order} = \cenum{CL_RGBA}，
 \cvar{image_channel_data_type} = \cenum{CL_SIGNED_INT16}，
 則其內存布局為：
 
-\bTABLE
-\bTR[frame=on,align={middle,middle}]
-\bTD[frame=off,width=.2\textwidth] \eTD
+\midaligned{
+\bTABLE[frame=off,split=off]
+\bTR[frame=on,align={middle,lohi}]
+\bTD[frame=off] \eTD
 \bTD[width=.1\textwidth] R \eTD
 \bTD[width=.1\textwidth] G \eTD
 \bTD[width=.1\textwidth] B \eTD
 \bTD[width=.1\textwidth] A \eTD
 \bTD[width=.3\textwidth] …………………… \eTD
 \eTR
-\bTR[frame=off,align={hi}]
-\bTD[align=flushright]偏移字節數 \math{\rightarrow} \eTD \bTD 0 \eTD \bTD 2 \eTD \bTD 4 \eTD \bTD 6 \eTD \bTD \eTD
+\bTR
+\bTD 偏移字節數 \math{\rightarrow} \eTD \bTD 0 \eTD \bTD 2 \eTD \bTD 4 \eTD \bTD 6 \eTD \bTD \eTD
 \eTR
 \eTABLE
+}
 
 \cenum{CL_UNORM_SHORT_565}、 \cenum{CL_UNORM_SHORT_555}
 和 \cenum{CL_UNORM_INT_101010} 這三種通道數據類型比較特殊，
