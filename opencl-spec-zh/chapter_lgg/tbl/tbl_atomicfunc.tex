@@ -102,7 +102,7 @@ unsigned int atomic_dec (
 \stopbuffer
 
 % atomic_cmpchg
-\startbuffer[funcproto:atomic_cmpchg]
+\startbuffer[funcproto:atomic_cmpxchg]
 int atomic_cmpxchg (
 	volatile __global int *p,
 	int cmp, int val)
@@ -120,7 +120,7 @@ unsigned int atomic_cmpxchg (
 	unsigned int cmp,
 	unsigned int val)
 \stopbuffer
-\startbuffer[funcdesc:atomic_cmpchg]
+\startbuffer[funcdesc:atomic_cmpxchg]
 讀取 \carg{p} 所指向的 32 位值（記為 \math{old}）。
 計算 \math{(old == cmp) ? val : old} 並將結果存儲到 \carg{p} 所指位置中。
 此函式返回 \math{old}。
