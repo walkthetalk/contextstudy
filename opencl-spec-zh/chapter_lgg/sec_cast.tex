@@ -14,7 +14,7 @@ OpenCL 支持內建標量型別（參見\reftab{builtInScalarDataTypes}）間的
 對於指位器型別的隱式轉換遵循 C99 規範中所描述的規則。
 
 % Explicit Casts
-\subsection{顯式轉型}
+\subsection[sec:explicitCast]{顯式轉型}
 
 對於\reftab{builtInScalarDataTypes}中所定義的內建標量型別，
 標準的轉型（type-casting）動作會進行恰當的轉換
@@ -253,7 +253,7 @@ u.d = 1.0;	// u.u contains 0x3ff00000 (big endian) or 0
 \stopexample
 
 % Reinterpreting Types Using as_type() and as_typen()
-\subsubsection{使用 \clapi{as_type}() 和 \clapi[n]{as_type}() 重釋型別}
+\subsubsection[sec:as_typen]{使用 \clapi{as_type}() 和 \clapi[n]{as_type}() 重釋型別}
 
 \reftab{builtInScalarDataTypes}、\reftab{builtInVectorDataTypes}中所描述的所有型別
 （\ctype{bool}、 \ctype{half}
