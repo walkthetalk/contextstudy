@@ -1,0 +1,91 @@
+\section{由 GL 上下文或共享組創建 CL 上下文}
+
+% Overview
+\subsection{概覽}
+
+\refsec{clShareGl}中定義了如何與 OpenGL 實作中的材質和緩衝對象共享數據，
+但對於如何在 OpenCL \cnglo{context}和 OpenGL \cnglo{context}或共享組間建立聯繫，
+則沒有定義。
+此擴展為創建 OpenCL \cnglo{context}的例程定義了一個可選特性，
+可以將 GL \cnglo{context}或共享組對象與新建的 OpenCL \cnglo{context}關聯起來。
+如果實作支持此擴展，則\reftab{cldevquery}中所描述的 \cenum{CL_PLATFORM_EXTENSIONS} 或
+\cenum{CL_DEVICE_EXTENSIONS} 中將包含字串 \clext{cl_khr_gl_sharing}。
+
+此擴展要求 OpenGL 實作支持\cnglo{bufobj}，以及與 OpenCL 共享材質和\cnglo{bufobj}圖像。
+
+% New Procedures and Functions
+\subsection{新的程序和函式}
+
+\topclfunc{clGetGLContextInfoKHR}
+
+\startclc
+cl_intclGetGLContextInfoKHR (
+		const cl_context_properties *properties,
+		cl_gl_context_info param_name,
+		size_t param_value_size,
+		void *param_value,
+		size_t *param_value_size_ret);
+\stopclc
+
+% New Tokens
+\subsection{新的符記}
+
+如果 \carg{properties} 中所指定的 OpenGL \cnglo{context}或共享組對象句柄無效，
+則 \clapi{clCreateContext}、 \clapi{clCreateContextFromType} 和 \clapi{clGetGLContextInfoKHR} 會返回：
+\startclc
+CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR		-1000
+\stopclc
+
+\clapi{clGetGLContextInfoKHR} 的引數 \carg{param_name} 接受下列值：
+\startclc
+CL_CURRENT_DEVICE_FOR_GL_CONTEXT_KHR		0x2006
+CL_DEVICES_FOR_GL_CONTEXT_KHR			0x2007
+\stopclc
+
+\clapi{clCreateContext} 和 \clapi{clCreateContextFromType} 的引數 \carg{properties} 接受下列特性名：
+\startclc
+CL_GL_CONTEXT_KHR	0x2008
+CL_EGL_DISPLAY_KHR	0x2009
+CL_GLX_DISPLAY_KHR	0x200A
+CL_WGL_HDC_KHR		0x200B
+CL_CGL_SHAREGROUP_KHR	0x200C
+\stopclc
+
+%  Additions to Chapter 4 of the OpenCL 1.2 Specification
+\subsection{對第 4 章的補充}
+
+\refsec{contexts}中，用下列內容取代 \clapi{clCreateContext} 後面對 \carg{properties} 的描述：
+
+\carg{properties} 指向一個特性列，即 \ccmm{<特性名, 值>} 的陣列，此陣列已排好序，以零終止。
+如果此陣列中沒有某個特性，則使用其缺省值，參見\reftab{prptForclCreateContext}。
+如果 \carg{properties} 是 \cenum{NULL} 或者是空的（第一個值就是零），所有特性都使用缺省值。
+
+\refsec{clShareGl}中定義了一些特性，
+用來控制如何與 OpenGL 緩衝、材質和渲染緩衝對象共享 OpenCL \cnglo{memobj}。
+
+可以設置下列特性來識別 OpenGL \cnglo{context}，當然，
+這取決於一些特定\cnglo{platform}的 API （用來將 OpenGL \cnglo{context}綁定到視窗系統上）：
+\startigBase
+\item 如果支持 CGL 綁定 API，
+應當將特性 \cenum{CL_CGL_SHAREGROUP_KHR} 設置為一個 CGLShareGroup 句柄，
+指向一個 CGL 共享組對象。
+
+\item 如果支持 EGL 綁定 API，
+應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 EGLContext 句柄，
+指向一個 OpenGL ES 或 OpenGL \cnglo{context}，
+而將特性 \cenum{CL_EGL_DISPLAY_KHR} 設置為一個 EGLDisplay 句柄，
+指向用於創建這個 OpenGL ES 或 OpenGL \cnglo{context}的顯示屏。
+
+\item 如果支持 GLX 綁定 API，
+應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 GLXContext 句柄，
+指向一個 OpenGL \cnglo{context}，
+而將特性 \cenum{CL_GLX_DISPLAY_KHR} 設置為一個 Display 句柄，
+指向用於創建這個 OpenGL \cnglo{context}的 X 視窗系統顯示屏。
+
+\item 如果支持 WGL 綁定 API，
+應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 HGLRC 句柄，
+指向一個 OpenGL \cnglo{context}，
+而將特性 \cenum{CL_WGL_HDC_KHR} 設置為一個 HDC 句柄，
+指向用於創建這個 OpenGL \cnglo{context}的顯示屏。
+\stopigBase
+
