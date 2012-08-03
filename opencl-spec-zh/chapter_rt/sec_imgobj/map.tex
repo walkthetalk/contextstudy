@@ -74,7 +74,7 @@ $region[1]$ 和 $region[2]$ 都必須是 0。
 此函式返回後，即可回收並重用 \carg{event_wait_list} 所關聯的內存。
 
 \carg{event} 會返回一個\cnglo{evtobj}，
-用來標識此\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
+用來識別此\cnglo{cmd}，可用來查詢或等待此\cnglo{cmd}完成。
 而如果 \carg{event} 是 \cmacro{NULL}，就沒辦法查詢此\cnglo{cmd}的狀態或等待其完成了。
 如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
 \carg{event} 不能屬於 \carg{event_wait_list}。

@@ -66,26 +66,107 @@ CL_CGL_SHAREGROUP_KHR	0x200C
 可以設置下列特性來識別 OpenGL \cnglo{context}，當然，
 這取決於一些特定\cnglo{platform}的 API （用來將 OpenGL \cnglo{context}綁定到視窗系統上）：
 \startigBase
-\item 如果支持 CGL 綁定 API，
+\item 如果支持 CGL\footnote{CGL 是 Mac OS X 的 OpenGL 接口。} 綁定 API，
 應當將特性 \cenum{CL_CGL_SHAREGROUP_KHR} 設置為一個 CGLShareGroup 句柄，
 指向一個 CGL 共享組對象。
 
-\item 如果支持 EGL 綁定 API，
+\item 如果支持 EGL\footnote{%
+EGL 是 Khronos 渲染 API （如 OpenGL ES 或 OpenVG）和底層原生平台視窗系統之間的接口。%
+} 綁定 API，
 應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 EGLContext 句柄，
 指向一個 OpenGL ES 或 OpenGL \cnglo{context}，
 而將特性 \cenum{CL_EGL_DISPLAY_KHR} 設置為一個 EGLDisplay 句柄，
 指向用於創建這個 OpenGL ES 或 OpenGL \cnglo{context}的顯示屏。
 
-\item 如果支持 GLX 綁定 API，
+\item 如果支持 GLX\footnote{GLX 是 X11 的 OpenGL 接口。} 綁定 API，
 應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 GLXContext 句柄，
 指向一個 OpenGL \cnglo{context}，
 而將特性 \cenum{CL_GLX_DISPLAY_KHR} 設置為一個 Display 句柄，
 指向用於創建這個 OpenGL \cnglo{context}的 X 視窗系統顯示屏。
 
-\item 如果支持 WGL 綁定 API，
+\item 如果支持 WGL\footnote{WGL 是 Microsoft Windows 的 OpenGL 接口。} 綁定 API，
 應當將特性 \cenum{CL_GL_CONTEXT_KHR} 設置為一個 HGLRC 句柄，
 指向一個 OpenGL \cnglo{context}，
 而將特性 \cenum{CL_WGL_HDC_KHR} 設置為一個 HDC 句柄，
 指向用於創建這個 OpenGL \cnglo{context}的顯示屏。
 \stopigBase
+
+如果是在這樣的\cnglo{context}中創建的\cnglo{memobj}，
+那麼他可以被指定的 OpenGL 或 OpenGL ES \cnglo{context}
+（也包括此\cnglo{context}的共享列中其他 OpenGL \cnglo{context}，參見 GLX 1.4 和 EGL 1.4 規範，以及 Microsoft Windows 上 OpenGL 實作 WGL 的文檔）、
+或者 CGL 共享組所共享。
+
+如果特性列中沒有指定 OpenGL 或 OpenGL ES \cnglo{context}或者共享組，
+那麼就不能共享\cnglo{memobj}，
+並且調用\refsec{clShareGl}中的\cnglo{cmd}時
+會導致錯誤 \cenum{CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR}。
+
+OpenCL / OpenGL 間的共享不支持屬性 \cenum{CL_CONTEXT_INTEROP_USER_SYNC}
+ （參見\reftab{prptForclCreateContext}）。
+如果創建帶有 OpenCL / OpenGL 共享的\cnglo{context}時指定了此屬性，則會返回錯誤。
+
+\reftab{prptForclCreateContextPF}是對\reftab{prptForclCreateContext}的補充。
+
+\placetable[here][tab:prptForclCreateContextPF]
+{創建上下文時所用特性}
+{\input{chapter_optext/tbl/prpt_clCreateContext_postfix.tex}}
+
+下列內容取代 \clapi{clCreateContext} 所返回的錯誤列中的第一個：
+\startreplacepar
+如果\cnglo{context}由下列任一方式指定：
+\startigBase[indentnext=no]
+\item 通過設置特性 \cenum{CL_GL_CONTEXT_KHR} 和 \cenum{CL_EGL_DISPLAY_KHR} 為
+基於 EGL 的 OpenGL ES 或 OpenGL 實作指定了一個\cnglo{context}。
+
+\item 通過設置特性 \cenum{CL_GL_CONTEXT_KHR} 和 \cenum{CL_GLX_DISPLAY_KHR} 為
+基於 GLX 的 OpenGL 實作指定了一個\cnglo{context}。
+
+\item 通過設置特性 \cenum{CL_GL_CONTEXT_KHR} 和 \cenum{CL_WGL_HDC_KHR} 為
+基於 WGL 的 OpenGL 實作指定了一個\cnglo{context}。
+\stopigBase
+並且滿足下列任一條件：
+\startigBase[indentnext=no]
+\item 所指定的 display 和\cnglo{context}特性不能標識一個有效的 OpenGL 或 OpenGL ES \cnglo{context}。
+
+\item 所指定的\cnglo{context}不支持\cnglo{bufobj}和渲染緩衝對象。
+
+\item 所指定的\cnglo{context}與所創建的 OpenCL \cnglo{context}不兼容。
+例如，位於物理上不同的位址空間內，如另一個硬件設備上；或者由於實作的局限不支持與 OpenCL 共享數據。
+\stopigBase
+則 \carg{errcode_ret} 會返回 \cenum{CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR}。
+
+如果通過設置特性 \cenum{CL_CGL_SHAREGROUP_KHR} 為基於 CGL 的 OpenGL 實作指定了一個共享組，
+但是所指定的共享組不能標誌一個有效的 CGL 共享組對象，
+那麼 \carg{errcode_ret} 會返回 \cenum{CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR}。
+
+如果按上面所描述的那樣指定了一個\cnglo{context}，並且滿足下列任一條件：
+\startigBase[indentnext=no]
+\item 為 CGL、 EGL、 GLX 或 WGL 其中之一指定了一個\cnglo{context}或共享組對象，
+但是 OpenGL 實作不支持視窗系統綁定 API。
+
+\item 為 \cenum{CL_CGL_SHAREGROUP_KHR}、 \cenum{CL_EGL_DISPLAY_KHR}、
+ \cenum{CL_GLX_DISPLAY_KHR} 以及 \cenum{CL_WGL_HDC_KHR} 中一個以上的特性設置了非缺省值。
+
+\item 為特性 \cenum{CL_CGL_SHAREGROUP_KHR} 和 \cenum{CL_GL_CONTEXT_KHR} 都設置了非缺省值。
+
+\item 引數 \carg{devices} 中任一\cnglo{device}不支持 OpenCL 對象與 OpenGL 對象共享數據存儲，
+參見\refsec{clShareGl}。
+\stopigBase
+則 \carg{errcode_ret} 會返回 \cenum{CL_INVALID_OPERATION}。
+
+如果 \carg{properties} 中任一特性名無效
+或者 \carg{properties} 中有特性 \cenum{CL_CONTEXT_INTEROP_USER_SYNC}，
+則 \carg{errcode_ret} 會返回 \cenum{CL_INVALID_PROPERTY}。
+\stopreplacepar
+
+下列內容取代 \clapi{clCreateContextFromType} 中對 \carg{properties} 的描述：
+\startreplacepar
+\carg{properties} 指向一個特性列，
+其格式以及有效內容與 \clapi{clCreateContext} 的引數 \carg{properties} 相同。
+\stopreplacepar
+
+用上面所描述的兩個新錯誤取代 \clapi{clCreateContextFromType} 的錯誤列中的第一個。
+
+% Additions to section 9.7 of the OpenCL 1.2 Extension Specification
+\subsection{對節 9.7 的補充}
 

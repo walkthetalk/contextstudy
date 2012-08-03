@@ -21,7 +21,7 @@ cl_int clGetDeviceIDs(
 也可能是 \cmacro{NULL}。
 如果是 \cmacro{NULL}，則其行為\cnglo{impdef}。
 
-\carg{device_type} 是位欄（ bitfield )，用來標識 OpenCL \cnglo{device}的類型。
+\carg{device_type} 是位欄（ bitfield )，用來識別 OpenCL \cnglo{device}的類型。
 可以用來查詢某種 OpenCL \cnglo{device}，也可以查詢所有的。
 請參考\reftab{cldevctgr}。
 
@@ -33,7 +33,7 @@ cl_int clGetDeviceIDs(
 如果 \carg{devices} 不是 \cmacro{NULL}，則 \carg{num_entries} 必須大於零。
 
 \carg{devices} 用來返回所找到的 OpenCL \cnglo{device}。
-\carg{devices} 中返回的 \ctype{cl_device_id} 用來標識一個 OpenCL \cnglo{device}。
+\carg{devices} 中返回的 \ctype{cl_device_id} 用來識別一個 OpenCL \cnglo{device}。
 如果參數 \carg{devices} 是 \cmacro{NULL}，則忽略。
 所返回的 OpenCL \cnglo{device}數目
 為 \carg{num_entries} 或符合 \ctype{device_type} 的\cnglo{device}数目，

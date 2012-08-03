@@ -35,7 +35,7 @@ cl_int clEnqueueMarkerWithWaitList(
 如果 \carg{event_wait_list} 是 \cmacro{NULL}，
 則此\cnglo{cmd}會等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}完成。
 
-\carg{event} 會返回一個\cnglo{evtobj}，可用來標識此\cnglo{cmd}。
+\carg{event} 會返回一個\cnglo{evtobj}，可用來識別此\cnglo{cmd}。
 如果 \carg{event} 是 \cmacro{NULL}，
 那麼\cnglo{app}就無法查詢此\cnglo{cmd}的狀態，或者等待此\cnglo{cmd}的完成。
 如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
@@ -97,7 +97,7 @@ cl_int clEnqueueBarrierWithWaitList(
 如果 \carg{event_wait_list} 是 \cmacro{NULL}，
 則此\cnglo{cmd}會等到 \carg{command_queue} 中所有之前入隊的\cnglo{cmd}完成。
 
-\carg{event} 會返回一個\cnglo{evtobj}，可用來標識此\cnglo{cmd}。
+\carg{event} 會返回一個\cnglo{evtobj}，可用來識別此\cnglo{cmd}。
 如果 \carg{event} 是 \cmacro{NULL}，
 那麼\cnglo{app}就無法查詢此\cnglo{cmd}的狀態，或者等待此\cnglo{cmd}的完成。
 如果 \carg{event_wait_list} 和 \carg{event} 都不是 \cmacro{NULL}，
