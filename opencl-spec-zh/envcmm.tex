@@ -517,9 +517,6 @@ bolditalic=texgyreherosbolditalic]
 
 \defineenumeration[example][
   text={例},
-%  inbetween=\blank,
-%  after=\blank,
-%  margin=2em,
   headstyle=\rm\bf,	%normal bold slanted boldslanted type cap small... command
 %  headcolor=blue:7,
 %style	normal bold slanted boldslanted type cap small... command
@@ -541,6 +538,33 @@ bolditalic=texgyreherosbolditalic]
   prefix=yes,
   prefixsegments=chapter, %chapter:section
 ]
+
+\defineenumeration[QUESTION][
+  text={問題},
+  right={：},
+  headstyle=\rm\bf,	%normal bold slanted boldslanted type cap small... command
+  headcolor=red,
+  %style=\rm\bf,		%normal bold slanted boldslanted type cap small... command
+  color=red,	%name
+  width=fit,	%fit broad dimension
+  distance=0em,		%dimension
+%sample	text
+%text	text
+  %align=flushleft,	%flushleft middle flushright
+  %margin=no,	%standard yes no dimension
+  alternative=serried,	%left right top serried inmargin inleft inright hanging
+  %hang=2,		%fit broad number
+%headcommand	command
+%before	command
+%inbetween	command
+%after={},	%command
+%indentnext	yes no
+%indenting	never not no yes always first next
+  %prefix=no,
+  %prefixsegments=chapter, %chapter:section
+]
+
+\definestartstop[ANSWER]
 
 % no number
 \defineitemgroup[igBase][levels=2]
@@ -906,8 +930,8 @@ bolditalic=texgyreherosbolditalic]
 %%%%%%%%%%%%%%%%%%%%%%%%%%shotcut%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \define\scver{1.2}
 \define\scclver{OpenCL 1.2}
-\define\schostfailres{在為\cnglo{host}上的 OpenCL 實作分配資源時失敗}
-\define\scdevfailres{在為\cnglo{device}上的 OpenCL 實作分配資源時失敗}
+\define\schostfailres{為\cnglo{host}上的 OpenCL 實作分配資源時失敗}
+\define\scdevfailres{為\cnglo{device}上的 OpenCL 實作分配資源時失敗}
 \define\scinf{INF}
 \define\scqnan{Quiet NaN}
 \define\scfma{FMA}
@@ -1578,6 +1602,10 @@ end
 \stdfootnote{\setscript[hanzi]#1}%
 }
 % \postponenotes\footnote{...}
+
+% 中文caption第一行字符中间有空格
+% workaround is:
+\setupcaptions[align={broad,middle}]
 
 \define[1]\todo{#1}
 %\define[1]\todo{\error}
