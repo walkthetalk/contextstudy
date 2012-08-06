@@ -138,7 +138,7 @@ OpenCL 執行模型支持兩種\cnglo{kernel}：
 實作也可能提供其他機制創建 OpenCL \cnglo{kernel}。
 
 \item {\ftEmp{原生\cnglo{kernel}}}，
-通過\cnglo{host}函式指位器訪問。
+通過\cnglo{host}函式指位器調用。
 原生\cnglo{kernel}與 OpenCL \cnglo{kernel}一起入隊在\cnglo{device}上執行，
 並共享\cnglo{memobj}。
 例如，這些原生\cnglo{kernel}可以是\cnglo{app}代碼中定義的函式，也可以是從庫中導出的函式。

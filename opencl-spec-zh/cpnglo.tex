@@ -42,7 +42,7 @@ OpenCL API 提供有函式可以將其入隊。
 
 \startclglo[bufobj][緩衝對象][Buffer Object]
 一種\refglo{memobj}，其中存儲的是線性字節序列。
-\refglo{kernel}在\refglo{device}上運行時，可以通過指位器來訪問他。
+\refglo{kernel}在\refglo{device}上運行時，可以通過指位器來存取他。
 \refglo{host}可以調用 OpenCL API 來操控\refglo{bufobj}。
 \refglo{bufobj}封裝了以下資訊：
 \startigBase
@@ -89,7 +89,7 @@ OpenCL API 提供有函式可以將其入隊。
 一個 OpenCL \refglo{device}中包含一個或多個\refglo{computeunit}。
 一個\refglo{workgrp}只能在單個\refglo{computeunit}上執行。
 一個\refglo{computeunit}由一個或多個\refglo{prcele}以及\refglo{locmem}組成。
-\refglo{computeunit}也可能包含專用的材質濾波器件，此器件可以被他的\refglo{prcele}訪問。
+\refglo{computeunit}也可能包含專用的材質濾波器件，此器件可以被他的\refglo{prcele}存取。
 \stopclglo
 
 \startclglo[concurrency][並發][Concurrency]
@@ -105,7 +105,7 @@ OpenCL API 提供有函式可以將其入隊。
 
 \startclglo[context][上下文][Context]
 \refglo{kernel}在執行時所處的環境，同步和內存管理就是在此概念上定義的。
-\refglo{context}包括一組\refglo{device}、這些\refglo{device}可以訪問的內存、
+\refglo{context}包括一組\refglo{device}、這些\refglo{device}可以存取的內存、
 相應的內存屬性、以及一個或多個\refglo{cmdq}
 （用來對\refglo{kernel}的執行和\refglo{memobj}上的相關運算進行調度）。
 \stopclglo
@@ -160,14 +160,14 @@ OpenCL API 提供有函式可以將其入隊。
 \stopclglo
 
 \startclglo[glbmem][全局內存][Global Memory]
-一塊\refglo{memregion}，\refglo{context}中的所有\refglo{workitem}均可訪問。
-\refglo{host}可以使用\refglo{cmd}來訪問他（如讀、寫以及映射）。
+一塊\refglo{memregion}，\refglo{context}中的所有\refglo{workitem}均可存取。
+\refglo{host}可以使用\refglo{cmd}來存取他（如讀、寫以及映射）。
 \stopclglo
 
 \startclglo[glsharegrp][GL 共享組][GL share group]
 這種對象用來管理共享的 OpenGL 或 OpenGL ES 資源（如材質、緩衝、幀緩衝或渲染緩衝），
 並與一個或多個 GL 上下文對象關聯在一起。
-典型的\refglo{glsharegrp}是不透明的，不能直接訪問。
+典型的\refglo{glsharegrp}是不透明的，不能直接存取。
 \stopclglo
 
 \startclglo[handle][句柄][Handle]
@@ -189,7 +189,7 @@ OpenCL API 提供有函式可以將其入隊。
 
 \startclglo[imgobj][圖像對象][Image Object]
 一種\refglo{memobj}，用來存儲二維或三維的結構化陣列。
-只能通過讀寫函式訪問其中的圖像數據。讀取函式需要使用\refglo{sampler}。
+只能通過讀寫函式存取其中的圖像數據。讀取函式需要使用\refglo{sampler}。
 
 \refglo{imgobj}封裝了以下資訊：
 \startigBase
@@ -234,7 +234,7 @@ OpenCL 中的一種執行模型，\refglo{cmdq}中的\refglo{cmd}按提交的順
 
 \startclglo[locmem][局部內存][Local Memory]
 一塊\refglo{memregion}，隸屬於某個\refglo{workgrp}，
-只有這個\refglo{workgrp}中的\refglo{workitem}才能訪問。
+只有這個\refglo{workgrp}中的\refglo{workitem}才能存取。
 \stopclglo
 
 \startclglo[marker][標註][Marker]

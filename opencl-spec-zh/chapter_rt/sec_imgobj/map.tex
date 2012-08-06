@@ -29,13 +29,13 @@ void * clEnqueueMapImage (cl_command_queue command_queue,
 
 如果 \carg{blocking_map} 是 \cenum{CL_TRUE}，即映射\cnglo{cmd}是阻塞的，
 直到映射完成， \capi{clEnqueueMapImage} 才會返回，
-\cnglo{app}可以用返回的指位器訪問所映射區域的內容。
+\cnglo{app}可以用返回的指位器存取所映射區域的內容。
 
 如果 \carg{blocking_map} 是 \cenum{CL_FALSE}，即映射\cnglo{cmd}是非阻塞的，
 直到映射\cnglo{cmd}完成後，才能使用 \capi{clEnqueueMapImage} 所返回的指位器。
 參數 \carg{event} 會返回一個\cnglo{evtobj}，可用來查詢映射\cnglo{cmd}的執行情況。
 映射\cnglo{cmd}完成後，
-\cnglo{app}就可以使用 \capi{clEnqueueMapImage} 所返回的指位器訪問映射區域的內容了。
+\cnglo{app}就可以使用 \capi{clEnqueueMapImage} 所返回的指位器存取映射區域的內容了。
 
 \carg{map_flags} 是位欄，參見\reftab{clmapflags}。
 
@@ -145,7 +145,7 @@ $region[1]$ 和 $region[2]$ 都必須是 0。
 對於 1D \cnglo{imgobj}、 1D 圖像緩衝對象或 1D 圖像陣列，其大小至少為 $region[0]$；
 對於 2D \cnglo{imgobj}或 2D 圖像陣列，其大小至少為 $(image\_row\_pitch * region[1])$；
 對於 3D \cnglo{imgobj}，其大小至少為 $(image\_slice\_pitch * region[1])$。
-如果訪問此區域外的內容，其結果\cnglo{undef}。
+如果存取此區域外的內容，其結果\cnglo{undef}。
 
 \startnotepar
 如果創建\cnglo{bufobj}時在 \carg{mem_flags} 中指定了 \cenum{CL_MEM_USE_HOST_PTR}，

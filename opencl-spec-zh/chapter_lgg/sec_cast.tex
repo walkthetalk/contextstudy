@@ -212,7 +212,7 @@ float4 f = convert_float4_rtp( i );
 \subsection[sec:reinterpret]{將數據重釋為其他型別}
 
 在 OpenCL 中，經常有需要將某一種數據型別重釋為另一種數據型別。
-在需要直接訪問浮點型別中的位元時就需要這樣做，
+在需要直接存取浮點型別中的位元時就需要這樣做，
 例如，屏蔽掉（mask off）浮點數據的符號位，
 或者使用浮點矢量關係算子的結果（參加\refsec{operator}中的\refitem{relationalOperator}）
 \footnote{另外，對於一些設計用來支持特定矢量 ISA
@@ -231,9 +231,9 @@ float4 f = convert_float4_rtp( i );
 \subsubsection{使用聯合體重釋型別}
 
 OpenCL 語言對聯合體（union）進行了擴充，
-允許\cnglo{program}使用其中某個成員訪問另一個型別不同的成員。
-對象中的相關字節會被視為訪問時所用型別的對象。
-如果訪問時所用型別大於對象的實際型別，則額外字節的值是未定義的。
+允許\cnglo{program}使用其中某個成員存取另一個型別不同的成員。
+對象中的相關字節會被視為存取時所用型別的對象。
+如果存取時所用型別大於對象的實際型別，則額外字節的值是未定義的。
 
 \startexample
 \startclc

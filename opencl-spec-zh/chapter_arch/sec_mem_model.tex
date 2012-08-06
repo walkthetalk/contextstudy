@@ -1,6 +1,6 @@
 
 \section{內存模型}
-\cnglo{workitem}在執行\cnglo{kernel}時可以訪問四塊不同的\cnglo{memregion}：
+\cnglo{workitem}在執行\cnglo{kernel}時可以存取四塊不同的\cnglo{memregion}：
 
 \startigBase
 \item \cngloemp{glbmem}：
@@ -27,9 +27,9 @@
 \reftab{memregion}列出了這些資訊：
 \cnglo{kernel}或\cnglo{host}是否可以從某個\cnglo{memregion}中分配內存、
 怎樣分配（靜態編譯時 vs. 動態運行時）
-以及允許如何訪問（即\cnglo{kernel}或\cnglo{host}是否可以對其進行讀寫）。
+以及允許如何存取（即\cnglo{kernel}或\cnglo{host}是否可以對其進行讀寫）。
 
-\placetable[here][tab:memregion]{內存區域——分配以及訪問}{
+\placetable[here][tab:memregion]{內存區域——分配以及存取}{
 \input{chapter_arch/tbl/tbl_memreg.tex}
 }
 
@@ -61,7 +61,7 @@
 \cnglo{host}可以將\cnglo{memobj}的某個區域映射到自己的位址空間中。
 內存映射命令可能是阻塞的，也可能是非阻塞的。
 一旦映射了\cnglo{memobj}的某個區域，\cnglo{host}就可以讀寫這塊區域。
-當\cnglo{host}對這塊區域的訪問（讀和/或寫）結束後，就會將其解映射。
+當\cnglo{host}對這塊區域的存取（讀和/或寫）結束後，就會將其解映射。
 
 % Memory Consistency
 \subsection{內存一致性}

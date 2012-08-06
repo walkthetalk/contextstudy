@@ -36,7 +36,7 @@ cl_int clEnqueueMigrateMemObjects(
 \capi{clEnqueueMigrateMemObjects} 也可以用來控制\cnglo{memobj}在創建後的初始位置，
 這樣可以避免第一條\cnglo{cmd}將其實體化時可能的開銷。
 
-為了避免對\cnglo{memobj}的訪問相互衝突，
+為了避免對\cnglo{memobj}的存取相互衝突，
 與此\cnglo{cmd}相關的所有事件間的依賴關係由用戶負責。
 如果依賴關係有問題，則 \capi{clEnqueueMigrateMemObjects} 會導致\cnglo{undef}的結果。
 

@@ -52,7 +52,7 @@
 遵守\refsec{alignmentOfTypes}中的要求。
 其中隱含着，
 用 \cenum{CL_MEM_USE_HOST_PTR} 創建 OpenCL 緩衝時所提供的\cnglo{host}內存指位器
-必須按\cnglo{kernel}中訪問這些緩衝時所用的數據型別進行對齊。
+必須按\cnglo{kernel}中存取這些緩衝時所用的數據型別進行對齊。
 此外，用戶也要負責傳入和傳出 OpenCL 圖像的數據按用來表示單個像素的數據粒度進行對齊
 （如：\ccmm{image_num_channels * sizeof(image_channel_data_type)}，
 不過對於 \cenum{CL_RGB} 和 \cenum{CL_RGBx} 圖像，只需按像素的單個通道的粒度進行對齊即可
@@ -60,7 +60,7 @@
 
 對於那些由\cnglo{app}所定義的、既不是緩衝也不是圖像的數據型別， OpenCL 不對其齊位作任何要求，
 但是如果包含矢量（如 \ccmm{__cl_float4}），
-必須要能用 \ccmm{cl_type} 聯合體中欄位的名字直接訪問才行（\refappendixsec{appendixVecCom}）。
+必須要能用 \ccmm{cl_type} 聯合體中欄位的名字直接存取才行（\refappendixsec{appendixVecCom}）。
 儘管如此，還是建議頭檔 \cemp{cl_platform.h} 將 OpenCL 所定義的\cnglo{app}數據型別
 （如 \ccmm{cl_float4}）按其型別自然地對齊。
 
@@ -83,15 +83,15 @@ foo.s[0] = 1.0f; // Sets the 1st vector component of foo
 pos.s[6] = 2; // Sets the 7th vector component of bar
 \stopclc
 
-一些情況下，也可以使用下列符號訪問矢量組件。
+一些情況下，也可以使用下列符號存取矢量組件。
 不保證所有實作都會支持這些符號，
 所以使用他們時要檢查一下相應的預處理器記號。
 
 \subsection{命名矢量組件符號}
 
-可以使用 \ccmm{.sN}、 \ccmm{.sn} 或 \ccmm{.xyzw} 來訪問矢量數據型別的組件，
+可以使用 \ccmm{.sN}、 \ccmm{.sn} 或 \ccmm{.xyzw} 來存取矢量數據型別的組件，
 跟 OpenCL 語言中所用類似。
-\ccmm{.xyzw} 僅可訪問前四個組件。
+\ccmm{.xyzw} 僅可存取前四個組件。
 可以通過預處理器記號 \cmacro{CL_HAS_NAMED_VECTOR_FIELDS} 來識別是否支持這些符號。
 例如：
 \startclc
@@ -106,9 +106,9 @@ pos.s[6] = 2; // Sets the 7th vector component of bar
 #endif
 \stopclc
 
-與 OpenCL 語言不同的是，一次只能訪問一個組件。
+與 OpenCL 語言不同的是，一次只能存取一個組件。
 這個局限使得不能像 OpenCL 語言型別那樣對組件進行重排或複製。
-如果訪問時組件編號越界會導致失敗。
+如果存取時組件編號越界會導致失敗。
 
 \startclc
 foo.xy		// illegal - illegal field name combination
@@ -118,7 +118,7 @@ foo.s7		// illegal - no component s7
 
 \subsection{High/Low 矢量組件符號}
 
-可以使用 \ccmm{.hi} 和 \ccmm{.lo} 來訪問矢量數據型別的組件，
+可以使用 \ccmm{.hi} 和 \ccmm{.lo} 來存取矢量數據型別的組件，
 跟所支持的語言型別類似。
 可以通過預處理器記號 \cmacro{CL_HAS_HI_LO_VECTOR_FIELDS} 來識別是否支持這些符號。
 例如：
@@ -142,11 +142,11 @@ foo.s7		// illegal - no component s7
 
 例如， \ccmm{__cl_float4} 就是一個原生矢量型別，
 對應於\cnglo{app}矢量型別 \ccmm{cl_float4}。
-用 \ccmm{__cl_float4} 可能可以直接訪問內建的 \ccmm{__m128} 或矢量浮點型別，
+用 \ccmm{__cl_float4} 可能可以直接存取內建的 \ccmm{__m128} 或矢量浮點型別，
 而 \ccmm{cl_float4} 則會被視為聯合體。
 
-另外，為方便訪問，上述\cnglo{app}數據型別可能含有原生矢量數據型別的成員。
-用子矢量符號 \ccmm{.vN} 訪問原生組件，其中 \ccmm{N} 為子矢量中的元素編號。
+另外，為方便存取，上述\cnglo{app}數據型別可能含有原生矢量數據型別的成員。
+用子矢量符號 \ccmm{.vN} 存取原生組件，其中 \ccmm{N} 為子矢量中的元素編號。
 如果原生型別是一個更大型別（具有更多組件）的子集，
 則此符號就成為子矢量型別的一個基於索引的陣列。
 

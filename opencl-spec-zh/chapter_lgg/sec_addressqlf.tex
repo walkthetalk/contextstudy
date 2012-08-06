@@ -75,7 +75,7 @@ __global foo_t	*my_info;	// An array of foo_t elements.
  \ctype{image2d_t} (2D \cnglo{imgobj})、 \ctype{image3d_t} (3D \cnglo{imgobj})、
  \ctype{image2d_array_t} (2D 圖像陣列對象)、 \ctype{image1d_t} (1D \cnglo{imgobj})、
  \ctype{image1d_buffer_t} (1D 圖像緩衝對象)或 \ctype{image1d_array_t} (1D 圖像陣列對象)。
-不能直接訪問\cnglo{imgobj}的元素。 OpenCL 提供有內建函式可用來讀寫\cnglo{imgobj}。
+不能直接存取\cnglo{imgobj}的元素。 OpenCL 提供有內建函式可用來讀寫\cnglo{imgobj}。
 
 限定符 \cqlfemp{const} 可以與 \cqlfemp{__global} 一起使用來聲明一個只讀的\cnglo{bufobj}。
 
@@ -128,7 +128,7 @@ __kernel void my_func(...)
 \subsection{__constant （或 constant）}
 
 位址空間名 \cqlfemp{__constant} 或 \cqlfemp{constant} 所描述的變量分配自\cnglo{glbmem}，
-並且在\cnglo{kernel}中作為只讀變量來訪問。
+並且在\cnglo{kernel}中作為只讀變量來使用。
 所有\cnglo{workitem}（包括全局\cnglo{workitem}）在執行\cnglo{kernel}時都可以讀取這些變量。
 
 所有常值字串都存儲在 \cqlf{__constant} 位址空間中。
