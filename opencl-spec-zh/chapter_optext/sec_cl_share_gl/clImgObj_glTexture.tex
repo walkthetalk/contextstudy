@@ -61,7 +61,7 @@ cl_mem clCreateFromGLTexture (
 
 \carg{texture} 是一個 GL 1D、 2D、 3D、 1D 陣列、 2D 陣列、 cubemap、 矩形或緩衝材質對象。
 這個材質對象（按照材質上 OpenGL 規則的完整性）必須是完整的材質。
-OpenGL 為指定 \carg{miplevel} 的 \carg{texture} 所定義的格式和維度
+OpenGL 為 \carg{miplevel} 的 \carg{texture} 所定義的格式和維度
 會被用來創建 OpenCL \cnglo{imgobj}。
 僅當 GL 材質對象的內部格式可以映射到
 \reftab{imgChannelOrder}和\reftab{imgChannelDataType}中所列通道次序和數據型別時，
@@ -114,8 +114,8 @@ OpenGL 為指定 \carg{miplevel} 的 \carg{texture} 所定義的格式和維度
 可使用函式 \clapi{clRetainMemObject} 和 \clapi{clReleaseMemObject} 來
 \cnglo{retain}和\cnglo{release}此\cnglo{imgobj}。
 
-\reftab{}列出了 GL 材質內部格式與 CL 圖像格式間的對應關係。
-只要 GL 材質對象是\reftab{}中所列格式，就保證能將其映射到表中對應的 CL 圖像格式上。
+\reftab{ImgFmtMap}列出了 GL 材質內部格式與 CL 圖像格式間的對應關係。
+只要 GL 材質對象是\reftab{ImgFmtMap}中所列格式，就保證能將其映射到表中對應的 CL 圖像格式上。
 如果材質對象是其他 OpenGL 內部格式，
 則可能（但不保證）也能映射到 CL 圖像格式上；
 如果存在這樣的映射，則保證保留所有顏色組件、數據型別，並且每個組件的位數至少與分配 OpenGL 對象時相同。
