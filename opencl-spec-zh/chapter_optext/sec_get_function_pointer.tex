@@ -18,8 +18,8 @@ void* clGetExtensionFunctionAddressForPlatform (
 此函式會返回給定 \carg{platform} 的擴展函式 \carg{funcname} 的位址。
 需要將所返回的指位器轉型成對應的函式指位器型別，
 此擴展函式在對應的擴展規範和頭檔中定義。
-如果返回的是 \cenum{NULL}，則表明實作中沒有所指定的函式，或者 \carg{platform} 無效。
-即使返回的不是 \cenum{NULL}，也不保證 \carg{platform} 真正支持此擴展函式。
+如果返回的是 \cmacro{NULL}，則表明實作中沒有所指定的函式，或者 \carg{platform} 無效。
+即使返回的不是 \cmacro{NULL}，也不保證 \carg{platform} 真正支持此擴展函式。
 要想確定 OpenCL 實作是否支持某個擴展，
 \cnglo{app}必須用下列兩種方式之一進行查詢：
 \startclc

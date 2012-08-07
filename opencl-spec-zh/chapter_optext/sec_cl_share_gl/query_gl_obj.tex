@@ -24,10 +24,10 @@ cl_int clGetGLObjectInfo (
 \item \cenum{CL_GL_OBJECT_TEXTURE_BUFFER}
 \item \cenum{CL_GL_OBJECT_RENDERBUFFER}
 \stopigBase
-而如果 \carg{gl_object_type} 是 \cenum{NULL}，則將其忽略。
+而如果 \carg{gl_object_type} 是 \cmacro{NULL}，則將其忽略。
 
 \carg{gl_object_name} 會返回用來創建 \carg{memobj} 的 GL 對象的名字。
-如果 \carg{gl_object_name} 是 \cenum{NULL}，則將其忽略。
+如果 \carg{gl_object_name} 是 \cmacro{NULL}，則將其忽略。
 
 如果執行成功，則 \clapi{clGetGLObjectInfo} 會返回 \cenum{CL_SUCCESS}。
 否則，返回下列錯誤碼之一：
@@ -62,13 +62,13 @@ cl_int clGetGLTextureInfo (
 及 \carg{param_value} 中返回的資訊。
 
 \carg{param_value} 所指內存用於存儲查詢結果。
-如果 \carg{param_value} 是 \cenum{NULL}，則將其忽略。
+如果 \carg{param_value} 是 \cmacro{NULL}，則將其忽略。
 
 \carg{param_value_size} 即 \carg{param_value} 所指內存的大小。
 其值必須大於等於\reftab{glTextureInfoType}中所列返回型別的大小。
 
 \carg{param_value_size_ret} 即拷貝到 \carg{param_value} 中數據的實際大小。
-如果 \carg{param_value_size_ret} 是 \cenum{NULL}，則將其忽略。
+如果 \carg{param_value_size_ret} 是 \cmacro{NULL}，則將其忽略。
 
 \placetable[here][tab:glTextureInfoType]
 {\clapi{clGetGLTextureInfo} 所支持的 \carg{param_name}}
@@ -86,8 +86,8 @@ cl_int clGetGLTextureInfo (
 \item \cenum{CL_INVALID_VALUE}，
 如果 \carg{param_name} 無效；
 或者 \carg{param_value_size} 的值 < \reftab{glTextureInfoType}中所列返回型別的大小，
-並且 \carg{param_value} 不是 \cenum{NULL}；
-或者 \carg{param_value} 和 \carg{param_value_size_ret} 都是 \cenum{NULL}。
+並且 \carg{param_value} 不是 \cmacro{NULL}；
+或者 \carg{param_value} 和 \carg{param_value_size_ret} 都是 \cmacro{NULL}。
 
 \item \cenum{CL_OUT_OF_RESOURCES}，如果\scdevfailres。
 

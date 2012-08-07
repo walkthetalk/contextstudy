@@ -58,7 +58,7 @@ CL_CGL_SHAREGROUP_KHR	0x200C
 
 \carg{properties} 指向一個特性列，即 \ccmm{<特性名, 值>} 的陣列，此陣列已排好序，以零終止。
 如果此陣列中沒有某個特性，則使用其缺省值，參見\reftab{prptForclCreateContext}。
-如果 \carg{properties} 是 \cenum{NULL} 或者是空的（第一個值就是零），所有特性都使用缺省值。
+如果 \carg{properties} 是 \cmacro{NULL} 或者是空的（第一個值就是零），所有特性都使用缺省值。
 
 \refsec{clShareGl}中定義了一些特性，
 用來控制如何與 OpenGL 緩衝、材質和渲染緩衝對象共享 OpenCL \cnglo{memobj}。
@@ -204,13 +204,13 @@ cl_int clGetGLContextInfoKHR (
 {\input{chapter_optext/tbl/ctxprop.tex}}
 
 \carg{param_value} 所指內存用來存儲查詢結果，參見\reftab{ctxprop}。
-如果其值為 \cenum{NULL}，則忽略。
+如果其值為 \cmacro{NULL}，則忽略。
 
 \carg{param_value_size} 為 \carg{param_value} 所指內存的字節數。
 其值必須大於等於\reftab{ctxprop}中返回型別的大小。
 
 \carg{param_value_size_ret} 返回查詢結果的實際字節數。
-如果其值為 \cenum{NULL}，則忽略。
+如果其值為 \cmacro{NULL}，則忽略。
 
 如果執行成功， \clapi{clGetGLContextInfoKHR} 會返回 \cenum{CL_SUCCESS}。
 如果 \carg{param_name} 沒有對應的\cnglo{device}，
@@ -263,7 +263,7 @@ cl_int clGetGLContextInfoKHR (
 
 另外，如果 \carg{param_name} 無效（參見\reftab{ctxprop}），
 或者 \carg{param_value_size} 的值小於\reftab{ctxprop}中返回型別的大小，
-並且 \carg{param_value} 不是 \cenum{NULL}，
+並且 \carg{param_value} 不是 \cmacro{NULL}，
 則 \clapi{clGetGLContextInfoKHR} 會返回 \cenum{CL_INVALID_VALUE}。
 如果\schostfailres，則返回 \cenum{CL_OUT_OF_RESOURCES}。
 如果\scdevfailres，則返回 \cenum{CL_OUT_OF_HOST_MEMORY}。
@@ -302,7 +302,7 @@ cl_int clGetGLContextInfoKHR (
 
 這樣可以將\cnglo{host} API 中的所有標量整數、指針、以及句柄值都編碼進引數列中，
 與 EGL 特性列的結構體、型別類似。
-同時也允許特性列為 \cenum{NULL}。
+同時也允許特性列為 \cmacro{NULL}。
 同樣與 EGL 一樣，特性列中所沒有的特性都使用缺省值。
 
 就 EGL、 GLX 和 WGL 的經驗而言，特性列是一種足夠靈活、通用的機制，
