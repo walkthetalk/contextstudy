@@ -150,7 +150,7 @@ OpenGL 對象由 \carg{command_queue} 所在 OpenCL \cnglo{context} 釋放。
 \stopigBase
 
 % Synchronizing OpenCL and OpenGL Access to Shared Objects
-\subsubsection{OpenCL 和 OpenGL 存取共享對象時的同步}
+\subsubsection[sec:syncCLGL]{OpenCL 和 OpenGL 存取共享對象時的同步}
 
 為確保數據完整性，\cnglo{app}要負責通過各自的 API 對共享 CL/GL 對象的存取進行同步。
 如果沒有提供同步，則會導致竟態以及其他\cnglo{undef}的行為，包括不可在實作間進行移植。
