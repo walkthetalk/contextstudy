@@ -1,4 +1,8 @@
 *.pdf
 *.tuc
 *.log
+*.aux
+*.bbl
+*.blg
+*.1
 
