@@ -169,8 +169,75 @@ cl_event clCreateEventFromGLsyncKHR (
 
 注意，對於所有 OpenGL 實作以及所有 OpenCL 實作，
 只有 \clapi{glFinish} 才是可移植的，其他方法都不是。
-正因如此， \clapi{glFinish} 是一種代價高昂的操作，
+鑒於 \clapi{glFinish} 是一種代價高昂的操作，
 如果在某個\cnglo{platform}上支持擴展 \clext{cl_khr_gl_event}，
 應盡量避免使用 \clapi{glFinish}。
 \stopreplacepar
+
+% Issues
+\subsection{問題}
+
+\startQUESTION
+如何處理 CL 事件和 GL 同步的相互引用？
+\stopQUESTION
+\startANSWER
+已有提案：帶鏈接的 CL 事件會在 GL 同步對象上放置一個引用。
+刪除 CL 事件時會移除這個引用。
+還有一些代價更高的方案可以通過 GL 同步來反映 CL 事件\cnglo{refcnt}的變化。
+\stopANSWER
+
+\startQUESTION
+在其他 API 中如何處理到同步基元的鏈接？
+\stopQUESTION
+\startANSWER
+還未解決。
+我們想至少要有一種方式可以將事件鏈接到 EGL 同步對象上。
+可能沒有模擬 DX 的概念。
+對於所鏈接的每種同步基元應當都有一個入口點，
+如 \clapi{clCreateEventFromEGLSyncKHR}。
+
+另一種方案就是通用的 \clapi{clCreateEventFromExternalEvent}，可以接受一個特性列。
+這個特性列中可以包含外部基元的類型以及其附屬資訊
+（GL 同步對象句柄、 EGL display 以及同步對象句柄，等等）。
+這樣就可以重用同一個入口點。
+
+這些可能會作為一個獨立的擴展。
+\stopANSWER
+
+\startQUESTION
+\cenum{CL_EVENT_COMMAND_TYPE} 對應的是\cnglo{cmd}（隔柵）的類型還是
+所鏈接同步對象的類型？
+\stopQUESTION
+\startANSWER
+已有提案：所鏈接同步對象的類型。
+\stopANSWER
+
+\startQUESTION
+是否要同時支持顯式同步和隱式同步？
+\stopQUESTION
+\startANSWER
+已有提案：是的。
+隱式同步適用於 GL 和 CL 在同一\cnglo{app}線程中執行的情況。
+而顯式同步則適用於在不同線程中執行、但 \capi{glFinish} 代價又太高的情況。
+\stopANSWER
+
+\startQUESTION
+本擴展是\cnglo{platform}擴展還是\cnglo{device}擴展？
+\stopQUESTION
+\startANSWER
+已有提案：\cnglo{platform}擴展。
+這樣的話，要想僅僅使用公開的 GL API 來實現 sync->event 語義需要做大量的工作；
+但是，同一運行時中可能會有多個對 GL 支持層級不同的驅動和\cnglo{device}同時存在。
+\stopANSWER
+
+\startQUESTION
+什麼地方才能使用由 GL 同步對象生成的事件？
+\stopQUESTION
+\startANSWER
+已有提案：僅當調用 \clapi{clEnqueueAcquireGLObjects} 時才能使用，
+其他任何地方使用這種事件都會產生錯誤。
+其他地方也沒有明確的用例，而且要想支持他還有一個成本問題，
+在所有其他將其作為參數的\cnglo{cmd}中檢查事件源都要有相應的成本，
+經過權衡，採用了目前的方案。
+\stopANSWER
 
