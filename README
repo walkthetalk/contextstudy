@@ -24,4 +24,5 @@ http://getfo.org/context_xml/contents.html
 6. setupalign 必須位於 setupbodyfont之前，broad可使長單詞另起一行，從而避免越界
 7. front/body/appendix 的支持還很不完善，尤其是對於章節標題而言。
 8. 附錄中的交叉引用顯示的有問題，正文中引用參考文獻的鏈接有問題。
+9. 改变字体大小后缩进可能会出现问题，解决方法是重新设定缩进\setupindenting[first,always,2em]
 
