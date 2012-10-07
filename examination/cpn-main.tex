@@ -1,0 +1,290 @@
+%
+% author:	Ni Qingliang
+% date:		2011-02-11
+%
+\startcomponent cpn-main
+\product examination
+
+%\chapter{引言}
+
+\startQ
+以下是 ARM 平台上的 32 位 C 程序，请计算出 \ccmm{sizeof} 的数值：
+
+\startcolumns[n=3,distance=0.5em]
+\startCASES[paragraph,intext]
+\startitem
+\startC
+char str[] = "Hello";
+char*p = str;
+int n = 100;
+sizeof(str) = /BTEX{\BLANK{\setA6}}/ETEX;
+sizeof(p) = /BTEX{\BLANK{\setA4}}/ETEX;
+sizeof(n) = /BTEX{\BLANK{\setA4}}/ETEX;
+\stopC
+\stopitem
+
+\column
+
+\startitem
+\startC
+void Func(char str[100])
+{
+	sizeof(str) = /BTEX{\BLANK{\setA4}}/ETEX;
+}
+\stopC
+\stopitem
+
+\column
+
+\startitem
+\startC
+void*p = malloc(100);
+sizeof(p) = /BTEX{\BLANK{\setA4}}/ETEX;
+\stopC
+\stopitem
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+\startCASES
+\startitem
+对于 32 位整形变量 \ccmm{A=0X12345678}，
+请画出在 little endian 及 big endian 的方式下在内存中是如何存储的。
+\stopitem
+\startitem
+写一个简单检测处理器大小端的函数。
+\stopitem
+\stopCASES
+\stopQ
+% answer
+\startA
+\startcolumns[n=2,distance=0.5em,blank=small]
+\startCASES[paragraph,intext]
+\startitem
+存储方式如下：
+
+\midaligned{
+\bTABLE[frame=off,split=off,style=\tt\tfx]
+\bTR
+ \bTD[nr=2,style=\tfb,align={lohi}] L： \eTD
+ \bTD 偏移字節數 \math{\rightarrow} \eTD
+ \bTD 0 \eTD \bTD 1 \eTD \bTD 2 \eTD \bTD 3 \eTD
+\eTR
+\bTR[align={middle,lohi}]
+\bTD 内存中的值 \math{\rightarrow} \eTD
+\bTD[frame=on,width=.1\textwidth] 0x78 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x56 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x34 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x12 \eTD
+\eTR
+\eTABLE
+}
+
+\midaligned{
+\bTABLE[frame=off,split=off,style=\tt\tfx]
+\bTR
+ \bTD[nr=2,style=\tfb,align={lohi}] B： \eTD
+ \bTD 偏移字節數 \math{\rightarrow} \eTD
+ \bTD 0 \eTD \bTD 1 \eTD \bTD 2 \eTD \bTD 3 \eTD
+\eTR
+\bTR[align={middle,lohi}]
+\bTD 内存中的值 \math{\rightarrow} \eTD
+\bTD[frame=on,width=.1\textwidth] 0x12 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x34 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x56 \eTD
+\bTD[frame=on,width=.1\textwidth] 0x78 \eTD
+\eTR
+\eTABLE
+}
+\stopitem
+
+\column
+
+\startitem
+示例程序如下所示，
+返回 \ccmm{false} 则为 big endian；
+否则为 little endian：
+
+\startC
+bool is_little_endian(void)
+{
+	union {
+		int a;
+		char b;
+	} c;
+	c.a = 1;
+	return (c.b == 1);
+}
+\stopC
+\stopitem
+\stopCASES
+\stopcolumns
+\stopA
+
+\startQ
+头文件中的 \cdrt{#ifndef} / \cdrt{#define} / \cdrt{#endif} 的作用是什么？
+Linux 设备驱动按功能分为哪几类？
+\stopQ
+\startA
+头文件中的 \cdrt{#ifndef} / \cdrt{#define} / \cdrt{#endif} 的作用是为防止重复包含同一头文件。
+
+Linux 设备驱动主要分为字符设备驱动、块设备驱动、网络设备驱动。
+\stopA
+
+\startQ
+什么情况下需要 \ckey{static} 修饰符？
+\stopQ
+\startA
+除明确标识出变量的生命周期（英语：Object lifetime）外，将变量声明为static存储类还会根据变量属性不同而有一些特殊的作用：
+\startCASES[margin=2em]
+\item 对于静态全局变量来说，
+针对某一源文件的以 static 声明的文件级变量与函数的作用域只限于文件内（只在文件内可见），
+也即“内部连接”，因而可以用来限定变量的作用域；
+\item 对于静态局部变量来说，
+在函数内以static声明的变量虽然与自动局部变量的作用域相同（即作用域都只限于函数内），
+但存储空间是以静态分配而非默认的自动分配方式获取的，
+因而存储空间所在区域不同（一般来说，静态分配时存储空间于编译时在程序数据段分配，一次分配全程有效；
+而自动分配时存储空间则是于调用栈上分配，只在调用时分配与释放），且两次调用间变量值始终保持一致；
+\item 对于静态成员变量（英语：Member variable）来说，
+在 C++ 中，在类的定义中以 static 声明的成员变量属于类变量（英语：Class variable），
+也即在所有类实例中共享，与之相对的就是过程变量（英语：Instance variable）。
+\stopCASES
+\stopA
+
+\startQ
+请阅读下面一段代码,若有错误,指出是何错误并更正：
+\startC[numbering=line]
+class A {
+public:
+	void Func(void)		/BTEX\setA//不修改成员变量的成员函数应该加上 \ccmm{const}，不会访问非 \ccmm{static} 成员的函数应该加上 \ccmm{static}/ETEX
+	{
+		cout << "Func of class A" << endl;	/BTEX\setA//没有包含头文件，另外还需要 \ccmm{using namespace std;}/ETEX
+	}
+};
+
+void main()		/BTEX\setA//\ccmm{main} 的返回值类型应该是 \ccmm{int}/ETEX
+{
+	A * pa;					/BTEX\setA//没有初始化/ETEX
+	char * p = (char *)malloc(100);		/BTEX\setA//申请内存后一般应该检查成功与否，但是由于 OS 的原因检查可能无效/ETEX
+	strcpy(p, "Hello");			/BTEX\setA//最好使用带 \ccmm{n} 的字串函数族，与 \ccmm{strcpy} 对应的是 \ccmm{strncpy}/ETEX
+	free(p);				/BTEX\setA//如果释放内存后还需要使用此指针，则应将其置为 \ccmm{NULL}/ETEX
+	if (p != NULL)				/BTEX\setA//在 \ccmm{if}、 \ccmm{for}、 \ccmm{while} 等语句块中，即使只有一条语句，也最好加上大括号/ETEX
+		strcpy(p, "World");
+	{
+		A a;
+		pa = &a;
+	}
+	pa->Func();	/BTEX\setA//此处 \ccmm{pa} 所指向的对象 \ccmm{a} 已经析构，不存在了/ETEX
+}
+\stopC
+\stopQ
+
+\startQ
+请说明什么叫做指针函数，什么叫做函数指针，并写出各自的函数原型。
+\stopQ
+\startA
+\startcolumns[n=2,blank=small]
+{\ftEmp{指针函数}}是一种函数，其返回值的类型是一种指针。如：
+\startC
+int * f(void);
+\stopC
+\column
+{\ftEmp{函数指针}}是一种指针，指向具有特定特征的函数。如：
+\startC
+int (* p)(void);
+\stopC
+\stopcolumns
+\stopA
+
+\startQ
+为方便嵌入式系统中对于变量或者寄存器进行位操作，
+现给定一整型变量 a，请写两个函数，
+第一个设置 a 的第 5 位为 1，
+第二个清除 a 的第 5 位为 0，
+上述两个操作要求保持其他位不变。
+\stopQ
+\startA
+\startC
+#define BIT(n) (1 << (n))
+
+void set_bf(int * p)
+{
+	*p |= BIT(5);
+}
+
+void clr_bf(int * p)
+{
+	*p &= ~BIT(5);
+}
+\stopC
+\stopA
+
+\startQ
+填空题：
+\startCASES
+\item 在 Linux 系统下，
+第二个 IDE 通道的硬盘（从盘）被标识为\BLANK{\setA\ccmm{/dev/sdb}}。
+\item 在 Linux 操作系统中，设备都是通过\BLANK{\setA设备文件}来访问。
+\item Linux 内核引导时，从文件\BLANK{\setA\ccmm{/etc/fstab}}中读取要加载的文件系统。
+\item 在 Linux 系统中，用来存放系统所需要的配置文件和子目录的目录是\BLANK{\setA\ccmm{/etc}}，
+目录\BLANK{\setA\ccmm{/sbin}}用来存放系统管理员使用的管理程序。
+\item 某文件的权限为 \ccmm{drw-r--r--}，用数值形式表示该权限，
+则该八进制数为\BLANK{\setA\ccmm{1644}}，该文件属性是\BLANK{\setA目录}。
+\item Linux 内核分为\BLANK{\setA进程管理、内存管理、虚拟文件系统、网络接口}等四个子系统。
+\item 进程与程序的区别在于其动态性，动态的产生和终止，
+从产生到终止进程可以具有的基本形态为\BLANK{\setA运行}和\BLANK{\setA睡眠}。
+\item 为脚本程序指定执行权的命令及参数是\BLANK{\setA\ccmm{chmod +x}}。
+\item 将 \ccmm{/opt/QT4.5/build/arm} 目录做归档压缩，
+压缩后生成 \ccmm{arm.tar.gz} 文件，
+并将此文件保存到 \ccmm{/home/yhm} 目录下，
+实现此任务的 tar 命令为\BLANK{\setA\ccmm{tar -czf /home/yhm/arm.tar.gz /opt/QT4.5/build/arm}}。
+\stopCASES
+\stopQ
+
+\startQ
+有一个 HelloWorld 项目包括如下 3 个文件：
+
+\startcolumns[n=2,blank=small]
+\cemp{fun.h}：
+\typefile{./src/main/fun.h}
+\cemp{main.c}：
+\typefile{./src/main/main.c}
+\cemp{fun.c}：
+\typefile{./src/main/fun.c}
+\stopcolumns
+请编写一个编译该项目的 Makefile 文件，
+生成的目标程序 \ccmm{main} 运行在嵌入式开发板上，
+不需使用自动变量、变量替换、隐形规则等，书写最原始 Makefile 文件即可。
+\stopQ
+\startA
+\typefile{./src/main/Makefile.mf}
+\stopA
+
+\startQ
+设置 PLL 的作用是什么，
+请简述 armLinux 系统中 u-boot 启动的两个阶段，
+各阶段所对应的主要文件及其启动流程。
+\stopQ
+\startA
+{\ftEmp{PLL}} 就是锁相环路，简称锁相环，是一种反馈控制电路。
+许多电子设备要正常工作，通常需要外部的输入信号与内部的振荡信号同步，利用锁相环路就可以实现这个目的。
+
+u-boot 启动的两个阶段：
+\startLIST
+\item 第一阶段是依赖于 CPU 体系结构的代码（如设备初始化代码等），一般用汇编语言来实现。
+主要进行以下方面的设置：设置 ARM 进入 SVC 模式、禁止 IRQ 和 FIQ、关闭看门狗、屏蔽所有中断。
+设置时钟（FCLK、 HCLK、 PCLK)、清空 I/D cache、清空 TLB、禁止 MMU 和 cache、
+配置内存控制器、为搬运代码做准备、搬移 uboot 映像到 RAM 中（使用 copy_loop 实现）、
+分配堆栈、清空 bss 段（使用 clbss_l 实现）。
+\item 第二阶段通常用 C 语言来实现。
+一系列初始化（cpu、板卡、中断、串口、控制台等），开启 I/D cache。
+初始化 FLASH，根据系统配置执行其他初始化操作。
+打印 LOG，使能中断，获取环境变量，初始化网卡。
+最后进入 main_loop 函数。在 main_loop 函数中会检查 bootdelay 和 bootcmd 环境变量，
+如果 bootcmd 已经设置过，则在等待 bootdelay 个毫秒后会自动执行 bootcmd。
+如果等待过程中被用户中断或者没有设置 bootcmd，则会等待用户输入命令。
+\stopLIST
+\stopA
+
+\stopcomponent

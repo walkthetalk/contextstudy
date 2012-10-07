@@ -1,0 +1,5 @@
+main: main.o fun.o
+
+main.o: main.c fun.h
+
+fun.o: fun.c fun.h
