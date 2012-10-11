@@ -166,8 +166,6 @@ bolditalic=texgyreherosbolditalic]
 \definetype[cfmt][% format
   style=\tt\it,
 ]
-
-\define[1]\BLANK{\underbar{#1}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%layout%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \definepapersize[CD][width=20cm,height=20cm]
@@ -351,7 +349,7 @@ bolditalic=texgyreherosbolditalic]
 ]
 
 \definetyping[C][%option=c,
-  bodyfont=7pt,
+  %bodyfont=8pt,
   %space	on off
   %page	yes no
   option = commands,	%slanted normal commands color none
@@ -428,9 +426,9 @@ bolditalic=texgyreherosbolditalic]
   alternative=serried,	%left right top serried inmargin inleft inright hanging
 %headcommand	command
 %hang	fit broad number
-%before	command
-%inbetween	command
-%after	command
+  before=,	%command
+  inbetween=,	%command
+  after=,	%command
 %indentnext	yes no
 %indenting	never not no yes always first next
   way=bychapter,
@@ -446,12 +444,23 @@ bolditalic=texgyreherosbolditalic]
   background=none,
   corner=round,
 ]
-\define\setA{\blue}
+
+\definecolor[COLORA][r=1, g=0, b=1]
+
+\definestartstop[AI][
+  before={\starttextbackground[BGA][location=text]\COLORA},
+  after={\stoptextbackground},
+]
+
+\define[1]\AI{%
+\startAI#1\stopAI%
+}
+
 \definestartstop[A][
   before={\starttextbackground[BGA]%
-\setA%
-\ss\switchtobodyfont[small]% TODO: the \tfx in 'style' can't produce correct output
-\setupindenting[first,always,2em]% TODO: reset indenting after change font size
+\COLORA%
+%\ss\switchtobodyfont[small]% TODO: the \tfx in 'style' can't produce correct output
+%\setupindenting[first,always,2em]% TODO: reset indenting after change font size
 },
   after={\stoptextbackground},
   %style=\ss\tfx,
@@ -1079,7 +1088,7 @@ stopper=,	%text
 \setupindenting[no]%
 \setupwhitespace[line]%
 \setupinterlinespace[medium]%
-#1}
+#1}%
 }
 
 \def\startEnglishWithoutWhiteSpace{\dostartEnglishWithoutWhiteSpace}

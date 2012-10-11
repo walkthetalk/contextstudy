@@ -1,0 +1,78 @@
+
+\startreusableMPgraphic{shortestRoad}
+%pen penCmm;
+%color memColor;
+
+u := 4mm;
+v := 4mm;
+%ahangle := 30;
+%ahlength := .5v;
+%penCmm := pencircle scaled 2;
+%memColor := (1,0.93,0.98);
+
+% ori pic data
+pair pA, pB;
+numeric hB;%half of bridge
+pA := (5u,8v);
+pB := (15u,-7v);
+hB := 2v;
+path pathT; % top boundary
+pathT := (0u, hB)--(20u, hB);
+path pathB; % bottom boundary
+pathB := (0u,-hB)--(20u,-hB);
+
+% 原图
+def picOri :=
+image(
+dotlabel.lft(btex \mplabel{A} etex, pA);
+draw pathT;
+draw pathB;
+dotlabel.rt(btex \mplabel{B} etex, pB);
+)
+enddef;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% answer
+def colorAnswer :=
+transparent(1, 1, \MPcolor{COLORA})
+enddef;
+def styAux :=
+dashed evenly withcolor colorAnswer
+enddef;
+def styAnswer :=
+withcolor colorAnswer
+enddef;
+def styLbl :=
+withcolor colorAnswer
+enddef;
+
+% step 1: 过 A 向河岸作垂线
+draw pA--(xpart pA, -hB) styAux;
+
+pair pointC;
+pointC := (xpart pA, ypart pA - 2hB);
+dotlabel.lft(btex \mplabel{C} etex, pointC) styLbl;
+path pathAux;
+pathAux := pointC--pB;
+draw pathAux styAux;
+
+% bridge
+pair pointD;
+pointD := pathAux intersectionpoint pathB;
+dotlabel.llft(btex \mplabel{D} etex, pointD) styLbl;
+pair pointE;
+pointE := (xpart pointD, hB);
+dotlabel.llft(btex \mplabel{E} etex, pointE) styLbl;
+
+path pathBridge;
+pathBridge := pointD--pointE;
+path pathAR;
+pathAR := pA--pointE;
+path pathBR;
+pathBR := pointD--pB;
+
+draw pathAR--pathBridge--pathBR styAnswer;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+draw picOri;
+
+\stopreusableMPgraphic

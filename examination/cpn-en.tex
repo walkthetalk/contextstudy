@@ -1,0 +1,185 @@
+%
+% author:	Ni Qingliang
+% date:		2012-10-11
+%
+\startcomponent cpn-en
+\product examination
+%\startEnglish
+\setscript[no]
+\mainlanguage[en]
+\setupindenting[no]%
+%\setupwhitespace[line]%
+%\setupinterlinespace[medium]
+
+\startQ
+According to the requirement of software design,
+the feature that continuing to run without failure
+in the prescribed time and under specific conditions is called (\AI{B}).
+\startcolumns[n=4,blank=small]
+\startCASES
+\item availability
+\item reliability
+\item correctness
+\item integrity
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+The {\ftEmp{POSSIBLE}} result of following code is (\AI{C}).
+\startC[numbering=line]
+char c;
+int v0=1, v1=0, v2=0;
+
+do {
+	switch (c = getchar()) {
+		case 'a': case 'A':
+		case 'e': case 'E':
+		case 'i': case 'I':
+		case 'o': case 'O':
+		case 'u': case 'U': v1 += 1;
+		default: v0 += 1; v2 += 1;
+	}
+} while (c != '\n');
+
+printf("v0=%d, v1=%d, v2=%d\n",v0,v1,v2);
+\stopC
+\startcolumns[n=2,blank=small,distance=0.5em]
+\startCASES
+\item \ccmm{v0=8, v1=7, v2=7}
+\item \ccmm{v0=7, v1=7, v2=8}
+\item \ccmm{v0=8, v1=6, v2=7}
+\item \ccmm{v0=7, v1=8, v2=6}
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+Please fill in the blank statements of the following binary-search function.
+({\ftEmp{hint: recurrence}})
+\startC[numbering=line]
+struct node_t {
+	int8_t	data;
+	node_t	*left;
+	node_t	*right;
+};
+
+bool bin_search(node_t *pNode, int8_t item)
+{
+	if (pNode == nullptr) {
+		return false;
+	} else {
+		if (item == pNode->data) {
+			return /BTEX\AI{true}/ETEX;
+		} else if( item < pNode->data) {
+			return  bin_search(/BTEX\AI{pNode->left}/ETEX, item);
+		} else {
+			return bin_search(/BTEX\AI{pNode->right}/ETEX, item);
+		}
+	}
+}
+\stopC
+\stopQ
+
+\startQ
+The function of following function is: \startAI计算 \ccmm{x} 中比特 1 的个数\stopAI。
+\startC
+uint8_t anonymous_func(uint64_t x)
+{
+	uint8_t ret = 0;
+
+	while (x) {
+		++ret;
+		x &= x - 1;
+	};
+
+	return ret;
+}
+\stopC
+\stopQ
+
+\startQ
+When following code section running on 32 bit CPU,
+the value of
+\ccmm{sizeof(name)}, \ccmm{sizeof(str)},
+\ccmm{strlen(str)} and \ccmm{sizeof(p)} are: (\AI{B}).
+\startC
+void func(char name[5]);
+char str[] = "hello";
+char *p = str;
+\stopC
+\startcolumns[n=2,blank=small]
+\startCASES
+\item \ccmm{4}, \ccmm{5}, \ccmm{5}, \ccmm{4}
+\item \ccmm{4}, \ccmm{6}, \ccmm{5}, \ccmm{4}
+\item \ccmm{5}, \ccmm{5}, \ccmm{5}, \ccmm{4}
+\item \ccmm{5}, \ccmm{6}, \ccmm{5}, \ccmm{4}
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+As shown in the following figure,
+there are two sites located on both sides of the river,
+and the two banks(河岸) of the river parallel to each other.
+Now we want to build a road between the two sites,
+and the bridge crossing the river must be perpendicular(垂直) to the river bank.
+How to build the road to make it shortest? ({\ftEmp{hint: shifting}})
+\input{fig/shortest_road.tex}
+\reuseMPgraphic{shortestRoad}
+\stopQ
+
+\startQ
+Please write out the access specifiers in C++,
+and explain the purpose of everyone respectively.
+\stopQ
+\startA
+常用的 \ckey{public}、 \ckey{protected}、 \ckey{private}。
+还有一个不常用的 \ckey{friend}。
+\ckey{public} 即公共的，任 何人都能访问；
+\ckey{protected} 即只有自己和子类可以访问；
+\ckey{private} 即只有自己才能访问。
+\stopA
+
+\startQ
+Please define a macro to return the smaller one of two variables.
+\stopQ
+\startA
+\startC
+#define MIN(x, y) ((x) < (y) ? (x) : (y))
+\stopC
+\stopA
+
+\startQ
+The output of following program is ({\AI{B}}).
+\startcolumns[rule=on,blank=small]
+\typefile[C]{src/cpp.cpp}
+\stopcolumns
+\startcolumns[blank=small]
+\startCASES
+\item 1468
+\item 1468752
+\item 14638752
+\item 4168752
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+what is the least number of pound weights (砝码) that can be used
+on a scale pan (秤盘) to weigh any integral number of pounds
+from 1 to 40 inclusive,
+if the weights can be placed in either of the scale pans?
+({\ftEmp{Using Mathematical Induction to get the recurrence formula}})
+\stopQ
+\startA
+\startformula \startalign
+\NC a_{n + 1} \NC = S_n + 1 \NR
+\NC a_{n + 1} \NC = 3a_n \NR
+\stopalign \stopformula
+
+四个砝码就够了： 1、 3、 9、 27。
+\stopA
+
+%\stopEnglish
+\stopcomponent
