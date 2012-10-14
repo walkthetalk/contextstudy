@@ -17,9 +17,9 @@
 char str[] = "Hello";
 char*p = str;
 int n = 100;
-sizeof(str) = /BTEX{\BLANK{\setA6}}/ETEX;
-sizeof(p) = /BTEX{\BLANK{\setA4}}/ETEX;
-sizeof(n) = /BTEX{\BLANK{\setA4}}/ETEX;
+sizeof(str) = /BTEX\AI{6}/ETEX;
+sizeof(p) = /BTEX\AI{4}/ETEX;
+sizeof(n) = /BTEX\AI{4}/ETEX;
 \stopC
 \stopitem
 
@@ -29,7 +29,7 @@ sizeof(n) = /BTEX{\BLANK{\setA4}}/ETEX;
 \startC
 void Func(char str[100])
 {
-	sizeof(str) = /BTEX{\BLANK{\setA4}}/ETEX;
+	sizeof(str) = /BTEX\AI{4}/ETEX;
 }
 \stopC
 \stopitem
@@ -39,7 +39,7 @@ void Func(char str[100])
 \startitem
 \startC
 void*p = malloc(100);
-sizeof(p) = /BTEX{\BLANK{\setA4}}/ETEX;
+sizeof(p) = /BTEX\AI{4}/ETEX;
 \stopC
 \stopitem
 \stopCASES
@@ -157,25 +157,25 @@ Linux 设备驱动主要分为字符设备驱动、块设备驱动、网络设�
 \startC[numbering=line]
 class A {
 public:
-	void Func(void)		/BTEX\setA//不修改成员变量的成员函数应该加上 \ccmm{const}，不会访问非 \ccmm{static} 成员的函数应该加上 \ccmm{static}/ETEX
+	void Func(void)		/BTEX\startAI//不修改成员变量的成员函数应该加上 \ccmm{const}，不会访问非 \ccmm{static} 成员的函数应该加上 \ccmm{static}\stopAI/ETEX
 	{
-		cout << "Func of class A" << endl;	/BTEX\setA//没有包含头文件，另外还需要 \ccmm{using namespace std;}/ETEX
+		cout << "Func of class A" << endl;	/BTEX\startAI//没有包含头文件，另外还需要 \ccmm{using namespace std;}\stopAI/ETEX
 	}
 };
 
-void main()		/BTEX\setA//\ccmm{main} 的返回值类型应该是 \ccmm{int}/ETEX
+void main()		/BTEX\startAI//\ccmm{main} 的返回值类型应该是 \ccmm{int}\stopAI/ETEX
 {
-	A * pa;					/BTEX\setA//没有初始化/ETEX
-	char * p = (char *)malloc(100);		/BTEX\setA//申请内存后一般应该检查成功与否，但是由于 OS 的原因检查可能无效/ETEX
-	strcpy(p, "Hello");			/BTEX\setA//最好使用带 \ccmm{n} 的字串函数族，与 \ccmm{strcpy} 对应的是 \ccmm{strncpy}/ETEX
-	free(p);				/BTEX\setA//如果释放内存后还需要使用此指针，则应将其置为 \ccmm{NULL}/ETEX
-	if (p != NULL)				/BTEX\setA//在 \ccmm{if}、 \ccmm{for}、 \ccmm{while} 等语句块中，即使只有一条语句，也最好加上大括号/ETEX
+	A * pa;					/BTEX\startAI//没有初始化\stopAI/ETEX
+	char * p = (char *)malloc(100);		/BTEX\startAI//申请内存后一般应该检查成功与否，但是由于 OS 的原因检查可能无效\stopAI/ETEX
+	strcpy(p, "Hello");			/BTEX\startAI//最好使用带 \ccmm{n} 的字串函数族，与 \ccmm{strcpy} 对应的是 \ccmm{strncpy}\stopAI/ETEX
+	free(p);				/BTEX\startAI//如果释放内存后还需要使用此指针，则应将其置为 \ccmm{NULL}\stopAI/ETEX
+	if (p != NULL)				/BTEX\startAI//在 \ccmm{if}、 \ccmm{for}、 \ccmm{while} 等语句块中，即使只有一条语句，也最好加上大括号\stopAI/ETEX
 		strcpy(p, "World");
 	{
 		A a;
 		pa = &a;
 	}
-	pa->Func();	/BTEX\setA//此处 \ccmm{pa} 所指向的对象 \ccmm{a} 已经析构，不存在了/ETEX
+	pa->Func();	/BTEX\startAI//此处 \ccmm{pa} 所指向的对象 \ccmm{a} 已经析构，不存在了\stopAI/ETEX
 }
 \stopC
 \stopQ
@@ -224,21 +224,21 @@ void clr_bf(int * p)
 填空题：
 \startCASES
 \item 在 Linux 系统下，
-第二个 IDE 通道的硬盘（从盘）被标识为\BLANK{\setA\ccmm{/dev/sdb}}。
-\item 在 Linux 操作系统中，设备都是通过\BLANK{\setA设备文件}来访问。
-\item Linux 内核引导时，从文件\BLANK{\setA\ccmm{/etc/fstab}}中读取要加载的文件系统。
-\item 在 Linux 系统中，用来存放系统所需要的配置文件和子目录的目录是\BLANK{\setA\ccmm{/etc}}，
-目录\BLANK{\setA\ccmm{/sbin}}用来存放系统管理员使用的管理程序。
+第二个 IDE 通道的硬盘（从盘）被标识为\AI{\ccmm{/dev/sdb}}。
+\item 在 Linux 操作系统中，设备都是通过\AI{设备文件}来访问。
+\item Linux 内核引导时，从文件\AI{\ccmm{/etc/fstab}}中读取要加载的文件系统。
+\item 在 Linux 系统中，用来存放系统所需要的配置文件和子目录的目录是\AI{\ccmm{/etc}}，
+目录\AI{\ccmm{/sbin}}用来存放系统管理员使用的管理程序。
 \item 某文件的权限为 \ccmm{drw-r--r--}，用数值形式表示该权限，
-则该八进制数为\BLANK{\setA\ccmm{1644}}，该文件属性是\BLANK{\setA目录}。
-\item Linux 内核分为\BLANK{\setA进程管理、内存管理、虚拟文件系统、网络接口}等四个子系统。
+则该八进制数为\AI{\ccmm{1644}}，该文件属性是\AI{目录}。
+\item Linux 内核分为\AI{进程管理、内存管理、虚拟文件系统、网络接口}等四个子系统。
 \item 进程与程序的区别在于其动态性，动态的产生和终止，
-从产生到终止进程可以具有的基本形态为\BLANK{\setA运行}和\BLANK{\setA睡眠}。
-\item 为脚本程序指定执行权的命令及参数是\BLANK{\setA\ccmm{chmod +x}}。
+从产生到终止进程可以具有的基本形态为\AI{运行}和\AI{睡眠}。
+\item 为脚本程序指定执行权的命令及参数是\AI{\ccmm{chmod +x}}。
 \item 将 \ccmm{/opt/QT4.5/build/arm} 目录做归档压缩，
 压缩后生成 \ccmm{arm.tar.gz} 文件，
 并将此文件保存到 \ccmm{/home/yhm} 目录下，
-实现此任务的 tar 命令为\BLANK{\setA\ccmm{tar -czf /home/yhm/arm.tar.gz /opt/QT4.5/build/arm}}。
+实现此任务的 tar 命令为\AI{\ccmm{tar -czf /home/yhm/arm.tar.gz /opt/QT4.5/build/arm}}。
 \stopCASES
 \stopQ
 
