@@ -11,10 +11,24 @@
 %\setupwhitespace[line]%
 %\setupinterlinespace[medium]
 
+\startcolumns[n=2]
+{\ftEmp
+\startlines
+姓名：\AI{填写姓名处}
+\vskip.5em
+学校：\AI{填写毕业学校处}
+联系方式：\AI{填写联系方式处}
+\vskip.5em
+专业：\AI{填写所学专业处}
+\stoplines
+}
+\stopcolumns
+{\ftEmp{注意：可以用中文作答！！！}}
+
 \startQ
 According to the requirement of software design,
 the feature that continuing to run without failure
-in the prescribed time and under specific conditions is called (\AI{B}).
+in the prescribed time and under specific conditions is called (\AI{B}). (5\%)
 \startcolumns[n=4,blank=small]
 \startCASES
 \item availability
@@ -26,7 +40,52 @@ in the prescribed time and under specific conditions is called (\AI{B}).
 \stopQ
 
 \startQ
-The {\ftEmp{POSSIBLE}} result of following code is (\AI{C}).
+Which of the following mechanism CANNOT be used as inter-process communication way
+in the GNU/Linux operation system? (5\%) (\AI{C})
+\startcolumns[blank=small]
+\startCASES
+\item Pipe/Message Queue
+\item Share Memory
+\item Global Variable
+\item Berkeley Sockets
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+{\ftEmp{FIFO}} algorithm and {\ftEmp{LRU}} algorithm are two typical page replacement algorithm
+when a page fault occurs.
+A process has ownership of three memory pages,
+think about the page access sequence of this processis 1321215123,
+if {\ftEmp{a}} is the fault number of use FIFO as page replacement algorithm,
+and {\ftEmp{b}} is the fault number of use LRU as page replacement algorithm,
+what is the correct value of a:b? (5\%) (\AI{B})
+\startcolumns[blank=small]
+\startCASES
+\item 4:3
+\item 3:2
+\item 1:1
+\item 2:1
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+When storing data 7，34，55，25，64，46，20，10,
+if use $H(K)=K \% 9$ as hash function,
+then how many elements are there whose hash address is 1? (5\%) (\AI{D})
+\startcolumns[n=4,blank=small]
+\startCASES
+\item 1
+\item 2
+\item 3
+\item 4
+\stopCASES
+\stopcolumns
+\stopQ
+
+\startQ
+The {\ftEmp{POSSIBLE}} result of following code is (\AI{C}). (10\%)
 \startC[numbering=line]
 char c;
 int v0=1, v1=0, v2=0;
@@ -55,7 +114,7 @@ printf("v0=%d, v1=%d, v2=%d\n",v0,v1,v2);
 \stopQ
 
 \startQ
-Please fill in the blank statements of the following binary-search function.
+Please fill in the missed statements of the following binary-search function.
 ({\ftEmp{hint: recurrence}})
 \startC[numbering=line]
 struct node_t {
@@ -70,11 +129,11 @@ bool bin_search(node_t *pNode, int8_t item)
 		return false;
 	} else {
 		if (item == pNode->data) {
-			return /BTEX\AI{true}/ETEX;
+			return /BTEX\AI{true}/ETEX;		/BTEX(1\%)/ETEX
 		} else if( item < pNode->data) {
-			return  bin_search(/BTEX\AI{pNode->left}/ETEX, item);
+			return  bin_search(/BTEX\AI{pNode->left}/ETEX, item);	/BTEX(2\%)/ETEX
 		} else {
-			return bin_search(/BTEX\AI{pNode->right}/ETEX, item);
+			return bin_search(/BTEX\AI{pNode->right}/ETEX, item);	/BTEX(2\%)/ETEX
 		}
 	}
 }
@@ -82,7 +141,7 @@ bool bin_search(node_t *pNode, int8_t item)
 \stopQ
 
 \startQ
-The function of following function is: \startAI计算 \ccmm{x} 中比特 1 的个数\stopAI。
+The function of following function is: \startAI计算 \ccmm{x} 中比特 1 的个数\stopAI。(5\%)
 \startC
 uint8_t anonymous_func(uint64_t x)
 {
@@ -102,7 +161,7 @@ uint8_t anonymous_func(uint64_t x)
 When following code section running on 32 bit CPU,
 the value of
 \ccmm{sizeof(name)}, \ccmm{sizeof(str)},
-\ccmm{strlen(str)} and \ccmm{sizeof(p)} are: (\AI{B}).
+\ccmm{strlen(str)} and \ccmm{sizeof(p)} are: (\AI{B}). (5\%)
 \startC
 void func(char name[5]);
 char str[] = "hello";
@@ -124,25 +183,27 @@ there are two sites located on both sides of the river,
 and the two banks(河岸) of the river parallel to each other.
 Now we want to build a road between the two sites,
 and the bridge crossing the river must be perpendicular(垂直) to the river bank.
-How to build the road to make it shortest? ({\ftEmp{hint: shifting}})
+How to build the road to make it shortest? ({\ftEmp{hint: shifting}}) (10\%)
 \input{fig/shortest_road.tex}
 \reuseMPgraphic{shortestRoad}
 \stopQ
 
 \startQ
 Please write out the access specifiers in C++,
-and explain the purpose of everyone respectively.
+and explain the purpose of everyone respectively. (10\%)
 \stopQ
 \startA
 常用的 \ckey{public}、 \ckey{protected}、 \ckey{private}。
 还有一个不常用的 \ckey{friend}。
-\ckey{public} 即公共的，任 何人都能访问；
-\ckey{protected} 即只有自己和子类可以访问；
-\ckey{private} 即只有自己才能访问。
+\startLIST
+\item \ckey{public} 即公共的，任 何人都能访问；
+\item \ckey{protected} 即只有自己和子类可以访问；
+\item \ckey{private} 即只有自己才能访问。
+\stopLIST
 \stopA
 
 \startQ
-Please define a macro to return the smaller one of two variables.
+Please define a macro to return the smaller one of two variables. (5\%)
 \stopQ
 \startA
 \startC
@@ -151,7 +212,7 @@ Please define a macro to return the smaller one of two variables.
 \stopA
 
 \startQ
-The output of following program is ({\AI{B}}).
+The output of following program is ({\AI{B}}). (10\%)
 \startcolumns[rule=on,blank=small]
 \typefile[C]{src/cpp.cpp}
 \stopcolumns
@@ -167,18 +228,43 @@ The output of following program is ({\AI{B}}).
 
 \startQ
 what is the least number of pound weights (砝码) that can be used
-on a scale pan (秤盘) to weigh any integral number of pounds
+on a scale pan (秤盘) to weigh {\ftEmp{ANY}} integral number of pounds
 from 1 to 40 inclusive,
 if the weights can be placed in either of the scale pans?
-({\ftEmp{Using Mathematical Induction to get the recurrence formula}})
+({\ftEmp{Using Mathematical Induction to get the recurrence formula}}) (10\%)
 \stopQ
 \startA
 \startformula \startalign
-\NC a_{n + 1} \NC = S_n + 1 \NR
+\NC a_{n + 1} \NC = 2S_n + 1 \NR
 \NC a_{n + 1} \NC = 3a_n \NR
 \stopalign \stopformula
 
 四个砝码就够了： 1、 3、 9、 27。
+
+本题关键在于递推式。
+\stopA
+
+\startQ
+Write a function to calculate the following formula: (10\%)
+\startformula
+1 + 2 - 3 + 4 - 5 + 6 - ... n
+\stopformula
+\stopQ
+\startA
+\startC
+int sum(int n)
+{
+	if (n <= 0) {
+		return -1;
+	}
+
+	if (n % 2) {
+		return ((3 - n)/2);
+	} else {
+		return ((n + 4)/2);
+	}
+}
+\stopC
 \stopA
 
 %\stopEnglish

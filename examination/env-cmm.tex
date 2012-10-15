@@ -442,13 +442,27 @@ bolditalic=texgyreherosbolditalic]
   leftoffset=1ex,
   bottomoffset=.5ex,
   background=none,
-  corner=round,
+%corner=round,
+  frame=off,
 ]
 
-\definecolor[COLORA][r=1, g=0, b=1]
+\definetextbackground[BGAI][
+  state=start, location=paragraph,
+  topoffset=.5ex,
+  leftoffset=1ex,
+  bottomoffset=.5ex,
+  background=none,
+%corner=round,
+  frame=off,
+  alternative=1,
+  voffset=-\strutdp,
+  %dash=1,
+]
+
+\definecolor[COLORA][r=1, g=1, b=1]
 
 \definestartstop[AI][
-  before={\starttextbackground[BGA][location=text]\COLORA},
+  before={\starttextbackground[BGAI][location=text]\COLORA},
   after={\stoptextbackground},
 ]
 
@@ -937,7 +951,7 @@ stopper=,	%text
   backgroundcolor=darkgray,
   foregroundcolor=white,
   corner=round,
-]{试题 —— \from[authorEmail]}}
+]{南京吉隆光纤 C/C++ 笔试题}}
 \define\BodyEdgeRightFooter{\rotate[%
   rotation=90,
   width=fit,
@@ -948,7 +962,7 @@ stopper=,	%text
   backgroundcolor=darkgray,
   foregroundcolor=white,
   corner=round,
-]{试题 —— \from[authorBlog]}}
+]{南京吉隆光纤 C/C++ 笔试题}}
 \setupfootertexts[edge]
 []
 [\BodyEdgeLeftFooter]
