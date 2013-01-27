@@ -328,7 +328,7 @@ floatn vloada_halfn (size_t offset,
 	const __private half *p)
 \stopbuffer
 \startbuffer[funcdesc:vloada_halfn]
-對於 n 為 1、 2、 4、 8 和 16，
+對於 n 為 2、 4、 8 和 16，
 由位址 \math{(\marg{p} + (\marg{offset} \times n))} 讀取
  \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節的數據。
 讀到的數據解釋為 \cldt[n]{half} 值，將其轉換為 \cldt[n]{float} 值後返回。
@@ -395,7 +395,7 @@ void vstorea_halfn_rtn (floatn data,
 \startbuffer[funcdesc:vstorea_halfn_float]
 按某種捨入模式將 \carg{data} 中的 \cldt[n]{float} 轉換為 \cldt[n]{half}。
 
-如果 n 為 1、 2、 4、 8 和 16，
+如果 n 為 2、 4、 8 和 16，
 則將 \cldt[n]{half} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times n))}
 位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按
  \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節對齊。
@@ -462,7 +462,7 @@ void vstorea_halfn_rtn (doublen data,
 \startbuffer[funcdesc:vstorea_halfn_double]
 按某種捨入模式將 \carg{data} 中的 \cldt[n]{double} 轉換為 \cldt[n]{half}。
 
-如果 n 為 1、 2、 4、 8 和 16，
+如果 n 為 2、 4、 8 和 16，
 則將 \cldt[n]{half} 值寫入位址 \math{(\marg{p} + (\marg{offset} \times n))}
 位址 \math{(\marg{p} + (\marg{offset} \times n))} 必須按
  \math{\mapiemp{sizeof}(\text{\cldt[n]{half}})} 字節對齊。

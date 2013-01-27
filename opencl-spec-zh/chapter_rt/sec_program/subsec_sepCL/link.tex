@@ -28,8 +28,8 @@ cl_program clLinkProgram (cl_context context,
 
 \carg{device_list} 指向 \carg{context} 中的\cnglo{device}。
 如果 \carg{device_list} 是 \cmacro{NULL}，
-則鏈接動作的目標\cnglo{device}是 \carg{context} 中的所有\cnglo{device}。
-否則，僅為此清單中的\cnglo{device}實施鏈接。
+則鏈接動作的目標\cnglo{device}是 \carg{context} 中的所有\cnglo{device}（仅限具有编译目标可用的那些）。
+否則，僅為此清單中的\cnglo{device}實施鏈接（仅限具有编译目标可用的那些）。
 
 \carg{num_devices} 即 \carg{device_list} 中\cnglo{device}的數目。
 

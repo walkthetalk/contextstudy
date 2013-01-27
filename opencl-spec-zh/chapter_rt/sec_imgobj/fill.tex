@@ -45,7 +45,8 @@ cl_int clEnqueueFillImage (cl_command_queue command_queue,
 對於 1D 圖像陣列對象， 即 \math{(width)} 以及圖像個數。
 如果 \carg{image} 是 2D 圖像對象 或 1D 圖像陣列對象， \math{\marg{region}[2]} 必須是 1。
 如果 \carg{image} 是 1D 圖像或 1D 圖像緩衝對象，
-\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 0。
+\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 1。
+\carg{region} 中的值不能为 0。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
 列出了執行此\cnglo{cmd}前要等待的事件。

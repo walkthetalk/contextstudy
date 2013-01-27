@@ -20,11 +20,6 @@ OpenCL 實現了下列相互分離的位址空間：
 兩個指位器要想相互賦值，他們必須指向同一個位址空間。
 將指向位址空間 A 的指位器轉型成為指向位址空間 B 的指位器是\cnglo{illegal}的。
 
-如果函式引數的型別為
- \cqlf{image2d_t}、 \cqlf{image3d_t}、 \cqlf{image2d_array_t}、
- \cqlf{image1d_t}、 \cqlf{image1d_buffer_t} 或 \cqlf{image1d_array_t}，
-則必須在 \cqlf{__global} 位址空間中分配。
-
 如果變量的作用域是整個\cnglo{program}，則沒有對應的缺省位址空間。
 這樣的變量在聲明時必須加上 \cqlf{__constant}。
 
@@ -70,11 +65,8 @@ typedef struct {
 __global foo_t	*my_info;	// An array of foo_t elements.
 \stopclc
 
-如果聲明時帶有此限定符的引數上附着的是\cnglo{imgobj}，
-則根據所附着對象的類型不同，聲明此引數時其型別必須是
- \ctype{image2d_t} (2D \cnglo{imgobj})、 \ctype{image3d_t} (3D \cnglo{imgobj})、
- \ctype{image2d_array_t} (2D 圖像陣列對象)、 \ctype{image1d_t} (1D \cnglo{imgobj})、
- \ctype{image1d_buffer_t} (1D 圖像緩衝對象)或 \ctype{image1d_array_t} (1D 圖像陣列對象)。
+\cnglo{imgobj}始终在全局位址空间内分配，
+对于图像型别，不能添加限定符 \cqlf{__global} 或 \cqlf{global}。
 不能直接存取\cnglo{imgobj}的元素。 OpenCL 提供有內建函式可用來讀寫\cnglo{imgobj}。
 
 限定符 \cqlfemp{const} 可以與 \cqlfemp{__global} 一起使用來聲明一個只讀的\cnglo{bufobj}。

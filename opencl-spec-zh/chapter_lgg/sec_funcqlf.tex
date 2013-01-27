@@ -17,9 +17,6 @@
 則\cnglo{host}可以使用恰當的 API
  像 \capi{clEnqueueNDRangeKernel} 和 \capi{clEnqueueTask} 來調用他。
 
-如果\cnglo{kernel}函式中聲明的變量帶有限定符 \cqlf{__local} 或 \cqlf{local}，
-那麼在其他\cnglo{kernel}函式中調用他會發生什麼\cnglo{impdef}。
-
 保留關鍵字 \cqlfemp{__kernel} 和 \cqlfemp{kernel} 只能用作函式的限定符，
 不能挪作他用。
 \stopnotepar

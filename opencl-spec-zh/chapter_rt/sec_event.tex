@@ -345,7 +345,7 @@ cl_int clSetEventCallback (
 \cenum{CL_INVALID_VALUE}，如果滿足下列任一條件：
 \startigBase
 \item \carg{pfn_event_notify} 是 \cmacro{NULL}；
-\item 或者 \carg{command_exec_callback_type} 不是 \cenum{CL_COMPLETE}。
+\item 或者 \carg{command_exec_callback_type} 不是 \cenum{CL_SUBMITTED}、 \cenum{CL_RUNNING} 或 \cenum{CL_COMPLETE}。
 \stopigBase
 \stopitem
 

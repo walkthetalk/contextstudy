@@ -46,6 +46,9 @@ cl_int clEnqueueMarkerWithWaitList(
 \startigBase
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
 
+\item \cenum{CL_INVALID_CONTEXT}，
+如果 \carg{command_queue} 和 \carg{event_wait_list} 中的任一事件所关联的\cnglo{context}不同。
+
 \startitem
 \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：
 \startigBase
@@ -107,6 +110,9 @@ cl_int clEnqueueBarrierWithWaitList(
 否則，返回下列錯誤碼之一：
 \startigBase
 \item \cenum{CL_INVALID_COMMAND_QUEUE}，如果 \carg{command_queue} 無效。
+
+\item \cenum{CL_INVALID_CONTEXT}，
+如果 \carg{command_queue} 和 \carg{event_wait_list} 中的任一事件所关联的\cnglo{context}不同。
 
 \startitem
 \cenum{CL_INVALID_EVENT_WAIT_LIST}，如果滿足下列條件中的任一項：

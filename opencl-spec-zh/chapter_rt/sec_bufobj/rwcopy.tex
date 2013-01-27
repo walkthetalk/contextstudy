@@ -218,6 +218,7 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 \carg{region} 定義了要讀寫的 2D 或 3D 區域：\math{(width, height, depth)}，
 其單位分別是 byte、 row、 slice。
 對於 2D 區域， \math{depth} 的值，即 \math{\marg{region}[2]} 應該是 1。
+\carg{region} 中的值不能为 0。
 
 \carg{buffer_row_pitch} 是 \carg{buffer} 中每一行數據的字節數。
 如果 \carg{buffer_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。
@@ -532,6 +533,7 @@ cl_int clEnqueueCopyBufferRect (
 \carg{region} 定義了要拷貝的 2D 或 3D 區域： \math{(width,height,depth)}，
 其單位分別是 byte、 row、 slice。
 對於 2D 區域， \math{depth} 的值，即 \math{\marg{region}[2]} 應該是 1。
+\carg{region} 中的值不能为 0。
 
 \carg{src_row_pitch} 是 \carg{src_buffer} 中每一行數據的字節數。
 如果 \carg{src_row_pitch} 是 0，則在計算偏移量時用 \math{\marg{region}[0]} 替代。

@@ -80,7 +80,9 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 % Built-in Image Read Functions
 \subsubsection[sec:builtInImgReadFunc]{內建圖像讀取函式}
 
-下列帶有\cnglo{sampler}的內建函式可用於讀取圖像。
+下列帶有\cnglo{sampler}的內建函式可用於讀取圖像\footnote{%
+这些函式不支持型别为 \ctype{mage1d_buffer_t} 的图像。%
+}。
 
 \placetable[here,split][tab:imgReadFunc]
 {內建圖像讀取函式}
@@ -121,6 +123,9 @@ const sampler_t /BTEX\ftEmp{samplerA}/ETEX = CLK_NORMALIZED_COORDS_TRUE
 \capi{get_image_channel_data_type} 和 \capi{get_image_channel_order} 所返回的帶有前綴 \cenum{CLK_} 的值
 分別對應於\reftab{imgChannelDataType}和\reftab{imgChannelOrder}中帶有前綴 \cenum{CL_} 的值。
 例如， \cenum{CL_UNORM_INT8} 和 \cenum{CLK_UNORM_INT8} 都是指通道數據類型為非歸一化的 8 位整數。
+
+\subsubsection{将图像通道映射到 read_image 所返回的颜色值上、%
+将传递给 write_image 的颜色值映射到图像通道上}
 
 \reftab{ecComponentAndImgChannel}中列出了圖像元素的各通道的顏色值
 與 \ctype{float4}、 \ctype{int4} 或 \ctype{uint4} 中組件的映射關係，
