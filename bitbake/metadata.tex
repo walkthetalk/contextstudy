@@ -4,14 +4,15 @@
 \chapter{元数据}
 \placecontent
 \section{描述}
-BitBake的元数据可以分成三种：
+BitBake 的元数据可以分成三种：
 \startigBase
 \item 配置文件
 \item .bb文件
 \item 类别文件
 \stopigBase
 
-下面是BitBake元数据的一些例子。上面所说几种文件中，任何不支持的语法都会在文档中列出。
+下面是 BitBake 元数据的一些例子。
+上面所说几种文件中，任何不支持的语法都会在文档中列出。
 \subsubject{Basic variable setting}
 %\starttyping[option=c]
 \startbb
@@ -21,7 +22,7 @@ VARIABLE = "value"
 本例中，\code{VARIABLE}是一个值。
 
 \subsubject{Variable expansion}
-BitBake支持变量引用另一个变量的内容，语法跟shell脚本类似。
+BitBake 支持变量引用另一个变量的内容，语法跟 shell 脚本类似。
 \startbb
 A = "aval"
 B = "pre${A}post"
@@ -29,7 +30,7 @@ B = "pre${A}post"
 则\code{A}为\code{aval}，\code{B}为\code{preavalpost}。
 
 \subsubject{Immediate variable expansion (:=)}
-\code{:=}会使变量内容立即展开，而不是用时再展开。
+\code{:=} 会使变量内容立即展开，而不是用时再展开。
 \startbb
 T = "123"
 A := "${B} ${A} test ${T}"
@@ -39,8 +40,8 @@ B = "${T} bval"
 C = "cval"
 C := "${C}append"
 \stopbb
-本例中，\code{A}内容为\code{test 123}，\code{B}为\code{456 bval}，
-而\code{C}则是\code{cvalappend}。
+本例中，\code{A} 内容为 \code{test 123}， \code{B} 为 \code{456 bval}，
+而 \code{C} 则是 \code{cvalappend}。
 
 \subsubject{Appending (+=) and prepending (=+)}
 \startbb
@@ -49,7 +50,7 @@ B += "additionaldata"
 C = "cval"
 C =+ "test"
 \stopbb
-本例中，\code{B}为\code{bval additinaldata}，而\code{C}为\code{test cval}。
+本例中， \code{B} 为 \code{bval additinaldata}，而 \code{C} 为 \code{test cval}。
 
 \subsubject{Appending (.=) and prepending (=.) without spaces}
 \startbb
@@ -58,12 +59,12 @@ B .= "additionaldata"
 C = "cval"
 C =. "test"
 \stopbb
-本例中，\code{B}为\code{bvaladditionaldata}而\code{C}为\code{testcval}。
+本例中， \code{B} 为 \code{bvaladditionaldata} 而 \code{C} 为 \code{testcval}。
 与上例相比，没有引入额外的空格。
 
 \subsubject{Conditional metadata set}
-\code{OVERRIDES}是一个以“\code{:}”分隔的变量，所包含的每一项都是要满足的条件。
-如果一个变量依赖于“\code{arm}”，而“\code{arm}”在\code{OVERRIDES}中，
+\code{OVERRIDES} 是一个以“\code{:}”分隔的变量，所包含的每一项都是要满足的条件。
+如果一个变量依赖于“\code{arm}”，而“\code{arm}”在 \code{OVERRIDES} 中，
 则会使用“\code{arm}”版本的变量，而不是使用不带条件的版本。例如：
 \startbb
 OVERRIDES = "architecture:os:machine"
@@ -71,8 +72,8 @@ TEST = "defaultvalue"
 TEST_os = "osspecificvalue"
 TEST_condnotinoverrides = "othercondvalue"
 \stopbb
-本例中，\code{TEST}将为\code{osspecificvalue}，
-这是因为\code{OVERRIDES}中有条件“\code{os}”。
+本例中，\code{TEST} 将为 \code{osspecificvalue}，
+这是因为 \code{OVERRIDES} 中有条件“\code{os}”。
 
 \subsubject{Conditional appending}
 BitBake支持根据\code{OVERRIDES}中有什么来对变量进行追加和前置。例如：
@@ -81,16 +82,16 @@ DEPENDS = "glibc ncurses"
 OVERRIDES = "machine:local"
 DEPENDS_append_machine = " libmad"
 \stopbb
-本例中，\code{DEPENDS}被置为\code{glibc ncurses libmad}。
+本例中， \code{DEPENDS} 被置为 \code{glibc ncurses libmad}。
 
 \subsubject{Inclusion}
-接下来，有一个\code{include}指令，它会使BitBake解析你所指定的文件，并在此处插入，
-跟{\ftemp make}差不多。不过，如果\code{include}所指定路径是相对路径，
-BitBake会使用从\code{BBPATH}中找到的第一个。
+接下来，有一个 \code{include} 指令，它会使 BitBake 解析你所指定的文件，并在此处插入，
+跟 {\ftemp make} 差不多。不过，如果 \code{include} 所指定路径是相对路径，
+BitBake 会使用从 \code{BBPATH} 中找到的第一个。
 
 \subsubject{Requiring Inclusion}
-跟指令\code{include}相反，如果找不到所包含的文件会导致\code{ParseError}。
-否则跟\code{include}的行为一样。
+跟指令 \code{include} 相反，如果找不到所包含的文件会导致 \code{ParseError}。
+否则跟 \code{include} 的行为一样。
 
 \subsubject{Python variable expansion}
 \startbb
@@ -131,17 +132,18 @@ DEPENDS = "${@get_depends(bb, d)}"
 \subsubject{Inheritance}
 {\ftemp NOTE}：只有.bb文件和.bbclass文件才支持。
 
-指令\code{inherit}提供了一种手段，用来指定你的.bb需要哪一类功能。它是继承的基本形式。例如，
-你可以很容易的在使用\code{autoconf}和\code{automake}构建包的任务中抽出一些，
-将其放到一个bbclass中，然后用它来构建你自己的包。
-通过在\code{BBPATH}中搜索\code{classes\filename.oeclass}来查找一个bbclass，
-其中\code{filename}就是你要继承的。
+指令 \code{inherit} 提供了一种手段，用来指定你的.bb需要哪一类功能。它是继承的基本形式。例如，
+你可以很容易的在使用 \code{autoconf} 和 \code{automake} 构建包的任务中抽出一些，
+将其放到一个 bbclass 中，然后用它来构建你自己的包。
+通过在 \code{BBPATH} 中搜索 \code{classes\filename.oeclass} 来查找一个 bbclass，
+其中 \code{filename} 就是你要继承的。
 
 \subsubject{Tasks}
-{\ftemp NOTE}：只有.bb文件和.bbclass文件才支持。
+{\ftemp NOTE}：只有 .bb 文件和 .bbclass 文件才支持。
 
-在BitBake中，一个.bb中要运行的每一步骤都是一个task。有一个命令\code{addtask}可以用来添加新
-的任务（必须定义为python执行体元数据，并且带有前缀“\code{do_}”）并定义任务间的依赖关系。
+在 BitBake 中，一个 .bb 中要运行的每一步骤都是一个 task。
+有一个命令 \code{addtask} 可以用来添加新的任务
+（必须定义为 python 执行体元数据，并且带有前缀“\code{do_}”）并定义任务间的依赖关系。
 \startbb
 python do_printdate () {
     import time
@@ -150,14 +152,15 @@ python do_printdate () {
 
 addtask printdate before do_build
 \stopbb
-此代码定义了一个python函数，并将其作为\code{do_build}（缺省的任务）所依赖的一个任务添加。
-无论是谁要执行任务\code{do_build}，都会导致先执行\code{do_printdata}。
+此代码定义了一个 python 函数，并将其作为 \code{do_build} （缺省的任务）所依赖的一个任务添加。
+无论是谁要执行任务 \code{do_build}，都会导致先执行 \code{do_printdata}。
 
 \subsubject{Events}
-{\ftemp NOTE}：只有.bb文件和.bbclass文件才支持。
+{\ftemp NOTE}：只有 .bb 文件和 .bbclass 文件才支持。
 
-BitBake允许安装事件处理程序。在运行过程中的一些特定点上可以触发事件，如，操作一个.bb之前、
-开始一个任务、任务失败、任务成功等等。目的是像让诸如构建失败发送email通知等一些事情更容易一些。
+BitBake允许安装事件处理程序。在运行过程中的一些特定点上可以触发事件，
+如，操作一个 .bb 之前、开始一个任务、任务失败、任务成功等等。
+目的是像让诸如构建失败发送 email 通知等一些事情更容易一些。
 \startbb
 addhandler myclass_eventhandler
 python myclass_eventhandler() {
@@ -170,26 +173,30 @@ python myclass_eventhandler() {
     return NotHandled
 }
 \stopbb
-每当事件被触发后就会调用相应的处理程序。定义了一个全局变量\code{e}。
-\code{e.data}包含\code{bb.data}的一个实例。可以用方法\code{getName(e)}得到所触发事件的名字。
+每当事件被触发后就会调用相应的处理程序。定义了一个全局变量 \code{e}。
+\code{e.data} 包含 \code{bb.data} 的一个实例。
+可以用方法 \code{getName(e)} 得到所触发事件的名字。
 
 上面的事件处理程序会打印事件的名称以及变量\code{FILE}的内容。
 
 \section{解析}
 \subsubject{配置文件}
-BitBake中的第一类元数据就是配置元数据。此类元数据是全局的，因此会影响所执行的{\ftemp 所有}包和任务。
-目前，BitBake只知道一个配置文件的存在（文件名是硬编码的）。它期望在用户指定的\code{BBPATH}中
-可以找到文件“\code{conf/bitbake.conf}”。此文件中一般会\code{include}其它元数据。
+BitBake 中的第一类元数据就是配置元数据。此类元数据是全局的，
+因此会影响所执行的{\ftemp 所有}包和任务。
+目前， BitBake 只知道一个配置文件的存在（文件名是硬编码的）。
+它期望在用户指定的 \code{BBPATH} 中可以找到文件“\code{conf/bitbake.conf}”。
+此文件中一般会\code{include}其它元数据。
 
-在配置文件中只允许定义变量和使用\code{include}指令。
+在配置文件中只允许定义变量和使用 \code{include} 指令。
 
 \subsubject{类别文件}
-BitBake的类别提供了最基本的继承机制。在介绍元数据时简单提了一下，当遇到\code{inherit}指令时
-就会去解析这些文件，这些文件位于\code{classes/}中（相对于\code{BBPATH}）。
+BitBake 的类别提供了最基本的继承机制。
+在介绍元数据时简单提了一下，当遇到 \code{inherit} 指令时
+就会去解析这些文件，这些文件位于 \code{classes/} 中（相对于 \code{BBPATH}）。
 
 \subsubject{.bb文件}
 .bb文件是所要执行任务的一个逻辑单元。一般是一个要构建的包。同时会遵循.bb间的依赖关系。
-这些文件由变量\code{BBFILES}指定，此变量是以空格分隔的.bb文件清单，可以含有通配符。
+这些文件由变量 \code{BBFILES} 指定，此变量是以空格分隔的 .bb 文件清单，可以含有通配符。
 
 \stopcomponent
 
