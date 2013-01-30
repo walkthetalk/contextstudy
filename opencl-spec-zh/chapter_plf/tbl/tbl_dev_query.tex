@@ -415,12 +415,20 @@ OpenCL C 版本字串。
 \startigBase
 \item \clext{cl_khr_int64_base_atomics}
 \item \clext{cl_khr_int64_extended_atomics}
+\item \clext{cl_khr_3d_image_writes}
 \item \clext{cl_khr_fp16}
 \item \clext{cl_khr_gl_sharing}
 \item \clext{cl_khr_gl_event}
 \item \clext{cl_khr_d3d10_sharing}
-\item \clext{cl_khr_media_sharing}
+\item \clext{cl_khr_dx9_media_sharing}
 \item \clext{cl_khr_d3d11_sharing}
+\item \clext{cl_khr_depth_images}
+\item \clext{cl_khr_gl_depth_images}
+\item \clext{cl_khr_gl_msaa_sharing}
+\item \clext{cl_khr_image2d_from_buffer}
+\item \clext{cl_khr_initialize_memory}
+\item \clext{cl_khr_context_abort}
+\item \clext{cl_khr_spir}
 \stopigBase
 
 對於支持 OpenCL C \scver 的\cnglo{device}，
@@ -472,7 +480,8 @@ OpenCL 和其他 API （如 DirectX ）間共享\cnglo{memobj}時，
 \item \cenum{CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN}
 \stopigBase
 
-如果此\cnglo{device}不支持任何劃分方式，則返回 0。
+如果不能划分\cnglo{device}（即任何能够返回至少两个\cnglo{subdev}的划分方式，此\cnglo{device}都不支持），
+則返回 0。
 }
 
 \clETD{CL_DEVICE_PARTITION_AFFINITY_DOMAIN}{cl_device_affinity_domain}{
@@ -494,6 +503,18 @@ OpenCL 和其他 API （如 DirectX ）間共享\cnglo{memobj}時，
 \clETD{CL_DEVICE_PARTITION_TYPE}{cl_device_partition_property[]}{
 如果 \carg{device} 是\cnglo{subdev}，
 則會返回調用 \capi{clCreateSubDevices} 時所指定的引數 \carg{properties}。
+如果 \capi{clCreateSubDevices} 的引数 \carg{properties} 是
+\cenum{CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN} 或
+\cenum{CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITI}，
+则返回划分所用的相似域。可以是下列值：
+\startigBase
+\item \cenum{CL_DEVICE_AFFINITY_DOMAIN_NUMA}
+\item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE}
+\item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE}
+\item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE}
+\item \cenum{CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE}
+\stopigBase
+
 否則返回的 \carg{param_value_size_ret} 可能是 0 即不存在任何劃分方式；
 或者 \carg{param_value} 所指內存中的屬性值是 0 （0 用來終止屬性清單）。
 }

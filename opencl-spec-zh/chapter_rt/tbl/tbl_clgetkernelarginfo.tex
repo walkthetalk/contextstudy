@@ -48,6 +48,13 @@
 則會返回 \cenum{CL_KERNEL_ARG_TYPE_VOLATILE}；
 而對於聲明為 \ccmm{global int *volatile x} 的\cnglo{kernel}參數，
 則不會返回 \cenum{CL_KERNEL_ARG_TYPE_VOLATILE}。
+
+类似的，如果引数是指位器，且所引用型别声明时带有限定符 \cqlf{restrict} 或 \cqlf{const}，
+则返回 \cenum{CL_KERNEL_ARG_TYPE_RESTRICT} 或 \cenum{CL_KERNEL_ARG_TYPE_CONST}。
+例如，\cnglo{kernel}引数声明为 \ccmm{global int const *x}，则返回 \cenum{CL_KERNEL_ARG_TYPE_CONST}，
+但如果\cnglo{kernel}引数声明为 \ccmm{global int * const x}，则不会返回 \cenum{CL_KERNEL_ARG_TYPE_CONST}，
+如果\cnglo{kernel}引数声明时带有不变位址空间限定符，
+则会设置型别限定符 \cenum{CL_KERNEL_ARG_TYPE_CONST}。
 }
 
 \clETD{CL_KERNEL_ARG_NAME}{char[]}{

@@ -77,7 +77,8 @@ OpenCL 實作會用 \carg{ptr} 實施非阻塞的寫操作。
 對於 1D 圖像陣列對象， 即 \math{(width)} 以及圖像個數。
 如果 \carg{image} 是 2D \cnglo{imgobj}或 1D 圖像陣列對象， \math{\marg{region}[2]} 必須是 1。
 如果 \carg{image} 是 1D \cnglo{imgobj}或 1D 圖像緩衝對象，
-\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 0。
+\math{\marg{region}[1]} 和 \math{\marg{region}[2]} 都必須是 1。
+\carg{region} 中的值不能为 0。
 
 \capi{clEnqueueReadImage} 中的 \carg{row_pitch}
 和 \capi{clEnqueueWriteImage} 中的 \carg{input_row_pitch} 即每行的長度，單位字節。
@@ -251,6 +252,7 @@ cl_int clEnqueueCopyImage (cl_command_queue command_queue,
 \math{\marg{region}[2]} 必須是 1。
 如果 \carg{src_image} 或 \carg{dst_image} 是 1D 圖像或 1D 圖像緩衝對象，
 \math{\marg{src_origin}[1]} 和 \math{\marg{region}[2]} 必須是 1。
+\carg{region} 中的值不能为 0。
 
 \carg{event_wait_list} 和 \carg{num_events_in_wait_list} 中
 列出了執行此\cnglo{cmd}前要等待的事件。

@@ -41,6 +41,7 @@ $src\_origin[1]$ 和 $src\_origin[2]$ 都必須是 0。
 $region[2]$ 必須是 1。
 如果 \carg{src_image} 是 1D 圖像或 1D 圖像緩衝對象，
 $src\_origin[1]$ 和 $region[2]$ 必須是 1。
+\carg{region} 中的值不能为 0。
 
 \carg{dst_offset} 即拷貝時目的區域在 \carg{dst_buffer} 中的起始位置。
 目的區域的大小，即 \carg{dst_cb} 這樣計算：
@@ -166,6 +167,7 @@ $dst\_origin[1]$ 和 $dst\_origin[2]$ 都必須是 0。
 如果 \carg{dst_image} 是 2D \cnglo{imgobj} 或 1D 圖像陣列對象， $region[2]$ 必須是 1。
 如果 \carg{dst_image} 是 1D \cnglo{imgobj}或 1D 圖像緩衝對象，
 $dst\_origin[1]$ 和 $region[2]$ 必須是 1。
+\carg{region} 中的值不能为 0。
 
 所拷貝的源區域的大小，即 \carg{src_cb} 這樣計算：
 如果 \carg{dst_image} 是 3D \cnglo{imgobj}，

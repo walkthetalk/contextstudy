@@ -36,6 +36,12 @@ OpenCL 1.2 嵌入式規格有如下局限：
 \stopitem
 
 \startitem
+对写入 2D 图像阵列的支持是可选的。
+如果嵌入式规格支持扩展 \capi{ cles_khr_2d_image_array_writes}，
+则表明支持写入 2D 图像阵列。
+\stopitem
+
+\startitem
 如果創建圖像和圖像陣列是所用的
 \cvar{image_channel_data_type} 為 \cenum{CL_FLOAT} 或 \cenum{CL_HALF_FLOAT}，
 則他們只能使用濾波模式為 \cenum{CL_FILTER_NEAREST} 的\cnglo{sampler}。
@@ -147,6 +153,9 @@ OpenCL 1.2 嵌入式規格有如下局限：
 \item \clext{cles_khr_int64}。
 如果支持雙精度浮點數，即 \cenum{CL_DEVICE_DOUBLE_FP_CONFIG} 不是零，
 則必須支持 \clext{cles_khr_int64}。
+\item \clext{cles_khr_2d_image_array_writes}。
+此扩展指明此嵌入式规格\cnglo{device}支持写入 2D 图像阵列。
+
 \stopigBase
 
 OpenCL 1.0 和 OpenCL 1.1 規範中所定義的下列擴展（{\ftRef{第 9 章}}）對嵌入式規格同樣可用：

@@ -228,9 +228,13 @@ struct B b1;	/* b1 has alignment of 32 */
 
 例如：
 \startclc
-float4 *p __attribute__ ((endian(host)));
+global float4 *p __attribute__ ((endian(host)));
 \stopclc
 指明 p 所指內存中存儲的數據格式為\cnglo{host}端序。
+
+此特性只能用于 \cqlf{global} 或 \cqlf{constant} 位址空间中的指标型别。
+不能用于非指标型别的变量。
+两个指标型别互相赋值时，他们的 \cqlf{endian} 特性必须一致。
 \stopclOption
 
 % Specifying Attributes of Blocks and Control-Flow-Statements

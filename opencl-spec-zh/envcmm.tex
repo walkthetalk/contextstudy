@@ -16,11 +16,10 @@
 %\mainlanguage[cn]
 
 %%%%%%%%%%%%%%%%%%% zhfonts     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 本來應該是 9pt，但是由於目前context有bug，math模式內的text的字體設定有問題，此處暫時用 9.1pt
-\usemodule[zhfonts][style=rm, size=9.1pt]
+\usemodule[zhfonts][style=rm, size=9pt]
 %\setupzhfonts[feature][onum=yes, pnum=yes]
 
-%% use `mtxrun --script font --list --all` to list all fonts
+%% use `cc` to list all fonts
 % set base fonts
 \setupzhfonts
 [serif]
@@ -65,7 +64,7 @@ bold=texgyreherosbold,
 italic=texgyreherositalic,
 bolditalic=texgyreherosbolditalic]
 
-\setupzhfonts[math][roman=]
+%\setupzhfonts[math][roman=]
 
 % 启用中文断行
 \setscript[hanzi]
