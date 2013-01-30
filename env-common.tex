@@ -30,7 +30,7 @@ bold=adobeheitistd,
 italic=wenquanyizenhei,%adobefangsongstd,
 bolditalic=adobeheitistd]
 
-\setupzhfonts[latin, mono][regular=Monaco]
+\setupzhfonts[latin, mono][regular=Menlo]
 
 % ascii 数学公式模块
 \usemodule[asciimath]
@@ -66,19 +66,19 @@ bolditalic=adobeheitistd]
 \LineWidth=2pt
 
 \def\HeaderFrame#1{%
-  \framed[width={\headerwidth}, 
+  \framed[width={\headerwidth},
           frame=off,
           offset=none,
-          bottomframe=on, 
+          bottomframe=on,
           framecolor=darkgray,
           rulethickness=\LineWidth]{\ss#1}}
 \def\PageFrame{%
-  \inframed[width=14mm, 
+  \inframed[width=14mm,
             height=6mm,
             frame=off,
             offset=0pt,
             framecolor=darkgray,
-            background=color, 
+            background=color,
             backgroundcolor=darkgray]{\color[white]{\ssx\pagenumber}}}
 \def\HeadStr#1{\headnumber[#1]\hskip1em\getmarking[#1]}
 \def\RightHeader{\HeaderFrame{\HeadStr{section}\hfill\PageFrame\hbox to -\LineWidth{}}}
@@ -89,7 +89,7 @@ bolditalic=adobeheitistd]
           frame=off,
           offset=0pt]{#1}}
 \def\BookNameFrame[#1]{%
-  \framed[width=fit, 
+  \framed[width=fit,
             height=fit,
             frame=off,
             offset=2pt,
@@ -126,14 +126,14 @@ bolditalic=adobeheitistd]
 \setuphead[chapter][command=\chaptercmd,after={\blank[2cm]}]
 
 \def\ContentTitle#1{%
-  \inframed[width=fit, 
+  \inframed[width=fit,
             height=fit,
             frame=off,
             offset=4pt,
             loffset=10mm,
             roffset=10mm,
             framecolor=darkgray,
-            background=color, 
+            background=color,
             backgroundcolor=darkgray]{\color[white]{#1}}}
 \def\titlecmd#1#2{\hbox to \hsize{\hfill%
                         \ContentTitle{#2}\HeadOffset}}
